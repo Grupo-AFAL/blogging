@@ -17,8 +17,8 @@ gem 'turbo-rails', '~> 1.0'
 
 group :development do
   gem 'puma', '~> 5.6'
-  gem 'rubocop', '~> 1', require: false
-  gem 'rubocop-rails', '~> 2'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
