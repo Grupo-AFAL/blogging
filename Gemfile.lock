@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/Grupo-AFAL/frontend-helpers.git
+  revision: 4cab5270d9236193eb420039df362da289707a24
+  branch: main
+  specs:
+    frontend_helpers (0.5.25)
+      rails (> 6.1)
+      ransack
+
 PATH
   remote: .
   specs:
@@ -74,6 +83,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     builder (3.2.4)
+    bulma-rails (0.9.3)
+      sassc (~> 2.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     diff-lcs (1.5.0)
@@ -146,6 +157,10 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    ransack (3.2.0)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.0)
@@ -197,6 +212,8 @@ PLATFORMS
 
 DEPENDENCIES
   blogging!
+  bulma-rails (~> 0.9.3)
+  frontend_helpers!
   jsbundling-rails
   pg
   puma (~> 5.6)
