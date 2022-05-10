@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Blogging</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>Blogging</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag    "blogging/application", media: "all" %>
-</head>
-<body>
+    <%= stylesheet_link_tag    "blogging/application", media: "all" %>
+    <%= javascript_include_tag "blogging/application", "data-turbo-track": "reload", defer: true %>
+  </head>
+  <body>
 
-<%= yield %>
+  <%= yield %>
 
-</body>
+  </body>
 </html>
