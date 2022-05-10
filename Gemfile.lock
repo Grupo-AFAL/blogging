@@ -245,8 +245,8 @@ DEPENDENCIES
   pg
   puma (~> 5.6)
   rspec-rails (~> 5.0.0)
-  rubocop
-  rubocop-rails
+  rubocop (~> 1)
+  rubocop-rails (~> 2)
   sassc-rails
   sprockets-rails
   turbo-rails (~> 1.0)
