@@ -4,6 +4,6 @@
     "esbuild": "^0.14.28"
   },
   "scripts": {
-    "build": "esbuild app/javascript/documentation/*.* --bundle --sourcemap --outdir=app/assets/javascripts/documentation"
+    "build": "esbuild app/javascript/blogging/*.* --bundle --sourcemap --outdir=app/assets/javascripts/blogging"
   }
 }
