@@ -24,6 +24,10 @@ Gem::Specification.new do |spec|
     Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   end
 
+  spec.add_dependency 'friendly_id', '~> 5.4.0'
+  spec.add_dependency 'friendly_id-mobility', '~> 1.0.3'
+  spec.add_dependency 'mobility', '~> 1.2.6'
+  spec.add_dependency 'mobility-actiontext'
   spec.add_dependency 'rails', '>= 7.0.2.3'
   spec.add_dependency 'turbo-rails', '>= 1.0.1'
 
