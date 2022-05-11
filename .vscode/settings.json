@@ -1,0 +1,18 @@
+{
+    "emmet.includeLanguages": {
+        "erb": "html"
+    },
+    "editor.formatOnSave": true,
+    "files.associations": {
+        "*.erb": "erb"
+    },
+    "vscode-erb-beautify.keepBlankLines": 1,
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[erb]": {
+        "editor.defaultFormatter": "aliariff.vscode-erb-beautify"
+    },
+    "editor.tabSize": 2,
+    "html.autoClosingTags": false
+}
