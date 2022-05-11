@@ -25,5 +25,9 @@ group :development do
   gem 'rubocop-rails', '~> 2'
 end
 
+group :test do
+  gem 'rspec-rails', '~> 5.0.0'
+end
+
 # Start debugger with binding.b [https://github.com/ruby/debug]
 gem 'debug', '>= 1.0.0'
