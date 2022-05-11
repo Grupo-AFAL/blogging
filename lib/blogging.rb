@@ -4,5 +4,13 @@ require 'blogging/version'
 require 'blogging/engine'
 
 module Blogging
-  # Your code goes here...
+  # ------------------------------ Author ------------------------------
+  # configuration to set Author Class
+  mattr_accessor :author_class
+  author_class = 'User'
+
+  # provide hook to configure attributes
+  def self.config
+    yield(self)
+  end
 end
