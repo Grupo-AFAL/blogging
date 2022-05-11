@@ -11,5 +11,7 @@ module Blogging
     belongs_to :author, class_name: Blogging.author_class
 
     enum status: { draft: 0, published: 1 }
+
+    validates :title, :body, presence: true
   end
 end
