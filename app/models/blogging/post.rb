@@ -13,7 +13,8 @@ module Blogging
     belongs_to :author, class_name: Blogging.author_class.to_s
 
     has_and_belongs_to_many :tags, class_name: 'Blogging::Tag',
-                                   association_foreign_key: :blogging_tag_id
+                                   association_foreign_key: :blogging_tag_id,
+                                   foreign_key: :blogging_post_id
 
     enum status: { draft: 0, published: 1 }
 
