@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Blogging
   class Post < ApplicationRecord
     extend Mobility
@@ -5,11 +7,11 @@ module Blogging
 
     translates :slug, :title, type: :string
     translates :body, backend: :action_text
-  
+
     friendly_id :title, use: :mobility
 
-    belongs_to :author, class_name: Blogging.author_class
-    
+    belongs_to :author, class_name: Blogging.author_class.to_s
+
     has_and_belongs_to_many :tags, class_name: 'Blogging::Tag',
                                    association_foreign_key: :blogging_tag_id
 

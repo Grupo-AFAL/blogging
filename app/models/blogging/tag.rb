@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Blogging
   class Tag < ApplicationRecord
     translates :name, type: :string
