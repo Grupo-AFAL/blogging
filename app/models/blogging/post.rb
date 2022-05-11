@@ -9,6 +9,9 @@ module Blogging
     friendly_id :title, use: :mobility
 
     belongs_to :author, class_name: Blogging.author_class
+    
+    has_and_belongs_to_many :tags, class_name: 'Blogging::Tag',
+                                   association_foreign_key: :blogging_tag_id
 
     enum status: { draft: 0, published: 1 }
 
