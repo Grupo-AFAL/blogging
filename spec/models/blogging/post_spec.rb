@@ -37,7 +37,7 @@ module Blogging
         context 'when missing author' do
           before { @attributes[:author] = nil }
 
-          it { expect(post.save).to be false } 
+          it { expect(post.save).to be false }
         end
       end
     end

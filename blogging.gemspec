@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'turbo-rails', '>= 1.0.1'
 
   spec.add_development_dependency 'rspec-rails', '~> 5.0.0'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end
