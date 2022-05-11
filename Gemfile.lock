@@ -11,6 +11,10 @@ PATH
   remote: .
   specs:
     blogging (0.1.0)
+      friendly_id (~> 5.4.0)
+      friendly_id-mobility (~> 1.0.3)
+      mobility (~> 1.2.6)
+      mobility-actiontext
       rails (>= 7.0.2.3)
       turbo-rails (>= 1.0.1)
 
