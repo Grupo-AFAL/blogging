@@ -2,6 +2,8 @@
 
 module Blogging
   class Tag < ApplicationRecord
+    extend Mobility
+
     translates :name, type: :string
 
     has_and_belongs_to_many :posts, class_name: 'Blogging::Post',
