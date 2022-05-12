@@ -23,3 +23,26 @@
     </tbody>
   </table>
 </div>
+
+<div>
+  <%= link_to_modal 'Add Tag', new_admin_tag_path %>
+</div>
+
+<div>
+  <table>
+    <thead>
+      <th>name</th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @tags.each do |tag| %>
+        <tr>
+          <td><%= tag.name %></td>
+          <td><%= link_to 'Edit', edit_admin_tag_path(tag) %></td>
+          <td><%= button_to 'Delete', admin_tag_path(tag), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

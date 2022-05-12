@@ -6,26 +6,26 @@ en:
         body: Body
         tag_ids: Tags
         author_id: Author
+      blogging/tag:
+        tag: Tag
     models:
       blogging/post: Post
+      blogging/tag: Tag
   actions:
     new: New
     edit: Edit
   blogging:
-  #   posts:
-  #   tags:
     admin:
       posts:
-  #       index:
-  #       show:
         new:
           submit: Save
-  #       edit:
-  #     tags:
-  #       index:
-  #       show:
-  #       new:
-  #       edit:
+        edit:
+          submit: Save
+      tags:
+        new:
+          submit: Save
+        edit:
+          submit: Save
   notice:
     created: was created successfully.
     destroyed: was deleted successfully.

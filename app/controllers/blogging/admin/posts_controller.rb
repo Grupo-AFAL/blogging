@@ -1,7 +1,7 @@
 module Blogging
   module Admin
     class PostsController < ApplicationController
-      before_action :set_tags, only: %i[new create edit update]
+      before_action :set_tags, only: %i[index new create edit update]
       before_action :set_authors, only: %i[new create edit update]
       before_action :set_post, only: %i[show edit update destroy]
 

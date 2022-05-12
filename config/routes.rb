@@ -6,6 +6,6 @@ Blogging::Engine.routes.draw do
 
   namespace :admin do
     resources :posts
-    resources :tags
+    resources :tags, except: %i[index show]
   end
 end
