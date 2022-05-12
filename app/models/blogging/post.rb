@@ -8,7 +8,7 @@ module Blogging
     translates :slug, :title, type: :string
     translates :body, backend: :action_text
 
-    friendly_id :title, use: :mobility
+    friendly_id :title, use: [:history, :mobility]
 
     belongs_to :author, class_name: Blogging.author_class.to_s
 
@@ -27,6 +27,10 @@ module Blogging
       return if tag_ids.size.positive?
 
       errors.add(:tag_ids, :blank)
+    end
+
+    def should_generate_new_friendly_id? #will change the slug if the name changed
+      title_changed?
     end
   end
 end
