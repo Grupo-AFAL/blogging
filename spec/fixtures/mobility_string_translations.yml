@@ -1,0 +1,5 @@
+fitness_name:
+  locale: en
+  key: name
+  value: Fitness
+  translatable: fitness (Blogging::Tag)

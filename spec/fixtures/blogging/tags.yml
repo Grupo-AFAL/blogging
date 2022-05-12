@@ -1,7 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# one:
-#   column: value
+fitness:
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
 #
 # two:
 #   column: value

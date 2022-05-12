@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Blogging
   RSpec.describe Post, type: :model do
-    fixtures :users
+    fixtures :users, :mobility_string_translations, 'blogging/tags'
 
     let(:post) { Blogging::Post.new(@attributes) }
 
@@ -13,7 +13,8 @@ module Blogging
         @attributes = {
           title: 'Title',
           body: 'Body',
-          author: users(:user)
+          author: users(:user),
+          tag_ids: [blogging_tags(:fitness).id]
         }
       end
 
@@ -35,7 +36,13 @@ module Blogging
         end
 
         context 'when missing author' do
-          before { @attributes[:author] = nil }
+          before { @attributes[:author_id] = nil }
+
+          it { expect(post.save).to be false }
+        end
+
+        context 'when missing tags' do
+          before { @attributes[:tag_ids] = [] }
 
           it { expect(post.save).to be false }
         end
