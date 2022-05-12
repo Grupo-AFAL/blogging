@@ -28,6 +28,7 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'rails-controller-testing'
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
