@@ -1,10 +1,12 @@
 <%= form_with(model: model, url: url, method: method) do |form| %>
   <div class="columns">
-    <div class="column">
+    <div class="column is-three-fifths">
       <%= form.text_field_group :title %>
     </div>
-    <div class="column is-narrow is-flex is-align-items-center">
-      <%= form.switch_field :status, label: 'Published' %>
+    <div class="column is-two-fifths">
+      <%= form.slim_select_group :status,
+          Blogging::Post.statuses.keys.map { |status| [status, status] },
+          {}, select_class: 'is-fullwidth' %>
     </div>
   </div>
 
