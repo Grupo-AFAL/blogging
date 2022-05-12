@@ -1,5 +1,13 @@
 <%= form_with(model: model, url: url, method: method) do |form| %>
-  <%= form.text_field_group :title %>
+  <div class="columns">
+    <div class="column">
+      <%= form.text_field_group :title %>
+    </div>
+    <div class="column is-narrow is-flex is-align-items-center">
+      <%= form.switch_field :status, label: 'Published' %>
+    </div>
+  </div>
+
   <%= form.rich_text_area_group :body %>
 
   <div class='columns'>
