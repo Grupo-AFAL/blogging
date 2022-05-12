@@ -34,7 +34,7 @@ module Blogging
       errors.add(:title, :uniqueness)
     end
 
-    # will change the slug if the name changed
+    # will change the slug if the title changed
     def should_generate_new_friendly_id?
       title_changed? && Blogging::Post.available_title?(title)
     end
