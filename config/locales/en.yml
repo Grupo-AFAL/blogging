@@ -1,0 +1,33 @@
+en:
+  activerecord:
+    attributes:
+      blogging/post:
+        title: Title
+        body: Body
+        tag_ids: Tags
+        author_id: Author
+    models:
+      blogging/post: Post
+  actions:
+    new: New
+    edit: Edit
+  blogging:
+  #   posts:
+  #   tags:
+    admin:
+      posts:
+  #       index:
+  #       show:
+        new:
+          submit: Save
+  #       edit:
+  #     tags:
+  #       index:
+  #       show:
+  #       new:
+  #       edit:
+  notice:
+    created: was created successfully.
+    destroyed: was deleted successfully.
+    error: An error has ocurred.
+    updated: was updated successfully.

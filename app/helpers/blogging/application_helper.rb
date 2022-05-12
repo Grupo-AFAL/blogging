@@ -3,5 +3,6 @@
 module Blogging
   module ApplicationHelper
     include FrontendHelpers::Components
+    include Pagy::Frontend
   end
 end

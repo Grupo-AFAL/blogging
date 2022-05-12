@@ -1,0 +1,7 @@
+<%= link_to "< #{t('activerecord.models.blogging/post')}", admin_posts_path %>
+
+<h1 class='title is-1'>
+  <%= "#{t('actions.edit')} #{t('activerecord.models.blogging/post')}" %>
+</h1>
+
+<%= render 'form', model: @post, url: admin_post_path(@post), method: :put %>
