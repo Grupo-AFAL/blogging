@@ -1,0 +1,39 @@
+en:
+  activerecord:
+    attributes:
+      blogging/post:
+        title: Title
+        body: Body
+        tag_ids: Tags
+        author_id: Author
+      blogging/tag:
+        tag: Tag
+    errors:
+      models:
+        blogging/post:
+          attributes:
+            title:
+              uniqueness: has been taken.
+    models:
+      blogging/post: Post
+      blogging/tag: Tag
+  actions:
+    new: New
+    edit: Edit
+  blogging:
+    admin:
+      posts:
+        new:
+          submit: Save
+        edit:
+          submit: Save
+      tags:
+        new:
+          submit: Save
+        edit:
+          submit: Save
+  notice:
+    created: was created successfully.
+    destroyed: was deleted successfully.
+    error: An error has ocurred.
+    updated: was updated successfully.

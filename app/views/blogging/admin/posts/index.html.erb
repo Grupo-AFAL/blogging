@@ -1,0 +1,48 @@
+<h1 class='title is-1'><%= t('activerecord.models.blogging/post') %></h1>
+<%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path %>
+
+<div>
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Body</th>
+      <th>Author</th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td><%= link_to post.title, admin_post_path(post) %></td>
+          <td><%= post.body.to_plain_text.truncate(10) %></td>
+          <td><%= post.author.name %></td>
+          <td><%= link_to 'Edit', edit_admin_post_path(post) %></td>
+          <td><%= button_to 'Delete', admin_post_path(post), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <%= link_to_modal 'Add Tag', new_admin_tag_path %>
+</div>
+
+<div>
+  <table>
+    <thead>
+      <th>name</th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @tags.each do |tag| %>
+        <tr>
+          <td><%= tag.name %></td>
+          <td><%= link_to 'Edit', edit_admin_tag_path(tag) %></td>
+          <td><%= button_to 'Delete', admin_tag_path(tag), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

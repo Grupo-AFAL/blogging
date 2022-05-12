@@ -1,0 +1,20 @@
+<%= form_with(model: model, url: url, method: method) do |form| %>
+  <%= form.text_field_group :title %>
+  <%= form.rich_text_area_group :body %>
+
+  <div class='columns'>
+    <div class="column is-half">
+      <%= form.slim_select_group :tag_ids,
+          @tags.map {| tag| [tag.name, tag.id] },
+          {}, select_class: 'is-fullwidth', multiple: true %>
+    </div>
+
+    <div class="column is-half">
+      <%= form.slim_select_group :author_id,
+          @authors.map { |author| [Blogging.author_name.call(author), author.id] },
+          {}, select_class: 'is-fullwidth' %>
+    </div>
+  </div>
+
+  <%= form.submit t('.submit') %>
+<% end %>

@@ -35,6 +35,20 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.3.tgz#71f08e958883af64f6a20489318b5e95d2c6dc5b"
   integrity sha512-Iefl21FZD+ck1di6xSHMYzSzRiNJTHV4NrAzCfDfqc/wPz4xncrP8f2/fJ+2jzwKIaDn76UVMsALh7R5OzsF8Q==
 
+"@rails/actiontext@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-6.0.5.tgz#a2ef2d5d829fd032e294e8465ace4107a2b34db5"
+  integrity sha512-FF0vCANuJu5I0e1D73zz/aOE33KKXvOpkus7wRQoZq3Yv4H6D6FiOEMn2TF1mO8u5IpPoSbttXaJ4ROj3aWEwA==
+  dependencies:
+    "@rails/activestorage" "^6.0.0"
+
+"@rails/activestorage@^6.0.0":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.0.5.tgz#446e4b3f45bf1d4e1c6fd0b8b6e2566cb70c2b18"
+  integrity sha512-jp2UKh1QChjOGsApYO3HHuBH1yfv4mqOcKuB70fsT79O/CJWEACVnjKIdaqO+B9BJTKihaxyyepvL7kLfUFiDw==
+  dependencies:
+    spark-md5 "^3.0.0"
+
 "@rails/request.js@^0.0.6":
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@rails/request.js/-/request.js-0.0.6.tgz#5f0347a9f363e50ec45118c7134080490cda81d8"
@@ -242,7 +256,7 @@ lodash.throttle@^4.1.1:
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
-slim-select@^1.27.0:
+slim-select@^1.27.0, slim-select@^1.27.1:
   version "1.27.1"
   resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-1.27.1.tgz#aab08c1f0428fc2c32b0376857f3da9b1fbdcb2f"
   integrity sha512-LvJ02cKKk6/jSHIcQv7dZwkQSXHLCVQR3v3lo8RJUssUUcmKPkpBmTpQ8au8KSMkxwca9+yeg+dO0iHAaVr5Aw==
@@ -251,3 +265,13 @@ sortablejs@^1.15.0:
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.0.tgz#53230b8aa3502bb77a29e2005808ffdb4a5f7e2a"
   integrity sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==
+
+spark-md5@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.2.tgz#7952c4a30784347abcee73268e473b9c0167e3fc"
+  integrity sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==
+
+trix@^2.0.0-beta.0:
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/trix/-/trix-2.0.0-beta.0.tgz#e7034867182356c023abdef90c7bdc341bb3e105"
+  integrity sha512-D1c7FxP1hGXM/MnTd/+fGUbSDLkfxsqjA0NxOTzByQywVJVNHDOkn8xAScCKVOiAN6hXlqUR2qX4CPJHTGj+cQ==

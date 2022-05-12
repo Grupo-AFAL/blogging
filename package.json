@@ -2,8 +2,11 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.1.1",
+    "@rails/actiontext": "^6.0.5",
     "esbuild": "^0.14.28",
-    "frontend-helpers": "https://github.com/Grupo-AFAL/frontend-helpers.git"
+    "frontend-helpers": "https://github.com/Grupo-AFAL/frontend-helpers.git",
+    "slim-select": "^1.27.1",
+    "trix": "^2.0.0-beta.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/blogging/*.* --bundle --sourcemap --outdir=app/assets/javascripts/blogging"

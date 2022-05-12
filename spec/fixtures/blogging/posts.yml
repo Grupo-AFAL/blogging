@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 draft:
-  author_id: 1
+  author: user
   status: 0
-  public_from: <%= Time.zone.now %>
+  public_from:
+  tags: nutrition
 
 published:
-  author_id: 1
+  author: user
   status: 1
   public_from: <%= Time.zone.now %>
+  tags: fitness

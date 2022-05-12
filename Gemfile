@@ -15,6 +15,7 @@ gem 'frontend_helpers', github: 'Grupo-AFAL/frontend-helpers', branch: 'main'
 gem 'jsbundling-rails'
 gem 'mobility', '~> 1.2.6'
 gem 'mobility-actiontext'
+gem 'pagy', '~> 5.6'
 gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'turbo-rails', '~> 1.0'
@@ -26,6 +27,7 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 5.0.0'
 end
 
