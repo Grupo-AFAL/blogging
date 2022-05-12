@@ -11,7 +11,7 @@
 
     <div class="column is-half">
       <%= form.slim_select_group :author_id,
-          @authors.map { |author| [author.name, author.id] },
+          @authors.map { |author| [Blogging.author_name.call(author), author.id] },
           {}, select_class: 'is-fullwidth' %>
     </div>
   </div>
