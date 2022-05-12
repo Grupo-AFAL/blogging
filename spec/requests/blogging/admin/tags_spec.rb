@@ -34,7 +34,7 @@ RSpec.describe 'Admin Tags', type: :request do
 
         it 'is expected to have http status unprocessable entity' do
           post admin_tags_path, params: @params
-  
+
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
@@ -68,7 +68,7 @@ RSpec.describe 'Admin Tags', type: :request do
 
         it 'is expected to have http status unprocessable entity' do
           put admin_tag_path(tag), params: @params
-  
+
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
@@ -76,10 +76,10 @@ RSpec.describe 'Admin Tags', type: :request do
   end
 
   describe '#destroy' do
-      it 'is expected to have http status found' do
-        delete admin_tag_path(tag)
+    it 'is expected to have http status found' do
+      delete admin_tag_path(tag)
 
-        expect(response).to have_http_status(:found)
-      end
+      expect(response).to have_http_status(:found)
+    end
   end
 end

@@ -22,7 +22,7 @@ module Blogging
     validate :tags_presence
 
     private
-    
+
     def tags_presence
       return if tag_ids.size.positive?
 

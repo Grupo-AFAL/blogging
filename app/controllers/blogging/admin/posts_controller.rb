@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Blogging
   module Admin
     class PostsController < ApplicationController
@@ -25,7 +27,7 @@ module Blogging
           render :new, status: :unprocessable_entity
         end
       end
-      
+
       def edit; end
 
       def update

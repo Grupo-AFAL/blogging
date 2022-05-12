@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Blogging
   module Admin
     class TagsController < BaseController
@@ -11,18 +13,18 @@ module Blogging
         @tag = Blogging::Tag.new(tag_params)
 
         if @tag.save
-          redirect_to admin_posts_path, 
+          redirect_to admin_posts_path,
                       notice: "#{t('notice.created')} #{t('activerecord.models.blogging/tag')}"
         else
           render :new, status: :unprocessable_entity
         end
       end
-      
+
       def edit; end
 
       def update
         if @tag.update(tag_params)
-          redirect_to admin_posts_path, 
+          redirect_to admin_posts_path,
                       notice: "#{t('notice.updated')} #{t('activerecord.models.blogging/tag')}"
         else
           render :edit, status: :unprocessable_entity
@@ -32,7 +34,7 @@ module Blogging
       def destroy
         @tag.destroy
 
-        redirect_to admin_posts_path, 
+        redirect_to admin_posts_path,
                     notice: "#{t('notice.destroyed')} #{t('activerecord.models.blogging/tag')}"
       end
 
