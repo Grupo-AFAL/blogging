@@ -4,7 +4,8 @@ require 'rails_helper'
 
 module Blogging
   RSpec.describe Post, type: :model do
-    fixtures :users, :mobility_string_translations, 'blogging/tags'
+    fixtures 'blogging/posts', 'blogging/tags', :users, :mobility_string_translations,
+             :mobility_text_translations
 
     let(:post) { Blogging::Post.new(@attributes) }
 
@@ -45,6 +46,16 @@ module Blogging
           before { @attributes[:tag_ids] = [] }
 
           it { expect(post.save).to be false }
+        end
+
+        context 'when title has been taken' do
+          before { @attributes[:title] = 'Fitness Post' }
+
+          it { expect(post.save).to be false }
+          it 'is expected to not save record' do
+            expect(post.save).to be false
+            expect(post.errors.added?(:title, :uniqueness)).to be true
+          end
         end
       end
     end

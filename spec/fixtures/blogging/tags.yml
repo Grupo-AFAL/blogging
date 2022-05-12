@@ -3,6 +3,7 @@
 fitness:
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>
-#
-# two:
-#   column: value
+
+nutrition:
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>

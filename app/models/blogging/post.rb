@@ -19,7 +19,12 @@ module Blogging
     enum status: { draft: 0, published: 1 }
 
     validates :title, :body, presence: true
+    validate :title_uniqueness
     validate :tags_presence
+
+    def self.available_title?(title)
+      Blogging::Post.i18n.find_by(title: title).blank?
+    end
 
     private
 
@@ -29,8 +34,14 @@ module Blogging
       errors.add(:tag_ids, :blank)
     end
 
+    def title_uniqueness
+      return if !title_changed? || Blogging::Post.available_title?(title)
+
+      errors.add(:title, :uniqueness)
+    end
+
     def should_generate_new_friendly_id? #will change the slug if the name changed
-      title_changed?
+      title_changed? && Blogging::Post.available_title?(title)
     end
   end
 end

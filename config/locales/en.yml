@@ -8,6 +8,12 @@ en:
         author_id: Author
       blogging/tag:
         tag: Tag
+    errors:
+      models:
+        blogging/post:
+          attributes:
+            title:
+              uniqueness: has been taken.
     models:
       blogging/post: Post
       blogging/tag: Tag

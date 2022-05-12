@@ -1,5 +1,23 @@
-fitness_name:
+fitness_tag_name:
   locale: en
   key: name
   value: Fitness
   translatable: fitness (Blogging::Tag)
+
+nutrition_tag_name:
+  locale: en
+  key: name
+  value: Nutrition
+  translatable: nutrition (Blogging::Tag)
+
+published_post_title:
+  locale: en
+  key: title
+  value: Fitness Post
+  translatable: published (Blogging::Post)
+
+draft_post_title:
+  locale: en
+  key: title
+  value: Nutrition Post
+  translatable: draft (Blogging::Post)
