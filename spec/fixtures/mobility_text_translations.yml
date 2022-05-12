@@ -1,0 +1,5 @@
+publisehd_body:
+  locale: en
+  key: body
+  value: Fitness Post Body
+  translatable: published (Blogging::Post)
