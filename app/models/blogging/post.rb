@@ -8,7 +8,7 @@ module Blogging
     translates :slug, :title, type: :string
     translates :body, backend: :action_text
 
-    friendly_id :title, use: [:history, :mobility]
+    friendly_id :title, use: %i[history mobility]
 
     belongs_to :author, class_name: Blogging.author_class.to_s
 
@@ -40,7 +40,8 @@ module Blogging
       errors.add(:title, :uniqueness)
     end
 
-    def should_generate_new_friendly_id? #will change the slug if the name changed
+    # will change the slug if the name changed
+    def should_generate_new_friendly_id?
       title_changed? && Blogging::Post.available_title?(title)
     end
   end
