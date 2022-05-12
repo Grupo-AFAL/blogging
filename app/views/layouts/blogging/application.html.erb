@@ -10,7 +10,10 @@
   </head>
   <body>
 
-    <%= yield %>
+    <div data-controller='modal'>
+      <%= yield %>
 
+      <%= render Bali::Modal::Component.new(active: false) %>
+    </div>
   </body>
 </html>

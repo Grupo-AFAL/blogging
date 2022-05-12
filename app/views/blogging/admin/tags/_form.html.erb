@@ -1,5 +1,8 @@
 <%= form_with(model: model, url: url, method: method) do |form| %>
   <%= form.text_field_group :name %>
 
-  <%= form.submit_actions t('.submit'), cancel_path: admin_posts_path %>
+  <div class='is-flex is-justify-content-flex-end'>
+    <%= link_to 'Cancel', admin_posts_path, class: 'button is-secondary mr-4' %>
+    <%= form.submit t('.submit'), { data: { action: 'modal#submit' }} %>
+  </div>
 <% end %>
