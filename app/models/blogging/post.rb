@@ -19,5 +19,14 @@ module Blogging
     enum status: { draft: 0, published: 1 }
 
     validates :title, :body, presence: true
+    validate :tags_presence
+
+    private
+    
+    def tags_presence
+      return if tag_ids.size.positive?
+
+      errors.add(:tag_ids, :blank)
+    end
   end
 end
