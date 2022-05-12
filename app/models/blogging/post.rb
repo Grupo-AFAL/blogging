@@ -19,20 +19,14 @@ module Blogging
     enum status: { draft: 0, published: 1 }
 
     validates :title, :body, presence: true
+    validates_length_of :tag_ids, minimum: 1
     validate :title_uniqueness
-    validate :tags_presence
 
     def self.available_title?(title)
       Blogging::Post.i18n.find_by(title: title).blank?
     end
 
     private
-
-    def tags_presence
-      return if tag_ids.size.positive?
-
-      errors.add(:tag_ids, :blank)
-    end
 
     def title_uniqueness
       return if !title_changed? || Blogging::Post.available_title?(title)
