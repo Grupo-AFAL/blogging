@@ -18,6 +18,7 @@ gem 'mobility-actiontext'
 gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'turbo-rails', '~> 1.0'
+gem 'pagy', '~> 5.6'
 
 group :development do
   gem 'puma', '~> 5.6'
