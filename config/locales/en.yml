@@ -26,17 +26,17 @@ en:
   blogging:
     admin:
       posts:
-        new:
-          submit: Save
-        edit:
+        form:
           submit: Save
       tags:
-        new:
-          submit: Save
-        edit:
+        form:
           submit: Save
   notice:
     created: was created successfully.
     destroyed: was deleted successfully.
     error: An error has ocurred.
     updated: was updated successfully.
+  time:
+    formats:
+      month_time: "%B %e at %I:%M %p"
+

@@ -21,7 +21,7 @@
         options: { title_class: 'tag is-info is-light' }) %>
 
   <%= c.item(heading: t('activerecord.attributes.blogging/post.public_from'), 
-        title: @post.public_from,
+        title: @post.public_from ? l(@post.public_from, format: :month_time) : '',
         options: { title_class: 'title is-6' }) %>
 <% end %>
 

@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/Grupo-AFAL/bali-view-components.git
-  revision: a1321a3d0e828349495cf47720e157340814f5d6
-  branch: main
-  specs:
-    bali_view_components (0.1.0)
-      rails (>= 7.0.2.3)
-      view_component (>= 2.0.0, < 3.0)
-      view_component-contrib
-
-GIT
   remote: https://github.com/Grupo-AFAL/frontend-helpers.git
   revision: 4cab5270d9236193eb420039df362da289707a24
   branch: main
@@ -27,6 +17,14 @@ PATH
       mobility-actiontext
       rails (>= 7.0.2.3)
       turbo-rails (>= 1.0.1)
+
+PATH
+  remote: /Users/miguelfrias/Documents/ek/bali-view-components
+  specs:
+    bali_view_components (0.1.0)
+      rails (>= 7.0.2.3)
+      view_component (>= 2.0.0, < 3.0)
+      view_component-contrib
 
 GEM
   remote: https://rubygems.org/
@@ -270,7 +268,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
-    view_component (2.54.1)
+    view_component (2.55.0)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
     view_component-contrib (0.1.1)

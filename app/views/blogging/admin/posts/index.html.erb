@@ -13,6 +13,7 @@
           { name: 'Body'},
           { name: 'Author'},
           { name: 'Status'},
+          { name: 'Public From'},
           {},
           {}
         ]) %>
@@ -23,6 +24,7 @@
             <td><%= post.body.to_plain_text.truncate(10) %></td>
             <td><%= post.author.name %></td>
             <td><%= post.status %></td>
+            <td><%= l(post.public_from, format: :month_time) if post.public_from %></td>
             <td class='is-narrow'>
               <%= link_to icon_tag('edit-alt'), edit_admin_post_path(post), 
                   class: 'button is-small is-borderless is-info is-light' %>
@@ -34,6 +36,8 @@
           <% end %>
         <% end %>
       <% end %>
+
+      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
     </div>
   <% end %>
 

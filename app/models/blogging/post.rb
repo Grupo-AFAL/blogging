@@ -18,7 +18,7 @@ module Blogging
 
     enum status: { draft: 0, published: 1 }
 
-    validates :title, :body, presence: true
+    validates :title, :body, :public_from, presence: true
     validates :tag_ids, length: { minimum: 1 }
     validate :title_uniqueness
 
