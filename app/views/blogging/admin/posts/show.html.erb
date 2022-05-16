@@ -1,8 +1,43 @@
-<h1><%= @post.title %></h1>
+<%= link_to "< #{t('activerecord.models.blogging/post').pluralize}", admin_posts_path %>
 
-<div class='content'>
+<%= render Bali::PageHeader::Component.new(title: @post.title) do %>
+  <%= link_to icon_tag('edit-alt'), edit_admin_post_path(@post),
+      class: 'button is-small is-info is-light mr-4' %>
+  <%= button_to icon_tag('trash-alt', class: 'is-red'), admin_tag_path(tag),
+      method: :delete, class: 'button is-small is-danger is-light' %>
+<% end %>
+
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading"><%= t('activerecord.attributes.blogging/post.author_id') %></p>
+      <p class="title is-6"><%= @post.author.name %></p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading"><%= t('activerecord.attributes.blogging/post.status') %></p>
+      <p class="title is-6"><%= @post.status %></p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading"><%= t('activerecord.attributes.blogging/post.tag_ids') %></p>
+      <div class='tags'>
+        <% @post.tags.each do |tag| %>
+          <span class="tag is-info is-light"><%= tag.name %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading"><%= t('activerecord.attributes.blogging/post.public_from') %></p>
+      <p class="title is-6"><%= @post.public_from %></p>
+    </div>
+  </div>
+</nav>
+
+<div class='content mt-6'>
   <%= @post.body %>
 </div>
-
-<p>Author</p>
-<p><%= @post.author.name %></p>

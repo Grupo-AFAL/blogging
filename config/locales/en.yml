@@ -6,6 +6,8 @@ en:
         body: Body
         tag_ids: Tags
         author_id: Author
+        status: Status
+        public_from: Public from
       blogging/tag:
         tag: Tag
     errors:
