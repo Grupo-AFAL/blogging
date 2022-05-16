@@ -4,7 +4,7 @@
       <%= form.text_field_group :title %>
     </div>
     <div class="column is-two-fifths">
-      <%= form.slim_select_group :status,
+      <%= form.select_group :status,
           Blogging::Post.statuses.keys.map { |status| [status, status] },
           {}, select_class: 'is-fullwidth' %>
     </div>
