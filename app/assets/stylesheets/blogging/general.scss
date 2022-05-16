@@ -9,3 +9,9 @@ a>.icon,
     height: 1rem;
   }
 }
+
+.centered-level-component {
+  .tag+.tag {
+    margin-left: 0.5rem;
+  }
+}
