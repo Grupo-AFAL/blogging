@@ -1,4 +1,4 @@
-<%= link_to "< #{t('activerecord.models.blogging/post').pluralize}", admin_posts_path %>
+<%= link_to "< #{t('back')}", admin_posts_path %>
 
 <%= render Bali::PageHeader::Component.new(title: @post.title) do %>
   <%= link_to icon_tag('edit-alt'), edit_admin_post_path(@post),

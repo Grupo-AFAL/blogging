@@ -22,6 +22,7 @@ en:
   actions:
     new: New
     edit: Edit
+  back: Back
   blogging:
     admin:
       posts:
