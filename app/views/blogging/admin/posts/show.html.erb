@@ -7,36 +7,23 @@
       method: :delete, class: 'button is-small is-danger is-light' %>
 <% end %>
 
-<nav class="level">
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading"><%= t('activerecord.attributes.blogging/post.author_id') %></p>
-      <p class="title is-6"><%= @post.author.name %></p>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading"><%= t('activerecord.attributes.blogging/post.status') %></p>
-      <p class="title is-6"><%= @post.status %></p>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading"><%= t('activerecord.attributes.blogging/post.tag_ids') %></p>
-      <div class='tags'>
-        <% @post.tags.each do |tag| %>
-          <span class="tag is-info is-light"><%= tag.name %></span>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading"><%= t('activerecord.attributes.blogging/post.public_from') %></p>
-      <p class="title is-6"><%= @post.public_from %></p>
-    </div>
-  </div>
-</nav>
+<%= render Bali::CenteredLevel::Component.new do |c| %>
+  <%= c.item(heading: t('activerecord.attributes.blogging/post.author_id'), 
+        title: @post.author.name,
+        options: { title_class: 'title is-6' }) %>
+
+  <%= c.item(heading: t('activerecord.attributes.blogging/post.status'), 
+        title: @post.status,
+        options: { title_class: 'title is-6' }) %>
+
+  <%= c.item(heading: t('activerecord.attributes.blogging/post.tag_ids'), 
+        title: @post.tags.pluck(:name),
+        options: { title_class: 'tag is-info is-light' }) %>
+
+  <%= c.item(heading: t('activerecord.attributes.blogging/post.public_from'), 
+        title: @post.public_from.to_s,
+        options: { title_class: 'title is-6' }) %>
+<% end %>
 
 <div class='content mt-6'>
   <%= @post.body %>
