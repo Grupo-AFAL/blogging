@@ -11,5 +11,7 @@ module Blogging
                                     foreign_key: :blogging_tag_id
 
     validates :name, presence: true
+
+    default_scope { i18n }
   end
 end
