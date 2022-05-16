@@ -587,6 +587,2232 @@
     }
   });
 
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/types/options.js
+  var HOOKS, defaults;
+  var init_options = __esm({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/types/options.js"() {
+      HOOKS = [
+        "onChange",
+        "onClose",
+        "onDayCreate",
+        "onDestroy",
+        "onKeyDown",
+        "onMonthChange",
+        "onOpen",
+        "onParseConfig",
+        "onReady",
+        "onValueUpdate",
+        "onYearChange",
+        "onPreCalendarPosition"
+      ];
+      defaults = {
+        _disable: [],
+        allowInput: false,
+        allowInvalidPreload: false,
+        altFormat: "F j, Y",
+        altInput: false,
+        altInputClass: "form-control input",
+        animate: typeof window === "object" && window.navigator.userAgent.indexOf("MSIE") === -1,
+        ariaDateFormat: "F j, Y",
+        autoFillDefaultTime: true,
+        clickOpens: true,
+        closeOnSelect: true,
+        conjunction: ", ",
+        dateFormat: "Y-m-d",
+        defaultHour: 12,
+        defaultMinute: 0,
+        defaultSeconds: 0,
+        disable: [],
+        disableMobile: false,
+        enableSeconds: false,
+        enableTime: false,
+        errorHandler: (err) => typeof console !== "undefined" && console.warn(err),
+        getWeek: (givenDate) => {
+          const date = new Date(givenDate.getTime());
+          date.setHours(0, 0, 0, 0);
+          date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+          var week1 = new Date(date.getFullYear(), 0, 4);
+          return 1 + Math.round(((date.getTime() - week1.getTime()) / 864e5 - 3 + (week1.getDay() + 6) % 7) / 7);
+        },
+        hourIncrement: 1,
+        ignoredFocusElements: [],
+        inline: false,
+        locale: "default",
+        minuteIncrement: 5,
+        mode: "single",
+        monthSelectorType: "dropdown",
+        nextArrow: "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 17 17'><g></g><path d='M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z' /></svg>",
+        noCalendar: false,
+        now: new Date(),
+        onChange: [],
+        onClose: [],
+        onDayCreate: [],
+        onDestroy: [],
+        onKeyDown: [],
+        onMonthChange: [],
+        onOpen: [],
+        onParseConfig: [],
+        onReady: [],
+        onValueUpdate: [],
+        onYearChange: [],
+        onPreCalendarPosition: [],
+        plugins: [],
+        position: "auto",
+        positionElement: void 0,
+        prevArrow: "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 17 17'><g></g><path d='M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z' /></svg>",
+        shorthandCurrentMonth: false,
+        showMonths: 1,
+        static: false,
+        time_24hr: false,
+        weekNumbers: false,
+        wrap: false
+      };
+    }
+  });
+
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/l10n/default.js
+  var english, default_default;
+  var init_default = __esm({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/l10n/default.js"() {
+      english = {
+        weekdays: {
+          shorthand: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+          longhand: [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ]
+        },
+        months: {
+          shorthand: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          longhand: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+          ]
+        },
+        daysInMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+        firstDayOfWeek: 0,
+        ordinal: (nth) => {
+          const s = nth % 100;
+          if (s > 3 && s < 21)
+            return "th";
+          switch (s % 10) {
+            case 1:
+              return "st";
+            case 2:
+              return "nd";
+            case 3:
+              return "rd";
+            default:
+              return "th";
+          }
+        },
+        rangeSeparator: " to ",
+        weekAbbreviation: "Wk",
+        scrollTitle: "Scroll to increment",
+        toggleTitle: "Click to toggle",
+        amPM: ["AM", "PM"],
+        yearAriaLabel: "Year",
+        monthAriaLabel: "Month",
+        hourAriaLabel: "Hour",
+        minuteAriaLabel: "Minute",
+        time_24hr: false
+      };
+      default_default = english;
+    }
+  });
+
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/index.js
+  function debounce(fn, wait) {
+    let t;
+    return function() {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, arguments), wait);
+    };
+  }
+  var pad, int, arrayify;
+  var init_utils = __esm({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/index.js"() {
+      pad = (number, length = 2) => `000${number}`.slice(length * -1);
+      int = (bool) => bool === true ? 1 : 0;
+      arrayify = (obj) => obj instanceof Array ? obj : [obj];
+    }
+  });
+
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/dom.js
+  function toggleClass(elem, className, bool) {
+    if (bool === true)
+      return elem.classList.add(className);
+    elem.classList.remove(className);
+  }
+  function createElement(tag, className, content) {
+    const e = window.document.createElement(tag);
+    className = className || "";
+    content = content || "";
+    e.className = className;
+    if (content !== void 0)
+      e.textContent = content;
+    return e;
+  }
+  function clearNode(node) {
+    while (node.firstChild)
+      node.removeChild(node.firstChild);
+  }
+  function findParent(node, condition) {
+    if (condition(node))
+      return node;
+    else if (node.parentNode)
+      return findParent(node.parentNode, condition);
+    return void 0;
+  }
+  function createNumberInput(inputClassName, opts) {
+    const wrapper = createElement("div", "numInputWrapper"), numInput = createElement("input", "numInput " + inputClassName), arrowUp = createElement("span", "arrowUp"), arrowDown = createElement("span", "arrowDown");
+    if (navigator.userAgent.indexOf("MSIE 9.0") === -1) {
+      numInput.type = "number";
+    } else {
+      numInput.type = "text";
+      numInput.pattern = "\\d*";
+    }
+    if (opts !== void 0)
+      for (const key in opts)
+        numInput.setAttribute(key, opts[key]);
+    wrapper.appendChild(numInput);
+    wrapper.appendChild(arrowUp);
+    wrapper.appendChild(arrowDown);
+    return wrapper;
+  }
+  function getEventTarget(event) {
+    try {
+      if (typeof event.composedPath === "function") {
+        const path = event.composedPath();
+        return path[0];
+      }
+      return event.target;
+    } catch (error2) {
+      return event.target;
+    }
+  }
+  var init_dom = __esm({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/dom.js"() {
+    }
+  });
+
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/formatting.js
+  var doNothing, monthToStr, revFormat, tokenRegex, formats;
+  var init_formatting = __esm({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/formatting.js"() {
+      init_utils();
+      doNothing = () => void 0;
+      monthToStr = (monthNumber, shorthand, locale) => locale.months[shorthand ? "shorthand" : "longhand"][monthNumber];
+      revFormat = {
+        D: doNothing,
+        F: function(dateObj, monthName, locale) {
+          dateObj.setMonth(locale.months.longhand.indexOf(monthName));
+        },
+        G: (dateObj, hour) => {
+          dateObj.setHours(parseFloat(hour));
+        },
+        H: (dateObj, hour) => {
+          dateObj.setHours(parseFloat(hour));
+        },
+        J: (dateObj, day) => {
+          dateObj.setDate(parseFloat(day));
+        },
+        K: (dateObj, amPM, locale) => {
+          dateObj.setHours(dateObj.getHours() % 12 + 12 * int(new RegExp(locale.amPM[1], "i").test(amPM)));
+        },
+        M: function(dateObj, shortMonth, locale) {
+          dateObj.setMonth(locale.months.shorthand.indexOf(shortMonth));
+        },
+        S: (dateObj, seconds) => {
+          dateObj.setSeconds(parseFloat(seconds));
+        },
+        U: (_, unixSeconds) => new Date(parseFloat(unixSeconds) * 1e3),
+        W: function(dateObj, weekNum, locale) {
+          const weekNumber = parseInt(weekNum);
+          const date = new Date(dateObj.getFullYear(), 0, 2 + (weekNumber - 1) * 7, 0, 0, 0, 0);
+          date.setDate(date.getDate() - date.getDay() + locale.firstDayOfWeek);
+          return date;
+        },
+        Y: (dateObj, year) => {
+          dateObj.setFullYear(parseFloat(year));
+        },
+        Z: (_, ISODate) => new Date(ISODate),
+        d: (dateObj, day) => {
+          dateObj.setDate(parseFloat(day));
+        },
+        h: (dateObj, hour) => {
+          dateObj.setHours(parseFloat(hour));
+        },
+        i: (dateObj, minutes) => {
+          dateObj.setMinutes(parseFloat(minutes));
+        },
+        j: (dateObj, day) => {
+          dateObj.setDate(parseFloat(day));
+        },
+        l: doNothing,
+        m: (dateObj, month) => {
+          dateObj.setMonth(parseFloat(month) - 1);
+        },
+        n: (dateObj, month) => {
+          dateObj.setMonth(parseFloat(month) - 1);
+        },
+        s: (dateObj, seconds) => {
+          dateObj.setSeconds(parseFloat(seconds));
+        },
+        u: (_, unixMillSeconds) => new Date(parseFloat(unixMillSeconds)),
+        w: doNothing,
+        y: (dateObj, year) => {
+          dateObj.setFullYear(2e3 + parseFloat(year));
+        }
+      };
+      tokenRegex = {
+        D: "(\\w+)",
+        F: "(\\w+)",
+        G: "(\\d\\d|\\d)",
+        H: "(\\d\\d|\\d)",
+        J: "(\\d\\d|\\d)\\w+",
+        K: "",
+        M: "(\\w+)",
+        S: "(\\d\\d|\\d)",
+        U: "(.+)",
+        W: "(\\d\\d|\\d)",
+        Y: "(\\d{4})",
+        Z: "(.+)",
+        d: "(\\d\\d|\\d)",
+        h: "(\\d\\d|\\d)",
+        i: "(\\d\\d|\\d)",
+        j: "(\\d\\d|\\d)",
+        l: "(\\w+)",
+        m: "(\\d\\d|\\d)",
+        n: "(\\d\\d|\\d)",
+        s: "(\\d\\d|\\d)",
+        u: "(.+)",
+        w: "(\\d\\d|\\d)",
+        y: "(\\d{2})"
+      };
+      formats = {
+        Z: (date) => date.toISOString(),
+        D: function(date, locale, options) {
+          return locale.weekdays.shorthand[formats.w(date, locale, options)];
+        },
+        F: function(date, locale, options) {
+          return monthToStr(formats.n(date, locale, options) - 1, false, locale);
+        },
+        G: function(date, locale, options) {
+          return pad(formats.h(date, locale, options));
+        },
+        H: (date) => pad(date.getHours()),
+        J: function(date, locale) {
+          return locale.ordinal !== void 0 ? date.getDate() + locale.ordinal(date.getDate()) : date.getDate();
+        },
+        K: (date, locale) => locale.amPM[int(date.getHours() > 11)],
+        M: function(date, locale) {
+          return monthToStr(date.getMonth(), true, locale);
+        },
+        S: (date) => pad(date.getSeconds()),
+        U: (date) => date.getTime() / 1e3,
+        W: function(date, _, options) {
+          return options.getWeek(date);
+        },
+        Y: (date) => pad(date.getFullYear(), 4),
+        d: (date) => pad(date.getDate()),
+        h: (date) => date.getHours() % 12 ? date.getHours() % 12 : 12,
+        i: (date) => pad(date.getMinutes()),
+        j: (date) => date.getDate(),
+        l: function(date, locale) {
+          return locale.weekdays.longhand[date.getDay()];
+        },
+        m: (date) => pad(date.getMonth() + 1),
+        n: (date) => date.getMonth() + 1,
+        s: (date) => date.getSeconds(),
+        u: (date) => date.getTime(),
+        w: (date) => date.getDay(),
+        y: (date) => String(date.getFullYear()).substring(2)
+      };
+    }
+  });
+
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/dates.js
+  function compareDates(date1, date2, timeless = true) {
+    if (timeless !== false) {
+      return new Date(date1.getTime()).setHours(0, 0, 0, 0) - new Date(date2.getTime()).setHours(0, 0, 0, 0);
+    }
+    return date1.getTime() - date2.getTime();
+  }
+  function getDefaultHours(config) {
+    let hours = config.defaultHour;
+    let minutes = config.defaultMinute;
+    let seconds = config.defaultSeconds;
+    if (config.minDate !== void 0) {
+      const minHour = config.minDate.getHours();
+      const minMinutes = config.minDate.getMinutes();
+      const minSeconds = config.minDate.getSeconds();
+      if (hours < minHour) {
+        hours = minHour;
+      }
+      if (hours === minHour && minutes < minMinutes) {
+        minutes = minMinutes;
+      }
+      if (hours === minHour && minutes === minMinutes && seconds < minSeconds)
+        seconds = config.minDate.getSeconds();
+    }
+    if (config.maxDate !== void 0) {
+      const maxHr = config.maxDate.getHours();
+      const maxMinutes = config.maxDate.getMinutes();
+      hours = Math.min(hours, maxHr);
+      if (hours === maxHr)
+        minutes = Math.min(maxMinutes, minutes);
+      if (hours === maxHr && minutes === maxMinutes)
+        seconds = config.maxDate.getSeconds();
+    }
+    return { hours, minutes, seconds };
+  }
+  var createDateFormatter, createDateParser, isBetween, duration;
+  var init_dates = __esm({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/dates.js"() {
+      init_formatting();
+      init_options();
+      init_default();
+      createDateFormatter = ({ config = defaults, l10n = english, isMobile = false }) => (dateObj, frmt, overrideLocale) => {
+        const locale = overrideLocale || l10n;
+        if (config.formatDate !== void 0 && !isMobile) {
+          return config.formatDate(dateObj, frmt, locale);
+        }
+        return frmt.split("").map((c, i, arr) => formats[c] && arr[i - 1] !== "\\" ? formats[c](dateObj, locale, config) : c !== "\\" ? c : "").join("");
+      };
+      createDateParser = ({ config = defaults, l10n = english }) => (date, givenFormat, timeless, customLocale) => {
+        if (date !== 0 && !date)
+          return void 0;
+        const locale = customLocale || l10n;
+        let parsedDate;
+        const dateOrig = date;
+        if (date instanceof Date)
+          parsedDate = new Date(date.getTime());
+        else if (typeof date !== "string" && date.toFixed !== void 0)
+          parsedDate = new Date(date);
+        else if (typeof date === "string") {
+          const format = givenFormat || (config || defaults).dateFormat;
+          const datestr = String(date).trim();
+          if (datestr === "today") {
+            parsedDate = new Date();
+            timeless = true;
+          } else if (/Z$/.test(datestr) || /GMT$/.test(datestr))
+            parsedDate = new Date(date);
+          else if (config && config.parseDate)
+            parsedDate = config.parseDate(date, format);
+          else {
+            parsedDate = !config || !config.noCalendar ? new Date(new Date().getFullYear(), 0, 1, 0, 0, 0, 0) : new Date(new Date().setHours(0, 0, 0, 0));
+            let matched, ops = [];
+            for (let i = 0, matchIndex = 0, regexStr = ""; i < format.length; i++) {
+              const token = format[i];
+              const isBackSlash = token === "\\";
+              const escaped = format[i - 1] === "\\" || isBackSlash;
+              if (tokenRegex[token] && !escaped) {
+                regexStr += tokenRegex[token];
+                const match = new RegExp(regexStr).exec(date);
+                if (match && (matched = true)) {
+                  ops[token !== "Y" ? "push" : "unshift"]({
+                    fn: revFormat[token],
+                    val: match[++matchIndex]
+                  });
+                }
+              } else if (!isBackSlash)
+                regexStr += ".";
+              ops.forEach(({ fn, val }) => parsedDate = fn(parsedDate, val, locale) || parsedDate);
+            }
+            parsedDate = matched ? parsedDate : void 0;
+          }
+        }
+        if (!(parsedDate instanceof Date && !isNaN(parsedDate.getTime()))) {
+          config.errorHandler(new Error(`Invalid date provided: ${dateOrig}`));
+          return void 0;
+        }
+        if (timeless === true)
+          parsedDate.setHours(0, 0, 0, 0);
+        return parsedDate;
+      };
+      isBetween = (ts, ts1, ts2) => {
+        return ts > Math.min(ts1, ts2) && ts < Math.max(ts1, ts2);
+      };
+      duration = {
+        DAY: 864e5
+      };
+    }
+  });
+
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/polyfills.js
+  var init_polyfills = __esm({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/utils/polyfills.js"() {
+      "use strict";
+      if (typeof Object.assign !== "function") {
+        Object.assign = function(target, ...args) {
+          if (!target) {
+            throw TypeError("Cannot convert undefined or null to object");
+          }
+          for (const source of args) {
+            if (source) {
+              Object.keys(source).forEach((key) => target[key] = source[key]);
+            }
+          }
+          return target;
+        };
+      }
+    }
+  });
+
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/index.js
+  var esm_exports = {};
+  __export(esm_exports, {
+    default: () => esm_default
+  });
+  function FlatpickrInstance(element, instanceConfig) {
+    const self2 = {
+      config: Object.assign(Object.assign({}, defaults), flatpickr.defaultConfig),
+      l10n: default_default
+    };
+    self2.parseDate = createDateParser({ config: self2.config, l10n: self2.l10n });
+    self2._handlers = [];
+    self2.pluginElements = [];
+    self2.loadedPlugins = [];
+    self2._bind = bind;
+    self2._setHoursFromDate = setHoursFromDate;
+    self2._positionCalendar = positionCalendar;
+    self2.changeMonth = changeMonth;
+    self2.changeYear = changeYear;
+    self2.clear = clear;
+    self2.close = close;
+    self2._createElement = createElement;
+    self2.destroy = destroy;
+    self2.isEnabled = isEnabled;
+    self2.jumpToDate = jumpToDate;
+    self2.open = open;
+    self2.redraw = redraw;
+    self2.set = set;
+    self2.setDate = setDate;
+    self2.toggle = toggle;
+    function setupHelperFunctions() {
+      self2.utils = {
+        getDaysInMonth(month = self2.currentMonth, yr = self2.currentYear) {
+          if (month === 1 && (yr % 4 === 0 && yr % 100 !== 0 || yr % 400 === 0))
+            return 29;
+          return self2.l10n.daysInMonth[month];
+        }
+      };
+    }
+    function init() {
+      self2.element = self2.input = element;
+      self2.isOpen = false;
+      parseConfig();
+      setupLocale();
+      setupInputs();
+      setupDates();
+      setupHelperFunctions();
+      if (!self2.isMobile)
+        build();
+      bindEvents();
+      if (self2.selectedDates.length || self2.config.noCalendar) {
+        if (self2.config.enableTime) {
+          setHoursFromDate(self2.config.noCalendar ? self2.latestSelectedDateObj : void 0);
+        }
+        updateValue(false);
+      }
+      setCalendarWidth();
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      if (!self2.isMobile && isSafari) {
+        positionCalendar();
+      }
+      triggerEvent("onReady");
+    }
+    function bindToInstance(fn) {
+      return fn.bind(self2);
+    }
+    function setCalendarWidth() {
+      const config = self2.config;
+      if (config.weekNumbers === false && config.showMonths === 1) {
+        return;
+      } else if (config.noCalendar !== true) {
+        window.requestAnimationFrame(function() {
+          if (self2.calendarContainer !== void 0) {
+            self2.calendarContainer.style.visibility = "hidden";
+            self2.calendarContainer.style.display = "block";
+          }
+          if (self2.daysContainer !== void 0) {
+            const daysWidth = (self2.days.offsetWidth + 1) * config.showMonths;
+            self2.daysContainer.style.width = daysWidth + "px";
+            self2.calendarContainer.style.width = daysWidth + (self2.weekWrapper !== void 0 ? self2.weekWrapper.offsetWidth : 0) + "px";
+            self2.calendarContainer.style.removeProperty("visibility");
+            self2.calendarContainer.style.removeProperty("display");
+          }
+        });
+      }
+    }
+    function updateTime(e) {
+      if (self2.selectedDates.length === 0) {
+        const defaultDate = self2.config.minDate === void 0 || compareDates(new Date(), self2.config.minDate) >= 0 ? new Date() : new Date(self2.config.minDate.getTime());
+        const defaults2 = getDefaultHours(self2.config);
+        defaultDate.setHours(defaults2.hours, defaults2.minutes, defaults2.seconds, defaultDate.getMilliseconds());
+        self2.selectedDates = [defaultDate];
+        self2.latestSelectedDateObj = defaultDate;
+      }
+      if (e !== void 0 && e.type !== "blur") {
+        timeWrapper(e);
+      }
+      const prevValue = self2._input.value;
+      setHoursFromInputs();
+      updateValue();
+      if (self2._input.value !== prevValue) {
+        self2._debouncedChange();
+      }
+    }
+    function ampm2military(hour, amPM) {
+      return hour % 12 + 12 * int(amPM === self2.l10n.amPM[1]);
+    }
+    function military2ampm(hour) {
+      switch (hour % 24) {
+        case 0:
+        case 12:
+          return 12;
+        default:
+          return hour % 12;
+      }
+    }
+    function setHoursFromInputs() {
+      if (self2.hourElement === void 0 || self2.minuteElement === void 0)
+        return;
+      let hours = (parseInt(self2.hourElement.value.slice(-2), 10) || 0) % 24, minutes = (parseInt(self2.minuteElement.value, 10) || 0) % 60, seconds = self2.secondElement !== void 0 ? (parseInt(self2.secondElement.value, 10) || 0) % 60 : 0;
+      if (self2.amPM !== void 0) {
+        hours = ampm2military(hours, self2.amPM.textContent);
+      }
+      const limitMinHours = self2.config.minTime !== void 0 || self2.config.minDate && self2.minDateHasTime && self2.latestSelectedDateObj && compareDates(self2.latestSelectedDateObj, self2.config.minDate, true) === 0;
+      const limitMaxHours = self2.config.maxTime !== void 0 || self2.config.maxDate && self2.maxDateHasTime && self2.latestSelectedDateObj && compareDates(self2.latestSelectedDateObj, self2.config.maxDate, true) === 0;
+      if (limitMaxHours) {
+        const maxTime = self2.config.maxTime !== void 0 ? self2.config.maxTime : self2.config.maxDate;
+        hours = Math.min(hours, maxTime.getHours());
+        if (hours === maxTime.getHours())
+          minutes = Math.min(minutes, maxTime.getMinutes());
+        if (minutes === maxTime.getMinutes())
+          seconds = Math.min(seconds, maxTime.getSeconds());
+      }
+      if (limitMinHours) {
+        const minTime = self2.config.minTime !== void 0 ? self2.config.minTime : self2.config.minDate;
+        hours = Math.max(hours, minTime.getHours());
+        if (hours === minTime.getHours() && minutes < minTime.getMinutes())
+          minutes = minTime.getMinutes();
+        if (minutes === minTime.getMinutes())
+          seconds = Math.max(seconds, minTime.getSeconds());
+      }
+      setHours(hours, minutes, seconds);
+    }
+    function setHoursFromDate(dateObj) {
+      const date = dateObj || self2.latestSelectedDateObj;
+      if (date) {
+        setHours(date.getHours(), date.getMinutes(), date.getSeconds());
+      }
+    }
+    function setHours(hours, minutes, seconds) {
+      if (self2.latestSelectedDateObj !== void 0) {
+        self2.latestSelectedDateObj.setHours(hours % 24, minutes, seconds || 0, 0);
+      }
+      if (!self2.hourElement || !self2.minuteElement || self2.isMobile)
+        return;
+      self2.hourElement.value = pad(!self2.config.time_24hr ? (12 + hours) % 12 + 12 * int(hours % 12 === 0) : hours);
+      self2.minuteElement.value = pad(minutes);
+      if (self2.amPM !== void 0)
+        self2.amPM.textContent = self2.l10n.amPM[int(hours >= 12)];
+      if (self2.secondElement !== void 0)
+        self2.secondElement.value = pad(seconds);
+    }
+    function onYearInput(event) {
+      const eventTarget = getEventTarget(event);
+      const year = parseInt(eventTarget.value) + (event.delta || 0);
+      if (year / 1e3 > 1 || event.key === "Enter" && !/[^\d]/.test(year.toString())) {
+        changeYear(year);
+      }
+    }
+    function bind(element2, event, handler, options) {
+      if (event instanceof Array)
+        return event.forEach((ev) => bind(element2, ev, handler, options));
+      if (element2 instanceof Array)
+        return element2.forEach((el) => bind(el, event, handler, options));
+      element2.addEventListener(event, handler, options);
+      self2._handlers.push({
+        remove: () => element2.removeEventListener(event, handler)
+      });
+    }
+    function triggerChange() {
+      triggerEvent("onChange");
+    }
+    function bindEvents() {
+      if (self2.config.wrap) {
+        ["open", "close", "toggle", "clear"].forEach((evt) => {
+          Array.prototype.forEach.call(self2.element.querySelectorAll(`[data-${evt}]`), (el) => bind(el, "click", self2[evt]));
+        });
+      }
+      if (self2.isMobile) {
+        setupMobile();
+        return;
+      }
+      const debouncedResize = debounce(onResize, 50);
+      self2._debouncedChange = debounce(triggerChange, DEBOUNCED_CHANGE_MS);
+      if (self2.daysContainer && !/iPhone|iPad|iPod/i.test(navigator.userAgent))
+        bind(self2.daysContainer, "mouseover", (e) => {
+          if (self2.config.mode === "range")
+            onMouseOver(getEventTarget(e));
+        });
+      bind(window.document.body, "keydown", onKeyDown);
+      if (!self2.config.inline && !self2.config.static)
+        bind(window, "resize", debouncedResize);
+      if (window.ontouchstart !== void 0)
+        bind(window.document, "touchstart", documentClick);
+      else
+        bind(window.document, "mousedown", documentClick);
+      bind(window.document, "focus", documentClick, { capture: true });
+      if (self2.config.clickOpens === true) {
+        bind(self2._input, "focus", self2.open);
+        bind(self2._input, "click", self2.open);
+      }
+      if (self2.daysContainer !== void 0) {
+        bind(self2.monthNav, "click", onMonthNavClick);
+        bind(self2.monthNav, ["keyup", "increment"], onYearInput);
+        bind(self2.daysContainer, "click", selectDate);
+      }
+      if (self2.timeContainer !== void 0 && self2.minuteElement !== void 0 && self2.hourElement !== void 0) {
+        const selText = (e) => getEventTarget(e).select();
+        bind(self2.timeContainer, ["increment"], updateTime);
+        bind(self2.timeContainer, "blur", updateTime, { capture: true });
+        bind(self2.timeContainer, "click", timeIncrement);
+        bind([self2.hourElement, self2.minuteElement], ["focus", "click"], selText);
+        if (self2.secondElement !== void 0)
+          bind(self2.secondElement, "focus", () => self2.secondElement && self2.secondElement.select());
+        if (self2.amPM !== void 0) {
+          bind(self2.amPM, "click", (e) => {
+            updateTime(e);
+            triggerChange();
+          });
+        }
+      }
+      if (self2.config.allowInput) {
+        bind(self2._input, "blur", onBlur);
+      }
+    }
+    function jumpToDate(jumpDate, triggerChange2) {
+      const jumpTo = jumpDate !== void 0 ? self2.parseDate(jumpDate) : self2.latestSelectedDateObj || (self2.config.minDate && self2.config.minDate > self2.now ? self2.config.minDate : self2.config.maxDate && self2.config.maxDate < self2.now ? self2.config.maxDate : self2.now);
+      const oldYear = self2.currentYear;
+      const oldMonth = self2.currentMonth;
+      try {
+        if (jumpTo !== void 0) {
+          self2.currentYear = jumpTo.getFullYear();
+          self2.currentMonth = jumpTo.getMonth();
+        }
+      } catch (e) {
+        e.message = "Invalid date supplied: " + jumpTo;
+        self2.config.errorHandler(e);
+      }
+      if (triggerChange2 && self2.currentYear !== oldYear) {
+        triggerEvent("onYearChange");
+        buildMonthSwitch();
+      }
+      if (triggerChange2 && (self2.currentYear !== oldYear || self2.currentMonth !== oldMonth)) {
+        triggerEvent("onMonthChange");
+      }
+      self2.redraw();
+    }
+    function timeIncrement(e) {
+      const eventTarget = getEventTarget(e);
+      if (~eventTarget.className.indexOf("arrow"))
+        incrementNumInput(e, eventTarget.classList.contains("arrowUp") ? 1 : -1);
+    }
+    function incrementNumInput(e, delta, inputElem) {
+      const target = e && getEventTarget(e);
+      const input = inputElem || target && target.parentNode && target.parentNode.firstChild;
+      const event = createEvent("increment");
+      event.delta = delta;
+      input && input.dispatchEvent(event);
+    }
+    function build() {
+      const fragment = window.document.createDocumentFragment();
+      self2.calendarContainer = createElement("div", "flatpickr-calendar");
+      self2.calendarContainer.tabIndex = -1;
+      if (!self2.config.noCalendar) {
+        fragment.appendChild(buildMonthNav());
+        self2.innerContainer = createElement("div", "flatpickr-innerContainer");
+        if (self2.config.weekNumbers) {
+          const { weekWrapper, weekNumbers } = buildWeeks();
+          self2.innerContainer.appendChild(weekWrapper);
+          self2.weekNumbers = weekNumbers;
+          self2.weekWrapper = weekWrapper;
+        }
+        self2.rContainer = createElement("div", "flatpickr-rContainer");
+        self2.rContainer.appendChild(buildWeekdays());
+        if (!self2.daysContainer) {
+          self2.daysContainer = createElement("div", "flatpickr-days");
+          self2.daysContainer.tabIndex = -1;
+        }
+        buildDays();
+        self2.rContainer.appendChild(self2.daysContainer);
+        self2.innerContainer.appendChild(self2.rContainer);
+        fragment.appendChild(self2.innerContainer);
+      }
+      if (self2.config.enableTime) {
+        fragment.appendChild(buildTime());
+      }
+      toggleClass(self2.calendarContainer, "rangeMode", self2.config.mode === "range");
+      toggleClass(self2.calendarContainer, "animate", self2.config.animate === true);
+      toggleClass(self2.calendarContainer, "multiMonth", self2.config.showMonths > 1);
+      self2.calendarContainer.appendChild(fragment);
+      const customAppend = self2.config.appendTo !== void 0 && self2.config.appendTo.nodeType !== void 0;
+      if (self2.config.inline || self2.config.static) {
+        self2.calendarContainer.classList.add(self2.config.inline ? "inline" : "static");
+        if (self2.config.inline) {
+          if (!customAppend && self2.element.parentNode)
+            self2.element.parentNode.insertBefore(self2.calendarContainer, self2._input.nextSibling);
+          else if (self2.config.appendTo !== void 0)
+            self2.config.appendTo.appendChild(self2.calendarContainer);
+        }
+        if (self2.config.static) {
+          const wrapper = createElement("div", "flatpickr-wrapper");
+          if (self2.element.parentNode)
+            self2.element.parentNode.insertBefore(wrapper, self2.element);
+          wrapper.appendChild(self2.element);
+          if (self2.altInput)
+            wrapper.appendChild(self2.altInput);
+          wrapper.appendChild(self2.calendarContainer);
+        }
+      }
+      if (!self2.config.static && !self2.config.inline)
+        (self2.config.appendTo !== void 0 ? self2.config.appendTo : window.document.body).appendChild(self2.calendarContainer);
+    }
+    function createDay(className, date, dayNumber, i) {
+      const dateIsEnabled = isEnabled(date, true), dayElement = createElement("span", "flatpickr-day " + className, date.getDate().toString());
+      dayElement.dateObj = date;
+      dayElement.$i = i;
+      dayElement.setAttribute("aria-label", self2.formatDate(date, self2.config.ariaDateFormat));
+      if (className.indexOf("hidden") === -1 && compareDates(date, self2.now) === 0) {
+        self2.todayDateElem = dayElement;
+        dayElement.classList.add("today");
+        dayElement.setAttribute("aria-current", "date");
+      }
+      if (dateIsEnabled) {
+        dayElement.tabIndex = -1;
+        if (isDateSelected(date)) {
+          dayElement.classList.add("selected");
+          self2.selectedDateElem = dayElement;
+          if (self2.config.mode === "range") {
+            toggleClass(dayElement, "startRange", self2.selectedDates[0] && compareDates(date, self2.selectedDates[0], true) === 0);
+            toggleClass(dayElement, "endRange", self2.selectedDates[1] && compareDates(date, self2.selectedDates[1], true) === 0);
+            if (className === "nextMonthDay")
+              dayElement.classList.add("inRange");
+          }
+        }
+      } else {
+        dayElement.classList.add("flatpickr-disabled");
+      }
+      if (self2.config.mode === "range") {
+        if (isDateInRange(date) && !isDateSelected(date))
+          dayElement.classList.add("inRange");
+      }
+      if (self2.weekNumbers && self2.config.showMonths === 1 && className !== "prevMonthDay" && dayNumber % 7 === 1) {
+        self2.weekNumbers.insertAdjacentHTML("beforeend", "<span class='flatpickr-day'>" + self2.config.getWeek(date) + "</span>");
+      }
+      triggerEvent("onDayCreate", dayElement);
+      return dayElement;
+    }
+    function focusOnDayElem(targetNode) {
+      targetNode.focus();
+      if (self2.config.mode === "range")
+        onMouseOver(targetNode);
+    }
+    function getFirstAvailableDay(delta) {
+      const startMonth = delta > 0 ? 0 : self2.config.showMonths - 1;
+      const endMonth = delta > 0 ? self2.config.showMonths : -1;
+      for (let m = startMonth; m != endMonth; m += delta) {
+        const month = self2.daysContainer.children[m];
+        const startIndex = delta > 0 ? 0 : month.children.length - 1;
+        const endIndex = delta > 0 ? month.children.length : -1;
+        for (let i = startIndex; i != endIndex; i += delta) {
+          const c = month.children[i];
+          if (c.className.indexOf("hidden") === -1 && isEnabled(c.dateObj))
+            return c;
+        }
+      }
+      return void 0;
+    }
+    function getNextAvailableDay(current, delta) {
+      const givenMonth = current.className.indexOf("Month") === -1 ? current.dateObj.getMonth() : self2.currentMonth;
+      const endMonth = delta > 0 ? self2.config.showMonths : -1;
+      const loopDelta = delta > 0 ? 1 : -1;
+      for (let m = givenMonth - self2.currentMonth; m != endMonth; m += loopDelta) {
+        const month = self2.daysContainer.children[m];
+        const startIndex = givenMonth - self2.currentMonth === m ? current.$i + delta : delta < 0 ? month.children.length - 1 : 0;
+        const numMonthDays = month.children.length;
+        for (let i = startIndex; i >= 0 && i < numMonthDays && i != (delta > 0 ? numMonthDays : -1); i += loopDelta) {
+          const c = month.children[i];
+          if (c.className.indexOf("hidden") === -1 && isEnabled(c.dateObj) && Math.abs(current.$i - i) >= Math.abs(delta))
+            return focusOnDayElem(c);
+        }
+      }
+      self2.changeMonth(loopDelta);
+      focusOnDay(getFirstAvailableDay(loopDelta), 0);
+      return void 0;
+    }
+    function focusOnDay(current, offset) {
+      const dayFocused = isInView(document.activeElement || document.body);
+      const startElem = current !== void 0 ? current : dayFocused ? document.activeElement : self2.selectedDateElem !== void 0 && isInView(self2.selectedDateElem) ? self2.selectedDateElem : self2.todayDateElem !== void 0 && isInView(self2.todayDateElem) ? self2.todayDateElem : getFirstAvailableDay(offset > 0 ? 1 : -1);
+      if (startElem === void 0) {
+        self2._input.focus();
+      } else if (!dayFocused) {
+        focusOnDayElem(startElem);
+      } else {
+        getNextAvailableDay(startElem, offset);
+      }
+    }
+    function buildMonthDays(year, month) {
+      const firstOfMonth = (new Date(year, month, 1).getDay() - self2.l10n.firstDayOfWeek + 7) % 7;
+      const prevMonthDays = self2.utils.getDaysInMonth((month - 1 + 12) % 12, year);
+      const daysInMonth = self2.utils.getDaysInMonth(month, year), days = window.document.createDocumentFragment(), isMultiMonth = self2.config.showMonths > 1, prevMonthDayClass = isMultiMonth ? "prevMonthDay hidden" : "prevMonthDay", nextMonthDayClass = isMultiMonth ? "nextMonthDay hidden" : "nextMonthDay";
+      let dayNumber = prevMonthDays + 1 - firstOfMonth, dayIndex = 0;
+      for (; dayNumber <= prevMonthDays; dayNumber++, dayIndex++) {
+        days.appendChild(createDay(prevMonthDayClass, new Date(year, month - 1, dayNumber), dayNumber, dayIndex));
+      }
+      for (dayNumber = 1; dayNumber <= daysInMonth; dayNumber++, dayIndex++) {
+        days.appendChild(createDay("", new Date(year, month, dayNumber), dayNumber, dayIndex));
+      }
+      for (let dayNum = daysInMonth + 1; dayNum <= 42 - firstOfMonth && (self2.config.showMonths === 1 || dayIndex % 7 !== 0); dayNum++, dayIndex++) {
+        days.appendChild(createDay(nextMonthDayClass, new Date(year, month + 1, dayNum % daysInMonth), dayNum, dayIndex));
+      }
+      const dayContainer = createElement("div", "dayContainer");
+      dayContainer.appendChild(days);
+      return dayContainer;
+    }
+    function buildDays() {
+      if (self2.daysContainer === void 0) {
+        return;
+      }
+      clearNode(self2.daysContainer);
+      if (self2.weekNumbers)
+        clearNode(self2.weekNumbers);
+      const frag = document.createDocumentFragment();
+      for (let i = 0; i < self2.config.showMonths; i++) {
+        const d = new Date(self2.currentYear, self2.currentMonth, 1);
+        d.setMonth(self2.currentMonth + i);
+        frag.appendChild(buildMonthDays(d.getFullYear(), d.getMonth()));
+      }
+      self2.daysContainer.appendChild(frag);
+      self2.days = self2.daysContainer.firstChild;
+      if (self2.config.mode === "range" && self2.selectedDates.length === 1) {
+        onMouseOver();
+      }
+    }
+    function buildMonthSwitch() {
+      if (self2.config.showMonths > 1 || self2.config.monthSelectorType !== "dropdown")
+        return;
+      const shouldBuildMonth = function(month) {
+        if (self2.config.minDate !== void 0 && self2.currentYear === self2.config.minDate.getFullYear() && month < self2.config.minDate.getMonth()) {
+          return false;
+        }
+        return !(self2.config.maxDate !== void 0 && self2.currentYear === self2.config.maxDate.getFullYear() && month > self2.config.maxDate.getMonth());
+      };
+      self2.monthsDropdownContainer.tabIndex = -1;
+      self2.monthsDropdownContainer.innerHTML = "";
+      for (let i = 0; i < 12; i++) {
+        if (!shouldBuildMonth(i))
+          continue;
+        const month = createElement("option", "flatpickr-monthDropdown-month");
+        month.value = new Date(self2.currentYear, i).getMonth().toString();
+        month.textContent = monthToStr(i, self2.config.shorthandCurrentMonth, self2.l10n);
+        month.tabIndex = -1;
+        if (self2.currentMonth === i) {
+          month.selected = true;
+        }
+        self2.monthsDropdownContainer.appendChild(month);
+      }
+    }
+    function buildMonth() {
+      const container = createElement("div", "flatpickr-month");
+      const monthNavFragment = window.document.createDocumentFragment();
+      let monthElement;
+      if (self2.config.showMonths > 1 || self2.config.monthSelectorType === "static") {
+        monthElement = createElement("span", "cur-month");
+      } else {
+        self2.monthsDropdownContainer = createElement("select", "flatpickr-monthDropdown-months");
+        self2.monthsDropdownContainer.setAttribute("aria-label", self2.l10n.monthAriaLabel);
+        bind(self2.monthsDropdownContainer, "change", (e) => {
+          const target = getEventTarget(e);
+          const selectedMonth = parseInt(target.value, 10);
+          self2.changeMonth(selectedMonth - self2.currentMonth);
+          triggerEvent("onMonthChange");
+        });
+        buildMonthSwitch();
+        monthElement = self2.monthsDropdownContainer;
+      }
+      const yearInput = createNumberInput("cur-year", { tabindex: "-1" });
+      const yearElement = yearInput.getElementsByTagName("input")[0];
+      yearElement.setAttribute("aria-label", self2.l10n.yearAriaLabel);
+      if (self2.config.minDate) {
+        yearElement.setAttribute("min", self2.config.minDate.getFullYear().toString());
+      }
+      if (self2.config.maxDate) {
+        yearElement.setAttribute("max", self2.config.maxDate.getFullYear().toString());
+        yearElement.disabled = !!self2.config.minDate && self2.config.minDate.getFullYear() === self2.config.maxDate.getFullYear();
+      }
+      const currentMonth = createElement("div", "flatpickr-current-month");
+      currentMonth.appendChild(monthElement);
+      currentMonth.appendChild(yearInput);
+      monthNavFragment.appendChild(currentMonth);
+      container.appendChild(monthNavFragment);
+      return {
+        container,
+        yearElement,
+        monthElement
+      };
+    }
+    function buildMonths() {
+      clearNode(self2.monthNav);
+      self2.monthNav.appendChild(self2.prevMonthNav);
+      if (self2.config.showMonths) {
+        self2.yearElements = [];
+        self2.monthElements = [];
+      }
+      for (let m = self2.config.showMonths; m--; ) {
+        const month = buildMonth();
+        self2.yearElements.push(month.yearElement);
+        self2.monthElements.push(month.monthElement);
+        self2.monthNav.appendChild(month.container);
+      }
+      self2.monthNav.appendChild(self2.nextMonthNav);
+    }
+    function buildMonthNav() {
+      self2.monthNav = createElement("div", "flatpickr-months");
+      self2.yearElements = [];
+      self2.monthElements = [];
+      self2.prevMonthNav = createElement("span", "flatpickr-prev-month");
+      self2.prevMonthNav.innerHTML = self2.config.prevArrow;
+      self2.nextMonthNav = createElement("span", "flatpickr-next-month");
+      self2.nextMonthNav.innerHTML = self2.config.nextArrow;
+      buildMonths();
+      Object.defineProperty(self2, "_hidePrevMonthArrow", {
+        get: () => self2.__hidePrevMonthArrow,
+        set(bool) {
+          if (self2.__hidePrevMonthArrow !== bool) {
+            toggleClass(self2.prevMonthNav, "flatpickr-disabled", bool);
+            self2.__hidePrevMonthArrow = bool;
+          }
+        }
+      });
+      Object.defineProperty(self2, "_hideNextMonthArrow", {
+        get: () => self2.__hideNextMonthArrow,
+        set(bool) {
+          if (self2.__hideNextMonthArrow !== bool) {
+            toggleClass(self2.nextMonthNav, "flatpickr-disabled", bool);
+            self2.__hideNextMonthArrow = bool;
+          }
+        }
+      });
+      self2.currentYearElement = self2.yearElements[0];
+      updateNavigationCurrentMonth();
+      return self2.monthNav;
+    }
+    function buildTime() {
+      self2.calendarContainer.classList.add("hasTime");
+      if (self2.config.noCalendar)
+        self2.calendarContainer.classList.add("noCalendar");
+      const defaults2 = getDefaultHours(self2.config);
+      self2.timeContainer = createElement("div", "flatpickr-time");
+      self2.timeContainer.tabIndex = -1;
+      const separator = createElement("span", "flatpickr-time-separator", ":");
+      const hourInput = createNumberInput("flatpickr-hour", {
+        "aria-label": self2.l10n.hourAriaLabel
+      });
+      self2.hourElement = hourInput.getElementsByTagName("input")[0];
+      const minuteInput = createNumberInput("flatpickr-minute", {
+        "aria-label": self2.l10n.minuteAriaLabel
+      });
+      self2.minuteElement = minuteInput.getElementsByTagName("input")[0];
+      self2.hourElement.tabIndex = self2.minuteElement.tabIndex = -1;
+      self2.hourElement.value = pad(self2.latestSelectedDateObj ? self2.latestSelectedDateObj.getHours() : self2.config.time_24hr ? defaults2.hours : military2ampm(defaults2.hours));
+      self2.minuteElement.value = pad(self2.latestSelectedDateObj ? self2.latestSelectedDateObj.getMinutes() : defaults2.minutes);
+      self2.hourElement.setAttribute("step", self2.config.hourIncrement.toString());
+      self2.minuteElement.setAttribute("step", self2.config.minuteIncrement.toString());
+      self2.hourElement.setAttribute("min", self2.config.time_24hr ? "0" : "1");
+      self2.hourElement.setAttribute("max", self2.config.time_24hr ? "23" : "12");
+      self2.hourElement.setAttribute("maxlength", "2");
+      self2.minuteElement.setAttribute("min", "0");
+      self2.minuteElement.setAttribute("max", "59");
+      self2.minuteElement.setAttribute("maxlength", "2");
+      self2.timeContainer.appendChild(hourInput);
+      self2.timeContainer.appendChild(separator);
+      self2.timeContainer.appendChild(minuteInput);
+      if (self2.config.time_24hr)
+        self2.timeContainer.classList.add("time24hr");
+      if (self2.config.enableSeconds) {
+        self2.timeContainer.classList.add("hasSeconds");
+        const secondInput = createNumberInput("flatpickr-second");
+        self2.secondElement = secondInput.getElementsByTagName("input")[0];
+        self2.secondElement.value = pad(self2.latestSelectedDateObj ? self2.latestSelectedDateObj.getSeconds() : defaults2.seconds);
+        self2.secondElement.setAttribute("step", self2.minuteElement.getAttribute("step"));
+        self2.secondElement.setAttribute("min", "0");
+        self2.secondElement.setAttribute("max", "59");
+        self2.secondElement.setAttribute("maxlength", "2");
+        self2.timeContainer.appendChild(createElement("span", "flatpickr-time-separator", ":"));
+        self2.timeContainer.appendChild(secondInput);
+      }
+      if (!self2.config.time_24hr) {
+        self2.amPM = createElement("span", "flatpickr-am-pm", self2.l10n.amPM[int((self2.latestSelectedDateObj ? self2.hourElement.value : self2.config.defaultHour) > 11)]);
+        self2.amPM.title = self2.l10n.toggleTitle;
+        self2.amPM.tabIndex = -1;
+        self2.timeContainer.appendChild(self2.amPM);
+      }
+      return self2.timeContainer;
+    }
+    function buildWeekdays() {
+      if (!self2.weekdayContainer)
+        self2.weekdayContainer = createElement("div", "flatpickr-weekdays");
+      else
+        clearNode(self2.weekdayContainer);
+      for (let i = self2.config.showMonths; i--; ) {
+        const container = createElement("div", "flatpickr-weekdaycontainer");
+        self2.weekdayContainer.appendChild(container);
+      }
+      updateWeekdays();
+      return self2.weekdayContainer;
+    }
+    function updateWeekdays() {
+      if (!self2.weekdayContainer) {
+        return;
+      }
+      const firstDayOfWeek = self2.l10n.firstDayOfWeek;
+      let weekdays = [...self2.l10n.weekdays.shorthand];
+      if (firstDayOfWeek > 0 && firstDayOfWeek < weekdays.length) {
+        weekdays = [
+          ...weekdays.splice(firstDayOfWeek, weekdays.length),
+          ...weekdays.splice(0, firstDayOfWeek)
+        ];
+      }
+      for (let i = self2.config.showMonths; i--; ) {
+        self2.weekdayContainer.children[i].innerHTML = `
+      <span class='flatpickr-weekday'>
+        ${weekdays.join("</span><span class='flatpickr-weekday'>")}
+      </span>
+      `;
+      }
+    }
+    function buildWeeks() {
+      self2.calendarContainer.classList.add("hasWeeks");
+      const weekWrapper = createElement("div", "flatpickr-weekwrapper");
+      weekWrapper.appendChild(createElement("span", "flatpickr-weekday", self2.l10n.weekAbbreviation));
+      const weekNumbers = createElement("div", "flatpickr-weeks");
+      weekWrapper.appendChild(weekNumbers);
+      return {
+        weekWrapper,
+        weekNumbers
+      };
+    }
+    function changeMonth(value, isOffset = true) {
+      const delta = isOffset ? value : value - self2.currentMonth;
+      if (delta < 0 && self2._hidePrevMonthArrow === true || delta > 0 && self2._hideNextMonthArrow === true)
+        return;
+      self2.currentMonth += delta;
+      if (self2.currentMonth < 0 || self2.currentMonth > 11) {
+        self2.currentYear += self2.currentMonth > 11 ? 1 : -1;
+        self2.currentMonth = (self2.currentMonth + 12) % 12;
+        triggerEvent("onYearChange");
+        buildMonthSwitch();
+      }
+      buildDays();
+      triggerEvent("onMonthChange");
+      updateNavigationCurrentMonth();
+    }
+    function clear(triggerChangeEvent = true, toInitial = true) {
+      self2.input.value = "";
+      if (self2.altInput !== void 0)
+        self2.altInput.value = "";
+      if (self2.mobileInput !== void 0)
+        self2.mobileInput.value = "";
+      self2.selectedDates = [];
+      self2.latestSelectedDateObj = void 0;
+      if (toInitial === true) {
+        self2.currentYear = self2._initialDate.getFullYear();
+        self2.currentMonth = self2._initialDate.getMonth();
+      }
+      if (self2.config.enableTime === true) {
+        const { hours, minutes, seconds } = getDefaultHours(self2.config);
+        setHours(hours, minutes, seconds);
+      }
+      self2.redraw();
+      if (triggerChangeEvent)
+        triggerEvent("onChange");
+    }
+    function close() {
+      self2.isOpen = false;
+      if (!self2.isMobile) {
+        if (self2.calendarContainer !== void 0) {
+          self2.calendarContainer.classList.remove("open");
+        }
+        if (self2._input !== void 0) {
+          self2._input.classList.remove("active");
+        }
+      }
+      triggerEvent("onClose");
+    }
+    function destroy() {
+      if (self2.config !== void 0)
+        triggerEvent("onDestroy");
+      for (let i = self2._handlers.length; i--; ) {
+        self2._handlers[i].remove();
+      }
+      self2._handlers = [];
+      if (self2.mobileInput) {
+        if (self2.mobileInput.parentNode)
+          self2.mobileInput.parentNode.removeChild(self2.mobileInput);
+        self2.mobileInput = void 0;
+      } else if (self2.calendarContainer && self2.calendarContainer.parentNode) {
+        if (self2.config.static && self2.calendarContainer.parentNode) {
+          const wrapper = self2.calendarContainer.parentNode;
+          wrapper.lastChild && wrapper.removeChild(wrapper.lastChild);
+          if (wrapper.parentNode) {
+            while (wrapper.firstChild)
+              wrapper.parentNode.insertBefore(wrapper.firstChild, wrapper);
+            wrapper.parentNode.removeChild(wrapper);
+          }
+        } else
+          self2.calendarContainer.parentNode.removeChild(self2.calendarContainer);
+      }
+      if (self2.altInput) {
+        self2.input.type = "text";
+        if (self2.altInput.parentNode)
+          self2.altInput.parentNode.removeChild(self2.altInput);
+        delete self2.altInput;
+      }
+      if (self2.input) {
+        self2.input.type = self2.input._type;
+        self2.input.classList.remove("flatpickr-input");
+        self2.input.removeAttribute("readonly");
+      }
+      [
+        "_showTimeInput",
+        "latestSelectedDateObj",
+        "_hideNextMonthArrow",
+        "_hidePrevMonthArrow",
+        "__hideNextMonthArrow",
+        "__hidePrevMonthArrow",
+        "isMobile",
+        "isOpen",
+        "selectedDateElem",
+        "minDateHasTime",
+        "maxDateHasTime",
+        "days",
+        "daysContainer",
+        "_input",
+        "_positionElement",
+        "innerContainer",
+        "rContainer",
+        "monthNav",
+        "todayDateElem",
+        "calendarContainer",
+        "weekdayContainer",
+        "prevMonthNav",
+        "nextMonthNav",
+        "monthsDropdownContainer",
+        "currentMonthElement",
+        "currentYearElement",
+        "navigationCurrentMonth",
+        "selectedDateElem",
+        "config"
+      ].forEach((k) => {
+        try {
+          delete self2[k];
+        } catch (_) {
+        }
+      });
+    }
+    function isCalendarElem(elem) {
+      if (self2.config.appendTo && self2.config.appendTo.contains(elem))
+        return true;
+      return self2.calendarContainer.contains(elem);
+    }
+    function documentClick(e) {
+      if (self2.isOpen && !self2.config.inline) {
+        const eventTarget = getEventTarget(e);
+        const isCalendarElement = isCalendarElem(eventTarget);
+        const isInput = eventTarget === self2.input || eventTarget === self2.altInput || self2.element.contains(eventTarget) || e.path && e.path.indexOf && (~e.path.indexOf(self2.input) || ~e.path.indexOf(self2.altInput));
+        const lostFocus = e.type === "blur" ? isInput && e.relatedTarget && !isCalendarElem(e.relatedTarget) : !isInput && !isCalendarElement && !isCalendarElem(e.relatedTarget);
+        const isIgnored = !self2.config.ignoredFocusElements.some((elem) => elem.contains(eventTarget));
+        if (lostFocus && isIgnored) {
+          if (self2.timeContainer !== void 0 && self2.minuteElement !== void 0 && self2.hourElement !== void 0 && self2.input.value !== "" && self2.input.value !== void 0) {
+            updateTime();
+          }
+          self2.close();
+          if (self2.config && self2.config.mode === "range" && self2.selectedDates.length === 1) {
+            self2.clear(false);
+            self2.redraw();
+          }
+        }
+      }
+    }
+    function changeYear(newYear) {
+      if (!newYear || self2.config.minDate && newYear < self2.config.minDate.getFullYear() || self2.config.maxDate && newYear > self2.config.maxDate.getFullYear())
+        return;
+      const newYearNum = newYear, isNewYear = self2.currentYear !== newYearNum;
+      self2.currentYear = newYearNum || self2.currentYear;
+      if (self2.config.maxDate && self2.currentYear === self2.config.maxDate.getFullYear()) {
+        self2.currentMonth = Math.min(self2.config.maxDate.getMonth(), self2.currentMonth);
+      } else if (self2.config.minDate && self2.currentYear === self2.config.minDate.getFullYear()) {
+        self2.currentMonth = Math.max(self2.config.minDate.getMonth(), self2.currentMonth);
+      }
+      if (isNewYear) {
+        self2.redraw();
+        triggerEvent("onYearChange");
+        buildMonthSwitch();
+      }
+    }
+    function isEnabled(date, timeless = true) {
+      var _a;
+      const dateToCheck = self2.parseDate(date, void 0, timeless);
+      if (self2.config.minDate && dateToCheck && compareDates(dateToCheck, self2.config.minDate, timeless !== void 0 ? timeless : !self2.minDateHasTime) < 0 || self2.config.maxDate && dateToCheck && compareDates(dateToCheck, self2.config.maxDate, timeless !== void 0 ? timeless : !self2.maxDateHasTime) > 0)
+        return false;
+      if (!self2.config.enable && self2.config.disable.length === 0)
+        return true;
+      if (dateToCheck === void 0)
+        return false;
+      const bool = !!self2.config.enable, array = (_a = self2.config.enable) !== null && _a !== void 0 ? _a : self2.config.disable;
+      for (let i = 0, d; i < array.length; i++) {
+        d = array[i];
+        if (typeof d === "function" && d(dateToCheck))
+          return bool;
+        else if (d instanceof Date && dateToCheck !== void 0 && d.getTime() === dateToCheck.getTime())
+          return bool;
+        else if (typeof d === "string") {
+          const parsed = self2.parseDate(d, void 0, true);
+          return parsed && parsed.getTime() === dateToCheck.getTime() ? bool : !bool;
+        } else if (typeof d === "object" && dateToCheck !== void 0 && d.from && d.to && dateToCheck.getTime() >= d.from.getTime() && dateToCheck.getTime() <= d.to.getTime())
+          return bool;
+      }
+      return !bool;
+    }
+    function isInView(elem) {
+      if (self2.daysContainer !== void 0)
+        return elem.className.indexOf("hidden") === -1 && elem.className.indexOf("flatpickr-disabled") === -1 && self2.daysContainer.contains(elem);
+      return false;
+    }
+    function onBlur(e) {
+      const isInput = e.target === self2._input;
+      if (isInput && (self2.selectedDates.length > 0 || self2._input.value.length > 0) && !(e.relatedTarget && isCalendarElem(e.relatedTarget))) {
+        self2.setDate(self2._input.value, true, e.target === self2.altInput ? self2.config.altFormat : self2.config.dateFormat);
+      }
+    }
+    function onKeyDown(e) {
+      const eventTarget = getEventTarget(e);
+      const isInput = self2.config.wrap ? element.contains(eventTarget) : eventTarget === self2._input;
+      const allowInput = self2.config.allowInput;
+      const allowKeydown = self2.isOpen && (!allowInput || !isInput);
+      const allowInlineKeydown = self2.config.inline && isInput && !allowInput;
+      if (e.keyCode === 13 && isInput) {
+        if (allowInput) {
+          self2.setDate(self2._input.value, true, eventTarget === self2.altInput ? self2.config.altFormat : self2.config.dateFormat);
+          return eventTarget.blur();
+        } else {
+          self2.open();
+        }
+      } else if (isCalendarElem(eventTarget) || allowKeydown || allowInlineKeydown) {
+        const isTimeObj = !!self2.timeContainer && self2.timeContainer.contains(eventTarget);
+        switch (e.keyCode) {
+          case 13:
+            if (isTimeObj) {
+              e.preventDefault();
+              updateTime();
+              focusAndClose();
+            } else
+              selectDate(e);
+            break;
+          case 27:
+            e.preventDefault();
+            focusAndClose();
+            break;
+          case 8:
+          case 46:
+            if (isInput && !self2.config.allowInput) {
+              e.preventDefault();
+              self2.clear();
+            }
+            break;
+          case 37:
+          case 39:
+            if (!isTimeObj && !isInput) {
+              e.preventDefault();
+              if (self2.daysContainer !== void 0 && (allowInput === false || document.activeElement && isInView(document.activeElement))) {
+                const delta2 = e.keyCode === 39 ? 1 : -1;
+                if (!e.ctrlKey)
+                  focusOnDay(void 0, delta2);
+                else {
+                  e.stopPropagation();
+                  changeMonth(delta2);
+                  focusOnDay(getFirstAvailableDay(1), 0);
+                }
+              }
+            } else if (self2.hourElement)
+              self2.hourElement.focus();
+            break;
+          case 38:
+          case 40:
+            e.preventDefault();
+            const delta = e.keyCode === 40 ? 1 : -1;
+            if (self2.daysContainer && eventTarget.$i !== void 0 || eventTarget === self2.input || eventTarget === self2.altInput) {
+              if (e.ctrlKey) {
+                e.stopPropagation();
+                changeYear(self2.currentYear - delta);
+                focusOnDay(getFirstAvailableDay(1), 0);
+              } else if (!isTimeObj)
+                focusOnDay(void 0, delta * 7);
+            } else if (eventTarget === self2.currentYearElement) {
+              changeYear(self2.currentYear - delta);
+            } else if (self2.config.enableTime) {
+              if (!isTimeObj && self2.hourElement)
+                self2.hourElement.focus();
+              updateTime(e);
+              self2._debouncedChange();
+            }
+            break;
+          case 9:
+            if (isTimeObj) {
+              const elems = [
+                self2.hourElement,
+                self2.minuteElement,
+                self2.secondElement,
+                self2.amPM
+              ].concat(self2.pluginElements).filter((x) => x);
+              const i = elems.indexOf(eventTarget);
+              if (i !== -1) {
+                const target = elems[i + (e.shiftKey ? -1 : 1)];
+                e.preventDefault();
+                (target || self2._input).focus();
+              }
+            } else if (!self2.config.noCalendar && self2.daysContainer && self2.daysContainer.contains(eventTarget) && e.shiftKey) {
+              e.preventDefault();
+              self2._input.focus();
+            }
+            break;
+          default:
+            break;
+        }
+      }
+      if (self2.amPM !== void 0 && eventTarget === self2.amPM) {
+        switch (e.key) {
+          case self2.l10n.amPM[0].charAt(0):
+          case self2.l10n.amPM[0].charAt(0).toLowerCase():
+            self2.amPM.textContent = self2.l10n.amPM[0];
+            setHoursFromInputs();
+            updateValue();
+            break;
+          case self2.l10n.amPM[1].charAt(0):
+          case self2.l10n.amPM[1].charAt(0).toLowerCase():
+            self2.amPM.textContent = self2.l10n.amPM[1];
+            setHoursFromInputs();
+            updateValue();
+            break;
+        }
+      }
+      if (isInput || isCalendarElem(eventTarget)) {
+        triggerEvent("onKeyDown", e);
+      }
+    }
+    function onMouseOver(elem) {
+      if (self2.selectedDates.length !== 1 || elem && (!elem.classList.contains("flatpickr-day") || elem.classList.contains("flatpickr-disabled")))
+        return;
+      const hoverDate = elem ? elem.dateObj.getTime() : self2.days.firstElementChild.dateObj.getTime(), initialDate = self2.parseDate(self2.selectedDates[0], void 0, true).getTime(), rangeStartDate = Math.min(hoverDate, self2.selectedDates[0].getTime()), rangeEndDate = Math.max(hoverDate, self2.selectedDates[0].getTime());
+      let containsDisabled = false;
+      let minRange = 0, maxRange = 0;
+      for (let t = rangeStartDate; t < rangeEndDate; t += duration.DAY) {
+        if (!isEnabled(new Date(t), true)) {
+          containsDisabled = containsDisabled || t > rangeStartDate && t < rangeEndDate;
+          if (t < initialDate && (!minRange || t > minRange))
+            minRange = t;
+          else if (t > initialDate && (!maxRange || t < maxRange))
+            maxRange = t;
+        }
+      }
+      for (let m = 0; m < self2.config.showMonths; m++) {
+        const month = self2.daysContainer.children[m];
+        for (let i = 0, l = month.children.length; i < l; i++) {
+          const dayElem = month.children[i], date = dayElem.dateObj;
+          const timestamp = date.getTime();
+          const outOfRange = minRange > 0 && timestamp < minRange || maxRange > 0 && timestamp > maxRange;
+          if (outOfRange) {
+            dayElem.classList.add("notAllowed");
+            ["inRange", "startRange", "endRange"].forEach((c) => {
+              dayElem.classList.remove(c);
+            });
+            continue;
+          } else if (containsDisabled && !outOfRange)
+            continue;
+          ["startRange", "inRange", "endRange", "notAllowed"].forEach((c) => {
+            dayElem.classList.remove(c);
+          });
+          if (elem !== void 0) {
+            elem.classList.add(hoverDate <= self2.selectedDates[0].getTime() ? "startRange" : "endRange");
+            if (initialDate < hoverDate && timestamp === initialDate)
+              dayElem.classList.add("startRange");
+            else if (initialDate > hoverDate && timestamp === initialDate)
+              dayElem.classList.add("endRange");
+            if (timestamp >= minRange && (maxRange === 0 || timestamp <= maxRange) && isBetween(timestamp, initialDate, hoverDate))
+              dayElem.classList.add("inRange");
+          }
+        }
+      }
+    }
+    function onResize() {
+      if (self2.isOpen && !self2.config.static && !self2.config.inline)
+        positionCalendar();
+    }
+    function open(e, positionElement = self2._positionElement) {
+      if (self2.isMobile === true) {
+        if (e) {
+          e.preventDefault();
+          const eventTarget = getEventTarget(e);
+          if (eventTarget) {
+            eventTarget.blur();
+          }
+        }
+        if (self2.mobileInput !== void 0) {
+          self2.mobileInput.focus();
+          self2.mobileInput.click();
+        }
+        triggerEvent("onOpen");
+        return;
+      } else if (self2._input.disabled || self2.config.inline) {
+        return;
+      }
+      const wasOpen = self2.isOpen;
+      self2.isOpen = true;
+      if (!wasOpen) {
+        self2.calendarContainer.classList.add("open");
+        self2._input.classList.add("active");
+        triggerEvent("onOpen");
+        positionCalendar(positionElement);
+      }
+      if (self2.config.enableTime === true && self2.config.noCalendar === true) {
+        if (self2.config.allowInput === false && (e === void 0 || !self2.timeContainer.contains(e.relatedTarget))) {
+          setTimeout(() => self2.hourElement.select(), 50);
+        }
+      }
+    }
+    function minMaxDateSetter(type) {
+      return (date) => {
+        const dateObj = self2.config[`_${type}Date`] = self2.parseDate(date, self2.config.dateFormat);
+        const inverseDateObj = self2.config[`_${type === "min" ? "max" : "min"}Date`];
+        if (dateObj !== void 0) {
+          self2[type === "min" ? "minDateHasTime" : "maxDateHasTime"] = dateObj.getHours() > 0 || dateObj.getMinutes() > 0 || dateObj.getSeconds() > 0;
+        }
+        if (self2.selectedDates) {
+          self2.selectedDates = self2.selectedDates.filter((d) => isEnabled(d));
+          if (!self2.selectedDates.length && type === "min")
+            setHoursFromDate(dateObj);
+          updateValue();
+        }
+        if (self2.daysContainer) {
+          redraw();
+          if (dateObj !== void 0)
+            self2.currentYearElement[type] = dateObj.getFullYear().toString();
+          else
+            self2.currentYearElement.removeAttribute(type);
+          self2.currentYearElement.disabled = !!inverseDateObj && dateObj !== void 0 && inverseDateObj.getFullYear() === dateObj.getFullYear();
+        }
+      };
+    }
+    function parseConfig() {
+      const boolOpts = [
+        "wrap",
+        "weekNumbers",
+        "allowInput",
+        "allowInvalidPreload",
+        "clickOpens",
+        "time_24hr",
+        "enableTime",
+        "noCalendar",
+        "altInput",
+        "shorthandCurrentMonth",
+        "inline",
+        "static",
+        "enableSeconds",
+        "disableMobile"
+      ];
+      const userConfig = Object.assign(Object.assign({}, JSON.parse(JSON.stringify(element.dataset || {}))), instanceConfig);
+      const formats2 = {};
+      self2.config.parseDate = userConfig.parseDate;
+      self2.config.formatDate = userConfig.formatDate;
+      Object.defineProperty(self2.config, "enable", {
+        get: () => self2.config._enable,
+        set: (dates) => {
+          self2.config._enable = parseDateRules(dates);
+        }
+      });
+      Object.defineProperty(self2.config, "disable", {
+        get: () => self2.config._disable,
+        set: (dates) => {
+          self2.config._disable = parseDateRules(dates);
+        }
+      });
+      const timeMode = userConfig.mode === "time";
+      if (!userConfig.dateFormat && (userConfig.enableTime || timeMode)) {
+        const defaultDateFormat = flatpickr.defaultConfig.dateFormat || defaults.dateFormat;
+        formats2.dateFormat = userConfig.noCalendar || timeMode ? "H:i" + (userConfig.enableSeconds ? ":S" : "") : defaultDateFormat + " H:i" + (userConfig.enableSeconds ? ":S" : "");
+      }
+      if (userConfig.altInput && (userConfig.enableTime || timeMode) && !userConfig.altFormat) {
+        const defaultAltFormat = flatpickr.defaultConfig.altFormat || defaults.altFormat;
+        formats2.altFormat = userConfig.noCalendar || timeMode ? "h:i" + (userConfig.enableSeconds ? ":S K" : " K") : defaultAltFormat + ` h:i${userConfig.enableSeconds ? ":S" : ""} K`;
+      }
+      Object.defineProperty(self2.config, "minDate", {
+        get: () => self2.config._minDate,
+        set: minMaxDateSetter("min")
+      });
+      Object.defineProperty(self2.config, "maxDate", {
+        get: () => self2.config._maxDate,
+        set: minMaxDateSetter("max")
+      });
+      const minMaxTimeSetter = (type) => (val) => {
+        self2.config[type === "min" ? "_minTime" : "_maxTime"] = self2.parseDate(val, "H:i:S");
+      };
+      Object.defineProperty(self2.config, "minTime", {
+        get: () => self2.config._minTime,
+        set: minMaxTimeSetter("min")
+      });
+      Object.defineProperty(self2.config, "maxTime", {
+        get: () => self2.config._maxTime,
+        set: minMaxTimeSetter("max")
+      });
+      if (userConfig.mode === "time") {
+        self2.config.noCalendar = true;
+        self2.config.enableTime = true;
+      }
+      Object.assign(self2.config, formats2, userConfig);
+      for (let i = 0; i < boolOpts.length; i++)
+        self2.config[boolOpts[i]] = self2.config[boolOpts[i]] === true || self2.config[boolOpts[i]] === "true";
+      HOOKS.filter((hook) => self2.config[hook] !== void 0).forEach((hook) => {
+        self2.config[hook] = arrayify(self2.config[hook] || []).map(bindToInstance);
+      });
+      self2.isMobile = !self2.config.disableMobile && !self2.config.inline && self2.config.mode === "single" && !self2.config.disable.length && !self2.config.enable && !self2.config.weekNumbers && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      for (let i = 0; i < self2.config.plugins.length; i++) {
+        const pluginConf = self2.config.plugins[i](self2) || {};
+        for (const key in pluginConf) {
+          if (HOOKS.indexOf(key) > -1) {
+            self2.config[key] = arrayify(pluginConf[key]).map(bindToInstance).concat(self2.config[key]);
+          } else if (typeof userConfig[key] === "undefined")
+            self2.config[key] = pluginConf[key];
+        }
+      }
+      if (!userConfig.altInputClass) {
+        self2.config.altInputClass = getInputElem().className + " " + self2.config.altInputClass;
+      }
+      triggerEvent("onParseConfig");
+    }
+    function getInputElem() {
+      return self2.config.wrap ? element.querySelector("[data-input]") : element;
+    }
+    function setupLocale() {
+      if (typeof self2.config.locale !== "object" && typeof flatpickr.l10ns[self2.config.locale] === "undefined")
+        self2.config.errorHandler(new Error(`flatpickr: invalid locale ${self2.config.locale}`));
+      self2.l10n = Object.assign(Object.assign({}, flatpickr.l10ns.default), typeof self2.config.locale === "object" ? self2.config.locale : self2.config.locale !== "default" ? flatpickr.l10ns[self2.config.locale] : void 0);
+      tokenRegex.K = `(${self2.l10n.amPM[0]}|${self2.l10n.amPM[1]}|${self2.l10n.amPM[0].toLowerCase()}|${self2.l10n.amPM[1].toLowerCase()})`;
+      const userConfig = Object.assign(Object.assign({}, instanceConfig), JSON.parse(JSON.stringify(element.dataset || {})));
+      if (userConfig.time_24hr === void 0 && flatpickr.defaultConfig.time_24hr === void 0) {
+        self2.config.time_24hr = self2.l10n.time_24hr;
+      }
+      self2.formatDate = createDateFormatter(self2);
+      self2.parseDate = createDateParser({ config: self2.config, l10n: self2.l10n });
+    }
+    function positionCalendar(customPositionElement) {
+      if (typeof self2.config.position === "function") {
+        return void self2.config.position(self2, customPositionElement);
+      }
+      if (self2.calendarContainer === void 0)
+        return;
+      triggerEvent("onPreCalendarPosition");
+      const positionElement = customPositionElement || self2._positionElement;
+      const calendarHeight = Array.prototype.reduce.call(self2.calendarContainer.children, (acc, child) => acc + child.offsetHeight, 0), calendarWidth = self2.calendarContainer.offsetWidth, configPos = self2.config.position.split(" "), configPosVertical = configPos[0], configPosHorizontal = configPos.length > 1 ? configPos[1] : null, inputBounds = positionElement.getBoundingClientRect(), distanceFromBottom = window.innerHeight - inputBounds.bottom, showOnTop = configPosVertical === "above" || configPosVertical !== "below" && distanceFromBottom < calendarHeight && inputBounds.top > calendarHeight;
+      const top = window.pageYOffset + inputBounds.top + (!showOnTop ? positionElement.offsetHeight + 2 : -calendarHeight - 2);
+      toggleClass(self2.calendarContainer, "arrowTop", !showOnTop);
+      toggleClass(self2.calendarContainer, "arrowBottom", showOnTop);
+      if (self2.config.inline)
+        return;
+      let left = window.pageXOffset + inputBounds.left;
+      let isCenter = false;
+      let isRight = false;
+      if (configPosHorizontal === "center") {
+        left -= (calendarWidth - inputBounds.width) / 2;
+        isCenter = true;
+      } else if (configPosHorizontal === "right") {
+        left -= calendarWidth - inputBounds.width;
+        isRight = true;
+      }
+      toggleClass(self2.calendarContainer, "arrowLeft", !isCenter && !isRight);
+      toggleClass(self2.calendarContainer, "arrowCenter", isCenter);
+      toggleClass(self2.calendarContainer, "arrowRight", isRight);
+      const right = window.document.body.offsetWidth - (window.pageXOffset + inputBounds.right);
+      const rightMost = left + calendarWidth > window.document.body.offsetWidth;
+      const centerMost = right + calendarWidth > window.document.body.offsetWidth;
+      toggleClass(self2.calendarContainer, "rightMost", rightMost);
+      if (self2.config.static)
+        return;
+      self2.calendarContainer.style.top = `${top}px`;
+      if (!rightMost) {
+        self2.calendarContainer.style.left = `${left}px`;
+        self2.calendarContainer.style.right = "auto";
+      } else if (!centerMost) {
+        self2.calendarContainer.style.left = "auto";
+        self2.calendarContainer.style.right = `${right}px`;
+      } else {
+        const doc = getDocumentStyleSheet();
+        if (doc === void 0)
+          return;
+        const bodyWidth = window.document.body.offsetWidth;
+        const centerLeft = Math.max(0, bodyWidth / 2 - calendarWidth / 2);
+        const centerBefore = ".flatpickr-calendar.centerMost:before";
+        const centerAfter = ".flatpickr-calendar.centerMost:after";
+        const centerIndex = doc.cssRules.length;
+        const centerStyle = `{left:${inputBounds.left}px;right:auto;}`;
+        toggleClass(self2.calendarContainer, "rightMost", false);
+        toggleClass(self2.calendarContainer, "centerMost", true);
+        doc.insertRule(`${centerBefore},${centerAfter}${centerStyle}`, centerIndex);
+        self2.calendarContainer.style.left = `${centerLeft}px`;
+        self2.calendarContainer.style.right = "auto";
+      }
+    }
+    function getDocumentStyleSheet() {
+      let editableSheet = null;
+      for (let i = 0; i < document.styleSheets.length; i++) {
+        const sheet = document.styleSheets[i];
+        try {
+          sheet.cssRules;
+        } catch (err) {
+          continue;
+        }
+        editableSheet = sheet;
+        break;
+      }
+      return editableSheet != null ? editableSheet : createStyleSheet();
+    }
+    function createStyleSheet() {
+      const style = document.createElement("style");
+      document.head.appendChild(style);
+      return style.sheet;
+    }
+    function redraw() {
+      if (self2.config.noCalendar || self2.isMobile)
+        return;
+      buildMonthSwitch();
+      updateNavigationCurrentMonth();
+      buildDays();
+    }
+    function focusAndClose() {
+      self2._input.focus();
+      if (window.navigator.userAgent.indexOf("MSIE") !== -1 || navigator.msMaxTouchPoints !== void 0) {
+        setTimeout(self2.close, 0);
+      } else {
+        self2.close();
+      }
+    }
+    function selectDate(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const isSelectable = (day) => day.classList && day.classList.contains("flatpickr-day") && !day.classList.contains("flatpickr-disabled") && !day.classList.contains("notAllowed");
+      const t = findParent(getEventTarget(e), isSelectable);
+      if (t === void 0)
+        return;
+      const target = t;
+      const selectedDate = self2.latestSelectedDateObj = new Date(target.dateObj.getTime());
+      const shouldChangeMonth = (selectedDate.getMonth() < self2.currentMonth || selectedDate.getMonth() > self2.currentMonth + self2.config.showMonths - 1) && self2.config.mode !== "range";
+      self2.selectedDateElem = target;
+      if (self2.config.mode === "single")
+        self2.selectedDates = [selectedDate];
+      else if (self2.config.mode === "multiple") {
+        const selectedIndex = isDateSelected(selectedDate);
+        if (selectedIndex)
+          self2.selectedDates.splice(parseInt(selectedIndex), 1);
+        else
+          self2.selectedDates.push(selectedDate);
+      } else if (self2.config.mode === "range") {
+        if (self2.selectedDates.length === 2) {
+          self2.clear(false, false);
+        }
+        self2.latestSelectedDateObj = selectedDate;
+        self2.selectedDates.push(selectedDate);
+        if (compareDates(selectedDate, self2.selectedDates[0], true) !== 0)
+          self2.selectedDates.sort((a, b) => a.getTime() - b.getTime());
+      }
+      setHoursFromInputs();
+      if (shouldChangeMonth) {
+        const isNewYear = self2.currentYear !== selectedDate.getFullYear();
+        self2.currentYear = selectedDate.getFullYear();
+        self2.currentMonth = selectedDate.getMonth();
+        if (isNewYear) {
+          triggerEvent("onYearChange");
+          buildMonthSwitch();
+        }
+        triggerEvent("onMonthChange");
+      }
+      updateNavigationCurrentMonth();
+      buildDays();
+      updateValue();
+      if (!shouldChangeMonth && self2.config.mode !== "range" && self2.config.showMonths === 1)
+        focusOnDayElem(target);
+      else if (self2.selectedDateElem !== void 0 && self2.hourElement === void 0) {
+        self2.selectedDateElem && self2.selectedDateElem.focus();
+      }
+      if (self2.hourElement !== void 0)
+        self2.hourElement !== void 0 && self2.hourElement.focus();
+      if (self2.config.closeOnSelect) {
+        const single = self2.config.mode === "single" && !self2.config.enableTime;
+        const range = self2.config.mode === "range" && self2.selectedDates.length === 2 && !self2.config.enableTime;
+        if (single || range) {
+          focusAndClose();
+        }
+      }
+      triggerChange();
+    }
+    const CALLBACKS = {
+      locale: [setupLocale, updateWeekdays],
+      showMonths: [buildMonths, setCalendarWidth, buildWeekdays],
+      minDate: [jumpToDate],
+      maxDate: [jumpToDate],
+      clickOpens: [
+        () => {
+          if (self2.config.clickOpens === true) {
+            bind(self2._input, "focus", self2.open);
+            bind(self2._input, "click", self2.open);
+          } else {
+            self2._input.removeEventListener("focus", self2.open);
+            self2._input.removeEventListener("click", self2.open);
+          }
+        }
+      ]
+    };
+    function set(option, value) {
+      if (option !== null && typeof option === "object") {
+        Object.assign(self2.config, option);
+        for (const key in option) {
+          if (CALLBACKS[key] !== void 0)
+            CALLBACKS[key].forEach((x) => x());
+        }
+      } else {
+        self2.config[option] = value;
+        if (CALLBACKS[option] !== void 0)
+          CALLBACKS[option].forEach((x) => x());
+        else if (HOOKS.indexOf(option) > -1)
+          self2.config[option] = arrayify(value);
+      }
+      self2.redraw();
+      updateValue(true);
+    }
+    function setSelectedDate(inputDate, format) {
+      let dates = [];
+      if (inputDate instanceof Array)
+        dates = inputDate.map((d) => self2.parseDate(d, format));
+      else if (inputDate instanceof Date || typeof inputDate === "number")
+        dates = [self2.parseDate(inputDate, format)];
+      else if (typeof inputDate === "string") {
+        switch (self2.config.mode) {
+          case "single":
+          case "time":
+            dates = [self2.parseDate(inputDate, format)];
+            break;
+          case "multiple":
+            dates = inputDate.split(self2.config.conjunction).map((date) => self2.parseDate(date, format));
+            break;
+          case "range":
+            dates = inputDate.split(self2.l10n.rangeSeparator).map((date) => self2.parseDate(date, format));
+            break;
+          default:
+            break;
+        }
+      } else
+        self2.config.errorHandler(new Error(`Invalid date supplied: ${JSON.stringify(inputDate)}`));
+      self2.selectedDates = self2.config.allowInvalidPreload ? dates : dates.filter((d) => d instanceof Date && isEnabled(d, false));
+      if (self2.config.mode === "range")
+        self2.selectedDates.sort((a, b) => a.getTime() - b.getTime());
+    }
+    function setDate(date, triggerChange2 = false, format = self2.config.dateFormat) {
+      if (date !== 0 && !date || date instanceof Array && date.length === 0)
+        return self2.clear(triggerChange2);
+      setSelectedDate(date, format);
+      self2.latestSelectedDateObj = self2.selectedDates[self2.selectedDates.length - 1];
+      self2.redraw();
+      jumpToDate(void 0, triggerChange2);
+      setHoursFromDate();
+      if (self2.selectedDates.length === 0) {
+        self2.clear(false);
+      }
+      updateValue(triggerChange2);
+      if (triggerChange2)
+        triggerEvent("onChange");
+    }
+    function parseDateRules(arr) {
+      return arr.slice().map((rule) => {
+        if (typeof rule === "string" || typeof rule === "number" || rule instanceof Date) {
+          return self2.parseDate(rule, void 0, true);
+        } else if (rule && typeof rule === "object" && rule.from && rule.to)
+          return {
+            from: self2.parseDate(rule.from, void 0),
+            to: self2.parseDate(rule.to, void 0)
+          };
+        return rule;
+      }).filter((x) => x);
+    }
+    function setupDates() {
+      self2.selectedDates = [];
+      self2.now = self2.parseDate(self2.config.now) || new Date();
+      const preloadedDate = self2.config.defaultDate || ((self2.input.nodeName === "INPUT" || self2.input.nodeName === "TEXTAREA") && self2.input.placeholder && self2.input.value === self2.input.placeholder ? null : self2.input.value);
+      if (preloadedDate)
+        setSelectedDate(preloadedDate, self2.config.dateFormat);
+      self2._initialDate = self2.selectedDates.length > 0 ? self2.selectedDates[0] : self2.config.minDate && self2.config.minDate.getTime() > self2.now.getTime() ? self2.config.minDate : self2.config.maxDate && self2.config.maxDate.getTime() < self2.now.getTime() ? self2.config.maxDate : self2.now;
+      self2.currentYear = self2._initialDate.getFullYear();
+      self2.currentMonth = self2._initialDate.getMonth();
+      if (self2.selectedDates.length > 0)
+        self2.latestSelectedDateObj = self2.selectedDates[0];
+      if (self2.config.minTime !== void 0)
+        self2.config.minTime = self2.parseDate(self2.config.minTime, "H:i");
+      if (self2.config.maxTime !== void 0)
+        self2.config.maxTime = self2.parseDate(self2.config.maxTime, "H:i");
+      self2.minDateHasTime = !!self2.config.minDate && (self2.config.minDate.getHours() > 0 || self2.config.minDate.getMinutes() > 0 || self2.config.minDate.getSeconds() > 0);
+      self2.maxDateHasTime = !!self2.config.maxDate && (self2.config.maxDate.getHours() > 0 || self2.config.maxDate.getMinutes() > 0 || self2.config.maxDate.getSeconds() > 0);
+    }
+    function setupInputs() {
+      self2.input = getInputElem();
+      if (!self2.input) {
+        self2.config.errorHandler(new Error("Invalid input element specified"));
+        return;
+      }
+      self2.input._type = self2.input.type;
+      self2.input.type = "text";
+      self2.input.classList.add("flatpickr-input");
+      self2._input = self2.input;
+      if (self2.config.altInput) {
+        self2.altInput = createElement(self2.input.nodeName, self2.config.altInputClass);
+        self2._input = self2.altInput;
+        self2.altInput.placeholder = self2.input.placeholder;
+        self2.altInput.disabled = self2.input.disabled;
+        self2.altInput.required = self2.input.required;
+        self2.altInput.tabIndex = self2.input.tabIndex;
+        self2.altInput.type = "text";
+        self2.input.setAttribute("type", "hidden");
+        if (!self2.config.static && self2.input.parentNode)
+          self2.input.parentNode.insertBefore(self2.altInput, self2.input.nextSibling);
+      }
+      if (!self2.config.allowInput)
+        self2._input.setAttribute("readonly", "readonly");
+      self2._positionElement = self2.config.positionElement || self2._input;
+    }
+    function setupMobile() {
+      const inputType = self2.config.enableTime ? self2.config.noCalendar ? "time" : "datetime-local" : "date";
+      self2.mobileInput = createElement("input", self2.input.className + " flatpickr-mobile");
+      self2.mobileInput.tabIndex = 1;
+      self2.mobileInput.type = inputType;
+      self2.mobileInput.disabled = self2.input.disabled;
+      self2.mobileInput.required = self2.input.required;
+      self2.mobileInput.placeholder = self2.input.placeholder;
+      self2.mobileFormatStr = inputType === "datetime-local" ? "Y-m-d\\TH:i:S" : inputType === "date" ? "Y-m-d" : "H:i:S";
+      if (self2.selectedDates.length > 0) {
+        self2.mobileInput.defaultValue = self2.mobileInput.value = self2.formatDate(self2.selectedDates[0], self2.mobileFormatStr);
+      }
+      if (self2.config.minDate)
+        self2.mobileInput.min = self2.formatDate(self2.config.minDate, "Y-m-d");
+      if (self2.config.maxDate)
+        self2.mobileInput.max = self2.formatDate(self2.config.maxDate, "Y-m-d");
+      if (self2.input.getAttribute("step"))
+        self2.mobileInput.step = String(self2.input.getAttribute("step"));
+      self2.input.type = "hidden";
+      if (self2.altInput !== void 0)
+        self2.altInput.type = "hidden";
+      try {
+        if (self2.input.parentNode)
+          self2.input.parentNode.insertBefore(self2.mobileInput, self2.input.nextSibling);
+      } catch (_a) {
+      }
+      bind(self2.mobileInput, "change", (e) => {
+        self2.setDate(getEventTarget(e).value, false, self2.mobileFormatStr);
+        triggerEvent("onChange");
+        triggerEvent("onClose");
+      });
+    }
+    function toggle(e) {
+      if (self2.isOpen === true)
+        return self2.close();
+      self2.open(e);
+    }
+    function triggerEvent(event, data) {
+      if (self2.config === void 0)
+        return;
+      const hooks = self2.config[event];
+      if (hooks !== void 0 && hooks.length > 0) {
+        for (let i = 0; hooks[i] && i < hooks.length; i++)
+          hooks[i](self2.selectedDates, self2.input.value, self2, data);
+      }
+      if (event === "onChange") {
+        self2.input.dispatchEvent(createEvent("change"));
+        self2.input.dispatchEvent(createEvent("input"));
+      }
+    }
+    function createEvent(name) {
+      const e = document.createEvent("Event");
+      e.initEvent(name, true, true);
+      return e;
+    }
+    function isDateSelected(date) {
+      for (let i = 0; i < self2.selectedDates.length; i++) {
+        if (compareDates(self2.selectedDates[i], date) === 0)
+          return "" + i;
+      }
+      return false;
+    }
+    function isDateInRange(date) {
+      if (self2.config.mode !== "range" || self2.selectedDates.length < 2)
+        return false;
+      return compareDates(date, self2.selectedDates[0]) >= 0 && compareDates(date, self2.selectedDates[1]) <= 0;
+    }
+    function updateNavigationCurrentMonth() {
+      if (self2.config.noCalendar || self2.isMobile || !self2.monthNav)
+        return;
+      self2.yearElements.forEach((yearElement, i) => {
+        const d = new Date(self2.currentYear, self2.currentMonth, 1);
+        d.setMonth(self2.currentMonth + i);
+        if (self2.config.showMonths > 1 || self2.config.monthSelectorType === "static") {
+          self2.monthElements[i].textContent = monthToStr(d.getMonth(), self2.config.shorthandCurrentMonth, self2.l10n) + " ";
+        } else {
+          self2.monthsDropdownContainer.value = d.getMonth().toString();
+        }
+        yearElement.value = d.getFullYear().toString();
+      });
+      self2._hidePrevMonthArrow = self2.config.minDate !== void 0 && (self2.currentYear === self2.config.minDate.getFullYear() ? self2.currentMonth <= self2.config.minDate.getMonth() : self2.currentYear < self2.config.minDate.getFullYear());
+      self2._hideNextMonthArrow = self2.config.maxDate !== void 0 && (self2.currentYear === self2.config.maxDate.getFullYear() ? self2.currentMonth + 1 > self2.config.maxDate.getMonth() : self2.currentYear > self2.config.maxDate.getFullYear());
+    }
+    function getDateStr(format) {
+      return self2.selectedDates.map((dObj) => self2.formatDate(dObj, format)).filter((d, i, arr) => self2.config.mode !== "range" || self2.config.enableTime || arr.indexOf(d) === i).join(self2.config.mode !== "range" ? self2.config.conjunction : self2.l10n.rangeSeparator);
+    }
+    function updateValue(triggerChange2 = true) {
+      if (self2.mobileInput !== void 0 && self2.mobileFormatStr) {
+        self2.mobileInput.value = self2.latestSelectedDateObj !== void 0 ? self2.formatDate(self2.latestSelectedDateObj, self2.mobileFormatStr) : "";
+      }
+      self2.input.value = getDateStr(self2.config.dateFormat);
+      if (self2.altInput !== void 0) {
+        self2.altInput.value = getDateStr(self2.config.altFormat);
+      }
+      if (triggerChange2 !== false)
+        triggerEvent("onValueUpdate");
+    }
+    function onMonthNavClick(e) {
+      const eventTarget = getEventTarget(e);
+      const isPrevMonth = self2.prevMonthNav.contains(eventTarget);
+      const isNextMonth = self2.nextMonthNav.contains(eventTarget);
+      if (isPrevMonth || isNextMonth) {
+        changeMonth(isPrevMonth ? -1 : 1);
+      } else if (self2.yearElements.indexOf(eventTarget) >= 0) {
+        eventTarget.select();
+      } else if (eventTarget.classList.contains("arrowUp")) {
+        self2.changeYear(self2.currentYear + 1);
+      } else if (eventTarget.classList.contains("arrowDown")) {
+        self2.changeYear(self2.currentYear - 1);
+      }
+    }
+    function timeWrapper(e) {
+      e.preventDefault();
+      const isKeyDown = e.type === "keydown", eventTarget = getEventTarget(e), input = eventTarget;
+      if (self2.amPM !== void 0 && eventTarget === self2.amPM) {
+        self2.amPM.textContent = self2.l10n.amPM[int(self2.amPM.textContent === self2.l10n.amPM[0])];
+      }
+      const min = parseFloat(input.getAttribute("min")), max = parseFloat(input.getAttribute("max")), step = parseFloat(input.getAttribute("step")), curValue = parseInt(input.value, 10), delta = e.delta || (isKeyDown ? e.which === 38 ? 1 : -1 : 0);
+      let newValue = curValue + step * delta;
+      if (typeof input.value !== "undefined" && input.value.length === 2) {
+        const isHourElem = input === self2.hourElement, isMinuteElem = input === self2.minuteElement;
+        if (newValue < min) {
+          newValue = max + newValue + int(!isHourElem) + (int(isHourElem) && int(!self2.amPM));
+          if (isMinuteElem)
+            incrementNumInput(void 0, -1, self2.hourElement);
+        } else if (newValue > max) {
+          newValue = input === self2.hourElement ? newValue - max - int(!self2.amPM) : min;
+          if (isMinuteElem)
+            incrementNumInput(void 0, 1, self2.hourElement);
+        }
+        if (self2.amPM && isHourElem && (step === 1 ? newValue + curValue === 23 : Math.abs(newValue - curValue) > step)) {
+          self2.amPM.textContent = self2.l10n.amPM[int(self2.amPM.textContent === self2.l10n.amPM[0])];
+        }
+        input.value = pad(newValue);
+      }
+    }
+    init();
+    return self2;
+  }
+  function _flatpickr(nodeList, config) {
+    const nodes = Array.prototype.slice.call(nodeList).filter((x) => x instanceof HTMLElement);
+    const instances = [];
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      try {
+        if (node.getAttribute("data-fp-omit") !== null)
+          continue;
+        if (node._flatpickr !== void 0) {
+          node._flatpickr.destroy();
+          node._flatpickr = void 0;
+        }
+        node._flatpickr = FlatpickrInstance(node, config || {});
+        instances.push(node._flatpickr);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return instances.length === 1 ? instances[0] : instances;
+  }
+  var DEBOUNCED_CHANGE_MS, flatpickr, esm_default;
+  var init_esm = __esm({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/esm/index.js"() {
+      init_options();
+      init_default();
+      init_utils();
+      init_dom();
+      init_dates();
+      init_formatting();
+      init_polyfills();
+      DEBOUNCED_CHANGE_MS = 300;
+      if (typeof HTMLElement !== "undefined" && typeof HTMLCollection !== "undefined" && typeof NodeList !== "undefined") {
+        HTMLCollection.prototype.flatpickr = NodeList.prototype.flatpickr = function(config) {
+          return _flatpickr(this, config);
+        };
+        HTMLElement.prototype.flatpickr = function(config) {
+          return _flatpickr([this], config);
+        };
+      }
+      flatpickr = function(selector, config) {
+        if (typeof selector === "string") {
+          return _flatpickr(window.document.querySelectorAll(selector), config);
+        } else if (selector instanceof Node) {
+          return _flatpickr([selector], config);
+        } else {
+          return _flatpickr(selector, config);
+        }
+      };
+      flatpickr.defaultConfig = {};
+      flatpickr.l10ns = {
+        en: Object.assign({}, default_default),
+        default: Object.assign({}, default_default)
+      };
+      flatpickr.localize = (l10n) => {
+        flatpickr.l10ns.default = Object.assign(Object.assign({}, flatpickr.l10ns.default), l10n);
+      };
+      flatpickr.setDefaults = (config) => {
+        flatpickr.defaultConfig = Object.assign(Object.assign({}, flatpickr.defaultConfig), config);
+      };
+      flatpickr.parseDate = createDateParser({});
+      flatpickr.formatDate = createDateFormatter({});
+      flatpickr.compareDates = compareDates;
+      if (typeof jQuery !== "undefined" && typeof jQuery.fn !== "undefined") {
+        jQuery.fn.flatpickr = function(config) {
+          return _flatpickr(this, config);
+        };
+      }
+      Date.prototype.fp_incr = function(days) {
+        return new Date(this.getFullYear(), this.getMonth(), this.getDate() + (typeof days === "string" ? parseInt(days, 10) : days));
+      };
+      if (typeof window !== "undefined") {
+        window.flatpickr = flatpickr;
+      }
+      esm_default = flatpickr;
+    }
+  });
+
+  // node_modules/frontend-helpers/node_modules/flatpickr/dist/l10n/es.js
+  var require_es = __commonJS({
+    "node_modules/frontend-helpers/node_modules/flatpickr/dist/l10n/es.js"(exports2, module2) {
+      (function(global, factory) {
+        typeof exports2 === "object" && typeof module2 !== "undefined" ? factory(exports2) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.es = {}));
+      })(exports2, function(exports3) {
+        "use strict";
+        var fp = typeof window !== "undefined" && window.flatpickr !== void 0 ? window.flatpickr : {
+          l10ns: {}
+        };
+        var Spanish = {
+          weekdays: {
+            shorthand: ["Dom", "Lun", "Mar", "Mi\xE9", "Jue", "Vie", "S\xE1b"],
+            longhand: [
+              "Domingo",
+              "Lunes",
+              "Martes",
+              "Mi\xE9rcoles",
+              "Jueves",
+              "Viernes",
+              "S\xE1bado"
+            ]
+          },
+          months: {
+            shorthand: [
+              "Ene",
+              "Feb",
+              "Mar",
+              "Abr",
+              "May",
+              "Jun",
+              "Jul",
+              "Ago",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dic"
+            ],
+            longhand: [
+              "Enero",
+              "Febrero",
+              "Marzo",
+              "Abril",
+              "Mayo",
+              "Junio",
+              "Julio",
+              "Agosto",
+              "Septiembre",
+              "Octubre",
+              "Noviembre",
+              "Diciembre"
+            ]
+          },
+          ordinal: function() {
+            return "\xBA";
+          },
+          firstDayOfWeek: 1,
+          rangeSeparator: " a ",
+          time_24hr: true
+        };
+        fp.l10ns.es = Spanish;
+        var es = fp.l10ns;
+        exports3.Spanish = Spanish;
+        exports3.default = es;
+        Object.defineProperty(exports3, "__esModule", { value: true });
+      });
+    }
+  });
+
   // node_modules/slim-select/dist/slimselect.min.mjs
   var slimselect_min_exports = {};
   __export(slimselect_min_exports, {
@@ -2393,11 +4619,11 @@
           }
           return obj;
         }
-        function _defaults(obj, defaults) {
-          var keys = Object.getOwnPropertyNames(defaults);
+        function _defaults(obj, defaults2) {
+          var keys = Object.getOwnPropertyNames(defaults2);
           for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
-            var value = Object.getOwnPropertyDescriptor(defaults, key);
+            var value = Object.getOwnPropertyDescriptor(defaults2, key);
             if (value && value.configurable && obj[key] === void 0) {
               Object.defineProperty(obj, key, value);
             }
@@ -17773,6 +19999,109 @@
   Controller.targets = [];
   Controller.values = {};
 
+  // node_modules/frontend-helpers/javascript/src/controllers/datepicker-controller.js
+  var DatepickerController = class extends Controller {
+    async connect() {
+      const { default: flatpickr2 } = await Promise.resolve().then(() => (init_esm(), esm_exports));
+      const input = this.element.nodeName === "INPUT" ? this.element : this.element.querySelector("input");
+      this.altInputClassValue = `form-control input ${this.altInputClassValue}`;
+      this.flatpickr = flatpickr2(input, {
+        altInput: true,
+        altFormat: this.altFormat(),
+        dateFormat: this.dateFormat(),
+        enableTime: this.enableTimeValue,
+        noCalendar: this.noCalendarValue,
+        enableSeconds: this.enableSecondsValue,
+        locale: await this.setLocale(this.localeValue),
+        defaultDate: this.defaultDateValue,
+        minDate: this.minDateValue,
+        minTime: this.minTimeValue,
+        maxTime: this.maxTimeValue,
+        altInputClass: this.altInputClassValue
+      });
+    }
+    async setLocale(countryCode) {
+      if (countryCode === "en") {
+        return "default";
+      } else {
+        return (await Promise.resolve().then(() => __toESM(require_es()))).default.es;
+      }
+    }
+    clear() {
+      this.flatpickr.clear();
+    }
+    disconnect() {
+      this.flatpickr.destroy();
+    }
+    altFormat() {
+      let format = "";
+      if (this.noCalendarValue || this.enableTimeValue) {
+        if (this.enableSecondsValue) {
+          format = this.time_24hr ? "H:i:S" : "h:i:S K";
+        } else {
+          format = this.time_24hr ? "H:i" : "h:i K";
+        }
+      }
+      if (!this.noCalendarValue) {
+        format = `F j, Y ${format}`.trim();
+      }
+      return format;
+    }
+    dateFormat() {
+      let format = "Y-m-d";
+      if (this.noCalendarValue || this.enableTimeValue) {
+        format = `${format} H:i:S`;
+      }
+      return format;
+    }
+    nextDate() {
+      const currentDate = this.flatpickr.selectedDates[0];
+      switch (this.periodValue) {
+        case "day":
+          currentDate.setDate(currentDate.getDate() + 1);
+          break;
+        case "month":
+          currentDate.setMonth(currentDate.getMonth() + 1);
+          break;
+        case "year":
+          currentDate.setFullYear(currentDate.getFullYear() + 1);
+          break;
+        default:
+          return;
+      }
+      this.flatpickr.setDate(currentDate);
+    }
+    previousDate() {
+      const currentDate = this.flatpickr.selectedDates[0];
+      switch (this.periodValue) {
+        case "day":
+          currentDate.setDate(currentDate.getDate() - 1);
+          break;
+        case "month":
+          currentDate.setMonth(currentDate.getMonth() - 1);
+          break;
+        case "year":
+          currentDate.setFullYear(currentDate.getFullYear() - 1);
+          break;
+        default:
+          return;
+      }
+      this.flatpickr.setDate(currentDate);
+    }
+  };
+  __publicField(DatepickerController, "values", {
+    enableTime: { type: Boolean, default: false },
+    noCalendar: { type: Boolean, default: false },
+    enableSeconds: { type: Boolean, default: false },
+    locale: { type: String, default: "es" },
+    defaultDate: String,
+    minDate: String,
+    minTime: String,
+    maxTime: String,
+    altInputClass: String,
+    period: String
+  });
+
   // node_modules/frontend-helpers/javascript/src/controllers/disappear-controller.js
   var DisappearController = class extends Controller {
     connect() {
@@ -18059,5 +20388,6 @@
   application.register("notification", NotificationController);
   application.register("slim-select", SlimSelectController);
   application.register("submit-button", SubmitButtonController);
+  application.register("datepicker", DatepickerController);
 })();
 //# sourceMappingURL=application.js.map
