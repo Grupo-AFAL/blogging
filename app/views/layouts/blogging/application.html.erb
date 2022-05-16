@@ -10,7 +10,7 @@
   </head>
   <body>
 
-    <div data-controller='modal'>
+    <div class='container px-4 py-6' data-controller='modal'>
       <%= yield %>
 
       <%= render Bali::Modal::Component.new(active: false) %>

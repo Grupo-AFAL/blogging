@@ -1,52 +1,51 @@
-<h1 class='title is-1'><%= t('activerecord.models.blogging/post') %></h1>
-<%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path %>
+<%= render Bali::PageHeader::Component.new(title: t('activerecord.models.blogging/post')) do %>
+  <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path,
+      class: 'button is-primary mr-4' %>
+  <%= link_to 'Add Tag', new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
+<% end %>
 
-<div>
-  <table>
-    <thead>
-      <th>Name</th>
-      <th>Body</th>
-      <th>Author</th>
-      <th>Status</th>
-      <th></th>
-      <th></th>
-    </thead>
-    <tbody>
+<%= render Bali::Columns::Component.new do |c| %>
+  <%= c.column(class: 'is-three-quarters') do %>
+    <%= render Bali::Table::Component.new do |table_component| %>
+      <%= table_component.headers([
+        { name: 'Name'},
+        { name: 'Body'},
+        { name: 'Author'},
+        { name: 'Status'},
+        {},
+        {}
+      ]) %>
+
       <% @posts.each do |post| %>
-        <tr>
+        <%= table_component.row do %>
           <td><%= link_to post.title, admin_post_path(post) %></td>
           <td><%= post.body.to_plain_text.truncate(10) %></td>
           <td><%= post.author.name %></td>
           <td><%= post.status %></td>
-          <td><%= link_to 'Edit', edit_admin_post_path(post) %></td>
-          <td><%= button_to 'Delete', admin_post_path(post), method: :delete %></td>
-        </tr>
+          <td class='is-narrow'><%= link_to icon_tag('edit-alt'), edit_admin_post_path(post) %></td>
+          <td class='is-narrow'><%= button_to icon_tag('trash-alt'), admin_post_path(post), method: :delete %></td>
+        <% end %>
       <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  <% end %>
 
-<div>
-  <%= link_to 'Add Tag', new_admin_tag_path, data: { action: 'modal#open' } %>
-</div>
+  <%= c.column(class: 'is-one-quarters') do %>
+    <%= render Bali::Table::Component.new do |table_component| %>
+      <%= table_component.headers([
+        { name: 'Name'},
+        {},
+        {}
+      ]) %>
 
-<div>
-  <table>
-    <thead>
-      <th>name</th>
-      <th></th>
-      <th></th>
-    </thead>
-    <tbody>
       <% @tags.each do |tag| %>
-        <tr>
+        <%= table_component.row do %>
           <td><%= tag.name %></td>
-          <td>
-            <%= link_to 'Edit', edit_admin_tag_path(tag), { data: { action: 'modal#open' } } %>
+          <td class='is-narrow'>
+            <%= link_to icon_tag('edit-alt'), edit_admin_tag_path(tag), { data: { action: 'modal#open' } } %>
           </td>
-          <td><%= button_to 'Delete', admin_tag_path(tag), method: :delete %></td>
-        </tr>
+          <td class='is-narrow'><%= button_to icon_tag('trash-alt'), admin_tag_path(tag), method: :delete %></td>
+        <% end %>
       <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  <% end %>
+<% end %>
