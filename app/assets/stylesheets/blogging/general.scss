@@ -1,0 +1,11 @@
+.is-borderless {
+  border: none;
+}
+
+a>.icon,
+.button_to {
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
