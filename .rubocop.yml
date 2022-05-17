@@ -92,3 +92,6 @@ Lint/MissingSuper:
 
 Style/RedundantBegin:
   Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
