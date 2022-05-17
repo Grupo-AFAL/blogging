@@ -26,7 +26,8 @@ RSpec.describe 'Admin Posts', type: :request do
         title: 'Title',
         body: 'Body',
         author_id: users(:user).id,
-        tag_ids: [blogging_tags(:fitness).id]
+        tag_ids: [blogging_tags(:fitness).id],
+        public_from: Time.zone.now
       } }
     end
 
