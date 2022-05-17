@@ -7,6 +7,7 @@
       <th>Name</th>
       <th>Body</th>
       <th>Author</th>
+      <th>Status</th>
       <th></th>
       <th></th>
     </thead>
@@ -16,6 +17,7 @@
           <td><%= link_to post.title, admin_post_path(post) %></td>
           <td><%= post.body.to_plain_text.truncate(10) %></td>
           <td><%= post.author.name %></td>
+          <td><%= post.status %></td>
           <td><%= link_to 'Edit', edit_admin_post_path(post) %></td>
           <td><%= button_to 'Delete', admin_post_path(post), method: :delete %></td>
         </tr>
@@ -25,7 +27,7 @@
 </div>
 
 <div>
-  <%= link_to_modal 'Add Tag', new_admin_tag_path %>
+  <%= link_to 'Add Tag', new_admin_tag_path, data: { action: 'modal#open' } %>
 </div>
 
 <div>
@@ -39,7 +41,9 @@
       <% @tags.each do |tag| %>
         <tr>
           <td><%= tag.name %></td>
-          <td><%= link_to 'Edit', edit_admin_tag_path(tag) %></td>
+          <td>
+            <%= link_to 'Edit', edit_admin_tag_path(tag), { data: { action: 'modal#open' } } %>
+          </td>
           <td><%= button_to 'Delete', admin_tag_path(tag), method: :delete %></td>
         </tr>
       <% end %>

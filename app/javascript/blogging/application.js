@@ -1,4 +1,5 @@
-import { Turbo } from '@hotwired/turbo-rails'
+import "@hotwired/turbo-rails"
+
 import { Application } from '@hotwired/stimulus'
 
 import {
@@ -7,13 +8,14 @@ import {
   SubmitButtonController
 } from 'frontend-helpers'
 
+import { ModalController } from 'bali-view-components'
+
 require('trix')
 require('@rails/actiontext')
 
 const application = Application.start()
 
+application.register('modal', ModalController)
 application.register('notification', NotificationController)
 application.register('slim-select', SlimSelectController)
 application.register('submit-button', SubmitButtonController)
-
-window.Turbo = Turbo

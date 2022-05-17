@@ -12679,22 +12679,6 @@
   });
 
   // node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js
-  var turbo_es2017_esm_exports = {};
-  __export(turbo_es2017_esm_exports, {
-    PageRenderer: () => PageRenderer,
-    PageSnapshot: () => PageSnapshot,
-    clearCache: () => clearCache,
-    connectStreamSource: () => connectStreamSource,
-    disconnectStreamSource: () => disconnectStreamSource,
-    navigator: () => navigator$1,
-    registerAdapter: () => registerAdapter,
-    renderStreamMessage: () => renderStreamMessage,
-    session: () => session,
-    setConfirmMethod: () => setConfirmMethod,
-    setProgressBarDelay: () => setProgressBarDelay,
-    start: () => start,
-    visit: () => visit
-  });
   (function() {
     if (window.Reflect === void 0 || window.customElements === void 0 || window.customElements.polyfillWrapFlushCallback) {
       return;
@@ -17928,13 +17912,152 @@
     }
   };
 
+  // node_modules/bali-view-components/app/javascript/bali/utils/form.js
+  var autoFocusInput = (element) => {
+    const autofocusNode = element.querySelector("[autofocus]");
+    if (autofocusNode)
+      autofocusNode.focus();
+  };
+
+  // node_modules/bali-view-components/app/components/bali/modal/index.js
+  var ModalController = class extends Controller {
+    async connect() {
+      this.wrapperClass = this.wrapperTarget.getAttribute("data-wrapper-class");
+      this.backgroundTarget.addEventListener("click", this._closeModal);
+      if (this.hasCloseBtnTarget) {
+        this.closeBtnTarget.addEventListener("click", this._closeModal);
+      }
+      document.addEventListener("openModal", (e) => {
+        this.setOptions(e.detail.options);
+        this.openModal(e.detail.content);
+      });
+    }
+    disconnect() {
+      this.backgroundTarget.removeEventListener("click", this._closeModal);
+      if (this.hasCloseBtnTarget) {
+        this.closeBtnTarget.removeEventListener("click", this._closeModal);
+      }
+    }
+    templateTargetConnected() {
+      this.backgroundTarget.addEventListener("click", this._closeModal);
+    }
+    templateTargetDisconnected() {
+      this.backgroundTarget.removeEventListener("click", this._closeModal);
+    }
+    openModal(content) {
+      this.wrapperTarget.classList.add(this.wrapperClass);
+      this.templateTarget.classList.add("is-active");
+      this.contentTarget.innerHTML = content;
+      autoFocusInput(this.contentTarget);
+    }
+    setOptions(options) {
+      const keys = Object.keys(options);
+      keys.forEach((key, _i) => {
+        this[key] = options[key];
+      });
+    }
+    _closeModal = () => {
+      this.templateTarget.classList.remove("is-active");
+      if (this.wrapperClass) {
+        this.wrapperTarget.classList.remove(this.wrapperClass);
+      }
+      this.contentTarget.innerHTML = "";
+    };
+    _buildURL = (path, redirectTo = null) => {
+      const url = new URL(path, window.location.origin);
+      url.searchParams.set("layout", "false");
+      if (redirectTo) {
+        url.searchParams.set("redirect_to", redirectTo);
+      }
+      return url.toString();
+    };
+    _extractResponseBodyAndTitle = (html) => {
+      const element = document.createElement("html");
+      element.innerHTML = html;
+      return {
+        body: element.querySelector("body").innerHTML,
+        title: element.querySelector("title").text
+      };
+    };
+    _replaceBodyAndURL = (html, url) => {
+      const { body, title } = this._extractResponseBodyAndTitle(html);
+      document.body.innerHTML = body;
+      history.pushState({}, title, url);
+    };
+    open = (event) => {
+      event.preventDefault();
+      const target = event.currentTarget;
+      this.wrapperClass = target.getAttribute("data-wrapper-class");
+      this.redirectTo = target.getAttribute("data-redirect-to");
+      this.skipRender = Boolean(target.getAttribute("data-skip-render"));
+      this.extraProps = JSON.parse(target.getAttribute("data-extra-props"));
+      fetch(this._buildURL(target.href)).then((response) => response.text()).then((body) => this.openModal(body));
+    };
+    close = (event) => {
+      event.preventDefault();
+      this._closeModal();
+    };
+    submit = (event) => {
+      event.preventDefault();
+      event.target.classList.add("is-loading");
+      event.target.setAttribute("disabled", "");
+      const form = event.target.closest("form");
+      const formURL = form.getAttribute("action");
+      const enableTurbo = event.target.dataset.turbo;
+      const url = this._buildURL(formURL, this.redirectTo);
+      const options = {
+        method: "POST",
+        mode: "same-origin",
+        redirect: "follow",
+        credentials: "include",
+        body: new FormData(form)
+      };
+      if (enableTurbo) {
+        options.headers = {
+          Accept: "text/vnd.turbo-stream.html, text/html, application/xhtml+xml"
+        };
+      } else {
+        options.headers = {
+          Accept: "text/html, application/xhtml+xml"
+        };
+      }
+      let redirected = false;
+      let redirectURL = null;
+      const redirectData = this.extraProps || {};
+      fetch(url, options).then((response) => {
+        redirected = response.redirected;
+        redirectURL = response.url;
+        const url2 = new URL(response.url);
+        url2.searchParams.forEach((value, key) => {
+          redirectData[key] = value;
+        });
+        return response.text();
+      }).then((responseText) => {
+        if (redirected) {
+          const event2 = new CustomEvent("modal:success", {
+            detail: redirectData
+          });
+          document.dispatchEvent(event2);
+          if (this.skipRender) {
+            this._closeModal();
+          } else {
+            this._replaceBodyAndURL(responseText, redirectURL);
+          }
+        } else {
+          this.openModal(responseText);
+        }
+      });
+    };
+  };
+  __publicField(ModalController, "targets", ["template", "background", "wrapper", "content", "closeBtn"]);
+
   // app/javascript/blogging/application.js
   require_trix_umd();
   init_actiontext();
   var application = Application.start();
+  application.register("modal", ModalController);
   application.register("notification", NotificationController);
   application.register("slim-select", SlimSelectController);
   application.register("submit-button", SubmitButtonController);
-  window.Turbo = turbo_es2017_esm_exports;
 })();
 //# sourceMappingURL=application.js.map

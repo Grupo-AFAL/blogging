@@ -1,5 +1,15 @@
 <%= form_with(model: model, url: url, method: method) do |form| %>
-  <%= form.text_field_group :title %>
+  <div class="columns">
+    <div class="column is-three-fifths">
+      <%= form.text_field_group :title %>
+    </div>
+    <div class="column is-two-fifths">
+      <%= form.select_group :status,
+          Blogging::Post.statuses.keys.map { |status| [status, status] },
+          {}, select_class: 'is-fullwidth' %>
+    </div>
+  </div>
+
   <%= form.rich_text_area_group :body %>
 
   <div class='columns'>
