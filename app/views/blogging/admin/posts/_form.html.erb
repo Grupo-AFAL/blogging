@@ -1,6 +1,9 @@
 <%= form_with(model: model, url: url, method: method) do |form| %>
-  <%= render Bali::PageHeader::Component.new(title: title) do %>
-    <%= form.submit t('.submit') %>
+  <%= render Bali::PageHeader::Component.new do |c| %>
+    <%= c.title(title) %>
+    <%= c.right_panel do %>
+      <%= form.submit t('.submit') %>
+    <% end %>
   <% end %>
 
   <%= render Bali::Columns::Component.new do |c| %>

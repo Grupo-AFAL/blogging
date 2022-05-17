@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/Grupo-AFAL/bali-view-components.git
+  revision: 23c87da72e572cfba23e18a637ea205564242991
+  branch: add-level-column-table-components
+  specs:
+    bali_view_components (0.1.0)
+      rails (>= 7.0.2.3)
+      view_component (>= 2.0.0, < 3.0)
+      view_component-contrib
+
+GIT
   remote: https://github.com/Grupo-AFAL/frontend-helpers.git
   revision: 4cab5270d9236193eb420039df362da289707a24
   branch: main
@@ -17,14 +27,6 @@ PATH
       mobility-actiontext
       rails (>= 7.0.2.3)
       turbo-rails (>= 1.0.1)
-
-PATH
-  remote: /Users/miguelfrias/Documents/ek/bali-view-components
-  specs:
-    bali_view_components (0.1.0)
-      rails (>= 7.0.2.3)
-      view_component (>= 2.0.0, < 3.0)
-      view_component-contrib
 
 GEM
   remote: https://rubygems.org/
@@ -151,6 +153,8 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
+    nokogiri (1.13.6-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.6-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.6-x86_64-linux)
@@ -280,6 +284,7 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-darwin-21
   x86_64-linux
 

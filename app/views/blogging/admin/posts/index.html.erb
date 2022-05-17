@@ -1,7 +1,10 @@
-<%= render Bali::PageHeader::Component.new(title: t('activerecord.models.blogging/post').pluralize) do %>
-  <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path,
+<%= render Bali::PageHeader::Component.new do |c| %>
+  <%= c.title(t('activerecord.models.blogging/post').pluralize) %>
+  <%= c.right_panel do %>
+    <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path,
       class: 'button is-primary mr-4' %>
-  <%= link_to 'Add Tag', new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
+    <%= link_to 'Add Tag', new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
+  <% end %>
 <% end %>
 
 <%= render Bali::Columns::Component.new do |c| %>
