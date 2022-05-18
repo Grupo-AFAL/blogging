@@ -10,9 +10,9 @@ module Blogging
 
     friendly_id :title, use: %i[history mobility]
 
-    has_one_attached :cover_image, variants: {
-      large: { resize_to_limit: [700, 370] }
-    }
+    has_one_attached :cover_image do |attachable|
+      attachable.variant :large, resize_to_limit: [700, 370]
+    end
 
     belongs_to :author, class_name: Blogging.author_class.to_s
 
