@@ -1,1 +1,50 @@
-<p>Show template</p>
+<%= link_to "< #{t('back')}", posts_path %>
+
+<%= render Bali::PageHeader::Component.new do |c| %>
+  <%= c.title(@post.title) %>
+<% end %>
+<%= render Bali::Columns::Component.new do |c| %>
+  <%= c.column(class: 'is-one-fifth has-text-centered') do %>
+    <div class="has-text-weight-bold is-size-6">
+      <%= @post.author.name %>
+    </div>
+    <div class="has-text-grey-light is-size-7 mb-2 mt-1">
+      <%= t('activerecord.attributes.blogging/post.public_from') %><br>
+      <%= l(@post.public_from, format: :month_time) if @post.public_from %>
+    </div>
+    <div>
+      <% @post.tags.each do |tag| %>
+        <%= link_to tag_path(tag) do %>
+          <span class="tag is-info is-light"><%= tag.name %></span>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="social-share mt-3">
+      <div>
+        <%= link_to icon_tag('facebook'), '#',
+          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+      </div>
+      <div class="mt-2">
+        <%= link_to icon_tag('twitter'), '#',
+          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+      </div>
+      <div class="mt-2">
+        <%= link_to icon_tag('linkedin'), '#',
+          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+      </div>
+      <div class="mt-2">
+        <%= link_to icon_tag('mail'), '#',
+          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+      </div>
+    </div>
+  <% end %>
+  <%= c.column(class: 'is-four-fifths') do %>
+    <figure class="image is-2by1">
+      <img src="https://bulma.io/images/placeholders/1280x960.png">
+    </figure>
+
+    <div class='content mt-6'>
+      <%= @post.body %>
+    </div>
+  <% end %>
+<% end %>
