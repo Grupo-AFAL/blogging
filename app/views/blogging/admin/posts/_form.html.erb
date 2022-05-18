@@ -35,9 +35,7 @@
 
       <div>
         <p class='label'><%= t('activerecord.attributes.blogging/post.cover_image') %></p>
-        <div>
-          <%= form.file_field_group :cover_image, accept: 'image/*' %>
-        </div>
+        <%= form.file_field_group :cover_image, accept: 'image/*' %>
       </div>
 
     <% end %>
