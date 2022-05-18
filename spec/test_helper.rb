@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TestHelper
   def attach_image(record, association, filename)
     record.send(association).attach(
