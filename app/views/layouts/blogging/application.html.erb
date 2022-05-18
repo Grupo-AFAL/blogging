@@ -11,6 +11,8 @@
   <body>
 
     <div class='container px-4 py-6' data-controller='modal'>
+      <%= render 'layouts/blogging/notifications' %>
+
       <%= yield %>
 
       <%= render Bali::Modal::Component.new(active: false) %>

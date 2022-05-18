@@ -2,27 +2,29 @@
 
 module Blogging
   module Admin
-    class PostsController < ApplicationController
+    class PostsController < BaseController
       before_action :set_tags, only: %i[index new create edit update]
       before_action :set_authors, only: %i[new create edit update]
       before_action :set_post, only: %i[show edit update destroy]
 
       def index
+        authorize Blogging::Post
+
         @pagy, @posts = pagy(Blogging::Post.with_rich_text_body_and_embeds.all)
       end
 
       def show; end
 
       def new
-        @post = Blogging::Post.new
+        @post = authorize Blogging::Post.new
       end
 
       def create
-        @post = Blogging::Post.new(post_params)
+        @post = authorize Blogging::Post.new(post_params)
 
         if @post.save
           redirect_to admin_posts_path,
-                      notice: "#{t('notice.created')} #{t('activerecord.models.blogging/post')}"
+                      notice: "#{t('activerecord.models.blogging/post')} #{t('notice.created')}"
         else
           render :new, status: :unprocessable_entity
         end
@@ -33,7 +35,7 @@ module Blogging
       def update
         if @post.update(post_params)
           redirect_to admin_posts_path,
-                      notice: "#{t('notice.updated')} #{t('activerecord.models.blogging/post')}"
+                      notice: "#{t('activerecord.models.blogging/post')} #{t('notice.updated')}"
         else
           render :edit, status: :unprocessable_entity
         end
@@ -43,7 +45,7 @@ module Blogging
         @post.destroy
 
         redirect_to admin_posts_path,
-                    notice: "#{t('notice.destroyed')} #{t('activerecord.models.blogging/post')}"
+                    notice: "#{t('activerecord.models.blogging/post')} #{t('notice.destroyed')}"
       end
 
       private
@@ -57,7 +59,7 @@ module Blogging
       end
 
       def set_post
-        @post = Blogging::Post.friendly.find(params[:id])
+        @post = authorize Blogging::Post.friendly.find(params[:id])
       end
 
       def post_params

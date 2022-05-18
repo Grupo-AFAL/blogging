@@ -6,15 +6,15 @@ module Blogging
       before_action :set_tag, only: %i[edit update destroy]
 
       def new
-        @tag = Blogging::Tag.new
+        @tag = authorize Blogging::Tag.new
       end
 
       def create
-        @tag = Blogging::Tag.new(tag_params)
+        @tag = authorize Blogging::Tag.new(tag_params)
 
         if @tag.save
           redirect_to admin_posts_path,
-                      notice: "#{t('notice.created')} #{t('activerecord.models.blogging/tag')}"
+                      notice: "#{t('activerecord.models.blogging/tag')} #{t('notice.created')}"
         else
           render :new, status: :unprocessable_entity
         end
@@ -25,7 +25,7 @@ module Blogging
       def update
         if @tag.update(tag_params)
           redirect_to admin_posts_path,
-                      notice: "#{t('notice.updated')} #{t('activerecord.models.blogging/tag')}"
+                      notice: "#{t('activerecord.models.blogging/tag')} #{t('notice.updated')}"
         else
           render :edit, status: :unprocessable_entity
         end
@@ -35,13 +35,13 @@ module Blogging
         @tag.destroy
 
         redirect_to admin_posts_path,
-                    notice: "#{t('notice.destroyed')} #{t('activerecord.models.blogging/tag')}"
+                    notice: "#{t('activerecord.models.blogging/tag')} #{t('notice.destroyed')}"
       end
 
       private
 
       def set_tag
-        @tag = Blogging::Tag.find(params[:id])
+        @tag = authorize Blogging::Tag.find(params[:id])
       end
 
       def tag_params
