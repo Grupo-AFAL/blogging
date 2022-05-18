@@ -28,6 +28,10 @@ en:
       posts:
         form:
           submit: Save
+        index:
+          confirm: Are you sure?
+        show:
+          confirm: Are you sure?
       tags:
         form:
           submit: Save
