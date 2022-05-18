@@ -17,3 +17,17 @@ a>.icon,
     margin-left: 0.5rem;
   }
 }
+
+.card-fit .column {
+  .card {
+    >* {
+      overflow: hidden;
+    }
+    .card-content .content {
+      > div {
+        height: 48px;
+      }
+      height: 100px;
+    } 
+  }
+}
