@@ -22,6 +22,7 @@ en:
   actions:
     new: New
     edit: Edit
+    read: Read post
   back: Back
   blogging:
     admin:
@@ -43,4 +44,4 @@ en:
   time:
     formats:
       month_time: "%B %e at %I:%M %p"
-
+      compact: "%Y-%b-%d"
