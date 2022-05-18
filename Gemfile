@@ -22,6 +22,8 @@ gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'turbo-rails', '~> 1.0'
 
+gem 'ruby-vips', '~> 2.1', group: :vips
+
 group :development do
   gem 'puma', '~> 5.6'
   gem 'rubocop', '~> 1', require: false

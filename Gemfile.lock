@@ -313,6 +313,7 @@ DEPENDENCIES
   rspec-rails (~> 5.0.0)
   rubocop (~> 1)
   rubocop-rails (~> 2)
+  ruby-vips (~> 2.1)
   sassc-rails
   sprockets-rails
   turbo-rails (~> 1.0)
