@@ -10,10 +10,10 @@ GIT
 
 GIT
   remote: https://github.com/Grupo-AFAL/frontend-helpers.git
-  revision: 4cab5270d9236193eb420039df362da289707a24
-  branch: main
+  revision: 62663695cab4a9ec58d057a2ec55859a03598fa8
+  branch: display-datepicker-with-correct-locale
   specs:
-    frontend_helpers (0.5.25)
+    frontend_helpers (0.5.26)
       rails (> 6.1)
       ransack
 
