@@ -8,13 +8,11 @@ gemspec
 
 gem 'pg'
 
-gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components',
-                            branch: 'add-level-column-table-components'
+gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'main'
 gem 'bulma-rails', '~> 0.9.3'
 gem 'friendly_id', '~> 5.4.0'
 gem 'friendly_id-mobility', '~> 1.0.3'
-gem 'frontend_helpers', github: 'Grupo-AFAL/frontend-helpers',
-                        branch: 'display-datepicker-with-correct-locale'
+gem 'frontend_helpers', github: 'Grupo-AFAL/frontend-helpers', branch: 'main'
 gem 'jsbundling-rails'
 gem 'mobility', '~> 1.2.6'
 gem 'mobility-actiontext'

@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/Grupo-AFAL/bali-view-components.git
-  revision: 23c87da72e572cfba23e18a637ea205564242991
-  branch: add-level-column-table-components
+  revision: e43a829e081517dbded1a905a2202cfc42da9867
+  branch: main
   specs:
     bali_view_components (0.1.0)
       rails (>= 7.0.2.3)
@@ -10,8 +10,8 @@ GIT
 
 GIT
   remote: https://github.com/Grupo-AFAL/frontend-helpers.git
-  revision: 62663695cab4a9ec58d057a2ec55859a03598fa8
-  branch: display-datepicker-with-correct-locale
+  revision: bd3741406575baecf5aabe790b32f2d4ceb03b30
+  branch: main
   specs:
     frontend_helpers (0.5.26)
       rails (> 6.1)
