@@ -8,6 +8,7 @@ en:
         author_id: Author
         status: Status
         public_from: Public from
+        cover_image: Cover image
       blogging/tag:
         tag: Tag
     errors:

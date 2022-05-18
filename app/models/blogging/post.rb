@@ -10,6 +10,10 @@ module Blogging
 
     friendly_id :title, use: %i[history mobility]
 
+    has_one_attached :cover_image do |attachable|
+      attachable.variant :large, resize_to_limit: [700, 370]
+    end
+
     belongs_to :author, class_name: Blogging.author_class.to_s
 
     has_and_belongs_to_many :tags, class_name: 'Blogging::Tag',
@@ -18,7 +22,7 @@ module Blogging
 
     enum status: { draft: 0, published: 1 }
 
-    validates :title, :body, :public_from, presence: true
+    validates :title, :body, :public_from, :cover_image, presence: true
     validates :tag_ids, length: { minimum: 1 }
     validate :title_uniqueness
 

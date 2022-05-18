@@ -36,6 +36,10 @@
   <% end %>
 <% end %>
 
+<div class='is-flex mt-4'>
+  <%= image_tag main_app.url_for(@post.cover_image.variant(:large)), class: 'is-margin-auto' %>
+</div>
+
 <div class='content mt-6'>
   <%= @post.body %>
 </div>
