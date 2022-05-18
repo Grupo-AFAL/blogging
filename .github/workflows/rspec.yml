@@ -24,6 +24,8 @@ jobs:
 
       - name: Install ruby gems
         uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_WITHOUT: 'vips'
         with:
           bundler-cache: true
 

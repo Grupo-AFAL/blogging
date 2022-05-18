@@ -21,12 +21,22 @@
       <%= form.slim_select_group :author_id,
           @authors.map { |author| [Blogging.author_name.call(author), author.id] },
           {}, select_class: 'is-fullwidth' %>
+      <% if model.errors.added?(:author, :blank) %>
+        <p class='help is-danger'>
+          <%= model.errors.full_messages_for(:author).join('. ') %>
+        </p>
+      <% end %>
 
       <%= form.datetime_field_group :public_from, value: model.public_from || Time.zone.now %>
 
       <%= form.slim_select_group :tag_ids,
           @tags.map {| tag| [tag.name, tag.id] },
           {}, select_class: 'is-fullwidth', multiple: true %>
+
+      <div>
+        <p class='label'><%= t('activerecord.attributes.blogging/post.cover_image') %></p>
+        <%= form.file_field_group :cover_image, accept: 'image/*' %>
+      </div>
 
     <% end %>
   <% end %>
