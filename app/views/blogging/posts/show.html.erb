@@ -21,19 +21,27 @@
     </div>
     <div class="social-share mt-3">
       <div>
-        <%= link_to icon_tag('facebook'), '#',
-          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+        <%= link_to icon_tag('facebook'), 'javascript: void(0);',
+          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square',
+          onclick: 'openPopup(\'https://facebook.com/sharer/sharer?u=\', \'' + request.original_url + '\')' %>
       </div>
       <div class="mt-2">
-        <%= link_to icon_tag('twitter'), '#',
-          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+        <%= link_to icon_tag('twitter'), 'javascript: void(0);',
+          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square',
+          onclick: 'openPopup(\'https://twitter.com/intent/tweet?text=\', \'' + request.original_url + '\')' %>
       </div>
       <div class="mt-2">
-        <%= link_to icon_tag('linkedin'), '#',
-          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+        <%= link_to icon_tag('linkedin'), 'javascript: void(0);',
+          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square',
+          onclick: 'openPopup(\'https://www.linkedin.com/sharing/share-offsite/?url=\', \'' + request.original_url + '\')' %>
       </div>
       <div class="mt-2">
-        <%= link_to icon_tag('mail'), '#',
+        <%= link_to icon_tag('instagram'), 'javascript: void(0);',
+          class: 'button is-small has-background-grey-light has-text-white is-rounded is-square',
+          onclick: 'openPopup(\'https://wa.me/?text=\', \'' + request.original_url + '\')' %>
+      </div>
+      <div class="mt-2">
+        <%= link_to icon_tag('mail'), 'mailto:?body=' + request.original_url,
           class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
       </div>
     </div>
@@ -48,3 +56,9 @@
     </div>
   <% end %>
 <% end %>
+
+<script type="text/javascript">
+function openPopup(base, url) {
+  window.open(base + encodeURI(url), '_system', 'location=no,width=600,height=400');
+}
+</script>
