@@ -22,7 +22,7 @@ module Blogging
 
     enum status: { draft: 0, published: 1 }
 
-    validates :title, :body, :public_from, :cover_image, presence: true
+    validates :title, :body, :public_from, :cover_image, :author_id, presence: true
     validates :tag_ids, length: { minimum: 1 }
     validate :title_uniqueness
 
