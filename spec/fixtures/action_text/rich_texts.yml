@@ -1,0 +1,11 @@
+draft_post_body:
+  name: body
+  body: <div>Draft Post Body</div>
+  record: draft (Blogging::Post)
+  locale: en
+
+published_post_body:
+  name: body
+  body: <div>Published Post Body</div>
+  record: published (Blogging::Post)
+  locale: en

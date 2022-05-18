@@ -63,7 +63,9 @@ module Blogging
       end
 
       def post_params
-        params.require(:post).permit(:title, :body, :author_id, :status, :public_from, tag_ids: [])
+        params.require(:post).permit(
+          :title, :body, :author_id, :status, :public_from, :cover_image, tag_ids: []
+        )
       end
     end
   end

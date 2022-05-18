@@ -8,6 +8,7 @@ module Blogging
              :mobility_text_translations
 
     let(:post) { Blogging::Post.new(@attributes) }
+    let(:image) { fixture_file_upload('waldo.jpg', 'image/jpeg') }
 
     describe '#save' do
       before do
@@ -16,7 +17,8 @@ module Blogging
           body: 'Body',
           author: users(:user),
           tag_ids: [blogging_tags(:fitness).id],
-          public_from: Time.zone.now
+          public_from: Time.zone.now,
+          cover_image: image
         }
       end
 
@@ -51,6 +53,12 @@ module Blogging
 
         context 'when missing public_from' do
           before { @attributes[:public_from] = nil }
+
+          it { expect(post.save).to be false }
+        end
+
+        context 'when missing cover_image' do
+          before { @attributes[:cover_image] = nil }
 
           it { expect(post.save).to be false }
         end
