@@ -1,0 +1,19 @@
+.is-borderless {
+  border: none;
+}
+
+a>.icon,
+.button_to {
+  $svg-size: 1rem;
+
+  svg {
+    width: $svg-size;
+    height: $svg-size;
+  }
+}
+
+.info-level-component {
+  .tag+.tag {
+    margin-left: 0.5rem;
+  }
+}

@@ -1,8 +1,41 @@
-<h1><%= @post.title %></h1>
+<%= link_to "< #{t('back')}", admin_posts_path %>
 
-<div class='content'>
+<%= render Bali::PageHeader::Component.new do |c| %>
+  <%= c.title(@post.title) %>
+
+  <%= c.right_panel do %>
+    <%= link_to icon_tag('edit-alt'), edit_admin_post_path(@post),
+      class: 'button is-small is-info is-light mr-4' %>
+    <%= button_to icon_tag('trash-alt', class: 'is-red'), admin_tag_path(tag),
+      method: :delete, form: { data: { 'turbo-confirm': t('.confirm') } },
+      class: 'button is-small is-danger is-light' %>
+  <% end %>
+<% end %>
+
+<%= render Bali::InfoLevel::Component.new do |c| %>
+  <%= c.item do |ci| %>
+    <%= ci.heading(t('activerecord.attributes.blogging/post.author_id')) %>
+    <%= ci.title(@post.author.name, class: 'title is-6') %>
+  <% end %>
+
+  <%= c.item do |ci| %>
+    <%= ci.heading(t('activerecord.attributes.blogging/post.status')) %>
+    <%= ci.title(@post.status, class: 'title is-6') %>
+  <% end %>
+
+  <%= c.item do |ci| %>
+    <%= ci.heading(t('activerecord.attributes.blogging/post.tag_ids')) %>
+    <% @post.tags.each do |tag| %>
+      <%= ci.title(tag.name, class: 'tag is-info is-light') %>
+    <% end %>
+  <% end %>
+
+  <%= c.item do |ci| %>
+    <%= ci.heading(t('activerecord.attributes.blogging/post.public_from')) %>
+    <%= ci.title(l(@post.public_from, format: :month_time), class: 'title is-6') if @post.public_from %>
+  <% end %>
+<% end %>
+
+<div class='content mt-6'>
   <%= @post.body %>
 </div>
-
-<p>Author</p>
-<p><%= @post.author.name %></p>

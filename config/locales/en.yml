@@ -6,6 +6,8 @@ en:
         body: Body
         tag_ids: Tags
         author_id: Author
+        status: Status
+        public_from: Public from
       blogging/tag:
         tag: Tag
     errors:
@@ -20,20 +22,25 @@ en:
   actions:
     new: New
     edit: Edit
+  back: Back
   blogging:
     admin:
       posts:
-        new:
+        form:
           submit: Save
-        edit:
-          submit: Save
+        index:
+          confirm: Are you sure?
+        show:
+          confirm: Are you sure?
       tags:
-        new:
-          submit: Save
-        edit:
+        form:
           submit: Save
   notice:
     created: was created successfully.
     destroyed: was deleted successfully.
     error: An error has ocurred.
     updated: was updated successfully.
+  time:
+    formats:
+      month_time: "%B %e at %I:%M %p"
+

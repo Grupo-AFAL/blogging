@@ -14,8 +14,11 @@ trix-editor {
   background-color: #ffffff;
 
   &.input {
+    $min-height: 15rem;
+
     display: block;
     height: auto;
+    min-height: $min-height;
   }
 }
 

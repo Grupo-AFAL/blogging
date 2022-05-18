@@ -15,7 +15,8 @@ module Blogging
           title: 'Title',
           body: 'Body',
           author: users(:user),
-          tag_ids: [blogging_tags(:fitness).id]
+          tag_ids: [blogging_tags(:fitness).id],
+          public_from: Time.zone.now
         }
       end
 
@@ -44,6 +45,12 @@ module Blogging
 
         context 'when missing tags' do
           before { @attributes[:tag_ids] = [] }
+
+          it { expect(post.save).to be false }
+        end
+
+        context 'when missing public_from' do
+          before { @attributes[:public_from] = nil }
 
           it { expect(post.save).to be false }
         end

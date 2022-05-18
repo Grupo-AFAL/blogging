@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Grupo-AFAL/bali-view-components.git
-  revision: a1321a3d0e828349495cf47720e157340814f5d6
+  revision: e43a829e081517dbded1a905a2202cfc42da9867
   branch: main
   specs:
     bali_view_components (0.1.0)
@@ -10,10 +10,10 @@ GIT
 
 GIT
   remote: https://github.com/Grupo-AFAL/frontend-helpers.git
-  revision: 4cab5270d9236193eb420039df362da289707a24
+  revision: bd3741406575baecf5aabe790b32f2d4ceb03b30
   branch: main
   specs:
-    frontend_helpers (0.5.25)
+    frontend_helpers (0.5.26)
       rails (> 6.1)
       ransack
 
@@ -277,7 +277,7 @@ GEM
     tzinfo-data (1.2022.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.1.0)
-    view_component (2.54.1)
+    view_component (2.55.0)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
     view_component-contrib (0.1.1)
