@@ -5,6 +5,7 @@ Blogging will help you easily add blog functionality to your Rails application.
 - Install `vips` (https://www.libvips.org/install.html)
 - `ActionText` must be configured (https://edgeguides.rubyonrails.org/action_text_overview.html)
 - A `Post` belongs to an `author`. So, host application must provide a model to use as an `author`. Default model is `User`.
+
 # Installation
 Add this line to your application's Gemfile:
 
@@ -119,7 +120,6 @@ module Blogging
   end
 end
 ```
-
 
 # License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
