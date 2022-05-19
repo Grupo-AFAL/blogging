@@ -39,3 +39,18 @@ a>.icon,
 .is-margin-auto {
   margin: auto;
 }
+
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+@media (max-width: 689px) {
+  .sticky {
+    position: fixed !important;
+    background: rgba(255,255,255,0.3);
+    padding: 0.5rem;
+    z-index: 1;
+  }
+}
