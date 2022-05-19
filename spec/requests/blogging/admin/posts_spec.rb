@@ -3,16 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Posts', type: :request do
-  fixtures 'blogging/posts', 'blogging/tags', :users, :mobility_string_translations,
-           :mobility_text_translations
+  fixtures 'blogging/posts', 'blogging/tags', 'action_text/rich_texts', :users,
+           :mobility_string_translations, :mobility_text_translations
 
   let(:blog_post) { blogging_posts(:published) }
+  let(:image) { fixture_file_upload('waldo.jpg', 'image/jpeg') }
 
   describe '#index' do
     it { expect(get(admin_posts_path)).to render_template(:index) }
   end
 
   describe '#show' do
+    before { attach_image(blog_post, :cover_image, 'waldo.jpg') }
+
     it { expect(get(admin_post_path(blog_post))).to render_template(:show) }
   end
 
@@ -27,7 +30,8 @@ RSpec.describe 'Admin Posts', type: :request do
         body: 'Body',
         author_id: users(:user).id,
         tag_ids: [blogging_tags(:fitness).id],
-        public_from: Time.zone.now
+        public_from: Time.zone.now,
+        cover_image: image
       } }
     end
 
@@ -92,7 +96,8 @@ RSpec.describe 'Admin Posts', type: :request do
         title: 'Title',
         body: 'Body',
         author_id: users(:user).id,
-        tag_ids: [blogging_tags(:fitness).id]
+        tag_ids: [blogging_tags(:fitness).id],
+        cover_image: image
       } }
     end
 
@@ -136,7 +141,17 @@ RSpec.describe 'Admin Posts', type: :request do
       end
 
       context 'when missing tags' do
-        before { @params[:post][:tag_ids] = [] }
+        before { @params = { post: { tag_ids: [] } } }
+
+        it 'is expected to have http status unprocessable entity' do
+          put admin_post_path(blog_post), params: @params
+
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context 'when missing cover image' do
+        before { @params[:post][:cover_image] = nil }
 
         it 'is expected to have http status unprocessable entity' do
           put admin_post_path(blog_post), params: @params

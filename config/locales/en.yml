@@ -8,6 +8,7 @@ en:
         author_id: Author
         status: Status
         public_from: Public from
+        cover_image: Cover image
       blogging/tag:
         tag: Tag
     errors:
@@ -41,6 +42,7 @@ en:
     destroyed: was deleted successfully.
     error: An error has ocurred.
     updated: was updated successfully.
+  not_authorized: Not authorized
   time:
     formats:
       month_time: "%B %e at %I:%M %p"
