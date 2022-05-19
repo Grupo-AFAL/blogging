@@ -1,8 +1,8 @@
 <%= link_to "< #{t('back')}", posts_path %>
 
-<%= render Bali::PageHeader::Component.new do |c| %>
-  <%= c.title(@post.title) %>
-<% end %>
+<div class="page-header-component mb-5">
+  <h1 class="title is-1 has-text-centered"><%= @post.title %></h1>
+</div>
 <%= render Bali::Columns::Component.new do |c| %>
   <%= c.column(class: 'is-one-fifth has-text-centered') do %>
     <div class="has-text-weight-bold is-size-6">
@@ -48,7 +48,7 @@
   <% end %>
   <%= c.column(class: 'is-four-fifths') do %>
     <figure class="image is-2by1">
-      <img src="https://bulma.io/images/placeholders/1280x960.png">
+      <%= image_tag main_app.url_for(@post.cover_image.variant(:xlarge)), class: 'is-full' %>
     </figure>
 
     <div class='content mt-6'>
