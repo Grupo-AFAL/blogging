@@ -7,7 +7,9 @@ module Blogging
     before_action :set_post, only: %i[show]
 
     def index
-      @pagy, @posts = pagy(Blogging::Post.with_rich_text_body_and_embeds.order("created_at DESC").all, items: 7)
+      @pagy, @posts = pagy(
+        Blogging::Post.with_rich_text_body_and_embeds.order('created_at DESC').all, items: 7
+      )
     end
 
     def show; end
