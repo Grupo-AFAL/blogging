@@ -8,7 +8,6 @@
 /spec/dummy/tmp/
 /spec/dummy/public/
 /node_modules
-/app/asssets/javascripts
 
 yarn-error.log
 yarn-debug.log*
