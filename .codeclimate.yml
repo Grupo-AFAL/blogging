@@ -16,3 +16,4 @@ plugins:
         javascript:
 exclude_patterns:
 - "app/assets/javascripts/**/*.js"
+- "spec/dummy"
