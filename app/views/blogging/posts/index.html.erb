@@ -5,7 +5,7 @@
   <% if @posts.length > 0 %>
     <%= render Bali::Columns::Component.new(class: ' is-multiline card-fit') do |c| %>
       <% @posts.each_with_index do |post, index| %>
-        <%= c.column(class: index == 0 && @pagy.page == 1 ? 'is-full' : 'is-full-mobile is-one-third') do %>
+        <%= c.column(class: index == 0 && @pagy.page == 1 && @posts.length > 3 ? 'is-full' : 'is-full-mobile is-one-third') do %>
           <div class="card">
             <%= link_to post_path(post), class: 'card-image' do %>
               <figure class="image is-2by1">
