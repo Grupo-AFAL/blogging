@@ -57,8 +57,16 @@
   <% end %>
 <% end %>
 
+<%= link_to icon_tag('instagram'), '#',
+    data: {
+      controller: 'popup-opener',
+      action: 'popup-opener#open',
+      'popup-opener-share-url-value': 'https://wa.me/?text='
+    },
+    class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+
 <script type="text/javascript">
-function openPopup(base, url) {
-  window.open(base + encodeURI(url), '_system', 'location=no,width=600,height=400');
-}
+  function openPopup(base, url) {
+    window.open(base + encodeURI(url), '_system', 'location=no,width=600,height=400');
+  }
 </script>
