@@ -6,39 +6,21 @@
     <%= render Bali::Columns::Component.new(class: ' is-multiline card-fit') do |c| %>
       <% @posts.each_with_index do |post, index| %>
         <%= c.column(class: index == 0 && @pagy.page == 1 && @posts.length > 3 ? 'is-full' : 'is-full-mobile is-one-third') do %>
-          <div class="card">
-            <%= link_to post_path(post), class: 'card-image' do %>
-              <figure class="image is-2by1">
-                <%= image_tag main_app.url_for(post.cover_image.variant(index == 0 && @pagy.page == 1 ? :large : :medium)), class: 'is-full' %>
-              </figure>
+          <%= render Bali::Card::Component.new(title: post.title, description: post.body.to_plain_text, image: main_app.url_for(post.cover_image.variant(index == 0 && @pagy.page == 1 ? :large : :medium)), link: post_path(post)) do |card| %>
+            <% card.media do %>
+              <% post.tags.each do |tag| %>
+                <%= link_to tag_path(tag) do %>
+                  <span class="tag is-info is-light"><%= tag.name %></span>
+                <% end %>
+              <% end %>
             <% end %>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <% post.tags.each do |tag| %>
-                    <%= link_to tag_path(tag) do %>
-                      <span class="tag is-info is-light"><%= tag.name %></span>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-
-              <div class="content">
-                <div class="has-text-weight-bold is-uppercase">
-                  <%= link_to post.title.truncate(50), post_path(post), class: 'has-text-dark' %>
-                </div>
-                <%= post.body.to_plain_text.truncate(100) %>
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="card-footer-item">
-                <time>
-                  <%= l(post.public_from, format: :compact) if post.public_from %>
-                </time>
-              </div>
-              <%= link_to t('actions.read'), post_path(post), class: 'card-footer-item' %>
-            </div>
-          </div>
+            <% card.footer_item do %>
+              <time>
+                <%= l(post.public_from, format: :compact) if post.public_from %>
+              </time>
+            <% end %>
+          <% end %>
+          
         <% end %>
       <% end %>
     <% end %>

@@ -26,22 +26,6 @@ a>.icon,
   height: $btn-square-size;
 }
 
-.card-fit .column {
-  .card {
-    >* {
-      overflow: hidden;
-    }
-
-    .card-content .content {
-      >div {
-        height: 3rem;
-      }
-
-      height: 6.25rem;
-    }
-  }
-}
-
 .is-margin-auto {
   margin: auto;
 }
