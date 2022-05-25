@@ -7,8 +7,15 @@ module Blogging
     before_action :set_post, only: %i[show]
 
     def index
+      leading_posts = 1
+      all_posts = Blogging::Post.with_rich_text_body_and_embeds.order('created_at DESC').published
+      if params[:page].to_i <= 1
+        @pagyl, @leader_posts = pagy(
+          all_posts, items: leading_posts
+        )
+      end
       @pagy, @posts = pagy(
-        Blogging::Post.with_rich_text_body_and_embeds.order('created_at DESC').all, items: 7
+        all_posts, items: 6, outset: leading_posts
       )
     end
 

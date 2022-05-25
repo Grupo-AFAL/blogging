@@ -21,6 +21,7 @@ en:
       blogging/post: Post
       blogging/tag: Tag
     no_rows: There are no posts to show here.
+    unpublished: This post is not available.
   actions:
     new: New
     edit: Edit
