@@ -3,11 +3,14 @@
 <% end %>
 <div class="container is-max-desktop">
   <% if @posts.length > 0 %>
-    <%= render Bali::Columns::Component.new(class: ' is-multiline card-fit') do |c| %>
+    <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
       <% if @pagy.page == 1 &&  @leader_posts.length > 0 %>
         <% @leader_posts.each do |leader| %>
           <%= c.column(class: @posts.length <= 2 ? 'is-full-mobile is-one-third' : 'is-full') do %>
-            <%= render Bali::Card::Component.new(title: leader.title, description: leader.body.to_plain_text, image: main_app.url_for(leader.cover_image.variant(:large)), link: post_path(leader)) do |card| %>
+            <%= render Bali::Card::Component.new(title: leader.title,
+                                                  description: leader.body.to_plain_text,
+                                                  image: main_app.url_for(leader.cover_image.variant(:large)),
+                                                  link: post_path(leader)) do |card| %>
               <% card.media do %>
                 <% leader.tags.each do |tag| %>
                   <%= link_to tag_path(tag) do %>
@@ -26,7 +29,11 @@
       <% end %>
       <% @posts.each_with_index do |post, index| %>
         <%= c.column(class: 'is-full-mobile is-one-third') do %>
-          <%= render Bali::Card::Component.new(title: post.title, description: post.body.to_plain_text, image: main_app.url_for(post.cover_image.variant(:medium)), link: post_path(post)) do |card| %>
+          <%= render Bali::Card::Component.new(title: post.title,
+                                                description: post.body.to_plain_text,
+                                                image: main_app.url_for(post.cover_image.variant(:medium)),
+                                                link: post_path(post),
+                                                class: 'card-fit') do |card| %>
             <% card.media do %>
               <% post.tags.each do |tag| %>
                 <%= link_to tag_path(tag) do %>
