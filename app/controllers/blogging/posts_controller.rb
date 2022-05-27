@@ -2,8 +2,6 @@
 
 module Blogging
   class PostsController < ApplicationController
-    before_action :set_tags, only: %i[index show]
-    before_action :set_authors, only: %i[show]
     before_action :set_post, only: %i[show]
 
     def index
@@ -19,20 +17,8 @@ module Blogging
 
     private
 
-    def set_tags
-      @tags = Blogging::Tag.all
-    end
-
-    def set_authors
-      @authors = Blogging.authors.call
-    end
-
     def set_post
       @post = Blogging::Post.friendly.find(params[:id])
-    end
-
-    def post_params
-      params.require(:post).permit(:title, :body, :author_id, :status, :public_from, tag_ids: [])
     end
   end
 end
