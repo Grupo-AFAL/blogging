@@ -3,10 +3,6 @@ import { Controller } from '@hotwired/stimulus'
 export class PopupOpenerController extends Controller {
   static values = { shareUrl: String }
 
-  connect () {
-    console.log('hello from popup opener')
-  }
-
   open (event) {
     event.preventDefault()
 
