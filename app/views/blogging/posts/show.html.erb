@@ -1,7 +1,9 @@
 <%= link_to "< #{t('back')}", posts_path %>
+
 <div class="page-header-component mb-5">
   <h1 class="title is-1 has-text-centered"><%= @post.title %></h1>
 </div>
+
 <%= render Bali::Columns::Component.new do |c| %>
   <%= c.column(class: 'is-one-fifth has-text-centered') do %>
     <div class="has-text-weight-bold is-size-6">
