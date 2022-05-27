@@ -20382,9 +20382,6 @@
 
   // app/javascript/blogging/popup_opener_controller.js
   var PopupOpenerController = class extends Controller {
-    connect() {
-      console.log("hello from popup opener");
-    }
     open(event) {
       event.preventDefault();
       const url = window.location.href;
