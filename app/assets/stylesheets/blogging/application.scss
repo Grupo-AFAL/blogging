@@ -32,10 +32,10 @@
 
 // Plugins defined in js-frontend-helpers
 //
-@import '../../../../node_modules/slim-select/dist/slimselect.min';
+@import 'slim-select/dist/slimselect.min';
 @import 'fe_slim_select_customizations';
 
-@import '../../../../node_modules/flatpickr/dist/flatpickr';
+@import 'flatpickr/dist/flatpickr';
 @import 'fe_flatpickr_customizations';
 
 // Engine styles
