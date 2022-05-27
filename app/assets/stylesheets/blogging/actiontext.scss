@@ -8,7 +8,7 @@
 // <action-text-attachment> element we wrap around attachments. Otherwise,
 // images in galleries will be squished by the max-width: 33%; rule.
 
-@import '../../../../node_modules/trix/dist/trix';
+@import 'trix/dist/trix';
 
 trix-editor {
   background-color: #ffffff;
