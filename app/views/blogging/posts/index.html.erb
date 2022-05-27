@@ -12,12 +12,8 @@
                 src: main_app.url_for(leader.cover_image.variant(:large)),
                 href: post_path(leader)
               ) %>
-              <% card.footer_item do %>
-                <%= tag.span(l(leader.public_from, format: :compact) ) %>
-              <% end %>
-              <% card.footer_item do %>
-                <%= link_to t('actions.read'), post_path(leader), class: 'card-footer-item' %>
-              <% end %>
+              <% card.footer_item { l(leader.public_from, format: :compact) } %>
+              <% card.footer_item(href: post_path(leader)) { t('actions.read') } %>
               <%= tag.div (link_to leader.title.truncate(90), post_path(leader), class: 'has-text-dark'), class: 'has-text-weight-bold is-uppercase card-title' %>
               <%= leader.body.to_plain_text.truncate(350) %>
             <% end %>
