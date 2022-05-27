@@ -66,10 +66,12 @@
       </div>
     </div>
   <% end %>
+
   <%= c.column(class: 'is-four-fifths') do %>
     <figure class="image is-2by1">
       <%= image_tag main_app.url_for(@post.cover_image.variant(:xlarge)), class: 'is-full' %>
     </figure>
+
     <div class='content mt-6'>
       <%= @post.body %>
     </div>
