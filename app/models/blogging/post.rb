@@ -30,7 +30,7 @@ module Blogging
 
     scope :ispublished, proc {
       where('public_from <= ?', Time.zone.now)
-        .where(:status => 'published')
+        .where(status: 'published')
     }
 
     scope :recent, proc { order('created_at DESC') }
