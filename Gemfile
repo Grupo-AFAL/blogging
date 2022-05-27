@@ -34,6 +34,7 @@ end
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'simplecov', require: false
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]

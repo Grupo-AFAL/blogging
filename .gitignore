@@ -8,4 +8,10 @@
 /spec/dummy/tmp/
 /spec/dummy/public/
 /node_modules
+
+yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+.env
+
 /coverage

@@ -1,5 +1,15 @@
-name: "Rails Tests"
-on: push
+name: Rails CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [main]
+    types: [ opened, reopened, synchronize, ready_for_review ]
+  workflow_call:
+    secrets:
+      CC_TEST_REPORTER_ID:
+        description: 'Code Climate Reporter ID for current repo'
+        required: false
 
 env:
   RAILS_ENV: test
@@ -7,6 +17,8 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
     services:
       postgres:
         image: postgres:13
@@ -52,5 +64,9 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
 
-      - name: Run tests
-        run: bundle exec rspec spec/
+      - name: Run Rspec & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: bundle exec rspec spec/
