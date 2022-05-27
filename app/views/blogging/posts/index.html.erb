@@ -12,8 +12,10 @@
                 src: main_app.url_for(leader.cover_image.variant(:large)),
                 href: post_path(leader)
               ) %>
+
               <% card.footer_item { l(leader.public_from, format: :compact) } %>
               <% card.footer_item(href: post_path(leader)) { t('actions.read') } %>
+
               <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
                 <%= link_to leader.title.truncate(90), post_path(leader), class: 'has-text-dark'%>
               <% end %>
@@ -22,6 +24,7 @@
           <% end %>
         <% end %>
       <% end %>
+
       <% @posts.each_with_index do |post, index| %>
         <%= c.column(class: 'is-full-mobile is-one-third') do %>
           <%= render Bali::Card::Component.new(class: 'card-fit') do |card| %>
@@ -29,12 +32,10 @@
               src: main_app.url_for(post.cover_image.variant(:large)),
               href: post_path(post)
             ) %>
-            <% card.footer_item do %>
-              <%= tag.span(l(post.public_from, format: :compact) ) %>
-            <% end %>
-            <% card.footer_item do %>
-              <%= link_to t('actions.read'), post_path(post), class: 'card-footer-item' %>
-            <% end %>
+
+            <% card.footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
+            <% card.footer_item { link_to t('actions.read'), post_path(post), class: 'card-footer-item' } %>
+            
             <%= tag.div (link_to post.title.truncate(40), post_path(post), class: 'has-text-dark'), class: 'has-text-weight-bold is-uppercase card-title' %>
             <%= post.body.to_plain_text.truncate(90) %>
           <% end %>
@@ -48,5 +49,6 @@
       </div>
     </p>
   <% end %>
+  
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
