@@ -1,6 +1,7 @@
 <%= render Bali::PageHeader::Component.new do |c| %>
   <%= c.title(t('activerecord.models.blogging/post').pluralize) %>
 <% end %>
+
 <div class="container is-max-desktop">
   <% if @posts.size.positive? %>
     <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
