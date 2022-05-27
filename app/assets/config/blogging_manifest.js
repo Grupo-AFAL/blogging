@@ -1,3 +1,3 @@
-//= link_directory ../stylesheets/blogging .css
+//= link_directory ../stylesheets/blogging .scss
 //= link blogging/application.js
 //= link blogging/application.js.map
