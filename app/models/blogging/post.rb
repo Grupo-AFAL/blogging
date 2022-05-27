@@ -28,6 +28,13 @@ module Blogging
     validates :tag_ids, length: { minimum: 1 }
     validate :title_uniqueness
 
+    scope :ispublished, proc {
+      where('public_from <= ?', Time.zone.now)
+        .where(:status => 'published')
+    }
+
+    scope :recent, proc { order('created_at DESC') }
+
     def self.available_title?(title)
       Blogging::Post.i18n.find_by(title: title).blank?
     end

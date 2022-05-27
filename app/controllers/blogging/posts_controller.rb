@@ -6,7 +6,7 @@ module Blogging
 
     def index
       leading_posts = 1
-      all_posts = Blogging::Post.with_rich_text_body_and_embeds.order('created_at DESC').published
+      all_posts = Blogging::Post.with_rich_text_body_and_embeds.recent.ispublished
       @leader_posts = all_posts.limit(leading_posts)
       @pagy, @posts = pagy(
         all_posts, items: 6, outset: leading_posts
