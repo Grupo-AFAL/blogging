@@ -30,7 +30,7 @@ module Blogging
 
     scope :published_now, -> { where('public_from <= ?', Time.zone.now).published }
 
-    scope :recent, proc { order('created_at DESC') }
+    scope :descending, -> { order('created_at DESC') }
 
     def self.available_title?(title)
       Blogging::Post.i18n.find_by(title: title).blank?
