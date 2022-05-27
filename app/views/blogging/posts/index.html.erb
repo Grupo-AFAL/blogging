@@ -6,7 +6,7 @@
     <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
       <% if @pagy.page == 1 &&  @leader_posts.length > 0 %>
         <% @leader_posts.each do |leader| %>
-          <%= c.column(class: @posts.length <= 2 ? 'is-full-mobile is-one-third' : 'is-full') do %>
+          <%= c.column(class: @posts.size <= 2 ? 'is-full-mobile is-one-third' : 'is-full') do %>
             <%= render Bali::Card::Component.new do |card| %>
               <% card.image(
                 src: main_app.url_for(leader.cover_image.variant(:large)),
