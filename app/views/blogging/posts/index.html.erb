@@ -4,7 +4,7 @@
 <div class="container is-max-desktop">
   <% if @posts.size.positive? %>
     <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
-      <% if @pagy.page == 1 && !@leader_posts.size.zero? %>
+      <% if @pagy.page == 1 && @leader_posts.size.positive? %>
         <% @leader_posts.each do |leader| %>
           <%= c.column(class: 'is-full') do %>
             <%= render Bali::Card::Component.new do |card| %>
