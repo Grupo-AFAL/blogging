@@ -10,9 +10,8 @@
           <%= c.column(class: 'is-full') do %>
             <%= render Bali::Card::Component.new do |card| %>
               <% card.image(
-                src: main_app.url_for(leader.cover_image.variant(:large)),
-                href: post_path(leader)
-              ) %>
+                 src: main_app.url_for(leader.cover_image.variant(:large)),
+                 href: post_path(leader)) %>
 
               <% card.footer_item { l(leader.public_from, format: :compact) } %>
               <% card.footer_item(href: post_path(leader)) { t('actions.read') } %>
