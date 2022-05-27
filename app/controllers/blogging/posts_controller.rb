@@ -18,7 +18,7 @@ module Blogging
     private
 
     def set_post
-      @post = Blogging::Post.friendly.find(params[:id])
+      @post = Blogging::Post.published.friendly.find(params[:id])
     end
   end
 end
