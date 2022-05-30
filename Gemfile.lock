@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/Grupo-AFAL/bali-view-components.git
-  revision: 4f461cf29a97cc6ab3d68177e7b0928e282b681c
-  branch: card-component
+  revision: 3bdefd32b571555496f4e27cf0f83a7c51d59d18
+  branch: main
   specs:
     bali_view_components (0.1.0)
       rails (>= 7.0.2.3)
