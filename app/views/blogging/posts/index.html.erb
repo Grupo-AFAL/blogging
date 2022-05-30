@@ -29,12 +29,12 @@
         <%= c.column(class: 'is-full-mobile is-one-third') do %>
           <%= render Bali::Card::Component.new(class: 'card-fit') do |card| %>
             <% card.image(
-               src: main_app.url_for(post.cover_image.variant(:large)),
+               src: main_app.url_for(post.cover_image.variant(:medium)),
                href: post_path(post)) %>
 
             <% card.footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
             <% card.footer_item { link_to t('actions.read'), post_path(post) } %>
-            
+
             <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
               <%= link_to post.title.truncate(40), post_path(post), class: 'has-text-dark' %>
             <% end %>
@@ -50,6 +50,6 @@
       </div>
     </p>
   <% end %>
-  
+
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
