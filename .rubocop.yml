@@ -95,3 +95,6 @@ Style/RedundantBegin:
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: either
+
+Style/EndOfLine:
+  EnforcedStyle: lf

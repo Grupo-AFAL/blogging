@@ -11,7 +11,9 @@ module Blogging
     friendly_id :title, use: %i[history mobility]
 
     has_one_attached :cover_image do |attachable|
-      attachable.variant :large, resize_to_limit: [700, 370]
+      attachable.variant :original, resize_to_limit: [960, 0]
+      attachable.variant :large, resize_to_limit: [960, 480]
+      attachable.variant :medium, resize_to_limit: [400, 200]
     end
 
     belongs_to :author, class_name: Blogging.author_class.to_s
@@ -25,6 +27,10 @@ module Blogging
     validates :title, :body, :public_from, :cover_image, presence: true
     validates :tag_ids, length: { minimum: 1 }
     validate :title_uniqueness
+
+    scope :published_now, -> { where('public_from <= ?', Time.zone.now).published }
+
+    scope :descending, -> { order('created_at DESC') }
 
     def self.available_title?(title)
       Blogging::Post.i18n.find_by(title: title).blank?

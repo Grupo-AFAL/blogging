@@ -20380,6 +20380,16 @@
   };
   __publicField(ModalController, "targets", ["template", "background", "wrapper", "content", "closeBtn"]);
 
+  // app/javascript/blogging/popup_opener_controller.js
+  var PopupOpenerController = class extends Controller {
+    open(event) {
+      event.preventDefault();
+      const url = window.location.href;
+      window.open(this.shareUrlValue + encodeURI(url), "_system", "location=no,width=600,height=400");
+    }
+  };
+  __publicField(PopupOpenerController, "values", { shareUrl: String });
+
   // app/javascript/blogging/application.js
   require_trix_umd();
   init_actiontext();
@@ -20389,5 +20399,6 @@
   application.register("slim-select", SlimSelectController);
   application.register("submit-button", SubmitButtonController);
   application.register("datepicker", DatepickerController);
+  application.register("popup-opener", PopupOpenerController);
 })();
 //# sourceMappingURL=application.js.map

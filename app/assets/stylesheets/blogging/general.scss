@@ -18,6 +18,31 @@ a>.icon,
   }
 }
 
+
+.is-square {
+  $btn-square-size: 2.25rem;
+
+  width: $btn-square-size;
+  height: $btn-square-size;
+}
+
 .is-margin-auto {
   margin: auto;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+@include mobile {
+  $bg-transparent: rgba(255,255,255,0.3);
+  .sticky {
+    position: fixed !important;
+    background: $bg-transparent;
+    padding: 0.5rem;
+    top: 20%;
+    left: 0;
+    z-index: 1;
+  }
 }

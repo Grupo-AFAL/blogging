@@ -20,9 +20,12 @@ en:
     models:
       blogging/post: Post
       blogging/tag: Tag
+    no_rows: There are no posts to show here.
+    unpublished: This post is not available.
   actions:
     new: New
     edit: Edit
+    read: Read post
   back: Back
   blogging:
     admin:
@@ -45,4 +48,4 @@ en:
   time:
     formats:
       month_time: "%B %e at %I:%M %p"
-
+      compact: "%Y-%b-%d"
