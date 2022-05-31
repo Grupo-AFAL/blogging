@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="container is-max-desktop">
-  <% if @posts.size.positive? %>
+  <% if @posts.size.positive? || @leader_posts.size.positive? %>
     <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
       <% if @pagy.page == 1 && @leader_posts.size.positive? %>
         <% @leader_posts.each do |leader| %>
@@ -45,9 +45,8 @@
     <% end %>
   <% else %>
     <p class="has-text-centered">
-      <div class="notification is-primary">
-        <%= t('activerecord.no_rows') %>
-      </div>
+      <%= image_tag 'svg/icons/list-alt.svg' %><br>
+      <%= t('activerecord.no_rows') %>
     </p>
   <% end %>
 
