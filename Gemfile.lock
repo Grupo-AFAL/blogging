@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Grupo-AFAL/bali-view-components.git
-  revision: 3bdefd32b571555496f4e27cf0f83a7c51d59d18
+  revision: cf43ca2e055f5713d73d2a74a40755dd5a4de7d0
   branch: main
   specs:
     bali_view_components (0.1.0)
@@ -179,7 +179,7 @@ GEM
     pundit (2.2.0)
       activesupport (>= 3.0.0)
     racc (1.6.0)
-    rack (2.2.3)
+    rack (2.2.3.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (7.0.3)
