@@ -2,7 +2,7 @@
 
 module Blogging
   module Admin
-    class BaseController < ApplicationController
+    class BaseController < Blogging.parent_admin_controller.constantize
       include Pundit::Authorization
 
       after_action :verify_authorized
