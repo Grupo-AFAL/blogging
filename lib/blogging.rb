@@ -14,7 +14,6 @@ module Blogging
   mattr_accessor :parent_controller, default: 'ActionController::Base'
   mattr_accessor :parent_admin_controller, default: 'Blogging::ApplicationController'
 
-
   # provide hook to configure attributes
   def self.config
     yield(self)
