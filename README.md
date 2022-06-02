@@ -53,6 +53,9 @@ Blogging.config do |config|
   # Configure parent controllers
   config.parent_controller = 'ApplicationController'
   config.parent_admin_controller = 'Admin::BaseController'
+
+  # Configure public layout
+  config.public_layout = 'blog'
 end
 ```
 
