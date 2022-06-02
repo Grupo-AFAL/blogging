@@ -51,6 +51,15 @@ Blogging.config do |config|
 end
 ```
 
+# Configure Parent Controllers
+Add an initializer to your Rails application, i.e. `config/initializers/blogging.rb`
+```ruby
+Blogging.config do |config|
+  config.parent_controller = 'ApplicationController'
+  config.parent_admin_controller = 'Admin::BaseController'
+end
+```
+
 # Overwrite admin controllers permissions
 - Create `app/policies/blogging/post_policy.rb`
 - Then add your own rules:
