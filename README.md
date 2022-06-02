@@ -4,6 +4,9 @@ Blogging will help you easily add blog functionality to your Rails application.
 # Prerequisites
 - Install `vips` (https://www.libvips.org/install.html)
 - `ActionText` must be configured (https://edgeguides.rubyonrails.org/action_text_overview.html)
+- `Mobility` (https://github.com/shioyama/mobility) 
+- `Friendly Id` (https://github.com/norman/friendly_id/)
+- `Friendly Id mobility` (https://github.com/shioyama/friendly_id-mobility)
 - A `Post` belongs to an `author`. So, host application must provide a model to use as an `author`. Default model is `User`.
 
 # Installation
