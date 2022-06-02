@@ -11,6 +11,7 @@ en:
         cover_image: Cover image
       blogging/tag:
         tag: Tag
+        name: Name
     errors:
       models:
         blogging/post:
@@ -47,5 +48,5 @@ en:
   not_authorized: Not authorized
   time:
     formats:
-      month_time: "%B %e at %I:%M %p"
-      compact: "%Y-%b-%d"
+      month_time: '%B %e at %I:%M %p'
+      compact: '%Y-%b-%d'
