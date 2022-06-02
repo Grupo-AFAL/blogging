@@ -41,20 +41,16 @@ Add this line to your applications's routes file (`routes.rb`):
 mount Blogging::Engine => '/blog'
 ```
 
-# Configure Author model
+# Blogging configuration
 Add an initializer to your Rails application, i.e. `config/initializers/blogging.rb`
 ```ruby
 Blogging.config do |config|
+  # Configure author model
   config.author_class = 'Person'
   config.authors = -> { Person.all }
   config.author_name = lambda { |author| author.name }
-end
-```
 
-# Configure Parent Controllers
-Add an initializer to your Rails application, i.e. `config/initializers/blogging.rb`
-```ruby
-Blogging.config do |config|
+  # Configure parent controllers
   config.parent_controller = 'ApplicationController'
   config.parent_admin_controller = 'Admin::BaseController'
 end
