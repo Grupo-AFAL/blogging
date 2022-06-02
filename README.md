@@ -4,6 +4,9 @@ Blogging will help you easily add blog functionality to your Rails application.
 # Prerequisites
 - Install `vips` (https://www.libvips.org/install.html)
 - `ActionText` must be configured (https://edgeguides.rubyonrails.org/action_text_overview.html)
+- `Mobility` (https://github.com/shioyama/mobility) 
+- `Friendly Id` (https://github.com/norman/friendly_id/)
+- `Friendly Id mobility` (https://github.com/shioyama/friendly_id-mobility)
 - A `Post` belongs to an `author`. So, host application must provide a model to use as an `author`. Default model is `User`.
 
 # Installation
@@ -38,13 +41,21 @@ Add this line to your applications's routes file (`routes.rb`):
 mount Blogging::Engine => '/blog'
 ```
 
-# Configure Author model
+# Blogging configuration
 Add an initializer to your Rails application, i.e. `config/initializers/blogging.rb`
 ```ruby
 Blogging.config do |config|
+  # Configure author model
   config.author_class = 'Person'
   config.authors = -> { Person.all }
   config.author_name = lambda { |author| author.name }
+
+  # Configure parent controllers
+  config.parent_controller = 'ApplicationController'
+  config.parent_admin_controller = 'Admin::BaseController'
+
+  # Configure public layout
+  config.public_layout = 'blog'
 end
 ```
 

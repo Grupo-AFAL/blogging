@@ -11,6 +11,11 @@ module Blogging
   mattr_accessor :authors, default: -> { User.all }
   mattr_accessor :author_name, default: lambda { |author| author.name }
 
+  mattr_accessor :parent_controller, default: 'ActionController::Base'
+  mattr_accessor :parent_admin_controller, default: 'Blogging::ApplicationController'
+
+  mattr_accessor :public_layout, default: 'layouts/blogging/application'
+
   # provide hook to configure attributes
   def self.config
     yield(self)
