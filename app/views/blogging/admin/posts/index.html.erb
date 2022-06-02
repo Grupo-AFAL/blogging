@@ -3,7 +3,7 @@
   <%= c.right_panel do %>
     <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path,
       class: 'button is-primary mr-4' %>
-    <%= link_to 'Add Tag', new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
+    <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/tag')}", new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
   <% end %>
 <% end %>
 
@@ -12,11 +12,11 @@
     <div class="box">
       <%= render Bali::Table::Component.new do |table_component| %>
         <%= table_component.headers([
-          { name: 'Name'},
-          { name: 'Body'},
-          { name: 'Author'},
-          { name: 'Status'},
-          { name: 'Public From'},
+          { name: t('activerecord.attributes.blogging/post.title')},
+          { name: t('activerecord.attributes.blogging/post.body')},
+          { name: t('activerecord.attributes.blogging/post.author_id')},
+          { name: t('activerecord.attributes.blogging/post.status')},
+          { name: t('activerecord.attributes.blogging/post.public_from')},
           {},
           {}
         ]) %>
@@ -48,7 +48,7 @@
   <%= c.column(class: 'is-one-quarters') do %>
     <%= render Bali::Table::Component.new do |table_component| %>
       <%= table_component.headers([
-        { name: 'Name'},
+        { name: t('activerecord.attributes.blogging/tag.tag')},
         {},
         {}
       ]) %>
