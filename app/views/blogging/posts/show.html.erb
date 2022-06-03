@@ -17,9 +17,7 @@
 
     <div>
       <% @post.tags.each do |tag| %>
-        <%= link_to tag_path(tag) do %>
-          <span class="tag is-info is-light"><%= tag.name %></span>
-        <% end %>
+        <span class="tag is-info is-light"><%= tag.name %></span>
       <% end %>
     </div>
 
