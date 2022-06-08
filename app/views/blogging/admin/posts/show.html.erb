@@ -1,15 +1,13 @@
 <%= link_to "< #{t('back')}", admin_posts_path %>
 
 <%= render Bali::PageHeader::Component.new do |c| %>
-  <%= c.title(@post.title) %>
+  <% c.title(@post.title) %>
 
-  <%= c.right_panel do %>
-    <%= link_to icon_tag('edit-alt'), edit_admin_post_path(@post),
-      class: 'button is-small is-info is-light mr-4' %>
-    <%= button_to icon_tag('trash-alt', class: 'is-red'), admin_tag_path(tag),
-      method: :delete, form: { data: { 'turbo-confirm': t('.confirm') } },
-      class: 'button is-small is-danger is-light' %>
-  <% end %>
+  <%= link_to icon_tag('edit-alt'), edit_admin_post_path(@post),
+    class: 'button is-small is-info is-light mr-4' %>
+  <%= button_to icon_tag('trash-alt', class: 'is-red'), admin_tag_path(tag),
+    method: :delete, form: { data: { 'turbo-confirm': t('.confirm') } },
+    class: 'button is-small is-danger is-light' %>
 <% end %>
 
 <%= render Bali::InfoLevel::Component.new do |c| %>
