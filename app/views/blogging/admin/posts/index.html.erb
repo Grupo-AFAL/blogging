@@ -1,9 +1,13 @@
-<%= render Bali::PageHeader::Component.new do |c| %>
-  <%= c.title(t('activerecord.models.blogging/post').pluralize) %>
-  <%= c.right_panel do %>
-    <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path,
-      class: 'button is-primary mr-4' %>
-    <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/tag')}", new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
+<%= render Bali::Columns::Component.new do |c| %>
+  <%= c.column(class: 'is-two-thirds') do %>
+    <%= tag.h1(t('activerecord.models.blogging/post').pluralize, class: 'title is-1')%>
+  <% end %>
+  <%= c.column(class: 'is-one-third') do %>
+    <%= render Bali::PageHeader::Component.new do |h| %>
+      <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path,
+        class: 'button is-primary mr-4' %>
+      <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/tag')}", new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
+    <% end %>
   <% end %>
 <% end %>
 
