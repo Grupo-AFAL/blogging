@@ -1,4 +1,11 @@
 {
+  "name": "blogging",
+  "version": "0.0.1",
+  "description": "Blogging",
+  "main": "app/javascript/blogging/index.js",
+  "repository": "git@github.com:Grupo-AFAL/blogging.git",
+  "license": "MIT",
+  "private": false,
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.1.1",
@@ -11,6 +18,6 @@
     "trix": "^2.0.0-beta.0"
   },
   "scripts": {
-    "build": "esbuild app/javascript/blogging/application.js --bundle --sourcemap --outdir=app/assets/javascripts/blogging"
+    "build": "esbuild app/javascript/blogging/packs/application.js --bundle --sourcemap --outdir=app/assets/javascripts/blogging"
   }
 }
