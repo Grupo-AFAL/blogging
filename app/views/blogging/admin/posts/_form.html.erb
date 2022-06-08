@@ -1,7 +1,9 @@
 <%= form_with(model: model, url: url, method: method) do |form| %>
-  <%= render Bali::PageHeader::Component.new do |c| %>
-    <%= c.title(title) %>
-    <%= c.right_panel do %>
+  <%= render Bali::Columns::Component.new do |c| %>
+    <%= c.column(class: 'is-four-fifths') do %>
+      <%= tag.h1(title, class: 'title is-1') %>
+    <% end %>
+    <%= c.column(class: 'is-one-fifth has-text-right') do %>
       <%= form.submit t('.submit') %>
     <% end %>
   <% end %>
