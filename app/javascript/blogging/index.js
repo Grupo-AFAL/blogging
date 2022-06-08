@@ -1,2 +1,2 @@
-export { PopupOpenerController } from './controllers/popup_opener_controller'
+export { PopupOpenerController } from './popup_opener_controller'
 
