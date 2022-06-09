@@ -46,3 +46,7 @@ a>.icon,
     z-index: 1;
   }
 }
+
+.is-max-tablet {
+  max-width: $tablet !important;
+}
