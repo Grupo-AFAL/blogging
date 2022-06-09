@@ -6,6 +6,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= yield :head %>
+
     <%= stylesheet_link_tag    "blogging/application", media: "all" %>
     <%= javascript_include_tag "blogging/application", "data-turbo-track": "reload", defer: true %>
   </head>
