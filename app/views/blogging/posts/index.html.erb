@@ -2,7 +2,7 @@
   <% c.title(t('activerecord.models.blogging/post').pluralize) %>
 <% end %>
 
-<div class="container is-max-desktop">
+<div class="container is-max-tablet">
   <% if @posts.size.positive? || @leader_posts.size.positive? %>
     <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
       <% if @pagy.page == 1 && @leader_posts.size.positive? %>
