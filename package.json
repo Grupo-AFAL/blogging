@@ -1,4 +1,11 @@
 {
+  "name": "blogging",
+  "version": "0.0.1",
+  "description": "Blogging",
+  "main": "app/javascript/blogging/index.js",
+  "repository": "git@github.com:Grupo-AFAL/blogging.git",
+  "license": "MIT",
+  "private": false,
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.1.1",
