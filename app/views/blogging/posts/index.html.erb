@@ -4,41 +4,43 @@
 
 <div class="container is-max-desktop">
   <% if @posts.size.positive? || @leader_posts.size.positive? %>
-    <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
-      <% if @pagy.page == 1 && @leader_posts.size.positive? %>
-        <% @leader_posts.each do |leader| %>
-          <%= c.column(class: 'is-full') do %>
-            <%= render Bali::Card::Component.new do |card| %>
-              <% card.image(
-                 src: main_app.url_for(leader.cover_image.variant(:large)),
-                 href: post_path(leader)) %>
+    <%= cache [@leader, @posts] do %>
+      <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
+        <% if @pagy.page == 1 && @leader_posts.size.positive? %>
+          <% @leader_posts.each do |leader| %>
+            <%= c.column(class: 'is-full') do %>
+              <%= render Bali::Card::Component.new do |card| %>
+                <% card.image(
+                  src: main_app.url_for(leader.cover_image.variant(:large)),
+                  href: post_path(leader)) %>
 
-              <% card.footer_item { l(leader.public_from, format: :compact) } %>
-              <% card.footer_item(href: post_path(leader)) { t('actions.read') } %>
+                <% card.footer_item { l(leader.public_from, format: :compact) } %>
+                <% card.footer_item(href: post_path(leader)) { t('actions.read') } %>
 
-              <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
-                <%= link_to leader.title.truncate(90), post_path(leader), class: 'has-text-dark'%>
+                <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
+                  <%= link_to leader.title.truncate(90), post_path(leader), class: 'has-text-dark'%>
+                <% end %>
+                <%= leader.body.to_plain_text.truncate(350) %>
               <% end %>
-              <%= leader.body.to_plain_text.truncate(350) %>
             <% end %>
           <% end %>
         <% end %>
-      <% end %>
 
-      <% @posts.each_with_index do |post, index| %>
-        <%= c.column(class: 'is-full-mobile is-one-third') do %>
-          <%= render Bali::Card::Component.new(class: 'card-fit') do |card| %>
-            <% card.image(
-               src: main_app.url_for(post.cover_image.variant(:medium)),
-               href: post_path(post)) %>
+        <% @posts.each_with_index do |post, index| %>
+          <%= c.column(class: 'is-full-mobile is-one-third') do %>
+            <%= render Bali::Card::Component.new(class: 'card-fit') do |card| %>
+              <% card.image(
+                src: main_app.url_for(post.cover_image.variant(:medium)),
+                href: post_path(post)) %>
 
-            <% card.footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
-            <% card.footer_item { link_to t('actions.read'), post_path(post) } %>
+              <% card.footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
+              <% card.footer_item { link_to t('actions.read'), post_path(post) } %>
 
-            <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
-              <%= link_to post.title.truncate(40), post_path(post), class: 'has-text-dark' %>
+              <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
+                <%= link_to post.title.truncate(40), post_path(post), class: 'has-text-dark' %>
+              <% end %>
+              <%= post.body.to_plain_text.truncate(90) %>
             <% end %>
-            <%= post.body.to_plain_text.truncate(90) %>
           <% end %>
         <% end %>
       <% end %>
