@@ -8,7 +8,7 @@
   "private": false,
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
-    "@hotwired/turbo-rails": "^7.1.1",
+    "@hotwired/turbo-rails": "^7.x.x",
     "@rails/actiontext": "^6.0.5",
     "bali-view-components": "https://github.com/Grupo-AFAL/bali-view-components.git",
     "esbuild": "^0.14.28",
