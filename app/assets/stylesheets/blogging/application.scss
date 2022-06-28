@@ -21,14 +21,14 @@
 //
 @import 'fe_variables';
 @import 'fe_disappear_animations';
-@import 'fe_icons';
-@import 'fe_notification';
 @import 'fe_switch';
 
 // Bali View Components styles
 //
-@import 'bali/modal/index';
 @import 'bali/card/index';
+@import 'bali/icon/index';
+@import 'bali/modal/index';
+@import 'bali/notification/index';
 
 // Plugins defined in js-frontend-helpers
 //

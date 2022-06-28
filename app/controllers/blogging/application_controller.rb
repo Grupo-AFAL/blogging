@@ -2,10 +2,10 @@
 
 module Blogging
   class ApplicationController < Blogging.parent_controller.constantize
-    include FrontendHelpers::LayoutConcern
+    include Bali::LayoutConcern
     include Pagy::Backend
 
-    layout Blogging.public_layout.to_s
+    layout Blogging.public_layout if Blogging.public_layout
 
     default_form_builder FrontendHelpers::FormBuilder
   end

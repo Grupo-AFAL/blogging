@@ -4,12 +4,14 @@ import { Application } from '@hotwired/stimulus'
 
 import {
   DatepickerController,
-  NotificationController,
   SlimSelectController,
   SubmitButtonController
 } from 'frontend-helpers'
 
-import { ModalController } from 'bali-view-components'
+import {
+  ModalController,
+  NotificationController
+} from 'bali-view-components'
 
 import { PopupOpenerController } from './popup_opener_controller'
 

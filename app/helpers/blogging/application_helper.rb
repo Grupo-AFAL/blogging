@@ -2,7 +2,10 @@
 
 module Blogging
   module ApplicationHelper
-    include FrontendHelpers::Components
     include Pagy::Frontend
+
+    def icon_tag(icon, **options)
+      render Bali::Icon::Component.new(icon, **options)
+    end
   end
 end
