@@ -17,11 +17,9 @@
 //
 @import 'bulma';
 
-// Frontend Helpers styles
+// Bali styles
 //
-@import 'fe_variables';
-@import 'fe_disappear_animations';
-@import 'fe_switch';
+@import 'bali/variables';
 
 // Bali View Components styles
 //
@@ -33,10 +31,10 @@
 // Plugins defined in js-frontend-helpers
 //
 @import 'slim-select/dist/slimselect.min';
-@import 'fe_slim_select_customizations';
+@import 'bali/slim_select_customizations';
 
 @import 'flatpickr/dist/flatpickr';
-@import 'fe_flatpickr_customizations';
+@import 'bali/flatpickr_customizations';
 
 // Engine styles
 //
