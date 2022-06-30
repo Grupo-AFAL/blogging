@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/Grupo-AFAL/bali-view-components.git
-  revision: f8ad8f34613b92ae4b05d794c1c4fdb0cddec469
-  branch: main
+  revision: 6618db8bfbdecee198e720a0243606374224e36e
+  branch: revert-dummy-filter-form
   specs:
-    bali_view_components (0.16.0)
+    bali_view_components (0.17.0)
       rails (>= 7.0.2.3)
       ransack
       view_component (>= 2.0.0, < 3.0)
