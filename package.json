@@ -7,14 +7,14 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "@hotwired/stimulus": "^3.0.1",
-    "@hotwired/turbo-rails": "^7.x.x",
-    "@rails/actiontext": "^6.0.5",
+    "@hotwired/stimulus": "^3.0.0",
+    "@hotwired/turbo-rails": "^7.1.0",
+    "@rails/actiontext": "^7.0.0",
     "bali-view-components": "https://github.com/Grupo-AFAL/bali-view-components.git",
     "esbuild": "^0.14.28",
     "flatpickr": "^4.6.13",
     "slim-select": "^1.27.1",
-    "trix": "^2.0.0-beta.0"
+    "trix": "^1.0.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/blogging/application.js --bundle --sourcemap --outdir=app/assets/javascripts/blogging"
