@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@glidejs/glide@^3.5.2":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@glidejs/glide/-/glide-3.5.2.tgz#7012c5920ecf202bbda44d8526fc979984b6dd54"
+  integrity sha512-7jGciNJ2bQ4eZLSNlSZ+VAyW63kALf420CvkEpK4lEsUfWJq9odqimci0YCiyNyMUFB+pWHwLYyNc57dijYsCg==
+
 "@hotwired/stimulus@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.0.1.tgz#141f15645acaa3b133b7c247cad58ae252ffae85"
@@ -50,9 +55,10 @@
   integrity sha512-dfFWaQXitYJ4kxrgGJNhDNXX54/v10YgoJqBMVe6lhqs6a4N9WD7goZJEvwin82TtK8MqUNhwfyisgKwM6dMdg==
 
 "bali-view-components@https://github.com/Grupo-AFAL/bali-view-components.git":
-  version "0.16.0"
-  resolved "https://github.com/Grupo-AFAL/bali-view-components.git#f8ad8f34613b92ae4b05d794c1c4fdb0cddec469"
+  version "0.25.0"
+  resolved "https://github.com/Grupo-AFAL/bali-view-components.git#a95e1323dffbf1eb58532767385f97143babe0e9"
   dependencies:
+    "@glidejs/glide" "^3.5.2"
     "@hotwired/stimulus" "^3.0.1"
     "@popperjs/core" "^2.11.5"
     "@rails/request.js" "^0.0.6"
@@ -61,6 +67,7 @@
     lodash.debounce "^4.0.8"
     lodash.throttle "^4.1.1"
     slim-select "^1.27.1"
+    sortablejs "^1.15.0"
     stimulus-chartjs "^4.0.0"
     tippy.js "^6.3.7"
 
@@ -214,6 +221,11 @@ slim-select@^1.27.1:
   version "1.27.1"
   resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-1.27.1.tgz#aab08c1f0428fc2c32b0376857f3da9b1fbdcb2f"
   integrity sha512-LvJ02cKKk6/jSHIcQv7dZwkQSXHLCVQR3v3lo8RJUssUUcmKPkpBmTpQ8au8KSMkxwca9+yeg+dO0iHAaVr5Aw==
+
+sortablejs@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.0.tgz#53230b8aa3502bb77a29e2005808ffdb4a5f7e2a"
+  integrity sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==
 
 spark-md5@^3.0.0:
   version "3.0.2"
