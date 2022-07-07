@@ -8,6 +8,8 @@ gemspec
 
 gem 'pg'
 
+gem 'flaming_os', github: 'Grupo-AFAL/flamingOS', branch: 'main'
+
 gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'main'
 # gem 'bali_view_components', path: ENV['BALI_VIEW_COMPONENTS_PATH']
 gem 'bulma-rails', '~> 0.9.3'

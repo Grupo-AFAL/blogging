@@ -9,6 +9,15 @@ GIT
       view_component (>= 2.0.0, < 3.0)
       view_component-contrib
 
+GIT
+  remote: https://github.com/Grupo-AFAL/flamingOS.git
+  revision: 9d6ec70f69913e06fdf42d9ec7987be0b60d5670
+  branch: main
+  specs:
+    flaming_os (0.1.0)
+      rails (>= 7.0.3)
+      turbo-rails (>= 1.0.1)
+
 PATH
   remote: .
   specs:
@@ -310,6 +319,7 @@ DEPENDENCIES
   blogging!
   bulma-rails (~> 0.9.3)
   debug (>= 1.0.0)
+  flaming_os!
   friendly_id (~> 5.4.0)
   friendly_id-mobility (~> 1.0.3)
   image_processing (~> 1.2)
