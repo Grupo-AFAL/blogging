@@ -18,23 +18,47 @@ module Blogging
 
     belongs_to :author, class_name: Blogging.author_class.to_s
 
+    has_many :statuses, class_name: 'Blogging::PostStatus',
+                        foreign_key: :blogging_post_id,
+                        inverse_of: :post,
+                        dependent: :destroy
+
     has_and_belongs_to_many :tags, class_name: 'Blogging::Tag',
                                    association_foreign_key: :blogging_tag_id,
                                    foreign_key: :blogging_post_id
 
-    enum status: { draft: 0, published: 1 }
+    accepts_nested_attributes_for :statuses
 
-    validates :title, :body, :public_from, :cover_image, presence: true
+    validates :title, :body, :cover_image, presence: true
     validates :tag_ids, length: { minimum: 1 }
     validate :title_uniqueness
 
-    scope :published_now, -> { where('public_from <= ?', Time.zone.now).published }
+    scope :published_now, -> {
+                            joins(:statuses).where('statuses.public_from <= ?', Time.zone.now)
+                                            .published
+                          }
 
     scope :descending, -> { order('created_at DESC') }
+
+    Blogging::PostStatus.statuses.each_key do |status|
+      scope status, -> {
+                      joins(:statuses).where(statuses: { status: status.to_sym, locale: I18n.locale })
+                    }
+
+      define_method "#{status}?" do
+        current_status.send("#{status}?")
+      end
+    end
 
     def self.available_title?(title)
       Blogging::Post.i18n.find_by(title: title).blank?
     end
+
+    def current_status
+      statuses.find_by(locale: I18n.locale) || statuses.build(locale: I18n.locale)
+    end
+
+    delegate :public_from, :status, to: :current_status
 
     private
 
