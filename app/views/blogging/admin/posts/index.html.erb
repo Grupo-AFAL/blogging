@@ -24,7 +24,10 @@
             <td><%= link_to post.title, admin_post_path(post) %></td>
             <td><%= post.body.to_plain_text.truncate(10) %></td>
             <td><%= post.author.name %></td>
-            <td><%= post.status %></td>
+            <td>
+              <%= render Bali::Tag::Component.new(
+                  text: post.status, color: status_color(post.status)) %>
+            </td>
             <td><%= l(post.public_from, format: :month_time) if post.public_from %></td>
             <td class='is-narrow'>
               <%= link_to icon_tag('edit-alt'), edit_admin_post_path(post), 
