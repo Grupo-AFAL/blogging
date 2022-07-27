@@ -38,7 +38,7 @@ module Blogging
                                             .published
                           }
 
-    scope :descending, -> { order('created_at DESC') }
+    scope :descending, -> { order('blogging_posts.created_at DESC') }
 
     Blogging::PostStatus.statuses.each_key do |status|
       scope status, -> {
