@@ -8,6 +8,6 @@ module Blogging
 
     enum status: { draft: 0, published: 1 }
 
-    validates :public_from, presence: true
+    validates :locale, :public_from, presence: true
   end
 end
