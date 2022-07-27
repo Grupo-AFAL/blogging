@@ -29,6 +29,8 @@ module Blogging
 
     accepts_nested_attributes_for :statuses
 
+    delegate :public_from, :status, to: :current_status
+
     validates :title, :body, :cover_image, presence: true
     validates :tag_ids, length: { minimum: 1 }
     validate :title_uniqueness
@@ -55,13 +57,11 @@ module Blogging
     def self.available_title?(title)
       Blogging::Post.i18n.find_by(title: title).blank?
     end
-
+    
     def current_status
       statuses.find_by(locale: I18n.locale) || statuses.build(locale: I18n.locale)
     end
-
-    delegate :public_from, :status, to: :current_status
-
+    
     private
 
     def title_uniqueness
