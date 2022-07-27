@@ -42,7 +42,9 @@ module Blogging
 
     Blogging::PostStatus.statuses.each_key do |status|
       scope status, -> {
-                      joins(:statuses).where(statuses: { status: status.to_sym, locale: I18n.locale })
+                      joins(:statuses).where(
+                        statuses: { status: status.to_sym, locale: I18n.locale }
+                      )
                     }
 
       define_method "#{status}?" do
