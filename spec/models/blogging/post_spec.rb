@@ -54,7 +54,7 @@ module Blogging
         end
 
         context 'when missing public_from' do
-          before { @attributes[:statuses_attributes][:public_from] = nil }
+          before { @attributes[:statuses_attributes][0][:public_from] = nil }
 
           it { expect(post.save).to be false }
         end

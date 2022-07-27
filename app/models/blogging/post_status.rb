@@ -7,5 +7,7 @@ module Blogging
                       inverse_of: :statuses
 
     enum status: { draft: 0, published: 1 }
+
+    validates :public_from, presence: true
   end
 end
