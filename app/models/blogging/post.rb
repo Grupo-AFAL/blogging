@@ -57,11 +57,11 @@ module Blogging
     def self.available_title?(title)
       Blogging::Post.i18n.find_by(title: title).blank?
     end
-    
+
     def current_status
       statuses.find_by(locale: I18n.locale) || statuses.build(locale: I18n.locale)
     end
-    
+
     private
 
     def title_uniqueness
