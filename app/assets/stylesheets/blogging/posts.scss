@@ -1,3 +1,11 @@
-.post-public-view {
-  padding-right: 15rem;
+.blog-posts {
+  padding-top: 5.75rem;
+}
+
+.blog-post {
+  @include desktop {
+    .post-content {
+      padding-right: 15rem;
+    }
+  }
 }

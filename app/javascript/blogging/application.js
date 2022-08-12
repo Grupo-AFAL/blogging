@@ -5,6 +5,7 @@ import { Application } from '@hotwired/stimulus'
 import {
   DatepickerController,
   ModalController,
+  NavbarController,
   NotificationController,
   SideMenuController,
   SlimSelectController,
@@ -19,6 +20,7 @@ require('@rails/actiontext')
 const application = Application.start()
 
 application.register('modal', ModalController)
+application.register('navbar', NavbarController)
 application.register('notification', NotificationController)
 application.register('side-menu', SideMenuController)
 application.register('slim-select', SlimSelectController)

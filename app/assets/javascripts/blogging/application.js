@@ -28425,6 +28425,66 @@
 
   // node_modules/bali-view-components/app/components/bali/navbar/index.js
   var import_lodash = __toESM(require_lodash());
+  var NavbarController = class extends Controller {
+    menuActive = false;
+    altMenuActive = false;
+    connect() {
+      if (!this.allowTransparencyValue)
+        return;
+      this.isTransparent = true;
+      this.element.classList.add("is-transparent");
+      document.addEventListener("scroll", (0, import_lodash.default)(this.updateBackgroundColor, this.throttleIntervalValue));
+    }
+    updateBackgroundColor = () => {
+      const targetHeight = this.burgerTarget?.offsetHeight || this.element.offsetHeight;
+      if (window.scrollY > targetHeight) {
+        this.removeIsTransparent();
+      } else {
+        this.setIsTransparent();
+      }
+    };
+    setIsTransparent() {
+      if (this.isTransparent)
+        return;
+      this.isTransparent = true;
+      this.element.classList.add("is-transparent");
+    }
+    removeIsTransparent() {
+      if (!this.isTransparent)
+        return;
+      this.isTransparent = false;
+      this.element.classList.remove("is-transparent");
+    }
+    toggleMenu(event) {
+      event.preventDefault();
+      this.menuActive = !this.menuActive;
+      if (!this.altMenuActive) {
+        this.element.classList.toggle("is-active");
+      }
+      this.menuTarget.classList.toggle("is-active");
+      if (this.hasBurgerTarget) {
+        this.burgerTarget.classList.toggle("is-active");
+      }
+    }
+    toggleAltMenu(event) {
+      event.preventDefault();
+      this.altMenuActive = !this.altMenuActive;
+      if (!this.menuActive) {
+        this.element.classList.toggle("is-active");
+      }
+      if (this.hasAltMenuTarget) {
+        this.altMenuTarget.classList.toggle("is-active");
+      }
+      if (this.hasAltBurgerTarget) {
+        this.altBurgerTarget.classList.toggle("is-active");
+      }
+    }
+  };
+  __publicField(NavbarController, "values", {
+    allowTransparency: Boolean,
+    throttleInterval: { type: Number, default: 1e3 }
+  });
+  __publicField(NavbarController, "targets", ["menu", "burger", "altMenu", "altBurger"]);
 
   // node_modules/bali-view-components/app/components/bali/notification/index.js
   var NotificationController = class extends Controller {
@@ -30878,6 +30938,7 @@
   init_actiontext();
   var application = Application.start();
   application.register("modal", ModalController);
+  application.register("navbar", NavbarController);
   application.register("notification", NotificationController);
   application.register("side-menu", SideMenuController);
   application.register("slim-select", SlimSelectController);

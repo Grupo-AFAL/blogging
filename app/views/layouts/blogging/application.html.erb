@@ -3,7 +3,15 @@
   <%= render 'layouts/blogging/head' %>
 
   <body>
-    <div class="container px-4 py-6" data-controller='modal'>
+    <%= render Bali::Navbar::Component.new(class: 'is-fixed-top is-light') do |c| %>
+      <% c.menu do |menu| %>
+        <% menu.end_item(tag_name: :div) do %>
+          <%= link_to "Blog", root_path, class: "navbar-item app-logo" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <div class="blog-posts container px-4" data-controller='modal'>
       <%= yield %>
 
       <%= render Bali::Modal::Component.new(active: false) %>
