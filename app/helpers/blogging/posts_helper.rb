@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Blogging
   module PostsHelper
     def post_status_color(status)
