@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/Grupo-AFAL/bali-view-components.git
-  revision: c4b33ea0cafb6fc4372198633cd0c6aebf9325a1
+  revision: c0654f040cf02e96a06068175555ad85610aabd9
   branch: main
   specs:
-    bali_view_components (0.32.2)
+    bali_view_components (0.37.0)
       rails (>= 7.0.2)
       ransack
       view_component (>= 2.0.0, < 3.0)
@@ -250,7 +250,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    ruby-next-core (0.15.1)
+    ruby-next-core (0.15.2)
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
@@ -288,8 +288,9 @@ GEM
     tzinfo-data (1.2022.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.2.0)
-    view_component (2.62.0)
+    view_component (2.66.0)
       activesupport (>= 5.0.0, < 8.0)
+      concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
     view_component-contrib (0.1.1)
       ruby-next-core (>= 0.12.0)

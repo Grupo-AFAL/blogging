@@ -1,11 +1,10 @@
-<%= link_to "< #{t('back')}", posts_path %>
 <% content_for :head do %>
   <meta property="og:title" content="<%= @post.title.truncate(40) %>" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="<%= post_url(@post) %>" />
   <meta property="og:image" content="<%= main_app.url_for(@post.cover_image.variant(:original)) %>" />
   <meta property="og:description" content="<%= @post.body.to_plain_text.squish.truncate(90) %>" />
-  
+
   <meta name="twitter:title" content="<%= @post.title.truncate(40) %>" />
   <meta name="twitter:site" content="<%= post_url(@post) %>" />
   <meta name="twitter:image" content="<%= main_app.url_for(@post.cover_image.variant(:original)) %>" />

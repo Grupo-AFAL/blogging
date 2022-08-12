@@ -1,26 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Blogging</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+  <%= render 'layouts/blogging/head' %>
 
-    <%= yield :head %>
-
-    <%= stylesheet_link_tag    "blogging/application", media: "all" %>
-    <%= javascript_include_tag "blogging/application", "data-turbo-track": "reload", defer: true %>
-  </head>
   <body>
-
-    <div id='app-frame' class='with-side-bar' data-controller='side-menu modal'>
-      <%= render 'layouts/blogging/notifications' %>
-      <%= render 'layouts/blogging/nav' %>
-      <%= render 'layouts/blogging/side_menu' %>
-
-      <div class="container px-4">
-        <%= yield %>
-      </div>
+    <div class="container px-4 py-6" data-controller='modal'>
+      <%= yield %>
 
       <%= render Bali::Modal::Component.new(active: false) %>
     </div>

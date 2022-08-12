@@ -26,7 +26,7 @@
             <td><%= post.author.name %></td>
             <td>
               <%= render Bali::Tag::Component.new(
-                  text: post.status, color: status_color(post.status)) %>
+                  text: post.status, color: post_status_color(post.status)) %>
             </td>
             <td><%= l(post.public_from, format: :month_time) if post.public_from %></td>
             <td class='is-narrow'>
