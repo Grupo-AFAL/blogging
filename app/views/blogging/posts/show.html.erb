@@ -19,23 +19,23 @@
 
     <%= c.column(class: 'post-content') do %>
       <div class="page-header-component mb-5">
-        <h1 class="title is-1 has-text-centered"><%= @post.title %></h1>
+        <h1 class="post-title has-text-centered"><%= @post.title %></h1>
       </div>
     <% end %>
   <% end %>
 
   <%= render Bali::Columns::Component.new do |c| %>
-    <%= c.column(class: 'is-2 has-text-centered') do %>
-      <div class="has-text-weight-bold is-size-6">
+    <%= c.column(class: 'post-metadata is-2 has-text-centered') do %>
+      <div class="author">
         <%= @post.author.name %>
       </div>
 
-      <div class="has-text-grey-light is-size-7 mb-2 mt-1">
+      <div class="public-from mb-2 mt-1">
         <%= t('activerecord.attributes.blogging/post.public_from') %><br>
         <%= l(@post.public_from, format: :month_time) if @post.public_from %>
       </div>
 
-      <div>
+      <div class='tags-container'>
         <% @post.tags.each do |tag| %>
           <span class="tag is-info is-light"><%= tag.name %></span>
         <% end %>
@@ -49,7 +49,7 @@
               action: 'popup-opener#open',
               'popup-opener-share-url-value': 'https://facebook.com/sharer/sharer?u='
             },
-            class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+            class: 'button is-small is-rounded is-square' %>
         </div>
         <div class="mt-2">
           <%= link_to icon_tag('twitter'), '#',
@@ -58,7 +58,7 @@
               action: 'popup-opener#open',
               'popup-opener-share-url-value': 'https://twitter.com/intent/tweet?text='
             },
-        class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+        class: 'button is-small is-rounded is-square' %>
         </div>
         <div class="mt-2">
           <%= link_to icon_tag('linkedin'), '#',
@@ -67,7 +67,7 @@
               action: 'popup-opener#open',
               'popup-opener-share-url-value': 'https://www.linkedin.com/sharing/share-offsite/?url='
             },
-            class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+            class: 'button is-small is-rounded is-square' %>
         </div>
         <div class="mt-2">
           <%= link_to icon_tag('whatsapp'), '#',
@@ -76,17 +76,17 @@
               action: 'popup-opener#open',
               'popup-opener-share-url-value': 'https://wa.me/?text=='
             },
-        class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+        class: 'button is-small is-rounded is-square' %>
         </div>
         <div class="mt-2">
           <%= link_to icon_tag('mail'), 'mailto:?body=' + request.original_url,
-            class: 'button is-small has-background-grey-light has-text-white is-rounded is-square' %>
+            class: 'button is-small is-rounded is-square' %>
         </div>
       </div>
     <% end %>
 
     <%= c.column(class: 'post-content') do %>
-      <figure class="image is-2by1">
+      <figure class="image">
         <%= image_tag main_app.url_for(@post.cover_image.variant(:original)), class: 'is-full' %>
       </figure>
 

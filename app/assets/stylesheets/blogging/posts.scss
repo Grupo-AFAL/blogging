@@ -45,6 +45,14 @@
 
   .leading-post-card,
   .post-card {
+
+    .card-title,
+    .card-title a {
+      color: $black;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
     .card-footer {
       display: none;
     }
@@ -53,8 +61,35 @@
 }
 
 .blog-post {
-  @include desktop {
-    .post-content {
+
+  .post-metadata {
+    .author {
+      font-weight: bold;
+    }
+
+    .public-from {
+      color: $grey-light;
+      font-size: $size-7;
+    }
+
+    .social-share a {
+      background-color: $grey-light;
+      color: $white;
+    }
+  }
+
+  .post-content {
+    .post-title {
+      font-size: $size-1;
+      font-weight: bold;
+    }
+
+    img {
+      max-width: 706px;
+      max-height: 372px;
+    }
+
+    @include desktop {
       padding-right: 15rem;
     }
   }
