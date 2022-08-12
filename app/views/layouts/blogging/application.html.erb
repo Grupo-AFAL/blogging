@@ -13,10 +13,14 @@
   </head>
   <body>
 
-    <div class='container px-4 py-6' data-controller='modal'>
+    <div id='app-frame' class='with-side-bar' data-controller='side-menu modal'>
       <%= render 'layouts/blogging/notifications' %>
+      <%= render 'layouts/blogging/nav' %>
+      <%= render 'layouts/blogging/side_menu' %>
 
-      <%= yield %>
+      <div class="container px-4">
+        <%= yield %>
+      </div>
 
       <%= render Bali::Modal::Component.new(active: false) %>
     </div>

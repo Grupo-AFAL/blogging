@@ -1,4 +1,2 @@
-<%= link_to "< #{t('back')}", admin_posts_path %>
-
 <%= render 'form', model: @post, url: admin_post_path(@post), 
     method: :put, title:  "#{t('actions.edit')} #{t('activerecord.models.blogging/post')}" %>

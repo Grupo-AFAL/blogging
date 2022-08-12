@@ -6,6 +6,7 @@ import {
   DatepickerController,
   ModalController,
   NotificationController,
+  SideMenuController,
   SlimSelectController,
   SubmitButtonController
 } from 'bali-view-components'
@@ -19,6 +20,7 @@ const application = Application.start()
 
 application.register('modal', ModalController)
 application.register('notification', NotificationController)
+application.register('side-menu', SideMenuController)
 application.register('slim-select', SlimSelectController)
 application.register('submit-button', SubmitButtonController)
 application.register('datepicker', DatepickerController)
