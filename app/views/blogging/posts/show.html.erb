@@ -12,9 +12,17 @@
 <% end %>
 
 <div class='blog-post'>
-  <div class="page-header-component mb-5">
-    <h1 class="title is-1 has-text-centered"><%= @post.title %></h1>
-  </div>
+
+  <%= render Bali::Columns::Component.new do |c| %>
+    <%= c.column(class: 'is-2 has-text-centered is-hidden-mobile') do %>
+    <% end %>
+
+    <%= c.column(class: 'post-content') do %>
+      <div class="page-header-component mb-5">
+        <h1 class="title is-1 has-text-centered"><%= @post.title %></h1>
+      </div>
+    <% end %>
+  <% end %>
 
   <%= render Bali::Columns::Component.new do |c| %>
     <%= c.column(class: 'is-2 has-text-centered') do %>
