@@ -1,63 +1,53 @@
-<%= render Bali::PageHeader::Component.new do |c| %>
-  <% c.title(t('activerecord.models.blogging/post').pluralize) %>
-<% end %>
+<div class="blog-posts container">
+  <% if @posts.size.positive? || @leader_post.present? %>
+    <div class='is-flex is-justify-content-center mb-5'>
+      <%= render Bali::Card::Component.new(class: 'leading-post-card') do |card| %>
+        <% card.image(
+                 src: main_app.url_for(@leader_post.cover_image.variant(:large)),
+                 href: post_path(@leader_post), figure_class: '') %>
 
-<div class="container is-max-tablet">
-  <% if @posts.size.positive? || @leader_posts.size.positive? %>
-    <%= render Bali::Columns::Component.new(class: ' is-multiline') do |c| %>
-      <% if @pagy.page == 1 && @leader_posts.size.positive? %>
-        <% @leader_posts.each do |leader| %>
-          <%= c.column(class: 'is-full') do %>
-            <%= render Bali::Card::Component.new do |card| %>
-              <% card.image(
-                 src: main_app.url_for(leader.cover_image.variant(:large)),
-                 href: post_path(leader)) %>
+        <% card.footer_item { l(@leader_post.public_from, format: :compact) } %>
+        <% card.footer_item(href: post_path(@leader_post)) { t('actions.read') } %>
 
-              <% card.footer_item { l(leader.public_from, format: :compact) } %>
-              <% card.footer_item(href: post_path(leader)) { t('actions.read') } %>
-
-              <%= tag.div do %>
-                <% leader.tags.each do |item| %>
-                  <%= tag.span class: 'tag is-info is-light mb-2' do %>
-                    <%= item.name %>
-                  <% end %>
-                <% end %>
-              <% end %>
-              <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
-                <%= link_to leader.title.truncate(90), post_path(leader), class: 'has-text-dark'%>
-              <% end %>
-              <%= leader.body.to_plain_text.truncate(350) %>
+        <%= tag.div do %>
+          <% @leader_post.tags.each do |item| %>
+            <%= tag.span class: 'tag is-info is-light mb-2' do %>
+              <%= item.name %>
             <% end %>
           <% end %>
         <% end %>
+        <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
+          <%= link_to @leader_post.title.truncate(90), post_path(@leader_post), class: 'has-text-dark'%>
+        <% end %>
+        <%= @leader_post.body.to_plain_text.truncate(350) %>
       <% end %>
+    </div>
 
-      <% @posts.each_with_index do |post, index| %>
-        <%= c.column(class: 'is-full-mobile is-one-third') do %>
-          <%= render Bali::Card::Component.new(class: 'card-fit') do |card| %>
-            <% card.image(
+    <div class='post-card-container'>
+      <% @posts.each do |post| %>
+        <%= render Bali::Card::Component.new(class: 'post-card') do |card| %>
+          <% card.image(
                src: main_app.url_for(post.cover_image.variant(:medium)),
-               href: post_path(post)) %>
+               href: post_path(post), figure_class: '') %>
 
-            <% card.footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
-            <% card.footer_item { link_to t('actions.read'), post_path(post) } %>
+          <% card.footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
+          <% card.footer_item { link_to t('actions.read'), post_path(post) } %>
 
-            <%= tag.div do %>
-              <% post.tags.each do |item| %>
-                <%= tag.span class: 'tag is-info is-light mb-2' do %>
-                  <%= item.name %>
-                <% end %>
+          <%= tag.div do %>
+            <% post.tags.each do |item| %>
+              <%= tag.span class: 'tag is-info is-light mb-2' do %>
+                <%= item.name %>
               <% end %>
             <% end %>
-
-            <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
-              <%= link_to post.title.truncate(40), post_path(post), class: 'has-text-dark' %>
-            <% end %>
-            <%= post.body.to_plain_text.truncate(90) %>
           <% end %>
+
+          <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
+            <%= link_to post.title.truncate(40), post_path(post), class: 'has-text-dark' %>
+          <% end %>
+          <%= post.body.to_plain_text.truncate(90) %>
         <% end %>
       <% end %>
-    <% end %>
+    </div>
   <% else %>
     <p class="has-text-centered">
       <%= image_tag 'svg/icons/list-alt.svg' %><br>
