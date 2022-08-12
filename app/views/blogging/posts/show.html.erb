@@ -16,7 +16,7 @@
 </div>
 
 <%= render Bali::Columns::Component.new do |c| %>
-  <%= c.column(class: 'is-one-fifth has-text-centered') do %>
+  <%= c.column(class: 'is-2 has-text-centered') do %>
     <div class="has-text-weight-bold is-size-6">
       <%= @post.author.name %>
     </div>
@@ -76,7 +76,7 @@
     </div>
   <% end %>
 
-  <%= c.column(class: 'is-four-fifths') do %>
+  <%= c.column(class: 'post-public-view') do %>
     <figure class="image is-2by1">
       <%= image_tag main_app.url_for(@post.cover_image.variant(:original)), class: 'is-full' %>
     </figure>
