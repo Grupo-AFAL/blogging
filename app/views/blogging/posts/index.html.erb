@@ -1,27 +1,29 @@
 <div class="blog-posts container">
   <% if @posts.size.positive? || @leader_post.present? %>
-    <div class='is-flex is-justify-content-center mb-5'>
-      <%= render Bali::Card::Component.new(class: 'leading-post-card') do |card| %>
-        <% card.image(
+    <% if @pagy.page == 1 %>
+      <div class='is-flex is-justify-content-center mb-5'>
+        <%= render Bali::Card::Component.new(class: 'leading-post-card') do |card| %>
+          <% card.image(
                  src: main_app.url_for(@leader_post.cover_image.variant(:large)),
                  href: post_path(@leader_post), figure_class: '') %>
 
-        <% card.footer_item { l(@leader_post.public_from, format: :compact) } %>
-        <% card.footer_item(href: post_path(@leader_post)) { t('actions.read') } %>
+          <% card.footer_item { l(@leader_post.public_from, format: :compact) } %>
+          <% card.footer_item(href: post_path(@leader_post)) { t('actions.read') } %>
 
-        <%= tag.div do %>
-          <% @leader_post.tags.each do |item| %>
-            <%= tag.span class: 'tag is-info is-light mb-2' do %>
-              <%= item.name %>
+          <%= tag.div do %>
+            <% @leader_post.tags.each do |item| %>
+              <%= tag.span class: 'tag is-info is-light mb-2' do %>
+                <%= item.name %>
+              <% end %>
             <% end %>
           <% end %>
+          <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
+            <%= link_to @leader_post.title.truncate(90), post_path(@leader_post), class: 'has-text-dark'%>
+          <% end %>
+          <%= @leader_post.body.to_plain_text.truncate(350) %>
         <% end %>
-        <%= tag.div class: 'has-text-weight-bold is-uppercase card-title' do %>
-          <%= link_to @leader_post.title.truncate(90), post_path(@leader_post), class: 'has-text-dark'%>
-        <% end %>
-        <%= @leader_post.body.to_plain_text.truncate(350) %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 
     <div class='post-card-container'>
       <% @posts.each do |post| %>
