@@ -1,0 +1,42 @@
+<div class="social-share">
+  <div class="share-button">
+    <%= link_to icon_tag('facebook'), '#',
+        data: {
+          controller: 'popup-opener',
+          action: 'popup-opener#open',
+          'popup-opener-share-url-value': 'https://facebook.com/sharer/sharer?u='
+        },
+        class: 'button is-small is-rounded is-square' %>
+  </div>
+  <div class="share-button">
+    <%= link_to icon_tag('twitter'), '#',
+        data: {
+          controller: 'popup-opener',
+          action: 'popup-opener#open',
+          'popup-opener-share-url-value': 'https://twitter.com/intent/tweet?text='
+        },
+        class: 'button is-small is-rounded is-square' %>
+  </div>
+  <div class="share-button">
+    <%= link_to icon_tag('linkedin'), '#',
+        data: {
+          controller: 'popup-opener',
+          action: 'popup-opener#open',
+          'popup-opener-share-url-value': 'https://www.linkedin.com/sharing/share-offsite/?url='
+        },
+        class: 'button is-small is-rounded is-square' %>
+  </div>
+  <div class="share-button">
+    <%= link_to icon_tag('whatsapp'), '#',
+        data: {
+          controller: 'popup-opener',
+          action: 'popup-opener#open',
+          'popup-opener-share-url-value': 'https://wa.me/?text=='
+        },
+        class: 'button is-small is-rounded is-square' %>
+  </div>
+  <div class="share-button">
+    <%= link_to icon_tag('mail'), 'mailto:?body=' + request.original_url,
+        class: 'button is-small is-rounded is-square' %>
+  </div>
+</div>

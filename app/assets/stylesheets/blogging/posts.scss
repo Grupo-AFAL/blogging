@@ -72,9 +72,18 @@
       font-size: $size-7;
     }
 
-    .social-share a {
+  }
+
+  .social-share {
+    margin-top: $size-7;
+
+    a {
       background-color: $grey-light;
       color: $white;
+    }
+
+    .share-button:not(:first-child) {
+      margin-top: 0.5rem;
     }
   }
 
