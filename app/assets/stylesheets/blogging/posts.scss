@@ -3,11 +3,11 @@
 }
 
 .blog-posts {
-  $leading-post-width: 706px;
-  $leading-post-image-height: 327px;
+  $leading-post-width: 44.125rem; // ~ 706px
+  $leading-post-image-height: 20.4375rem; // ~ 327px
 
-  $post-card-width: 353px;
-  $post-card-image-height: 186px;
+  $post-card-width: 22.0625rem; // ~ 353px
+  $post-card-image-height: 11.625rem; // ~ 186px
 
   .leading-post-card {
     max-width: $leading-post-width;
@@ -94,8 +94,8 @@
     }
 
     img {
-      max-width: 706px;
-      max-height: 372px;
+      max-width: 44.125rem; // ~ 706px
+      max-height: 23.25rem; // ~ 372px;
     }
 
     @include desktop {
