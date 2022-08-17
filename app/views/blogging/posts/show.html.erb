@@ -1,3 +1,5 @@
+<%= link_to "< #{t('back')}", posts_path, id: 'link-to-posts' %>
+
 <% content_for :head do %>
   <meta property="og:title" content="<%= @post.title.truncate(40) %>" />
   <meta property="og:type" content="article" />
