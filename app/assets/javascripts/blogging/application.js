@@ -28294,28 +28294,40 @@
   // node_modules/bali-view-components/app/components/bali/modal/index.js
   var ModalController = class extends Controller {
     async connect() {
-      this.wrapperClass = this.wrapperTarget.getAttribute("data-wrapper-class");
-      this.backgroundTarget.addEventListener("click", this._closeModal);
+      if (this.hasWrapperTarget) {
+        this.wrapperClass = this.wrapperTarget.getAttribute("data-wrapper-class");
+      }
+      if (this.hasBackgroundTarget) {
+        this.backgroundTarget.addEventListener("click", this._closeModal);
+      }
       if (this.hasCloseBtnTarget) {
         this.closeBtnTarget.addEventListener("click", this._closeModal);
       }
-      document.addEventListener("openModal", (e) => {
-        this.setOptions(e.detail.options);
-        this.openModal(e.detail.content);
-      });
+      document.addEventListener("openModal", this.setOptionsAndOpenModal);
     }
     disconnect() {
-      this.backgroundTarget.removeEventListener("click", this._closeModal);
+      if (this.hasBackgroundTarget) {
+        this.backgroundTarget.removeEventListener("click", this._closeModal);
+      }
       if (this.hasCloseBtnTarget) {
         this.closeBtnTarget.removeEventListener("click", this._closeModal);
       }
+      document.removeEventListener("openModal", this.setOptionsAndOpenModal);
     }
     templateTargetConnected() {
+      if (!this.hasBackgroundTarget)
+        return;
       this.backgroundTarget.addEventListener("click", this._closeModal);
     }
     templateTargetDisconnected() {
+      if (!this.hasBackgroundTarget)
+        return;
       this.backgroundTarget.removeEventListener("click", this._closeModal);
     }
+    setOptionsAndOpenModal = (event) => {
+      this.setOptions(event.detail.options);
+      this.openModal(event.detail.content);
+    };
     openModal(content) {
       this.wrapperTarget.classList.add(this.wrapperClass);
       this.templateTarget.classList.add("is-active");
@@ -28433,7 +28445,13 @@
         return;
       this.isTransparent = true;
       this.element.classList.add("is-transparent");
-      document.addEventListener("scroll", (0, import_lodash.default)(this.updateBackgroundColor, this.throttleIntervalValue));
+      this.throttledUpdateBackgroundColor = (0, import_lodash.default)(this.updateBackgroundColor, this.throttleIntervalValue);
+      document.addEventListener("scroll", this.throttledUpdateBackgroundColor);
+    }
+    disconnect() {
+      if (this.throttledUpdateBackgroundColor) {
+        document.removeEventListener("scroll", this.throttledUpdateBackgroundColor);
+      }
     }
     updateBackgroundColor = () => {
       const targetHeight = this.burgerTarget?.offsetHeight || this.element.offsetHeight;
@@ -30827,10 +30845,40 @@
   // node_modules/bali-view-components/app/javascript/bali/controllers/elements-overlap-controller.js
   var import_lodash2 = __toESM(require_lodash());
 
+  // node_modules/bali-view-components/app/javascript/bali/controllers/slim-select-controller/destroy-with-check.js
+  function destroyWithCheck(id2) {
+    const slim = id2 ? document.querySelector("." + id2 + ".ss-main") : this.slim.container;
+    const select = id2 ? document.querySelector("[data-ssid=".concat(id2, "]")) : this.select.element;
+    if (!slim || !select) {
+      return;
+    }
+    document.removeEventListener("click", this.documentClick);
+    if (this.config.showContent === "auto") {
+      window.removeEventListener("scroll", this.windowScroll, false);
+    }
+    select.style.display = "";
+    delete select.dataset.ssid;
+    const el = select;
+    el.slim = null;
+    if (slim.parentElement) {
+      slim.parentElement.removeChild(slim);
+    }
+    if (this.config.addToBody) {
+      const slimContent = id2 ? document.querySelector("." + id2 + ".ss-content") : this.slim.content;
+      if (!document.body.contains(slimContent)) {
+        return;
+      }
+      document.body.removeChild(slimContent);
+    }
+  }
+
   // node_modules/bali-view-components/app/javascript/bali/controllers/slim-select-controller.js
   var SlimSelectController = class extends Controller {
     async connect() {
       const { default: SlimSelect } = await Promise.resolve().then(() => (init_slimselect_min(), slimselect_min_exports));
+      Object.assign(SlimSelect.prototype, {
+        destroy: destroyWithCheck
+      });
       const options = {
         select: this.selectTarget,
         placeholder: this.hasPlaceholderValue && this.placeholderValue,
@@ -30899,25 +30947,23 @@
   // node_modules/bali-view-components/app/javascript/bali/controllers/submit-button-controller.js
   var SubmitButtonController = class extends Controller {
     connect() {
-      this.element.addEventListener("turbo:submit-start", (e) => {
-        this.disableButton(e.detail.formSubmission.submitter);
-      });
-      this.element.addEventListener("turbo:submit-end", (e) => {
-        this.enableButton(e.detail.formSubmission.submitter);
-      });
+      this.element.addEventListener("turbo:submit-start", this.disableButton);
+      this.element.addEventListener("turbo:submit-end", this.enableButton);
     }
-    disableButton(button) {
+    disableButton = (event) => {
+      const button = event.detail.formSubmission.submitter;
       if (!button)
         return;
       button.classList.add("is-loading");
       button.setAttribute("disabled", "");
-    }
-    enableButton(button) {
+    };
+    enableButton = (event) => {
+      const button = event.detail.formSubmission.submitter;
       if (!button)
         return;
       button.classList.remove("is-loading");
       button.removeAttribute("disabled");
-    }
+    };
   };
 
   // node_modules/bali-view-components/app/javascript/bali/controllers/submit-on-change-controller.js
