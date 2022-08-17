@@ -15,6 +15,7 @@ module Blogging
   mattr_accessor :parent_admin_controller, default: 'Blogging::ApplicationController'
 
   mattr_accessor :public_layout
+  mattr_accessor :admin_layout, default: 'layouts/blogging/admin'
 
   # provide hook to configure attributes
   def self.config

@@ -15224,48 +15224,7 @@
       autofocusNode.focus();
   };
 
-  // node_modules/chart.js/dist/chunks/helpers.segment.js
-  var requestAnimFrame = function() {
-    if (typeof window === "undefined") {
-      return function(callback2) {
-        return callback2();
-      };
-    }
-    return window.requestAnimationFrame;
-  }();
-  function throttled(fn, thisArg, updateFn) {
-    const updateArgs = updateFn || ((args2) => Array.prototype.slice.call(args2));
-    let ticking = false;
-    let args = [];
-    return function(...rest) {
-      args = updateArgs(rest);
-      if (!ticking) {
-        ticking = true;
-        requestAnimFrame.call(window, () => {
-          ticking = false;
-          fn.apply(thisArg, args);
-        });
-      }
-    };
-  }
-  function debounce(fn, delay) {
-    let timeout;
-    return function(...args) {
-      if (delay) {
-        clearTimeout(timeout);
-        timeout = setTimeout(fn, delay, args);
-      } else {
-        fn.apply(this, args);
-      }
-      return delay;
-    };
-  }
-  var _toLeftRightCenter = (align) => align === "start" ? "left" : align === "end" ? "right" : "center";
-  var _alignStartEnd = (align, start3, end) => align === "start" ? start3 : align === "end" ? end : (start3 + end) / 2;
-  var _textX = (align, left, right, rtl) => {
-    const check = rtl ? "left" : "right";
-    return align === check ? right : align === "center" ? (left + right) / 2 : left;
-  };
+  // node_modules/chart.js/dist/chunks/helpers.segment.mjs
   function noop() {
   }
   var uid = function() {
@@ -15405,24 +15364,41 @@
       target[key] = clone$1(sval);
     }
   }
-  var emptyString = "";
-  var dot = ".";
-  function indexOfDotOrLength(key, start3) {
-    const idx = key.indexOf(dot, start3);
-    return idx === -1 ? key.length : idx;
-  }
+  var keyResolvers = {
+    "": (v) => v,
+    x: (o) => o.x,
+    y: (o) => o.y
+  };
   function resolveObjectKey(obj, key) {
-    if (key === emptyString) {
+    const resolver = keyResolvers[key] || (keyResolvers[key] = _getKeyResolver(key));
+    return resolver(obj);
+  }
+  function _getKeyResolver(key) {
+    const keys = _splitKey(key);
+    return (obj) => {
+      for (const k of keys) {
+        if (k === "") {
+          break;
+        }
+        obj = obj && obj[k];
+      }
       return obj;
+    };
+  }
+  function _splitKey(key) {
+    const parts = key.split(".");
+    const keys = [];
+    let tmp = "";
+    for (const part of parts) {
+      tmp += part;
+      if (tmp.endsWith("\\")) {
+        tmp = tmp.slice(0, -1) + ".";
+      } else {
+        keys.push(tmp);
+        tmp = "";
+      }
     }
-    let pos = 0;
-    let idx = indexOfDotOrLength(key, pos);
-    while (obj && idx > pos) {
-      obj = obj[key.slice(pos, idx)];
-      pos = idx + 1;
-      idx = indexOfDotOrLength(key, pos);
-    }
-    return obj;
+    return keys;
   }
   function _capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -15555,6 +15531,170 @@
   }
   function _isBetween(value, start3, end, epsilon = 1e-6) {
     return value >= Math.min(start3, end) - epsilon && value <= Math.max(start3, end) + epsilon;
+  }
+  function _lookup(table, value, cmp) {
+    cmp = cmp || ((index3) => table[index3] < value);
+    let hi = table.length - 1;
+    let lo = 0;
+    let mid;
+    while (hi - lo > 1) {
+      mid = lo + hi >> 1;
+      if (cmp(mid)) {
+        lo = mid;
+      } else {
+        hi = mid;
+      }
+    }
+    return { lo, hi };
+  }
+  var _lookupByKey = (table, key, value, last) => _lookup(table, value, last ? (index3) => table[index3][key] <= value : (index3) => table[index3][key] < value);
+  var _rlookupByKey = (table, key, value) => _lookup(table, value, (index3) => table[index3][key] >= value);
+  function _filterBetween(values, min, max) {
+    let start3 = 0;
+    let end = values.length;
+    while (start3 < end && values[start3] < min) {
+      start3++;
+    }
+    while (end > start3 && values[end - 1] > max) {
+      end--;
+    }
+    return start3 > 0 || end < values.length ? values.slice(start3, end) : values;
+  }
+  var arrayEvents = ["push", "pop", "shift", "splice", "unshift"];
+  function listenArrayEvents(array, listener) {
+    if (array._chartjs) {
+      array._chartjs.listeners.push(listener);
+      return;
+    }
+    Object.defineProperty(array, "_chartjs", {
+      configurable: true,
+      enumerable: false,
+      value: {
+        listeners: [listener]
+      }
+    });
+    arrayEvents.forEach((key) => {
+      const method = "_onData" + _capitalize(key);
+      const base = array[key];
+      Object.defineProperty(array, key, {
+        configurable: true,
+        enumerable: false,
+        value(...args) {
+          const res = base.apply(this, args);
+          array._chartjs.listeners.forEach((object) => {
+            if (typeof object[method] === "function") {
+              object[method](...args);
+            }
+          });
+          return res;
+        }
+      });
+    });
+  }
+  function unlistenArrayEvents(array, listener) {
+    const stub = array._chartjs;
+    if (!stub) {
+      return;
+    }
+    const listeners = stub.listeners;
+    const index3 = listeners.indexOf(listener);
+    if (index3 !== -1) {
+      listeners.splice(index3, 1);
+    }
+    if (listeners.length > 0) {
+      return;
+    }
+    arrayEvents.forEach((key) => {
+      delete array[key];
+    });
+    delete array._chartjs;
+  }
+  function _arrayUnique(items) {
+    const set2 = /* @__PURE__ */ new Set();
+    let i, ilen;
+    for (i = 0, ilen = items.length; i < ilen; ++i) {
+      set2.add(items[i]);
+    }
+    if (set2.size === ilen) {
+      return items;
+    }
+    return Array.from(set2);
+  }
+  var requestAnimFrame = function() {
+    if (typeof window === "undefined") {
+      return function(callback2) {
+        return callback2();
+      };
+    }
+    return window.requestAnimationFrame;
+  }();
+  function throttled(fn, thisArg, updateFn) {
+    const updateArgs = updateFn || ((args2) => Array.prototype.slice.call(args2));
+    let ticking = false;
+    let args = [];
+    return function(...rest) {
+      args = updateArgs(rest);
+      if (!ticking) {
+        ticking = true;
+        requestAnimFrame.call(window, () => {
+          ticking = false;
+          fn.apply(thisArg, args);
+        });
+      }
+    };
+  }
+  function debounce(fn, delay) {
+    let timeout;
+    return function(...args) {
+      if (delay) {
+        clearTimeout(timeout);
+        timeout = setTimeout(fn, delay, args);
+      } else {
+        fn.apply(this, args);
+      }
+      return delay;
+    };
+  }
+  var _toLeftRightCenter = (align) => align === "start" ? "left" : align === "end" ? "right" : "center";
+  var _alignStartEnd = (align, start3, end) => align === "start" ? start3 : align === "end" ? end : (start3 + end) / 2;
+  var _textX = (align, left, right, rtl) => {
+    const check = rtl ? "left" : "right";
+    return align === check ? right : align === "center" ? (left + right) / 2 : left;
+  };
+  function _getStartAndCountOfVisiblePoints(meta, points, animationsDisabled) {
+    const pointCount = points.length;
+    let start3 = 0;
+    let count = pointCount;
+    if (meta._sorted) {
+      const { iScale, _parsed } = meta;
+      const axis = iScale.axis;
+      const { min, max, minDefined, maxDefined } = iScale.getUserBounds();
+      if (minDefined) {
+        start3 = _limitValue(Math.min(_lookupByKey(_parsed, iScale.axis, min).lo, animationsDisabled ? pointCount : _lookupByKey(points, axis, iScale.getPixelForValue(min)).lo), 0, pointCount - 1);
+      }
+      if (maxDefined) {
+        count = _limitValue(Math.max(_lookupByKey(_parsed, iScale.axis, max, true).hi + 1, animationsDisabled ? 0 : _lookupByKey(points, axis, iScale.getPixelForValue(max), true).hi + 1), start3, pointCount) - start3;
+      } else {
+        count = pointCount - start3;
+      }
+    }
+    return { start: start3, count };
+  }
+  function _scaleRangesChanged(meta) {
+    const { xScale, yScale, _scaleRanges } = meta;
+    const newRanges = {
+      xmin: xScale.min,
+      xmax: xScale.max,
+      ymin: yScale.min,
+      ymax: yScale.max
+    };
+    if (!_scaleRanges) {
+      meta._scaleRanges = newRanges;
+      return true;
+    }
+    const changed = _scaleRanges.xmin !== xScale.min || _scaleRanges.xmax !== xScale.max || _scaleRanges.ymin !== yScale.min || _scaleRanges.ymax !== yScale.max;
+    Object.assign(_scaleRanges, newRanges);
+    return changed;
   }
   var atEdge = (t) => t === 0 || t === 1;
   var elasticIn = (t, s, p) => -(Math.pow(2, 10 * (t -= 1)) * Math.sin((t - s) * TAU / p));
@@ -16682,94 +16822,6 @@
   function createContext(parentContext, context) {
     return Object.assign(Object.create(parentContext), context);
   }
-  function _lookup(table, value, cmp) {
-    cmp = cmp || ((index3) => table[index3] < value);
-    let hi = table.length - 1;
-    let lo = 0;
-    let mid;
-    while (hi - lo > 1) {
-      mid = lo + hi >> 1;
-      if (cmp(mid)) {
-        lo = mid;
-      } else {
-        hi = mid;
-      }
-    }
-    return { lo, hi };
-  }
-  var _lookupByKey = (table, key, value) => _lookup(table, value, (index3) => table[index3][key] < value);
-  var _rlookupByKey = (table, key, value) => _lookup(table, value, (index3) => table[index3][key] >= value);
-  function _filterBetween(values, min, max) {
-    let start3 = 0;
-    let end = values.length;
-    while (start3 < end && values[start3] < min) {
-      start3++;
-    }
-    while (end > start3 && values[end - 1] > max) {
-      end--;
-    }
-    return start3 > 0 || end < values.length ? values.slice(start3, end) : values;
-  }
-  var arrayEvents = ["push", "pop", "shift", "splice", "unshift"];
-  function listenArrayEvents(array, listener) {
-    if (array._chartjs) {
-      array._chartjs.listeners.push(listener);
-      return;
-    }
-    Object.defineProperty(array, "_chartjs", {
-      configurable: true,
-      enumerable: false,
-      value: {
-        listeners: [listener]
-      }
-    });
-    arrayEvents.forEach((key) => {
-      const method = "_onData" + _capitalize(key);
-      const base = array[key];
-      Object.defineProperty(array, key, {
-        configurable: true,
-        enumerable: false,
-        value(...args) {
-          const res = base.apply(this, args);
-          array._chartjs.listeners.forEach((object) => {
-            if (typeof object[method] === "function") {
-              object[method](...args);
-            }
-          });
-          return res;
-        }
-      });
-    });
-  }
-  function unlistenArrayEvents(array, listener) {
-    const stub = array._chartjs;
-    if (!stub) {
-      return;
-    }
-    const listeners = stub.listeners;
-    const index3 = listeners.indexOf(listener);
-    if (index3 !== -1) {
-      listeners.splice(index3, 1);
-    }
-    if (listeners.length > 0) {
-      return;
-    }
-    arrayEvents.forEach((key) => {
-      delete array[key];
-    });
-    delete array._chartjs;
-  }
-  function _arrayUnique(items) {
-    const set2 = /* @__PURE__ */ new Set();
-    let i, ilen;
-    for (i = 0, ilen = items.length; i < ilen; ++i) {
-      set2.add(items[i]);
-    }
-    if (set2.size === ilen) {
-      return items;
-    }
-    return Array.from(set2);
-  }
   function _createResolver(scopes, prefixes = [""], rootScopes = scopes, fallback, getTarget = () => scopes[0]) {
     if (!defined(fallback)) {
       fallback = _resolve("_fallback", scopes);
@@ -17667,7 +17719,7 @@
     return prevStyle && JSON.stringify(style) !== JSON.stringify(prevStyle);
   }
 
-  // node_modules/chart.js/dist/chart.esm.js
+  // node_modules/chart.js/dist/chart.mjs
   var Animator = class {
     constructor() {
       this._request = null;
@@ -18950,6 +19002,10 @@
       properties.borderSkipped = res;
       return;
     }
+    if (edge === true) {
+      properties.borderSkipped = { top: true, right: true, bottom: true, left: true };
+      return;
+    }
     const { start: start3, end, reverse, top, bottom } = borderProps(properties);
     if (edge === "middle" && stack) {
       properties.enableBorderRadius = true;
@@ -19672,10 +19728,10 @@
       const meta = this._cachedMeta;
       const { dataset: line, data: points = [], _dataset } = meta;
       const animationsDisabled = this.chart._animationsDisabled;
-      let { start: start3, count } = getStartAndCountOfVisiblePoints(meta, points, animationsDisabled);
+      let { start: start3, count } = _getStartAndCountOfVisiblePoints(meta, points, animationsDisabled);
       this._drawStart = start3;
       this._drawCount = count;
-      if (scaleRangesChanged(meta)) {
+      if (_scaleRangesChanged(meta)) {
         start3 = 0;
         count = points.length;
       }
@@ -19761,41 +19817,6 @@
       }
     }
   };
-  function getStartAndCountOfVisiblePoints(meta, points, animationsDisabled) {
-    const pointCount = points.length;
-    let start3 = 0;
-    let count = pointCount;
-    if (meta._sorted) {
-      const { iScale, _parsed } = meta;
-      const axis = iScale.axis;
-      const { min, max, minDefined, maxDefined } = iScale.getUserBounds();
-      if (minDefined) {
-        start3 = _limitValue(Math.min(_lookupByKey(_parsed, iScale.axis, min).lo, animationsDisabled ? pointCount : _lookupByKey(points, axis, iScale.getPixelForValue(min)).lo), 0, pointCount - 1);
-      }
-      if (maxDefined) {
-        count = _limitValue(Math.max(_lookupByKey(_parsed, iScale.axis, max).hi + 1, animationsDisabled ? 0 : _lookupByKey(points, axis, iScale.getPixelForValue(max)).hi + 1), start3, pointCount) - start3;
-      } else {
-        count = pointCount - start3;
-      }
-    }
-    return { start: start3, count };
-  }
-  function scaleRangesChanged(meta) {
-    const { xScale, yScale, _scaleRanges } = meta;
-    const newRanges = {
-      xmin: xScale.min,
-      xmax: xScale.max,
-      ymin: yScale.min,
-      ymax: yScale.max
-    };
-    if (!_scaleRanges) {
-      meta._scaleRanges = newRanges;
-      return true;
-    }
-    const changed = _scaleRanges.xmin !== xScale.min || _scaleRanges.xmax !== xScale.max || _scaleRanges.ymin !== yScale.min || _scaleRanges.ymax !== yScale.max;
-    Object.assign(_scaleRanges, newRanges);
-    return changed;
-  }
   var PolarAreaController = class extends DatasetController {
     constructor(chart, datasetIndex) {
       super(chart, datasetIndex);
@@ -20058,842 +20079,6 @@
       }
     }
   };
-  var ScatterController = class extends LineController {
-  };
-  ScatterController.id = "scatter";
-  ScatterController.defaults = {
-    showLine: false,
-    fill: false
-  };
-  ScatterController.overrides = {
-    interaction: {
-      mode: "point"
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          title() {
-            return "";
-          },
-          label(item) {
-            return "(" + item.label + ", " + item.formattedValue + ")";
-          }
-        }
-      }
-    },
-    scales: {
-      x: {
-        type: "linear"
-      },
-      y: {
-        type: "linear"
-      }
-    }
-  };
-  var controllers = /* @__PURE__ */ Object.freeze({
-    __proto__: null,
-    BarController,
-    BubbleController,
-    DoughnutController,
-    LineController,
-    PolarAreaController,
-    PieController,
-    RadarController,
-    ScatterController
-  });
-  function abstract() {
-    throw new Error("This method is not implemented: Check that a complete date adapter is provided.");
-  }
-  var DateAdapter = class {
-    constructor(options) {
-      this.options = options || {};
-    }
-    formats() {
-      return abstract();
-    }
-    parse(value, format) {
-      return abstract();
-    }
-    format(timestamp, format) {
-      return abstract();
-    }
-    add(timestamp, amount, unit) {
-      return abstract();
-    }
-    diff(a, b, unit) {
-      return abstract();
-    }
-    startOf(timestamp, unit, weekday) {
-      return abstract();
-    }
-    endOf(timestamp, unit) {
-      return abstract();
-    }
-  };
-  DateAdapter.override = function(members) {
-    Object.assign(DateAdapter.prototype, members);
-  };
-  var adapters = {
-    _date: DateAdapter
-  };
-  function binarySearch(metaset, axis, value, intersect) {
-    const { controller, data, _sorted } = metaset;
-    const iScale = controller._cachedMeta.iScale;
-    if (iScale && axis === iScale.axis && axis !== "r" && _sorted && data.length) {
-      const lookupMethod = iScale._reversePixels ? _rlookupByKey : _lookupByKey;
-      if (!intersect) {
-        return lookupMethod(data, axis, value);
-      } else if (controller._sharedOptions) {
-        const el = data[0];
-        const range = typeof el.getRange === "function" && el.getRange(axis);
-        if (range) {
-          const start3 = lookupMethod(data, axis, value - range);
-          const end = lookupMethod(data, axis, value + range);
-          return { lo: start3.lo, hi: end.hi };
-        }
-      }
-    }
-    return { lo: 0, hi: data.length - 1 };
-  }
-  function evaluateInteractionItems(chart, axis, position, handler, intersect) {
-    const metasets = chart.getSortedVisibleDatasetMetas();
-    const value = position[axis];
-    for (let i = 0, ilen = metasets.length; i < ilen; ++i) {
-      const { index: index3, data } = metasets[i];
-      const { lo, hi } = binarySearch(metasets[i], axis, value, intersect);
-      for (let j = lo; j <= hi; ++j) {
-        const element = data[j];
-        if (!element.skip) {
-          handler(element, index3, j);
-        }
-      }
-    }
-  }
-  function getDistanceMetricForAxis(axis) {
-    const useX = axis.indexOf("x") !== -1;
-    const useY = axis.indexOf("y") !== -1;
-    return function(pt1, pt2) {
-      const deltaX = useX ? Math.abs(pt1.x - pt2.x) : 0;
-      const deltaY = useY ? Math.abs(pt1.y - pt2.y) : 0;
-      return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-    };
-  }
-  function getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible) {
-    const items = [];
-    if (!includeInvisible && !chart.isPointInArea(position)) {
-      return items;
-    }
-    const evaluationFunc = function(element, datasetIndex, index3) {
-      if (!includeInvisible && !_isPointInArea(element, chart.chartArea, 0)) {
-        return;
-      }
-      if (element.inRange(position.x, position.y, useFinalPosition)) {
-        items.push({ element, datasetIndex, index: index3 });
-      }
-    };
-    evaluateInteractionItems(chart, axis, position, evaluationFunc, true);
-    return items;
-  }
-  function getNearestRadialItems(chart, position, axis, useFinalPosition) {
-    let items = [];
-    function evaluationFunc(element, datasetIndex, index3) {
-      const { startAngle, endAngle } = element.getProps(["startAngle", "endAngle"], useFinalPosition);
-      const { angle } = getAngleFromPoint(element, { x: position.x, y: position.y });
-      if (_angleBetween(angle, startAngle, endAngle)) {
-        items.push({ element, datasetIndex, index: index3 });
-      }
-    }
-    evaluateInteractionItems(chart, axis, position, evaluationFunc);
-    return items;
-  }
-  function getNearestCartesianItems(chart, position, axis, intersect, useFinalPosition, includeInvisible) {
-    let items = [];
-    const distanceMetric = getDistanceMetricForAxis(axis);
-    let minDistance = Number.POSITIVE_INFINITY;
-    function evaluationFunc(element, datasetIndex, index3) {
-      const inRange2 = element.inRange(position.x, position.y, useFinalPosition);
-      if (intersect && !inRange2) {
-        return;
-      }
-      const center = element.getCenterPoint(useFinalPosition);
-      const pointInArea = !!includeInvisible || chart.isPointInArea(center);
-      if (!pointInArea && !inRange2) {
-        return;
-      }
-      const distance = distanceMetric(position, center);
-      if (distance < minDistance) {
-        items = [{ element, datasetIndex, index: index3 }];
-        minDistance = distance;
-      } else if (distance === minDistance) {
-        items.push({ element, datasetIndex, index: index3 });
-      }
-    }
-    evaluateInteractionItems(chart, axis, position, evaluationFunc);
-    return items;
-  }
-  function getNearestItems(chart, position, axis, intersect, useFinalPosition, includeInvisible) {
-    if (!includeInvisible && !chart.isPointInArea(position)) {
-      return [];
-    }
-    return axis === "r" && !intersect ? getNearestRadialItems(chart, position, axis, useFinalPosition) : getNearestCartesianItems(chart, position, axis, intersect, useFinalPosition, includeInvisible);
-  }
-  function getAxisItems(chart, position, axis, intersect, useFinalPosition) {
-    const items = [];
-    const rangeMethod = axis === "x" ? "inXRange" : "inYRange";
-    let intersectsItem = false;
-    evaluateInteractionItems(chart, axis, position, (element, datasetIndex, index3) => {
-      if (element[rangeMethod](position[axis], useFinalPosition)) {
-        items.push({ element, datasetIndex, index: index3 });
-        intersectsItem = intersectsItem || element.inRange(position.x, position.y, useFinalPosition);
-      }
-    });
-    if (intersect && !intersectsItem) {
-      return [];
-    }
-    return items;
-  }
-  var Interaction = {
-    evaluateInteractionItems,
-    modes: {
-      index(chart, e, options, useFinalPosition) {
-        const position = getRelativePosition(e, chart);
-        const axis = options.axis || "x";
-        const includeInvisible = options.includeInvisible || false;
-        const items = options.intersect ? getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible) : getNearestItems(chart, position, axis, false, useFinalPosition, includeInvisible);
-        const elements2 = [];
-        if (!items.length) {
-          return [];
-        }
-        chart.getSortedVisibleDatasetMetas().forEach((meta) => {
-          const index3 = items[0].index;
-          const element = meta.data[index3];
-          if (element && !element.skip) {
-            elements2.push({ element, datasetIndex: meta.index, index: index3 });
-          }
-        });
-        return elements2;
-      },
-      dataset(chart, e, options, useFinalPosition) {
-        const position = getRelativePosition(e, chart);
-        const axis = options.axis || "xy";
-        const includeInvisible = options.includeInvisible || false;
-        let items = options.intersect ? getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible) : getNearestItems(chart, position, axis, false, useFinalPosition, includeInvisible);
-        if (items.length > 0) {
-          const datasetIndex = items[0].datasetIndex;
-          const data = chart.getDatasetMeta(datasetIndex).data;
-          items = [];
-          for (let i = 0; i < data.length; ++i) {
-            items.push({ element: data[i], datasetIndex, index: i });
-          }
-        }
-        return items;
-      },
-      point(chart, e, options, useFinalPosition) {
-        const position = getRelativePosition(e, chart);
-        const axis = options.axis || "xy";
-        const includeInvisible = options.includeInvisible || false;
-        return getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible);
-      },
-      nearest(chart, e, options, useFinalPosition) {
-        const position = getRelativePosition(e, chart);
-        const axis = options.axis || "xy";
-        const includeInvisible = options.includeInvisible || false;
-        return getNearestItems(chart, position, axis, options.intersect, useFinalPosition, includeInvisible);
-      },
-      x(chart, e, options, useFinalPosition) {
-        const position = getRelativePosition(e, chart);
-        return getAxisItems(chart, position, "x", options.intersect, useFinalPosition);
-      },
-      y(chart, e, options, useFinalPosition) {
-        const position = getRelativePosition(e, chart);
-        return getAxisItems(chart, position, "y", options.intersect, useFinalPosition);
-      }
-    }
-  };
-  var STATIC_POSITIONS = ["left", "top", "right", "bottom"];
-  function filterByPosition(array, position) {
-    return array.filter((v) => v.pos === position);
-  }
-  function filterDynamicPositionByAxis(array, axis) {
-    return array.filter((v) => STATIC_POSITIONS.indexOf(v.pos) === -1 && v.box.axis === axis);
-  }
-  function sortByWeight(array, reverse) {
-    return array.sort((a, b) => {
-      const v0 = reverse ? b : a;
-      const v1 = reverse ? a : b;
-      return v0.weight === v1.weight ? v0.index - v1.index : v0.weight - v1.weight;
-    });
-  }
-  function wrapBoxes(boxes) {
-    const layoutBoxes = [];
-    let i, ilen, box, pos, stack, stackWeight;
-    for (i = 0, ilen = (boxes || []).length; i < ilen; ++i) {
-      box = boxes[i];
-      ({ position: pos, options: { stack, stackWeight = 1 } } = box);
-      layoutBoxes.push({
-        index: i,
-        box,
-        pos,
-        horizontal: box.isHorizontal(),
-        weight: box.weight,
-        stack: stack && pos + stack,
-        stackWeight
-      });
-    }
-    return layoutBoxes;
-  }
-  function buildStacks(layouts2) {
-    const stacks = {};
-    for (const wrap2 of layouts2) {
-      const { stack, pos, stackWeight } = wrap2;
-      if (!stack || !STATIC_POSITIONS.includes(pos)) {
-        continue;
-      }
-      const _stack = stacks[stack] || (stacks[stack] = { count: 0, placed: 0, weight: 0, size: 0 });
-      _stack.count++;
-      _stack.weight += stackWeight;
-    }
-    return stacks;
-  }
-  function setLayoutDims(layouts2, params) {
-    const stacks = buildStacks(layouts2);
-    const { vBoxMaxWidth, hBoxMaxHeight } = params;
-    let i, ilen, layout;
-    for (i = 0, ilen = layouts2.length; i < ilen; ++i) {
-      layout = layouts2[i];
-      const { fullSize } = layout.box;
-      const stack = stacks[layout.stack];
-      const factor = stack && layout.stackWeight / stack.weight;
-      if (layout.horizontal) {
-        layout.width = factor ? factor * vBoxMaxWidth : fullSize && params.availableWidth;
-        layout.height = hBoxMaxHeight;
-      } else {
-        layout.width = vBoxMaxWidth;
-        layout.height = factor ? factor * hBoxMaxHeight : fullSize && params.availableHeight;
-      }
-    }
-    return stacks;
-  }
-  function buildLayoutBoxes(boxes) {
-    const layoutBoxes = wrapBoxes(boxes);
-    const fullSize = sortByWeight(layoutBoxes.filter((wrap2) => wrap2.box.fullSize), true);
-    const left = sortByWeight(filterByPosition(layoutBoxes, "left"), true);
-    const right = sortByWeight(filterByPosition(layoutBoxes, "right"));
-    const top = sortByWeight(filterByPosition(layoutBoxes, "top"), true);
-    const bottom = sortByWeight(filterByPosition(layoutBoxes, "bottom"));
-    const centerHorizontal = filterDynamicPositionByAxis(layoutBoxes, "x");
-    const centerVertical = filterDynamicPositionByAxis(layoutBoxes, "y");
-    return {
-      fullSize,
-      leftAndTop: left.concat(top),
-      rightAndBottom: right.concat(centerVertical).concat(bottom).concat(centerHorizontal),
-      chartArea: filterByPosition(layoutBoxes, "chartArea"),
-      vertical: left.concat(right).concat(centerVertical),
-      horizontal: top.concat(bottom).concat(centerHorizontal)
-    };
-  }
-  function getCombinedMax(maxPadding, chartArea, a, b) {
-    return Math.max(maxPadding[a], chartArea[a]) + Math.max(maxPadding[b], chartArea[b]);
-  }
-  function updateMaxPadding(maxPadding, boxPadding) {
-    maxPadding.top = Math.max(maxPadding.top, boxPadding.top);
-    maxPadding.left = Math.max(maxPadding.left, boxPadding.left);
-    maxPadding.bottom = Math.max(maxPadding.bottom, boxPadding.bottom);
-    maxPadding.right = Math.max(maxPadding.right, boxPadding.right);
-  }
-  function updateDims(chartArea, params, layout, stacks) {
-    const { pos, box } = layout;
-    const maxPadding = chartArea.maxPadding;
-    if (!isObject(pos)) {
-      if (layout.size) {
-        chartArea[pos] -= layout.size;
-      }
-      const stack = stacks[layout.stack] || { size: 0, count: 1 };
-      stack.size = Math.max(stack.size, layout.horizontal ? box.height : box.width);
-      layout.size = stack.size / stack.count;
-      chartArea[pos] += layout.size;
-    }
-    if (box.getPadding) {
-      updateMaxPadding(maxPadding, box.getPadding());
-    }
-    const newWidth = Math.max(0, params.outerWidth - getCombinedMax(maxPadding, chartArea, "left", "right"));
-    const newHeight = Math.max(0, params.outerHeight - getCombinedMax(maxPadding, chartArea, "top", "bottom"));
-    const widthChanged = newWidth !== chartArea.w;
-    const heightChanged = newHeight !== chartArea.h;
-    chartArea.w = newWidth;
-    chartArea.h = newHeight;
-    return layout.horizontal ? { same: widthChanged, other: heightChanged } : { same: heightChanged, other: widthChanged };
-  }
-  function handleMaxPadding(chartArea) {
-    const maxPadding = chartArea.maxPadding;
-    function updatePos(pos) {
-      const change = Math.max(maxPadding[pos] - chartArea[pos], 0);
-      chartArea[pos] += change;
-      return change;
-    }
-    chartArea.y += updatePos("top");
-    chartArea.x += updatePos("left");
-    updatePos("right");
-    updatePos("bottom");
-  }
-  function getMargins(horizontal, chartArea) {
-    const maxPadding = chartArea.maxPadding;
-    function marginForPositions(positions2) {
-      const margin = { left: 0, top: 0, right: 0, bottom: 0 };
-      positions2.forEach((pos) => {
-        margin[pos] = Math.max(chartArea[pos], maxPadding[pos]);
-      });
-      return margin;
-    }
-    return horizontal ? marginForPositions(["left", "right"]) : marginForPositions(["top", "bottom"]);
-  }
-  function fitBoxes(boxes, chartArea, params, stacks) {
-    const refitBoxes = [];
-    let i, ilen, layout, box, refit, changed;
-    for (i = 0, ilen = boxes.length, refit = 0; i < ilen; ++i) {
-      layout = boxes[i];
-      box = layout.box;
-      box.update(layout.width || chartArea.w, layout.height || chartArea.h, getMargins(layout.horizontal, chartArea));
-      const { same, other } = updateDims(chartArea, params, layout, stacks);
-      refit |= same && refitBoxes.length;
-      changed = changed || other;
-      if (!box.fullSize) {
-        refitBoxes.push(layout);
-      }
-    }
-    return refit && fitBoxes(refitBoxes, chartArea, params, stacks) || changed;
-  }
-  function setBoxDims(box, left, top, width, height) {
-    box.top = top;
-    box.left = left;
-    box.right = left + width;
-    box.bottom = top + height;
-    box.width = width;
-    box.height = height;
-  }
-  function placeBoxes(boxes, chartArea, params, stacks) {
-    const userPadding = params.padding;
-    let { x, y } = chartArea;
-    for (const layout of boxes) {
-      const box = layout.box;
-      const stack = stacks[layout.stack] || { count: 1, placed: 0, weight: 1 };
-      const weight = layout.stackWeight / stack.weight || 1;
-      if (layout.horizontal) {
-        const width = chartArea.w * weight;
-        const height = stack.size || box.height;
-        if (defined(stack.start)) {
-          y = stack.start;
-        }
-        if (box.fullSize) {
-          setBoxDims(box, userPadding.left, y, params.outerWidth - userPadding.right - userPadding.left, height);
-        } else {
-          setBoxDims(box, chartArea.left + stack.placed, y, width, height);
-        }
-        stack.start = y;
-        stack.placed += width;
-        y = box.bottom;
-      } else {
-        const height = chartArea.h * weight;
-        const width = stack.size || box.width;
-        if (defined(stack.start)) {
-          x = stack.start;
-        }
-        if (box.fullSize) {
-          setBoxDims(box, x, userPadding.top, width, params.outerHeight - userPadding.bottom - userPadding.top);
-        } else {
-          setBoxDims(box, x, chartArea.top + stack.placed, width, height);
-        }
-        stack.start = x;
-        stack.placed += height;
-        x = box.right;
-      }
-    }
-    chartArea.x = x;
-    chartArea.y = y;
-  }
-  defaults.set("layout", {
-    autoPadding: true,
-    padding: {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    }
-  });
-  var layouts = {
-    addBox(chart, item) {
-      if (!chart.boxes) {
-        chart.boxes = [];
-      }
-      item.fullSize = item.fullSize || false;
-      item.position = item.position || "top";
-      item.weight = item.weight || 0;
-      item._layers = item._layers || function() {
-        return [{
-          z: 0,
-          draw(chartArea) {
-            item.draw(chartArea);
-          }
-        }];
-      };
-      chart.boxes.push(item);
-    },
-    removeBox(chart, layoutItem) {
-      const index3 = chart.boxes ? chart.boxes.indexOf(layoutItem) : -1;
-      if (index3 !== -1) {
-        chart.boxes.splice(index3, 1);
-      }
-    },
-    configure(chart, item, options) {
-      item.fullSize = options.fullSize;
-      item.position = options.position;
-      item.weight = options.weight;
-    },
-    update(chart, width, height, minPadding) {
-      if (!chart) {
-        return;
-      }
-      const padding = toPadding(chart.options.layout.padding);
-      const availableWidth = Math.max(width - padding.width, 0);
-      const availableHeight = Math.max(height - padding.height, 0);
-      const boxes = buildLayoutBoxes(chart.boxes);
-      const verticalBoxes = boxes.vertical;
-      const horizontalBoxes = boxes.horizontal;
-      each(chart.boxes, (box) => {
-        if (typeof box.beforeLayout === "function") {
-          box.beforeLayout();
-        }
-      });
-      const visibleVerticalBoxCount = verticalBoxes.reduce((total, wrap2) => wrap2.box.options && wrap2.box.options.display === false ? total : total + 1, 0) || 1;
-      const params = Object.freeze({
-        outerWidth: width,
-        outerHeight: height,
-        padding,
-        availableWidth,
-        availableHeight,
-        vBoxMaxWidth: availableWidth / 2 / visibleVerticalBoxCount,
-        hBoxMaxHeight: availableHeight / 2
-      });
-      const maxPadding = Object.assign({}, padding);
-      updateMaxPadding(maxPadding, toPadding(minPadding));
-      const chartArea = Object.assign({
-        maxPadding,
-        w: availableWidth,
-        h: availableHeight,
-        x: padding.left,
-        y: padding.top
-      }, padding);
-      const stacks = setLayoutDims(verticalBoxes.concat(horizontalBoxes), params);
-      fitBoxes(boxes.fullSize, chartArea, params, stacks);
-      fitBoxes(verticalBoxes, chartArea, params, stacks);
-      if (fitBoxes(horizontalBoxes, chartArea, params, stacks)) {
-        fitBoxes(verticalBoxes, chartArea, params, stacks);
-      }
-      handleMaxPadding(chartArea);
-      placeBoxes(boxes.leftAndTop, chartArea, params, stacks);
-      chartArea.x += chartArea.w;
-      chartArea.y += chartArea.h;
-      placeBoxes(boxes.rightAndBottom, chartArea, params, stacks);
-      chart.chartArea = {
-        left: chartArea.left,
-        top: chartArea.top,
-        right: chartArea.left + chartArea.w,
-        bottom: chartArea.top + chartArea.h,
-        height: chartArea.h,
-        width: chartArea.w
-      };
-      each(boxes.chartArea, (layout) => {
-        const box = layout.box;
-        Object.assign(box, chart.chartArea);
-        box.update(chartArea.w, chartArea.h, { left: 0, top: 0, right: 0, bottom: 0 });
-      });
-    }
-  };
-  var BasePlatform = class {
-    acquireContext(canvas, aspectRatio) {
-    }
-    releaseContext(context) {
-      return false;
-    }
-    addEventListener(chart, type, listener) {
-    }
-    removeEventListener(chart, type, listener) {
-    }
-    getDevicePixelRatio() {
-      return 1;
-    }
-    getMaximumSize(element, width, height, aspectRatio) {
-      width = Math.max(0, width || element.width);
-      height = height || element.height;
-      return {
-        width,
-        height: Math.max(0, aspectRatio ? Math.floor(width / aspectRatio) : height)
-      };
-    }
-    isAttached(canvas) {
-      return true;
-    }
-    updateConfig(config) {
-    }
-  };
-  var BasicPlatform = class extends BasePlatform {
-    acquireContext(item) {
-      return item && item.getContext && item.getContext("2d") || null;
-    }
-    updateConfig(config) {
-      config.options.animation = false;
-    }
-  };
-  var EXPANDO_KEY = "$chartjs";
-  var EVENT_TYPES = {
-    touchstart: "mousedown",
-    touchmove: "mousemove",
-    touchend: "mouseup",
-    pointerenter: "mouseenter",
-    pointerdown: "mousedown",
-    pointermove: "mousemove",
-    pointerup: "mouseup",
-    pointerleave: "mouseout",
-    pointerout: "mouseout"
-  };
-  var isNullOrEmpty = (value) => value === null || value === "";
-  function initCanvas(canvas, aspectRatio) {
-    const style = canvas.style;
-    const renderHeight = canvas.getAttribute("height");
-    const renderWidth = canvas.getAttribute("width");
-    canvas[EXPANDO_KEY] = {
-      initial: {
-        height: renderHeight,
-        width: renderWidth,
-        style: {
-          display: style.display,
-          height: style.height,
-          width: style.width
-        }
-      }
-    };
-    style.display = style.display || "block";
-    style.boxSizing = style.boxSizing || "border-box";
-    if (isNullOrEmpty(renderWidth)) {
-      const displayWidth = readUsedSize(canvas, "width");
-      if (displayWidth !== void 0) {
-        canvas.width = displayWidth;
-      }
-    }
-    if (isNullOrEmpty(renderHeight)) {
-      if (canvas.style.height === "") {
-        canvas.height = canvas.width / (aspectRatio || 2);
-      } else {
-        const displayHeight = readUsedSize(canvas, "height");
-        if (displayHeight !== void 0) {
-          canvas.height = displayHeight;
-        }
-      }
-    }
-    return canvas;
-  }
-  var eventListenerOptions = supportsEventListenerOptions ? { passive: true } : false;
-  function addListener(node, type, listener) {
-    node.addEventListener(type, listener, eventListenerOptions);
-  }
-  function removeListener(chart, type, listener) {
-    chart.canvas.removeEventListener(type, listener, eventListenerOptions);
-  }
-  function fromNativeEvent(event, chart) {
-    const type = EVENT_TYPES[event.type] || event.type;
-    const { x, y } = getRelativePosition(event, chart);
-    return {
-      type,
-      chart,
-      native: event,
-      x: x !== void 0 ? x : null,
-      y: y !== void 0 ? y : null
-    };
-  }
-  function nodeListContains(nodeList, canvas) {
-    for (const node of nodeList) {
-      if (node === canvas || node.contains(canvas)) {
-        return true;
-      }
-    }
-  }
-  function createAttachObserver(chart, type, listener) {
-    const canvas = chart.canvas;
-    const observer = new MutationObserver((entries) => {
-      let trigger = false;
-      for (const entry of entries) {
-        trigger = trigger || nodeListContains(entry.addedNodes, canvas);
-        trigger = trigger && !nodeListContains(entry.removedNodes, canvas);
-      }
-      if (trigger) {
-        listener();
-      }
-    });
-    observer.observe(document, { childList: true, subtree: true });
-    return observer;
-  }
-  function createDetachObserver(chart, type, listener) {
-    const canvas = chart.canvas;
-    const observer = new MutationObserver((entries) => {
-      let trigger = false;
-      for (const entry of entries) {
-        trigger = trigger || nodeListContains(entry.removedNodes, canvas);
-        trigger = trigger && !nodeListContains(entry.addedNodes, canvas);
-      }
-      if (trigger) {
-        listener();
-      }
-    });
-    observer.observe(document, { childList: true, subtree: true });
-    return observer;
-  }
-  var drpListeningCharts = /* @__PURE__ */ new Map();
-  var oldDevicePixelRatio = 0;
-  function onWindowResize() {
-    const dpr = window.devicePixelRatio;
-    if (dpr === oldDevicePixelRatio) {
-      return;
-    }
-    oldDevicePixelRatio = dpr;
-    drpListeningCharts.forEach((resize, chart) => {
-      if (chart.currentDevicePixelRatio !== dpr) {
-        resize();
-      }
-    });
-  }
-  function listenDevicePixelRatioChanges(chart, resize) {
-    if (!drpListeningCharts.size) {
-      window.addEventListener("resize", onWindowResize);
-    }
-    drpListeningCharts.set(chart, resize);
-  }
-  function unlistenDevicePixelRatioChanges(chart) {
-    drpListeningCharts.delete(chart);
-    if (!drpListeningCharts.size) {
-      window.removeEventListener("resize", onWindowResize);
-    }
-  }
-  function createResizeObserver(chart, type, listener) {
-    const canvas = chart.canvas;
-    const container = canvas && _getParentNode(canvas);
-    if (!container) {
-      return;
-    }
-    const resize = throttled((width, height) => {
-      const w = container.clientWidth;
-      listener(width, height);
-      if (w < container.clientWidth) {
-        listener();
-      }
-    }, window);
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      const width = entry.contentRect.width;
-      const height = entry.contentRect.height;
-      if (width === 0 && height === 0) {
-        return;
-      }
-      resize(width, height);
-    });
-    observer.observe(container);
-    listenDevicePixelRatioChanges(chart, resize);
-    return observer;
-  }
-  function releaseObserver(chart, type, observer) {
-    if (observer) {
-      observer.disconnect();
-    }
-    if (type === "resize") {
-      unlistenDevicePixelRatioChanges(chart);
-    }
-  }
-  function createProxyAndListen(chart, type, listener) {
-    const canvas = chart.canvas;
-    const proxy = throttled((event) => {
-      if (chart.ctx !== null) {
-        listener(fromNativeEvent(event, chart));
-      }
-    }, chart, (args) => {
-      const event = args[0];
-      return [event, event.offsetX, event.offsetY];
-    });
-    addListener(canvas, type, proxy);
-    return proxy;
-  }
-  var DomPlatform = class extends BasePlatform {
-    acquireContext(canvas, aspectRatio) {
-      const context = canvas && canvas.getContext && canvas.getContext("2d");
-      if (context && context.canvas === canvas) {
-        initCanvas(canvas, aspectRatio);
-        return context;
-      }
-      return null;
-    }
-    releaseContext(context) {
-      const canvas = context.canvas;
-      if (!canvas[EXPANDO_KEY]) {
-        return false;
-      }
-      const initial = canvas[EXPANDO_KEY].initial;
-      ["height", "width"].forEach((prop) => {
-        const value = initial[prop];
-        if (isNullOrUndef(value)) {
-          canvas.removeAttribute(prop);
-        } else {
-          canvas.setAttribute(prop, value);
-        }
-      });
-      const style = initial.style || {};
-      Object.keys(style).forEach((key) => {
-        canvas.style[key] = style[key];
-      });
-      canvas.width = canvas.width;
-      delete canvas[EXPANDO_KEY];
-      return true;
-    }
-    addEventListener(chart, type, listener) {
-      this.removeEventListener(chart, type);
-      const proxies = chart.$proxies || (chart.$proxies = {});
-      const handlers = {
-        attach: createAttachObserver,
-        detach: createDetachObserver,
-        resize: createResizeObserver
-      };
-      const handler = handlers[type] || createProxyAndListen;
-      proxies[type] = handler(chart, type, listener);
-    }
-    removeEventListener(chart, type) {
-      const proxies = chart.$proxies || (chart.$proxies = {});
-      const proxy = proxies[type];
-      if (!proxy) {
-        return;
-      }
-      const handlers = {
-        attach: releaseObserver,
-        detach: releaseObserver,
-        resize: releaseObserver
-      };
-      const handler = handlers[type] || removeListener;
-      handler(chart, type, proxy);
-      proxies[type] = void 0;
-    }
-    getDevicePixelRatio() {
-      return window.devicePixelRatio;
-    }
-    getMaximumSize(canvas, width, height, aspectRatio) {
-      return getMaximumSize(canvas, width, height, aspectRatio);
-    }
-    isAttached(canvas) {
-      const container = _getParentNode(canvas);
-      return !!(container && container.isConnected);
-    }
-  };
-  function _detectPlatform(canvas) {
-    if (!_isDomSupported() || typeof OffscreenCanvas !== "undefined" && canvas instanceof OffscreenCanvas) {
-      return BasicPlatform;
-    }
-    return DomPlatform;
-  }
   var Element2 = class {
     constructor() {
       this.x = void 0;
@@ -21838,7 +21023,7 @@
         const optsAtIndex = grid.setContext(this.getContext(i));
         const lineWidth = optsAtIndex.lineWidth;
         const lineColor = optsAtIndex.color;
-        const borderDash = grid.borderDash || [];
+        const borderDash = optsAtIndex.borderDash || [];
         const borderDashOffset = optsAtIndex.borderDashOffset;
         const tickWidth = optsAtIndex.tickWidth;
         const tickColor = optsAtIndex.tickColor;
@@ -22485,6 +21670,933 @@
     }
   };
   var registry = new Registry();
+  var ScatterController = class extends DatasetController {
+    update(mode) {
+      const meta = this._cachedMeta;
+      const { data: points = [] } = meta;
+      const animationsDisabled = this.chart._animationsDisabled;
+      let { start: start3, count } = _getStartAndCountOfVisiblePoints(meta, points, animationsDisabled);
+      this._drawStart = start3;
+      this._drawCount = count;
+      if (_scaleRangesChanged(meta)) {
+        start3 = 0;
+        count = points.length;
+      }
+      if (this.options.showLine) {
+        const { dataset: line, _dataset } = meta;
+        line._chart = this.chart;
+        line._datasetIndex = this.index;
+        line._decimated = !!_dataset._decimated;
+        line.points = points;
+        const options = this.resolveDatasetElementOptions(mode);
+        options.segment = this.options.segment;
+        this.updateElement(line, void 0, {
+          animated: !animationsDisabled,
+          options
+        }, mode);
+      }
+      this.updateElements(points, start3, count, mode);
+    }
+    addElements() {
+      const { showLine } = this.options;
+      if (!this.datasetElementType && showLine) {
+        this.datasetElementType = registry.getElement("line");
+      }
+      super.addElements();
+    }
+    updateElements(points, start3, count, mode) {
+      const reset = mode === "reset";
+      const { iScale, vScale, _stacked, _dataset } = this._cachedMeta;
+      const firstOpts = this.resolveDataElementOptions(start3, mode);
+      const sharedOptions = this.getSharedOptions(firstOpts);
+      const includeOptions = this.includeOptions(mode, sharedOptions);
+      const iAxis = iScale.axis;
+      const vAxis = vScale.axis;
+      const { spanGaps, segment } = this.options;
+      const maxGapLength = isNumber(spanGaps) ? spanGaps : Number.POSITIVE_INFINITY;
+      const directUpdate = this.chart._animationsDisabled || reset || mode === "none";
+      let prevParsed = start3 > 0 && this.getParsed(start3 - 1);
+      for (let i = start3; i < start3 + count; ++i) {
+        const point = points[i];
+        const parsed = this.getParsed(i);
+        const properties = directUpdate ? point : {};
+        const nullData = isNullOrUndef(parsed[vAxis]);
+        const iPixel = properties[iAxis] = iScale.getPixelForValue(parsed[iAxis], i);
+        const vPixel = properties[vAxis] = reset || nullData ? vScale.getBasePixel() : vScale.getPixelForValue(_stacked ? this.applyStack(vScale, parsed, _stacked) : parsed[vAxis], i);
+        properties.skip = isNaN(iPixel) || isNaN(vPixel) || nullData;
+        properties.stop = i > 0 && Math.abs(parsed[iAxis] - prevParsed[iAxis]) > maxGapLength;
+        if (segment) {
+          properties.parsed = parsed;
+          properties.raw = _dataset.data[i];
+        }
+        if (includeOptions) {
+          properties.options = sharedOptions || this.resolveDataElementOptions(i, point.active ? "active" : mode);
+        }
+        if (!directUpdate) {
+          this.updateElement(point, i, properties, mode);
+        }
+        prevParsed = parsed;
+      }
+      this.updateSharedOptions(sharedOptions, mode, firstOpts);
+    }
+    getMaxOverflow() {
+      const meta = this._cachedMeta;
+      const data = meta.data || [];
+      if (!this.options.showLine) {
+        let max = 0;
+        for (let i = data.length - 1; i >= 0; --i) {
+          max = Math.max(max, data[i].size(this.resolveDataElementOptions(i)) / 2);
+        }
+        return max > 0 && max;
+      }
+      const dataset = meta.dataset;
+      const border = dataset.options && dataset.options.borderWidth || 0;
+      if (!data.length) {
+        return border;
+      }
+      const firstPoint = data[0].size(this.resolveDataElementOptions(0));
+      const lastPoint = data[data.length - 1].size(this.resolveDataElementOptions(data.length - 1));
+      return Math.max(border, firstPoint, lastPoint) / 2;
+    }
+  };
+  ScatterController.id = "scatter";
+  ScatterController.defaults = {
+    datasetElementType: false,
+    dataElementType: "point",
+    showLine: false,
+    fill: false
+  };
+  ScatterController.overrides = {
+    interaction: {
+      mode: "point"
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title() {
+            return "";
+          },
+          label(item) {
+            return "(" + item.label + ", " + item.formattedValue + ")";
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: "linear"
+      },
+      y: {
+        type: "linear"
+      }
+    }
+  };
+  var controllers = /* @__PURE__ */ Object.freeze({
+    __proto__: null,
+    BarController,
+    BubbleController,
+    DoughnutController,
+    LineController,
+    PolarAreaController,
+    PieController,
+    RadarController,
+    ScatterController
+  });
+  function abstract() {
+    throw new Error("This method is not implemented: Check that a complete date adapter is provided.");
+  }
+  var DateAdapter = class {
+    constructor(options) {
+      this.options = options || {};
+    }
+    init(chartOptions) {
+    }
+    formats() {
+      return abstract();
+    }
+    parse(value, format) {
+      return abstract();
+    }
+    format(timestamp, format) {
+      return abstract();
+    }
+    add(timestamp, amount, unit) {
+      return abstract();
+    }
+    diff(a, b, unit) {
+      return abstract();
+    }
+    startOf(timestamp, unit, weekday) {
+      return abstract();
+    }
+    endOf(timestamp, unit) {
+      return abstract();
+    }
+  };
+  DateAdapter.override = function(members) {
+    Object.assign(DateAdapter.prototype, members);
+  };
+  var adapters = {
+    _date: DateAdapter
+  };
+  function binarySearch(metaset, axis, value, intersect) {
+    const { controller, data, _sorted } = metaset;
+    const iScale = controller._cachedMeta.iScale;
+    if (iScale && axis === iScale.axis && axis !== "r" && _sorted && data.length) {
+      const lookupMethod = iScale._reversePixels ? _rlookupByKey : _lookupByKey;
+      if (!intersect) {
+        return lookupMethod(data, axis, value);
+      } else if (controller._sharedOptions) {
+        const el = data[0];
+        const range = typeof el.getRange === "function" && el.getRange(axis);
+        if (range) {
+          const start3 = lookupMethod(data, axis, value - range);
+          const end = lookupMethod(data, axis, value + range);
+          return { lo: start3.lo, hi: end.hi };
+        }
+      }
+    }
+    return { lo: 0, hi: data.length - 1 };
+  }
+  function evaluateInteractionItems(chart, axis, position, handler, intersect) {
+    const metasets = chart.getSortedVisibleDatasetMetas();
+    const value = position[axis];
+    for (let i = 0, ilen = metasets.length; i < ilen; ++i) {
+      const { index: index3, data } = metasets[i];
+      const { lo, hi } = binarySearch(metasets[i], axis, value, intersect);
+      for (let j = lo; j <= hi; ++j) {
+        const element = data[j];
+        if (!element.skip) {
+          handler(element, index3, j);
+        }
+      }
+    }
+  }
+  function getDistanceMetricForAxis(axis) {
+    const useX = axis.indexOf("x") !== -1;
+    const useY = axis.indexOf("y") !== -1;
+    return function(pt1, pt2) {
+      const deltaX = useX ? Math.abs(pt1.x - pt2.x) : 0;
+      const deltaY = useY ? Math.abs(pt1.y - pt2.y) : 0;
+      return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+    };
+  }
+  function getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible) {
+    const items = [];
+    if (!includeInvisible && !chart.isPointInArea(position)) {
+      return items;
+    }
+    const evaluationFunc = function(element, datasetIndex, index3) {
+      if (!includeInvisible && !_isPointInArea(element, chart.chartArea, 0)) {
+        return;
+      }
+      if (element.inRange(position.x, position.y, useFinalPosition)) {
+        items.push({ element, datasetIndex, index: index3 });
+      }
+    };
+    evaluateInteractionItems(chart, axis, position, evaluationFunc, true);
+    return items;
+  }
+  function getNearestRadialItems(chart, position, axis, useFinalPosition) {
+    let items = [];
+    function evaluationFunc(element, datasetIndex, index3) {
+      const { startAngle, endAngle } = element.getProps(["startAngle", "endAngle"], useFinalPosition);
+      const { angle } = getAngleFromPoint(element, { x: position.x, y: position.y });
+      if (_angleBetween(angle, startAngle, endAngle)) {
+        items.push({ element, datasetIndex, index: index3 });
+      }
+    }
+    evaluateInteractionItems(chart, axis, position, evaluationFunc);
+    return items;
+  }
+  function getNearestCartesianItems(chart, position, axis, intersect, useFinalPosition, includeInvisible) {
+    let items = [];
+    const distanceMetric = getDistanceMetricForAxis(axis);
+    let minDistance = Number.POSITIVE_INFINITY;
+    function evaluationFunc(element, datasetIndex, index3) {
+      const inRange2 = element.inRange(position.x, position.y, useFinalPosition);
+      if (intersect && !inRange2) {
+        return;
+      }
+      const center = element.getCenterPoint(useFinalPosition);
+      const pointInArea = !!includeInvisible || chart.isPointInArea(center);
+      if (!pointInArea && !inRange2) {
+        return;
+      }
+      const distance = distanceMetric(position, center);
+      if (distance < minDistance) {
+        items = [{ element, datasetIndex, index: index3 }];
+        minDistance = distance;
+      } else if (distance === minDistance) {
+        items.push({ element, datasetIndex, index: index3 });
+      }
+    }
+    evaluateInteractionItems(chart, axis, position, evaluationFunc);
+    return items;
+  }
+  function getNearestItems(chart, position, axis, intersect, useFinalPosition, includeInvisible) {
+    if (!includeInvisible && !chart.isPointInArea(position)) {
+      return [];
+    }
+    return axis === "r" && !intersect ? getNearestRadialItems(chart, position, axis, useFinalPosition) : getNearestCartesianItems(chart, position, axis, intersect, useFinalPosition, includeInvisible);
+  }
+  function getAxisItems(chart, position, axis, intersect, useFinalPosition) {
+    const items = [];
+    const rangeMethod = axis === "x" ? "inXRange" : "inYRange";
+    let intersectsItem = false;
+    evaluateInteractionItems(chart, axis, position, (element, datasetIndex, index3) => {
+      if (element[rangeMethod](position[axis], useFinalPosition)) {
+        items.push({ element, datasetIndex, index: index3 });
+        intersectsItem = intersectsItem || element.inRange(position.x, position.y, useFinalPosition);
+      }
+    });
+    if (intersect && !intersectsItem) {
+      return [];
+    }
+    return items;
+  }
+  var Interaction = {
+    evaluateInteractionItems,
+    modes: {
+      index(chart, e, options, useFinalPosition) {
+        const position = getRelativePosition(e, chart);
+        const axis = options.axis || "x";
+        const includeInvisible = options.includeInvisible || false;
+        const items = options.intersect ? getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible) : getNearestItems(chart, position, axis, false, useFinalPosition, includeInvisible);
+        const elements2 = [];
+        if (!items.length) {
+          return [];
+        }
+        chart.getSortedVisibleDatasetMetas().forEach((meta) => {
+          const index3 = items[0].index;
+          const element = meta.data[index3];
+          if (element && !element.skip) {
+            elements2.push({ element, datasetIndex: meta.index, index: index3 });
+          }
+        });
+        return elements2;
+      },
+      dataset(chart, e, options, useFinalPosition) {
+        const position = getRelativePosition(e, chart);
+        const axis = options.axis || "xy";
+        const includeInvisible = options.includeInvisible || false;
+        let items = options.intersect ? getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible) : getNearestItems(chart, position, axis, false, useFinalPosition, includeInvisible);
+        if (items.length > 0) {
+          const datasetIndex = items[0].datasetIndex;
+          const data = chart.getDatasetMeta(datasetIndex).data;
+          items = [];
+          for (let i = 0; i < data.length; ++i) {
+            items.push({ element: data[i], datasetIndex, index: i });
+          }
+        }
+        return items;
+      },
+      point(chart, e, options, useFinalPosition) {
+        const position = getRelativePosition(e, chart);
+        const axis = options.axis || "xy";
+        const includeInvisible = options.includeInvisible || false;
+        return getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible);
+      },
+      nearest(chart, e, options, useFinalPosition) {
+        const position = getRelativePosition(e, chart);
+        const axis = options.axis || "xy";
+        const includeInvisible = options.includeInvisible || false;
+        return getNearestItems(chart, position, axis, options.intersect, useFinalPosition, includeInvisible);
+      },
+      x(chart, e, options, useFinalPosition) {
+        const position = getRelativePosition(e, chart);
+        return getAxisItems(chart, position, "x", options.intersect, useFinalPosition);
+      },
+      y(chart, e, options, useFinalPosition) {
+        const position = getRelativePosition(e, chart);
+        return getAxisItems(chart, position, "y", options.intersect, useFinalPosition);
+      }
+    }
+  };
+  var STATIC_POSITIONS = ["left", "top", "right", "bottom"];
+  function filterByPosition(array, position) {
+    return array.filter((v) => v.pos === position);
+  }
+  function filterDynamicPositionByAxis(array, axis) {
+    return array.filter((v) => STATIC_POSITIONS.indexOf(v.pos) === -1 && v.box.axis === axis);
+  }
+  function sortByWeight(array, reverse) {
+    return array.sort((a, b) => {
+      const v0 = reverse ? b : a;
+      const v1 = reverse ? a : b;
+      return v0.weight === v1.weight ? v0.index - v1.index : v0.weight - v1.weight;
+    });
+  }
+  function wrapBoxes(boxes) {
+    const layoutBoxes = [];
+    let i, ilen, box, pos, stack, stackWeight;
+    for (i = 0, ilen = (boxes || []).length; i < ilen; ++i) {
+      box = boxes[i];
+      ({ position: pos, options: { stack, stackWeight = 1 } } = box);
+      layoutBoxes.push({
+        index: i,
+        box,
+        pos,
+        horizontal: box.isHorizontal(),
+        weight: box.weight,
+        stack: stack && pos + stack,
+        stackWeight
+      });
+    }
+    return layoutBoxes;
+  }
+  function buildStacks(layouts2) {
+    const stacks = {};
+    for (const wrap2 of layouts2) {
+      const { stack, pos, stackWeight } = wrap2;
+      if (!stack || !STATIC_POSITIONS.includes(pos)) {
+        continue;
+      }
+      const _stack = stacks[stack] || (stacks[stack] = { count: 0, placed: 0, weight: 0, size: 0 });
+      _stack.count++;
+      _stack.weight += stackWeight;
+    }
+    return stacks;
+  }
+  function setLayoutDims(layouts2, params) {
+    const stacks = buildStacks(layouts2);
+    const { vBoxMaxWidth, hBoxMaxHeight } = params;
+    let i, ilen, layout;
+    for (i = 0, ilen = layouts2.length; i < ilen; ++i) {
+      layout = layouts2[i];
+      const { fullSize } = layout.box;
+      const stack = stacks[layout.stack];
+      const factor = stack && layout.stackWeight / stack.weight;
+      if (layout.horizontal) {
+        layout.width = factor ? factor * vBoxMaxWidth : fullSize && params.availableWidth;
+        layout.height = hBoxMaxHeight;
+      } else {
+        layout.width = vBoxMaxWidth;
+        layout.height = factor ? factor * hBoxMaxHeight : fullSize && params.availableHeight;
+      }
+    }
+    return stacks;
+  }
+  function buildLayoutBoxes(boxes) {
+    const layoutBoxes = wrapBoxes(boxes);
+    const fullSize = sortByWeight(layoutBoxes.filter((wrap2) => wrap2.box.fullSize), true);
+    const left = sortByWeight(filterByPosition(layoutBoxes, "left"), true);
+    const right = sortByWeight(filterByPosition(layoutBoxes, "right"));
+    const top = sortByWeight(filterByPosition(layoutBoxes, "top"), true);
+    const bottom = sortByWeight(filterByPosition(layoutBoxes, "bottom"));
+    const centerHorizontal = filterDynamicPositionByAxis(layoutBoxes, "x");
+    const centerVertical = filterDynamicPositionByAxis(layoutBoxes, "y");
+    return {
+      fullSize,
+      leftAndTop: left.concat(top),
+      rightAndBottom: right.concat(centerVertical).concat(bottom).concat(centerHorizontal),
+      chartArea: filterByPosition(layoutBoxes, "chartArea"),
+      vertical: left.concat(right).concat(centerVertical),
+      horizontal: top.concat(bottom).concat(centerHorizontal)
+    };
+  }
+  function getCombinedMax(maxPadding, chartArea, a, b) {
+    return Math.max(maxPadding[a], chartArea[a]) + Math.max(maxPadding[b], chartArea[b]);
+  }
+  function updateMaxPadding(maxPadding, boxPadding) {
+    maxPadding.top = Math.max(maxPadding.top, boxPadding.top);
+    maxPadding.left = Math.max(maxPadding.left, boxPadding.left);
+    maxPadding.bottom = Math.max(maxPadding.bottom, boxPadding.bottom);
+    maxPadding.right = Math.max(maxPadding.right, boxPadding.right);
+  }
+  function updateDims(chartArea, params, layout, stacks) {
+    const { pos, box } = layout;
+    const maxPadding = chartArea.maxPadding;
+    if (!isObject(pos)) {
+      if (layout.size) {
+        chartArea[pos] -= layout.size;
+      }
+      const stack = stacks[layout.stack] || { size: 0, count: 1 };
+      stack.size = Math.max(stack.size, layout.horizontal ? box.height : box.width);
+      layout.size = stack.size / stack.count;
+      chartArea[pos] += layout.size;
+    }
+    if (box.getPadding) {
+      updateMaxPadding(maxPadding, box.getPadding());
+    }
+    const newWidth = Math.max(0, params.outerWidth - getCombinedMax(maxPadding, chartArea, "left", "right"));
+    const newHeight = Math.max(0, params.outerHeight - getCombinedMax(maxPadding, chartArea, "top", "bottom"));
+    const widthChanged = newWidth !== chartArea.w;
+    const heightChanged = newHeight !== chartArea.h;
+    chartArea.w = newWidth;
+    chartArea.h = newHeight;
+    return layout.horizontal ? { same: widthChanged, other: heightChanged } : { same: heightChanged, other: widthChanged };
+  }
+  function handleMaxPadding(chartArea) {
+    const maxPadding = chartArea.maxPadding;
+    function updatePos(pos) {
+      const change = Math.max(maxPadding[pos] - chartArea[pos], 0);
+      chartArea[pos] += change;
+      return change;
+    }
+    chartArea.y += updatePos("top");
+    chartArea.x += updatePos("left");
+    updatePos("right");
+    updatePos("bottom");
+  }
+  function getMargins(horizontal, chartArea) {
+    const maxPadding = chartArea.maxPadding;
+    function marginForPositions(positions2) {
+      const margin = { left: 0, top: 0, right: 0, bottom: 0 };
+      positions2.forEach((pos) => {
+        margin[pos] = Math.max(chartArea[pos], maxPadding[pos]);
+      });
+      return margin;
+    }
+    return horizontal ? marginForPositions(["left", "right"]) : marginForPositions(["top", "bottom"]);
+  }
+  function fitBoxes(boxes, chartArea, params, stacks) {
+    const refitBoxes = [];
+    let i, ilen, layout, box, refit, changed;
+    for (i = 0, ilen = boxes.length, refit = 0; i < ilen; ++i) {
+      layout = boxes[i];
+      box = layout.box;
+      box.update(layout.width || chartArea.w, layout.height || chartArea.h, getMargins(layout.horizontal, chartArea));
+      const { same, other } = updateDims(chartArea, params, layout, stacks);
+      refit |= same && refitBoxes.length;
+      changed = changed || other;
+      if (!box.fullSize) {
+        refitBoxes.push(layout);
+      }
+    }
+    return refit && fitBoxes(refitBoxes, chartArea, params, stacks) || changed;
+  }
+  function setBoxDims(box, left, top, width, height) {
+    box.top = top;
+    box.left = left;
+    box.right = left + width;
+    box.bottom = top + height;
+    box.width = width;
+    box.height = height;
+  }
+  function placeBoxes(boxes, chartArea, params, stacks) {
+    const userPadding = params.padding;
+    let { x, y } = chartArea;
+    for (const layout of boxes) {
+      const box = layout.box;
+      const stack = stacks[layout.stack] || { count: 1, placed: 0, weight: 1 };
+      const weight = layout.stackWeight / stack.weight || 1;
+      if (layout.horizontal) {
+        const width = chartArea.w * weight;
+        const height = stack.size || box.height;
+        if (defined(stack.start)) {
+          y = stack.start;
+        }
+        if (box.fullSize) {
+          setBoxDims(box, userPadding.left, y, params.outerWidth - userPadding.right - userPadding.left, height);
+        } else {
+          setBoxDims(box, chartArea.left + stack.placed, y, width, height);
+        }
+        stack.start = y;
+        stack.placed += width;
+        y = box.bottom;
+      } else {
+        const height = chartArea.h * weight;
+        const width = stack.size || box.width;
+        if (defined(stack.start)) {
+          x = stack.start;
+        }
+        if (box.fullSize) {
+          setBoxDims(box, x, userPadding.top, width, params.outerHeight - userPadding.bottom - userPadding.top);
+        } else {
+          setBoxDims(box, x, chartArea.top + stack.placed, width, height);
+        }
+        stack.start = x;
+        stack.placed += height;
+        x = box.right;
+      }
+    }
+    chartArea.x = x;
+    chartArea.y = y;
+  }
+  defaults.set("layout", {
+    autoPadding: true,
+    padding: {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    }
+  });
+  var layouts = {
+    addBox(chart, item) {
+      if (!chart.boxes) {
+        chart.boxes = [];
+      }
+      item.fullSize = item.fullSize || false;
+      item.position = item.position || "top";
+      item.weight = item.weight || 0;
+      item._layers = item._layers || function() {
+        return [{
+          z: 0,
+          draw(chartArea) {
+            item.draw(chartArea);
+          }
+        }];
+      };
+      chart.boxes.push(item);
+    },
+    removeBox(chart, layoutItem) {
+      const index3 = chart.boxes ? chart.boxes.indexOf(layoutItem) : -1;
+      if (index3 !== -1) {
+        chart.boxes.splice(index3, 1);
+      }
+    },
+    configure(chart, item, options) {
+      item.fullSize = options.fullSize;
+      item.position = options.position;
+      item.weight = options.weight;
+    },
+    update(chart, width, height, minPadding) {
+      if (!chart) {
+        return;
+      }
+      const padding = toPadding(chart.options.layout.padding);
+      const availableWidth = Math.max(width - padding.width, 0);
+      const availableHeight = Math.max(height - padding.height, 0);
+      const boxes = buildLayoutBoxes(chart.boxes);
+      const verticalBoxes = boxes.vertical;
+      const horizontalBoxes = boxes.horizontal;
+      each(chart.boxes, (box) => {
+        if (typeof box.beforeLayout === "function") {
+          box.beforeLayout();
+        }
+      });
+      const visibleVerticalBoxCount = verticalBoxes.reduce((total, wrap2) => wrap2.box.options && wrap2.box.options.display === false ? total : total + 1, 0) || 1;
+      const params = Object.freeze({
+        outerWidth: width,
+        outerHeight: height,
+        padding,
+        availableWidth,
+        availableHeight,
+        vBoxMaxWidth: availableWidth / 2 / visibleVerticalBoxCount,
+        hBoxMaxHeight: availableHeight / 2
+      });
+      const maxPadding = Object.assign({}, padding);
+      updateMaxPadding(maxPadding, toPadding(minPadding));
+      const chartArea = Object.assign({
+        maxPadding,
+        w: availableWidth,
+        h: availableHeight,
+        x: padding.left,
+        y: padding.top
+      }, padding);
+      const stacks = setLayoutDims(verticalBoxes.concat(horizontalBoxes), params);
+      fitBoxes(boxes.fullSize, chartArea, params, stacks);
+      fitBoxes(verticalBoxes, chartArea, params, stacks);
+      if (fitBoxes(horizontalBoxes, chartArea, params, stacks)) {
+        fitBoxes(verticalBoxes, chartArea, params, stacks);
+      }
+      handleMaxPadding(chartArea);
+      placeBoxes(boxes.leftAndTop, chartArea, params, stacks);
+      chartArea.x += chartArea.w;
+      chartArea.y += chartArea.h;
+      placeBoxes(boxes.rightAndBottom, chartArea, params, stacks);
+      chart.chartArea = {
+        left: chartArea.left,
+        top: chartArea.top,
+        right: chartArea.left + chartArea.w,
+        bottom: chartArea.top + chartArea.h,
+        height: chartArea.h,
+        width: chartArea.w
+      };
+      each(boxes.chartArea, (layout) => {
+        const box = layout.box;
+        Object.assign(box, chart.chartArea);
+        box.update(chartArea.w, chartArea.h, { left: 0, top: 0, right: 0, bottom: 0 });
+      });
+    }
+  };
+  var BasePlatform = class {
+    acquireContext(canvas, aspectRatio) {
+    }
+    releaseContext(context) {
+      return false;
+    }
+    addEventListener(chart, type, listener) {
+    }
+    removeEventListener(chart, type, listener) {
+    }
+    getDevicePixelRatio() {
+      return 1;
+    }
+    getMaximumSize(element, width, height, aspectRatio) {
+      width = Math.max(0, width || element.width);
+      height = height || element.height;
+      return {
+        width,
+        height: Math.max(0, aspectRatio ? Math.floor(width / aspectRatio) : height)
+      };
+    }
+    isAttached(canvas) {
+      return true;
+    }
+    updateConfig(config) {
+    }
+  };
+  var BasicPlatform = class extends BasePlatform {
+    acquireContext(item) {
+      return item && item.getContext && item.getContext("2d") || null;
+    }
+    updateConfig(config) {
+      config.options.animation = false;
+    }
+  };
+  var EXPANDO_KEY = "$chartjs";
+  var EVENT_TYPES = {
+    touchstart: "mousedown",
+    touchmove: "mousemove",
+    touchend: "mouseup",
+    pointerenter: "mouseenter",
+    pointerdown: "mousedown",
+    pointermove: "mousemove",
+    pointerup: "mouseup",
+    pointerleave: "mouseout",
+    pointerout: "mouseout"
+  };
+  var isNullOrEmpty = (value) => value === null || value === "";
+  function initCanvas(canvas, aspectRatio) {
+    const style = canvas.style;
+    const renderHeight = canvas.getAttribute("height");
+    const renderWidth = canvas.getAttribute("width");
+    canvas[EXPANDO_KEY] = {
+      initial: {
+        height: renderHeight,
+        width: renderWidth,
+        style: {
+          display: style.display,
+          height: style.height,
+          width: style.width
+        }
+      }
+    };
+    style.display = style.display || "block";
+    style.boxSizing = style.boxSizing || "border-box";
+    if (isNullOrEmpty(renderWidth)) {
+      const displayWidth = readUsedSize(canvas, "width");
+      if (displayWidth !== void 0) {
+        canvas.width = displayWidth;
+      }
+    }
+    if (isNullOrEmpty(renderHeight)) {
+      if (canvas.style.height === "") {
+        canvas.height = canvas.width / (aspectRatio || 2);
+      } else {
+        const displayHeight = readUsedSize(canvas, "height");
+        if (displayHeight !== void 0) {
+          canvas.height = displayHeight;
+        }
+      }
+    }
+    return canvas;
+  }
+  var eventListenerOptions = supportsEventListenerOptions ? { passive: true } : false;
+  function addListener(node, type, listener) {
+    node.addEventListener(type, listener, eventListenerOptions);
+  }
+  function removeListener(chart, type, listener) {
+    chart.canvas.removeEventListener(type, listener, eventListenerOptions);
+  }
+  function fromNativeEvent(event, chart) {
+    const type = EVENT_TYPES[event.type] || event.type;
+    const { x, y } = getRelativePosition(event, chart);
+    return {
+      type,
+      chart,
+      native: event,
+      x: x !== void 0 ? x : null,
+      y: y !== void 0 ? y : null
+    };
+  }
+  function nodeListContains(nodeList, canvas) {
+    for (const node of nodeList) {
+      if (node === canvas || node.contains(canvas)) {
+        return true;
+      }
+    }
+  }
+  function createAttachObserver(chart, type, listener) {
+    const canvas = chart.canvas;
+    const observer = new MutationObserver((entries) => {
+      let trigger = false;
+      for (const entry of entries) {
+        trigger = trigger || nodeListContains(entry.addedNodes, canvas);
+        trigger = trigger && !nodeListContains(entry.removedNodes, canvas);
+      }
+      if (trigger) {
+        listener();
+      }
+    });
+    observer.observe(document, { childList: true, subtree: true });
+    return observer;
+  }
+  function createDetachObserver(chart, type, listener) {
+    const canvas = chart.canvas;
+    const observer = new MutationObserver((entries) => {
+      let trigger = false;
+      for (const entry of entries) {
+        trigger = trigger || nodeListContains(entry.removedNodes, canvas);
+        trigger = trigger && !nodeListContains(entry.addedNodes, canvas);
+      }
+      if (trigger) {
+        listener();
+      }
+    });
+    observer.observe(document, { childList: true, subtree: true });
+    return observer;
+  }
+  var drpListeningCharts = /* @__PURE__ */ new Map();
+  var oldDevicePixelRatio = 0;
+  function onWindowResize() {
+    const dpr = window.devicePixelRatio;
+    if (dpr === oldDevicePixelRatio) {
+      return;
+    }
+    oldDevicePixelRatio = dpr;
+    drpListeningCharts.forEach((resize, chart) => {
+      if (chart.currentDevicePixelRatio !== dpr) {
+        resize();
+      }
+    });
+  }
+  function listenDevicePixelRatioChanges(chart, resize) {
+    if (!drpListeningCharts.size) {
+      window.addEventListener("resize", onWindowResize);
+    }
+    drpListeningCharts.set(chart, resize);
+  }
+  function unlistenDevicePixelRatioChanges(chart) {
+    drpListeningCharts.delete(chart);
+    if (!drpListeningCharts.size) {
+      window.removeEventListener("resize", onWindowResize);
+    }
+  }
+  function createResizeObserver(chart, type, listener) {
+    const canvas = chart.canvas;
+    const container = canvas && _getParentNode(canvas);
+    if (!container) {
+      return;
+    }
+    const resize = throttled((width, height) => {
+      const w = container.clientWidth;
+      listener(width, height);
+      if (w < container.clientWidth) {
+        listener();
+      }
+    }, window);
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      const width = entry.contentRect.width;
+      const height = entry.contentRect.height;
+      if (width === 0 && height === 0) {
+        return;
+      }
+      resize(width, height);
+    });
+    observer.observe(container);
+    listenDevicePixelRatioChanges(chart, resize);
+    return observer;
+  }
+  function releaseObserver(chart, type, observer) {
+    if (observer) {
+      observer.disconnect();
+    }
+    if (type === "resize") {
+      unlistenDevicePixelRatioChanges(chart);
+    }
+  }
+  function createProxyAndListen(chart, type, listener) {
+    const canvas = chart.canvas;
+    const proxy = throttled((event) => {
+      if (chart.ctx !== null) {
+        listener(fromNativeEvent(event, chart));
+      }
+    }, chart, (args) => {
+      const event = args[0];
+      return [event, event.offsetX, event.offsetY];
+    });
+    addListener(canvas, type, proxy);
+    return proxy;
+  }
+  var DomPlatform = class extends BasePlatform {
+    acquireContext(canvas, aspectRatio) {
+      const context = canvas && canvas.getContext && canvas.getContext("2d");
+      if (context && context.canvas === canvas) {
+        initCanvas(canvas, aspectRatio);
+        return context;
+      }
+      return null;
+    }
+    releaseContext(context) {
+      const canvas = context.canvas;
+      if (!canvas[EXPANDO_KEY]) {
+        return false;
+      }
+      const initial = canvas[EXPANDO_KEY].initial;
+      ["height", "width"].forEach((prop) => {
+        const value = initial[prop];
+        if (isNullOrUndef(value)) {
+          canvas.removeAttribute(prop);
+        } else {
+          canvas.setAttribute(prop, value);
+        }
+      });
+      const style = initial.style || {};
+      Object.keys(style).forEach((key) => {
+        canvas.style[key] = style[key];
+      });
+      canvas.width = canvas.width;
+      delete canvas[EXPANDO_KEY];
+      return true;
+    }
+    addEventListener(chart, type, listener) {
+      this.removeEventListener(chart, type);
+      const proxies = chart.$proxies || (chart.$proxies = {});
+      const handlers = {
+        attach: createAttachObserver,
+        detach: createDetachObserver,
+        resize: createResizeObserver
+      };
+      const handler = handlers[type] || createProxyAndListen;
+      proxies[type] = handler(chart, type, listener);
+    }
+    removeEventListener(chart, type) {
+      const proxies = chart.$proxies || (chart.$proxies = {});
+      const proxy = proxies[type];
+      if (!proxy) {
+        return;
+      }
+      const handlers = {
+        attach: releaseObserver,
+        detach: releaseObserver,
+        resize: releaseObserver
+      };
+      const handler = handlers[type] || removeListener;
+      handler(chart, type, proxy);
+      proxies[type] = void 0;
+    }
+    getDevicePixelRatio() {
+      return window.devicePixelRatio;
+    }
+    getMaximumSize(canvas, width, height, aspectRatio) {
+      return getMaximumSize(canvas, width, height, aspectRatio);
+    }
+    isAttached(canvas) {
+      const container = _getParentNode(canvas);
+      return !!(container && container.isConnected);
+    }
+  };
+  function _detectPlatform(canvas) {
+    if (!_isDomSupported() || typeof OffscreenCanvas !== "undefined" && canvas instanceof OffscreenCanvas) {
+      return BasicPlatform;
+    }
+    return DomPlatform;
+  }
   var PluginService = class {
     constructor() {
       this._init = [];
@@ -22870,7 +22982,7 @@
     }
     return false;
   }
-  var version = "3.8.2";
+  var version = "3.9.1";
   var KNOWN_POSITIONS = ["top", "bottom", "left", "right", "chartArea"];
   function positionIsHorizontal(position, axis) {
     return position === "top" || position === "bottom" || KNOWN_POSITIONS.indexOf(position) === -1 && axis === "x";
@@ -23765,7 +23877,7 @@
       y: y + r * Math.sin(theta)
     };
   }
-  function pathArc(ctx, element, offset, spacing, end) {
+  function pathArc(ctx, element, offset, spacing, end, circular) {
     const { x, y, startAngle: start3, pixelMargin, innerRadius: innerR } = element;
     const outerRadius = Math.max(element.outerRadius + spacing + offset - pixelMargin, 0);
     const innerRadius = innerR > 0 ? innerR + spacing + offset + pixelMargin : 0;
@@ -23792,35 +23904,45 @@
     const innerStartAdjustedAngle = startAngle + innerStart / innerStartAdjustedRadius;
     const innerEndAdjustedAngle = endAngle - innerEnd / innerEndAdjustedRadius;
     ctx.beginPath();
-    ctx.arc(x, y, outerRadius, outerStartAdjustedAngle, outerEndAdjustedAngle);
-    if (outerEnd > 0) {
-      const pCenter = rThetaToXY(outerEndAdjustedRadius, outerEndAdjustedAngle, x, y);
-      ctx.arc(pCenter.x, pCenter.y, outerEnd, outerEndAdjustedAngle, endAngle + HALF_PI);
-    }
-    const p4 = rThetaToXY(innerEndAdjustedRadius, endAngle, x, y);
-    ctx.lineTo(p4.x, p4.y);
-    if (innerEnd > 0) {
-      const pCenter = rThetaToXY(innerEndAdjustedRadius, innerEndAdjustedAngle, x, y);
-      ctx.arc(pCenter.x, pCenter.y, innerEnd, endAngle + HALF_PI, innerEndAdjustedAngle + Math.PI);
-    }
-    ctx.arc(x, y, innerRadius, endAngle - innerEnd / innerRadius, startAngle + innerStart / innerRadius, true);
-    if (innerStart > 0) {
-      const pCenter = rThetaToXY(innerStartAdjustedRadius, innerStartAdjustedAngle, x, y);
-      ctx.arc(pCenter.x, pCenter.y, innerStart, innerStartAdjustedAngle + Math.PI, startAngle - HALF_PI);
-    }
-    const p8 = rThetaToXY(outerStartAdjustedRadius, startAngle, x, y);
-    ctx.lineTo(p8.x, p8.y);
-    if (outerStart > 0) {
-      const pCenter = rThetaToXY(outerStartAdjustedRadius, outerStartAdjustedAngle, x, y);
-      ctx.arc(pCenter.x, pCenter.y, outerStart, startAngle - HALF_PI, outerStartAdjustedAngle);
+    if (circular) {
+      ctx.arc(x, y, outerRadius, outerStartAdjustedAngle, outerEndAdjustedAngle);
+      if (outerEnd > 0) {
+        const pCenter = rThetaToXY(outerEndAdjustedRadius, outerEndAdjustedAngle, x, y);
+        ctx.arc(pCenter.x, pCenter.y, outerEnd, outerEndAdjustedAngle, endAngle + HALF_PI);
+      }
+      const p4 = rThetaToXY(innerEndAdjustedRadius, endAngle, x, y);
+      ctx.lineTo(p4.x, p4.y);
+      if (innerEnd > 0) {
+        const pCenter = rThetaToXY(innerEndAdjustedRadius, innerEndAdjustedAngle, x, y);
+        ctx.arc(pCenter.x, pCenter.y, innerEnd, endAngle + HALF_PI, innerEndAdjustedAngle + Math.PI);
+      }
+      ctx.arc(x, y, innerRadius, endAngle - innerEnd / innerRadius, startAngle + innerStart / innerRadius, true);
+      if (innerStart > 0) {
+        const pCenter = rThetaToXY(innerStartAdjustedRadius, innerStartAdjustedAngle, x, y);
+        ctx.arc(pCenter.x, pCenter.y, innerStart, innerStartAdjustedAngle + Math.PI, startAngle - HALF_PI);
+      }
+      const p8 = rThetaToXY(outerStartAdjustedRadius, startAngle, x, y);
+      ctx.lineTo(p8.x, p8.y);
+      if (outerStart > 0) {
+        const pCenter = rThetaToXY(outerStartAdjustedRadius, outerStartAdjustedAngle, x, y);
+        ctx.arc(pCenter.x, pCenter.y, outerStart, startAngle - HALF_PI, outerStartAdjustedAngle);
+      }
+    } else {
+      ctx.moveTo(x, y);
+      const outerStartX = Math.cos(outerStartAdjustedAngle) * outerRadius + x;
+      const outerStartY = Math.sin(outerStartAdjustedAngle) * outerRadius + y;
+      ctx.lineTo(outerStartX, outerStartY);
+      const outerEndX = Math.cos(outerEndAdjustedAngle) * outerRadius + x;
+      const outerEndY = Math.sin(outerEndAdjustedAngle) * outerRadius + y;
+      ctx.lineTo(outerEndX, outerEndY);
     }
     ctx.closePath();
   }
-  function drawArc(ctx, element, offset, spacing) {
+  function drawArc(ctx, element, offset, spacing, circular) {
     const { fullCircles, startAngle, circumference } = element;
     let endAngle = element.endAngle;
     if (fullCircles) {
-      pathArc(ctx, element, offset, spacing, startAngle + TAU);
+      pathArc(ctx, element, offset, spacing, startAngle + TAU, circular);
       for (let i = 0; i < fullCircles; ++i) {
         ctx.fill();
       }
@@ -23831,7 +23953,7 @@
         }
       }
     }
-    pathArc(ctx, element, offset, spacing, endAngle);
+    pathArc(ctx, element, offset, spacing, endAngle, circular);
     ctx.fill();
     return endAngle;
   }
@@ -23854,7 +23976,7 @@
       ctx.stroke();
     }
   }
-  function drawBorder(ctx, element, offset, spacing, endAngle) {
+  function drawBorder(ctx, element, offset, spacing, endAngle, circular) {
     const { options } = element;
     const { borderWidth, borderJoinStyle } = options;
     const inner = options.borderAlign === "inner";
@@ -23874,7 +23996,7 @@
     if (inner) {
       clipArc(ctx, element, endAngle);
     }
-    pathArc(ctx, element, offset, spacing, endAngle);
+    pathArc(ctx, element, offset, spacing, endAngle, circular);
     ctx.stroke();
   }
   var ArcElement = class extends Element2 {
@@ -23933,6 +24055,7 @@
       const { options, circumference } = this;
       const offset = (options.offset || 0) / 2;
       const spacing = (options.spacing || 0) / 2;
+      const circular = options.circular;
       this.pixelMargin = options.borderAlign === "inner" ? 0.33 : 0;
       this.fullCircles = circumference > TAU ? Math.floor(circumference / TAU) : 0;
       if (circumference === 0 || this.innerRadius < 0 || this.outerRadius < 0) {
@@ -23950,8 +24073,8 @@
       }
       ctx.fillStyle = options.backgroundColor;
       ctx.strokeStyle = options.borderColor;
-      const endAngle = drawArc(ctx, this, radiusOffset, spacing);
-      drawBorder(ctx, this, radiusOffset, spacing, endAngle);
+      const endAngle = drawArc(ctx, this, radiusOffset, spacing, circular);
+      drawBorder(ctx, this, radiusOffset, spacing, endAngle, circular);
       ctx.restore();
     }
   };
@@ -23964,7 +24087,8 @@
     borderWidth: 2,
     offset: 0,
     spacing: 0,
-    angle: void 0
+    angle: void 0,
+    circular: true
   };
   ArcElement.defaultRoutes = {
     backgroundColor: "backgroundColor"
@@ -25411,7 +25535,7 @@
           };
           const centerX = rtlHelper.xPlus(x, boxWidth / 2);
           const centerY = y + halfFontSize;
-          drawPointLegend(ctx, drawOptions, centerX, centerY, boxWidth);
+          drawPointLegend(ctx, drawOptions, centerX, centerY, labelOpts.pointStyleWidth && boxWidth);
         } else {
           const yBoxTop = y + Math.max((fontSize - boxHeight) / 2, 0);
           const xBoxLeft = rtlHelper.leftForLtr(x, boxWidth);
@@ -27814,6 +27938,7 @@
     init(scaleOpts, opts) {
       const time = scaleOpts.time || (scaleOpts.time = {});
       const adapter = this._adapter = new adapters._date(scaleOpts.adapters.date);
+      adapter.init(opts);
       mergeIf(time.displayFormats, adapter.formats());
       this._parseOpts = {
         parser: time.parser,
@@ -28163,34 +28288,46 @@
     scales
   ];
 
-  // node_modules/chart.js/auto/auto.esm.js
+  // node_modules/chart.js/auto/auto.mjs
   Chart.register(...registerables);
 
   // node_modules/bali-view-components/app/components/bali/modal/index.js
   var ModalController = class extends Controller {
     async connect() {
-      this.wrapperClass = this.wrapperTarget.getAttribute("data-wrapper-class");
-      this.backgroundTarget.addEventListener("click", this._closeModal);
+      if (this.hasWrapperTarget) {
+        this.wrapperClass = this.wrapperTarget.getAttribute("data-wrapper-class");
+      }
+      if (this.hasBackgroundTarget) {
+        this.backgroundTarget.addEventListener("click", this._closeModal);
+      }
       if (this.hasCloseBtnTarget) {
         this.closeBtnTarget.addEventListener("click", this._closeModal);
       }
-      document.addEventListener("openModal", (e) => {
-        this.setOptions(e.detail.options);
-        this.openModal(e.detail.content);
-      });
+      document.addEventListener("openModal", this.setOptionsAndOpenModal);
     }
     disconnect() {
-      this.backgroundTarget.removeEventListener("click", this._closeModal);
+      if (this.hasBackgroundTarget) {
+        this.backgroundTarget.removeEventListener("click", this._closeModal);
+      }
       if (this.hasCloseBtnTarget) {
         this.closeBtnTarget.removeEventListener("click", this._closeModal);
       }
+      document.removeEventListener("openModal", this.setOptionsAndOpenModal);
     }
     templateTargetConnected() {
+      if (!this.hasBackgroundTarget)
+        return;
       this.backgroundTarget.addEventListener("click", this._closeModal);
     }
     templateTargetDisconnected() {
+      if (!this.hasBackgroundTarget)
+        return;
       this.backgroundTarget.removeEventListener("click", this._closeModal);
     }
+    setOptionsAndOpenModal = (event) => {
+      this.setOptions(event.detail.options);
+      this.openModal(event.detail.content);
+    };
     openModal(content) {
       this.wrapperTarget.classList.add(this.wrapperClass);
       this.templateTarget.classList.add("is-active");
@@ -28250,7 +28387,7 @@
       event.target.setAttribute("disabled", "");
       const form = event.target.closest("form");
       const formURL = form.getAttribute("action");
-      const enableTurbo = event.target.dataset.turbo;
+      const enableTurbo = event.target.dataset.turbo || form.dataset.turbo;
       const url = this._buildURL(formURL, this.redirectTo);
       const options = {
         method: "POST",
@@ -28300,6 +28437,72 @@
 
   // node_modules/bali-view-components/app/components/bali/navbar/index.js
   var import_lodash = __toESM(require_lodash());
+  var NavbarController = class extends Controller {
+    menuActive = false;
+    altMenuActive = false;
+    connect() {
+      if (!this.allowTransparencyValue)
+        return;
+      this.isTransparent = true;
+      this.element.classList.add("is-transparent");
+      this.throttledUpdateBackgroundColor = (0, import_lodash.default)(this.updateBackgroundColor, this.throttleIntervalValue);
+      document.addEventListener("scroll", this.throttledUpdateBackgroundColor);
+    }
+    disconnect() {
+      if (this.throttledUpdateBackgroundColor) {
+        document.removeEventListener("scroll", this.throttledUpdateBackgroundColor);
+      }
+    }
+    updateBackgroundColor = () => {
+      const targetHeight = this.burgerTarget?.offsetHeight || this.element.offsetHeight;
+      if (window.scrollY > targetHeight) {
+        this.removeIsTransparent();
+      } else {
+        this.setIsTransparent();
+      }
+    };
+    setIsTransparent() {
+      if (this.isTransparent)
+        return;
+      this.isTransparent = true;
+      this.element.classList.add("is-transparent");
+    }
+    removeIsTransparent() {
+      if (!this.isTransparent)
+        return;
+      this.isTransparent = false;
+      this.element.classList.remove("is-transparent");
+    }
+    toggleMenu(event) {
+      event.preventDefault();
+      this.menuActive = !this.menuActive;
+      if (!this.altMenuActive) {
+        this.element.classList.toggle("is-active");
+      }
+      this.menuTarget.classList.toggle("is-active");
+      if (this.hasBurgerTarget) {
+        this.burgerTarget.classList.toggle("is-active");
+      }
+    }
+    toggleAltMenu(event) {
+      event.preventDefault();
+      this.altMenuActive = !this.altMenuActive;
+      if (!this.menuActive) {
+        this.element.classList.toggle("is-active");
+      }
+      if (this.hasAltMenuTarget) {
+        this.altMenuTarget.classList.toggle("is-active");
+      }
+      if (this.hasAltBurgerTarget) {
+        this.altBurgerTarget.classList.toggle("is-active");
+      }
+    }
+  };
+  __publicField(NavbarController, "values", {
+    allowTransparency: Boolean,
+    throttleInterval: { type: Number, default: 1e3 }
+  });
+  __publicField(NavbarController, "targets", ["menu", "burger", "altMenu", "altBurger"]);
 
   // node_modules/bali-view-components/app/components/bali/notification/index.js
   var NotificationController = class extends Controller {
@@ -28333,6 +28536,30 @@
     delay: { type: Number, default: 3e3 },
     dismiss: { type: Boolean, default: true }
   });
+
+  // node_modules/bali-view-components/app/components/bali/side_menu/index.js
+  var SideMenuController = class extends Controller {
+    connect() {
+      if (this.hasOverlayTarget && this.hasContainerTarget) {
+        this.overlayTarget.addEventListener("click", this.closeMenu);
+        this.containerTarget.addEventListener("click", this.closeMenu);
+      }
+    }
+    disconnect() {
+      if (this.hasOverlayTarget && this.hasContainerTarget) {
+        this.overlayTarget.removeEventListener("click", this.closeMenu);
+        this.containerTarget.removeEventListener("click", this.closeMenu);
+      }
+    }
+    toggleMenu(e) {
+      e.stopPropagation();
+      this.containerTarget.classList.toggle("is-active");
+    }
+    closeMenu = (e) => {
+      this.containerTarget.classList.remove("is-active");
+    };
+  };
+  __publicField(SideMenuController, "targets", ["container", "overlay"]);
 
   // node_modules/sortablejs/modular/sortable.esm.js
   function ownKeys(object, enumerableOnly) {
@@ -30618,10 +30845,40 @@
   // node_modules/bali-view-components/app/javascript/bali/controllers/elements-overlap-controller.js
   var import_lodash2 = __toESM(require_lodash());
 
+  // node_modules/bali-view-components/app/javascript/bali/controllers/slim-select-controller/destroy-with-check.js
+  function destroyWithCheck(id2) {
+    const slim = id2 ? document.querySelector("." + id2 + ".ss-main") : this.slim.container;
+    const select = id2 ? document.querySelector("[data-ssid=".concat(id2, "]")) : this.select.element;
+    if (!slim || !select) {
+      return;
+    }
+    document.removeEventListener("click", this.documentClick);
+    if (this.config.showContent === "auto") {
+      window.removeEventListener("scroll", this.windowScroll, false);
+    }
+    select.style.display = "";
+    delete select.dataset.ssid;
+    const el = select;
+    el.slim = null;
+    if (slim.parentElement) {
+      slim.parentElement.removeChild(slim);
+    }
+    if (this.config.addToBody) {
+      const slimContent = id2 ? document.querySelector("." + id2 + ".ss-content") : this.slim.content;
+      if (!document.body.contains(slimContent)) {
+        return;
+      }
+      document.body.removeChild(slimContent);
+    }
+  }
+
   // node_modules/bali-view-components/app/javascript/bali/controllers/slim-select-controller.js
   var SlimSelectController = class extends Controller {
     async connect() {
       const { default: SlimSelect } = await Promise.resolve().then(() => (init_slimselect_min(), slimselect_min_exports));
+      Object.assign(SlimSelect.prototype, {
+        destroy: destroyWithCheck
+      });
       const options = {
         select: this.selectTarget,
         placeholder: this.hasPlaceholderValue && this.placeholderValue,
@@ -30690,25 +30947,23 @@
   // node_modules/bali-view-components/app/javascript/bali/controllers/submit-button-controller.js
   var SubmitButtonController = class extends Controller {
     connect() {
-      this.element.addEventListener("turbo:submit-start", (e) => {
-        this.disableButton(e.detail.formSubmission.submitter);
-      });
-      this.element.addEventListener("turbo:submit-end", (e) => {
-        this.enableButton(e.detail.formSubmission.submitter);
-      });
+      this.element.addEventListener("turbo:submit-start", this.disableButton);
+      this.element.addEventListener("turbo:submit-end", this.enableButton);
     }
-    disableButton(button) {
+    disableButton = (event) => {
+      const button = event.detail.formSubmission.submitter;
       if (!button)
         return;
       button.classList.add("is-loading");
       button.setAttribute("disabled", "");
-    }
-    enableButton(button) {
+    };
+    enableButton = (event) => {
+      const button = event.detail.formSubmission.submitter;
       if (!button)
         return;
       button.classList.remove("is-loading");
       button.removeAttribute("disabled");
-    }
+    };
   };
 
   // node_modules/bali-view-components/app/javascript/bali/controllers/submit-on-change-controller.js
@@ -30729,7 +30984,9 @@
   init_actiontext();
   var application = Application.start();
   application.register("modal", ModalController);
+  application.register("navbar", NavbarController);
   application.register("notification", NotificationController);
+  application.register("side-menu", SideMenuController);
   application.register("slim-select", SlimSelectController);
   application.register("submit-button", SubmitButtonController);
   application.register("datepicker", DatepickerController);
@@ -30742,7 +30999,7 @@
  * Released under the MIT License
  */
 /*!
- * Chart.js v3.8.2
+ * Chart.js v3.9.1
  * https://www.chartjs.org
  * (c) 2022 Chart.js Contributors
  * Released under the MIT License

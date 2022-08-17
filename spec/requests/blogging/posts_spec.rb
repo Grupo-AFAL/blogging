@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Published Posts', type: :request do
   fixtures 'blogging/posts', 'blogging/tags', 'action_text/rich_texts', :users,
-           :mobility_string_translations, :mobility_text_translations
+           :mobility_string_translations, :mobility_text_translations,
+           'blogging/post_statuses'
 
   let(:blog_post) { blogging_posts(:published) }
   let(:image) { fixture_file_upload('waldo.jpg', 'image/jpeg') }

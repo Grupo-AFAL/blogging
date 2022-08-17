@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Blogging</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+  <%= render 'layouts/blogging/head' %>
 
-    <%= yield :head %>
-
-    <%= stylesheet_link_tag    "blogging/application", media: "all" %>
-    <%= javascript_include_tag "blogging/application", "data-turbo-track": "reload", defer: true %>
-  </head>
   <body>
+    <%= render Bali::Navbar::Component.new(class: 'is-fixed-top is-light') do |c| %>
+      <% c.menu do |menu| %>
+        <% menu.end_item(tag_name: :div) do %>
+          <%= link_to "Blog", root_path, class: "navbar-item app-logo" %>
+        <% end %>
+      <% end %>
+    <% end %>
 
-    <div class='container px-4 py-6' data-controller='modal'>
-      <%= render 'layouts/blogging/notifications' %>
-
+    <div class="blog container px-4" data-controller='modal'>
       <%= yield %>
 
       <%= render Bali::Modal::Component.new(active: false) %>

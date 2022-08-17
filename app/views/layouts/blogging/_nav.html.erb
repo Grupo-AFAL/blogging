@@ -1,0 +1,3 @@
+<%= render Bali::Navbar::Component.new(class: 'is-fixed-top is-light') do |c| %>
+  <% c.burger(data: { action: 'side-menu#toggleMenu' }, class: 'is-burger-left is-hidden-desktop') %>
+<% end %>

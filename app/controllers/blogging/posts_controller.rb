@@ -5,11 +5,10 @@ module Blogging
     before_action :set_post, only: %i[show]
 
     def index
-      leading_posts = 1
-      all_posts = Blogging::Post.with_rich_text_body_and_embeds.descending.published_now
-      @leader_posts = all_posts.limit(leading_posts)
+      all = Blogging::Post.with_rich_text_body_and_embeds.descending.published_now
+      @leader_post = all.first
       @pagy, @posts = pagy(
-        all_posts, items: 6, outset: leading_posts
+        all.offset(1), items: 6, outset: 1
       )
     end
 

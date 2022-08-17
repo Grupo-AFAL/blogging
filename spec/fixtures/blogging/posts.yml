@@ -2,12 +2,8 @@
 
 draft:
   author: user
-  status: 0
-  public_from:
   tags: nutrition
 
 published:
   author: user
-  status: 1
-  public_from: <%= Time.zone.now %>
   tags: fitness

@@ -7,6 +7,8 @@ module Blogging
 
       after_action :verify_authorized
 
+      self.conditional_layout = Blogging.admin_layout.to_s
+
       rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
       private

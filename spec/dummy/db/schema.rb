@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_02_165824) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_26_145544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,10 +53,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_165824) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "blogging_post_statuses", force: :cascade do |t|
+    t.bigint "blogging_post_id", null: false
+    t.string "locale"
+    t.datetime "public_from"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blogging_post_id"], name: "index_blogging_post_statuses_on_blogging_post_id"
+  end
+
   create_table "blogging_posts", force: :cascade do |t|
     t.integer "author_id", null: false
-    t.integer "status", default: 0
-    t.datetime "public_from"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -121,4 +129,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_165824) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "blogging_post_statuses", "blogging_posts"
 end

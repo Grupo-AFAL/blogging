@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+post_draft_en:
+  post: draft 
+  locale: en
+  status: 0
+  public_from:
+
+post_published_en:
+  post: published
+  locale: en
+  status: 1
+  public_from: <%= Time.zone.now %>

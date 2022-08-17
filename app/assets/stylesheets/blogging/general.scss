@@ -18,7 +18,6 @@ a>.icon,
   }
 }
 
-
 .is-square {
   $btn-square-size: 2.25rem;
 
@@ -35,8 +34,10 @@ a>.icon,
   position: sticky;
   top: 0;
 }
+
 @include mobile {
-  $bg-transparent: rgba(255,255,255,0.3);
+  $bg-transparent: rgba(255, 255, 255, 0.3);
+
   .sticky {
     position: fixed !important;
     background: $bg-transparent;
@@ -45,8 +46,4 @@ a>.icon,
     left: 0;
     z-index: 1;
   }
-}
-
-.is-max-tablet {
-  max-width: $tablet !important;
 }

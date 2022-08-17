@@ -17,8 +17,10 @@ module Blogging
           body: 'Body',
           author: users(:user),
           tag_ids: [blogging_tags(:fitness).id],
-          public_from: Time.zone.now,
-          cover_image: image
+          cover_image: image,
+          statuses_attributes: {
+            0 => { locale: 'en', public_from: Time.zone.now, status: 0 }
+          }
         }
       end
 
@@ -52,7 +54,7 @@ module Blogging
         end
 
         context 'when missing public_from' do
-          before { @attributes[:public_from] = nil }
+          before { @attributes[:statuses_attributes][0][:public_from] = nil }
 
           it { expect(post.save).to be false }
         end
