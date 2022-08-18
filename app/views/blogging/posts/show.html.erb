@@ -4,12 +4,12 @@
   <meta property="og:title" content="<%= @post.title.truncate(40) %>" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="<%= post_url(@post) %>" />
-  <meta property="og:image" content="<%= main_app.url_for(@post.cover_image.variant(:original)) %>" />
+  <meta property="og:image" content="<%= main_app.url_for(@post.cover_image.variant(:medium)) %>" />
   <meta property="og:description" content="<%= @post.body.to_plain_text.squish.truncate(90) %>" />
 
   <meta name="twitter:title" content="<%= @post.title.truncate(40) %>" />
   <meta name="twitter:site" content="<%= post_url(@post) %>" />
-  <meta name="twitter:image" content="<%= main_app.url_for(@post.cover_image.variant(:original)) %>" />
+  <meta name="twitter:image" content="<%= main_app.url_for(@post.cover_image.variant(:medium)) %>" />
   <meta name="twitter:description" content="<%= @post.body.to_plain_text.squish.truncate(90) %>" />
 <% end %>
 
@@ -50,7 +50,7 @@
 
     <%= c.column(class: 'post-content') do %>
       <figure class="image">
-        <%= image_tag main_app.url_for(@post.cover_image.variant(:original)), class: 'is-full' %>
+        <%= image_tag main_app.url_for(@post.cover_image.variant(:medium)), class: 'is-full' %>
       </figure>
 
       <div class='content mt-6'>
