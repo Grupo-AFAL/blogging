@@ -29,7 +29,7 @@
       <% @posts.each do |post| %>
         <%= render Bali::Card::Component.new(class: 'post-card') do |card| %>
           <% card.image(
-               src: main_app.url_for(post.cover_image.variant(:medium)),
+               src: main_app.url_for(post.cover_image.variant(:small)),
                href: post_path(post), figure_class: '') %>
 
           <% card.footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
