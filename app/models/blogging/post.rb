@@ -11,9 +11,9 @@ module Blogging
     friendly_id :title, use: %i[history mobility]
 
     has_one_attached :cover_image do |attachable|
-      attachable.variant :original, resize_to_limit: [960, 0]
-      attachable.variant :large, resize_to_limit: [960, 480]
-      attachable.variant :medium, resize_to_limit: [400, 200]
+      attachable.variant :original, resize_to_fill: [706, 372]
+      attachable.variant :large, resize_to_fill: [1412, 744]
+      attachable.variant :medium, resize_to_fill: [353, 186]
     end
 
     belongs_to :author, class_name: Blogging.author_class.to_s
