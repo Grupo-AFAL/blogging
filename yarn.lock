@@ -55,8 +55,8 @@
   integrity sha512-dfFWaQXitYJ4kxrgGJNhDNXX54/v10YgoJqBMVe6lhqs6a4N9WD7goZJEvwin82TtK8MqUNhwfyisgKwM6dMdg==
 
 "bali-view-components@https://github.com/Grupo-AFAL/bali-view-components.git":
-  version "0.39.1"
-  resolved "https://github.com/Grupo-AFAL/bali-view-components.git#dbc643e1ce680d166b703d61227898266a1b0798"
+  version "0.42.0"
+  resolved "https://github.com/Grupo-AFAL/bali-view-components.git#eb9a792ce2ee8a283feacac867d1536c208db530"
   dependencies:
     "@glidejs/glide" "^3.5.2"
     "@hotwired/stimulus" "^3.0.1"
@@ -77,9 +77,9 @@ chart.js@^3.8.0:
   integrity sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==
 
 date-fns@^2.29.1:
-  version "2.29.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.1.tgz#9667c2615525e552b5135a3116b95b1961456e60"
-  integrity sha512-dlLD5rKaKxpFdnjrs+5azHDFOPEu4ANy/LTh04A1DTzMM7qoajmKCBc8pkKRFT41CNzw+4gQh79X5C+Jq27HAw==
+  version "2.29.2"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.2.tgz#0d4b3d0f3dff0f920820a070920f0d9662c51931"
+  integrity sha512-0VNbwmWJDS/G3ySwFSJA3ayhbURMTJLtwM2DTxf9CWondCnh6DTNlO9JgRSq6ibf4eD0lfMJNBxUdEAHHix+bA==
 
 esbuild-android-64@0.14.48:
   version "0.14.48"

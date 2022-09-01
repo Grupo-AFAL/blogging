@@ -33,15 +33,12 @@
 
 // Plugins defined in js-frontend-helpers
 //
-@import 'slim-select/dist/slimselect.min';
-@import 'bali/slim_select_customizations';
-
-@import 'flatpickr/dist/flatpickr';
-@import 'bali/flatpickr_customizations';
+@import 'bali/slim_select';
+@import 'bali/datepicker';
+@import 'bali/rich_text';
 
 // Engine styles
 //
-@import 'actiontext';
 @import 'general';
 @import 'side_menu';
 @import 'posts';

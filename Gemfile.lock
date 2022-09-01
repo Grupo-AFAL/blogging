@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/Grupo-AFAL/bali-view-components.git
-  revision: dbc643e1ce680d166b703d61227898266a1b0798
+  revision: eb9a792ce2ee8a283feacac867d1536c208db530
   branch: main
   specs:
-    bali_view_components (0.39.1)
+    bali_view_components (0.42.0)
       rails (>= 7.0.2)
       ransack
       view_component (>= 2.0.0, < 3.0)
@@ -94,6 +94,8 @@ GEM
       sassc (~> 2.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    dartsass-rails (0.4.0)
+      railties (>= 6.0.0)
     debug (1.5.0)
       irb (>= 1.3.6)
       reline (>= 0.2.7)
@@ -256,12 +258,6 @@ GEM
       ffi (~> 1.12)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -277,7 +273,6 @@ GEM
       sprockets (>= 3.0.0)
     strscan (3.0.4)
     thor (1.2.1)
-    tilt (2.0.10)
     timeout (0.3.0)
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
@@ -288,7 +283,7 @@ GEM
     tzinfo-data (1.2022.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.2.0)
-    view_component (2.68.0)
+    view_component (2.71.0)
       activesupport (>= 5.0.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -310,6 +305,7 @@ DEPENDENCIES
   bali_view_components!
   blogging!
   bulma-rails (~> 0.9.3)
+  dartsass-rails
   debug (>= 1.0.0)
   friendly_id (~> 5.4.0)
   friendly_id-mobility (~> 1.0.3)
@@ -326,7 +322,6 @@ DEPENDENCIES
   rubocop (~> 1)
   rubocop-rails (~> 2)
   ruby-vips (~> 2.1)
-  sassc-rails
   simplecov
   sprockets-rails
   turbo-rails (~> 1.0)
