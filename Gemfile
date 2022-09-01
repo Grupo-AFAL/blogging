@@ -19,7 +19,7 @@ gem 'mobility', '~> 1.2.6'
 gem 'mobility-actiontext'
 gem 'pagy', '~> 5.6'
 gem 'pundit', '~> 2.2'
-gem 'sassc-rails'
+gem 'dartsass-rails'
 gem 'sprockets-rails'
 gem 'turbo-rails', '~> 1.0'
 

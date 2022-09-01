@@ -16,3 +16,5 @@ yarn-debug.log*
 
 /coverage
 /vendor
+/app/assets/builds/*
+!/app/assets/builds/.keep

@@ -82,8 +82,17 @@
       color: $white;
     }
 
-    .share-button:not(:first-child) {
+    .share-button {
       margin-top: 0.5rem;
+    }
+
+    @include mobile {
+      display: flex;
+      justify-content: space-evenly;
+
+      .share-button {
+        margin-top: 0;
+      }
     }
   }
 
