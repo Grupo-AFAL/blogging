@@ -13,3 +13,4 @@ services:
           property: connectionString
 databases:
   - name: blogging-db
+    plan: free
