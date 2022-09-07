@@ -1,0 +1,15 @@
+services:
+  - name: blogging
+    type: web
+    env: ruby
+    buildCommand: bin/render-build.sh
+    startCommand: bundle exec puma -C config/puma.rb
+    envVars:
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: blogging-db
+          property: connectionString
+databases:
+  - name: blogging-db

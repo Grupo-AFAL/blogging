@@ -1,0 +1,9 @@
+{
+  "buildpacks": [
+    "https://buildpack-registry.s3.amazonaws.com/buildpacks/heroku-community/apt.tgz",
+    "https://github.com/brandoncc/heroku-buildpack-vips",
+    "heroku/metrics",
+    "https://github.com/heroku/heroku-buildpack-activestorage-preview",
+    "heroku/ruby"
+  ]
+}
