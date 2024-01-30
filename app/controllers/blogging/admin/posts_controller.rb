@@ -19,6 +19,8 @@ module Blogging
         @post = authorize Blogging::Post.new
       end
 
+      def edit; end
+
       def create
         @post = authorize Blogging::Post.new(post_params)
 
@@ -29,8 +31,6 @@ module Blogging
           render :new, status: :unprocessable_entity
         end
       end
-
-      def edit; end
 
       def update
         if @post.update(post_params)
