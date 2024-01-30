@@ -15,6 +15,6 @@
     "trix": "^1.0.0"
   },
   "scripts": {
-    "build": "esbuild app/javascript/blogging/application.js --bundle --sourcemap --outdir=app/assets/javascripts/blogging"
+    "build": "esbuild app/javascript/blogging/application.js --bundle --loader:.png=dataurl --sourcemap --outdir=app/assets/javascripts/blogging"
   }
 }
