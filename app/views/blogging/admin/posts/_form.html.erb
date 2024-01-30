@@ -1,17 +1,17 @@
 <%= form_with(model: model, url: url, method: method) do |form| %>
   <%= render Bali::PageHeader::Component.new do |c| %>
-    <% c.title(title) %>
+    <% c.with_title(title) %>
     <%= form.submit t('.submit') %>
   <% end %>
 
   <%= render Bali::Columns::Component.new do |c| %>
-    <%= c.column do %>
+    <%= c.with_column do %>
       <%= form.text_field_group :title %>
 
       <%= form.rich_text_area_group :body, rows: 30 %>
     <% end %>
 
-    <%= c.column(class: 'is-one-fifth') do %>
+    <%= c.with_column(class: 'is-one-fifth') do %>
       <%= form.fields_for :statuses, form.object.current_status do |f| %>
         <%= f.hidden_field :locale, value: I18n.locale %>
         <%= f.select_group :status,
@@ -38,7 +38,6 @@
         <p class='label'><%= t('activerecord.attributes.blogging/post.cover_image') %></p>
         <%= form.file_field_group :cover_image, accept: 'image/*' %>
       </div>
-
     <% end %>
   <% end %>
 <% end %>

@@ -16,10 +16,10 @@
 <div class='blog-post'>
 
   <%= render Bali::Columns::Component.new(class: "mt-0") do |c| %>
-    <%= c.column(class: 'is-2 has-text-centered is-hidden-mobile') do %>
+    <%= c.with_column(class: 'is-2 has-text-centered is-hidden-mobile') do %>
     <% end %>
 
-    <%= c.column(class: 'post-content') do %>
+    <%= c.with_column(class: 'post-content') do %>
       <div class="page-header-component mb-5">
         <h1 class="post-title has-text-centered"><%= @post.title %></h1>
       </div>
@@ -27,7 +27,7 @@
   <% end %>
 
   <%= render Bali::Columns::Component.new do |c| %>
-    <%= c.column(class: 'post-metadata is-2 has-text-centered') do %>
+    <%= c.with_column(class: 'post-metadata is-2 has-text-centered') do %>
       <div class="author">
         <%= @post.author.name %>
       </div>
@@ -48,7 +48,7 @@
       </div>
     <% end %>
 
-    <%= c.column(class: 'post-content') do %>
+    <%= c.with_column(class: 'post-content') do %>
       <figure class="image">
         <%= image_tag main_app.url_for(@post.cover_image.variant(:medium)), class: 'is-full' %>
       </figure>

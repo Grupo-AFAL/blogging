@@ -1,6 +1,6 @@
 <%= render Bali::SideMenu::Component.new(id: 'side-menu', current_path: request.path) do |c| %>
-  <% c.list(title: 'Blogging') do |list| %>
-    <%= list.item(
+  <% c.with_list(title: 'Blogging') do |list| %>
+    <%= list.with_item(
         name: t('.posts'),
         href: admin_posts_path,
         match: :partial) %>

@@ -8,7 +8,7 @@ gemspec
 
 gem 'pg'
 
-gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'main'
+gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'update-gems-and-npm-packages'
 # gem 'bali_view_components', path: ENV['BALI_VIEW_COMPONENTS_PATH']
 gem 'bulma-rails', '~> 0.9.3'
 gem 'dartsass-rails'
@@ -20,15 +20,16 @@ gem 'mobility', '~> 1.2.6'
 gem 'mobility-actiontext'
 gem 'pagy', '~> 5.6'
 gem 'pundit', '~> 2.2'
+gem 'simple_command'
 gem 'sprockets-rails'
 gem 'turbo-rails', '~> 1.0'
 
 gem 'ruby-vips', '~> 2.1', group: :vips
 
 group :development do
-  gem 'puma', '~> 5.6'
-  gem 'rubocop', '~> 1', require: false
-  gem 'rubocop-rails', '~> 2'
+  gem 'puma', '< 7'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails'
 end
 
 group :test do

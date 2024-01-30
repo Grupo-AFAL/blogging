@@ -3,12 +3,12 @@
     <% if @pagy.page == 1 %>
       <div class='is-flex is-justify-content-center mb-5'>
         <%= render Bali::Card::Component.new(class: 'leading-post-card') do |card| %>
-          <% card.image(
+          <% card.with_image(
                  src: main_app.url_for(@leader_post.cover_image.variant(:large)),
                  href: post_path(@leader_post), figure_class: '') %>
 
-          <% card.footer_item { l(@leader_post.public_from, format: :compact) } %>
-          <% card.footer_item(href: post_path(@leader_post)) { t('actions.read') } %>
+          <% card.with_footer_item { l(@leader_post.public_from, format: :compact) } %>
+          <% card.with_footer_item(href: post_path(@leader_post)) { t('actions.read') } %>
 
           <%= tag.div('tags-container') do %>
             <% @leader_post.tags.each do |item| %>
@@ -28,12 +28,12 @@
     <div class='post-card-container'>
       <% @posts.each do |post| %>
         <%= render Bali::Card::Component.new(class: 'post-card') do |card| %>
-          <% card.image(
+          <% card.with_image(
                src: main_app.url_for(post.cover_image.variant(:small)),
                href: post_path(post), figure_class: '') %>
 
-          <% card.footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
-          <% card.footer_item { link_to t('actions.read'), post_path(post) } %>
+          <% card.with_footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
+          <% card.with_footer_item { link_to t('actions.read'), post_path(post) } %>
 
           <%= tag.div do %>
             <% post.tags.each do |item| %>
