@@ -14,12 +14,12 @@ gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components',
 gem 'bulma-rails', '~> 0.9.3'
 gem 'dartsass-rails'
 gem 'friendly_id', '~> 5.4.0'
-gem 'friendly_id-mobility', '~> 1.0.3'
+gem 'friendly_id-mobility', '~> 1.0.4'
 gem 'image_processing', '~> 1.2'
 gem 'jsbundling-rails'
 gem 'mobility', '~> 1.2.6'
 gem 'mobility-actiontext'
-gem 'pagy', '~> 5.6'
+gem 'pagy', '~> 6.0'
 gem 'pundit', '~> 2.2'
 gem 'simple_command'
 gem 'sprockets-rails'
@@ -35,7 +35,7 @@ end
 
 group :test do
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 5.0.0'
+  gem 'rspec-rails', '~> 6.1.0'
   gem 'simplecov', require: false
 end
 
