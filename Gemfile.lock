@@ -119,7 +119,6 @@ GEM
       ruby2_keywords
     erubi (1.12.0)
     ffi (1.16.3)
-    ffi (1.16.3-x64-mingw-ucrt)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
     friendly_id-mobility (1.0.4)
@@ -127,10 +126,7 @@ GEM
       mobility (>= 1.0.1, < 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (3.25.2-arm64-darwin)
-    google-protobuf (3.25.2-x64-mingw-ucrt)
-    google-protobuf (3.25.2-x86_64-darwin)
-    google-protobuf (3.25.2-x86_64-linux)
+    google-protobuf (3.25.2)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -156,6 +152,7 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.5)
     minitest (5.21.2)
     mobility (1.2.9)
       i18n (>= 0.6.10, < 2)
@@ -174,13 +171,8 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.0-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.0-x64-mingw-ucrt)
-      racc (~> 1.4)
-    nokogiri (1.16.0-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.0-x86_64-linux)
+    nokogiri (1.16.0)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     pagy (6.4.3)
     parallel (1.24.0)
@@ -188,7 +180,6 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
-    pg (1.5.4-x64-mingw-ucrt)
     psych (5.1.2)
       stringio
     puma (6.4.2)
@@ -291,14 +282,9 @@ GEM
     ruby-vips (2.2.0)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
-    sass-embedded (1.70.0-arm64-darwin)
+    sass-embedded (1.70.0)
       google-protobuf (~> 3.25)
-    sass-embedded (1.70.0-x64-mingw-ucrt)
-      google-protobuf (~> 3.25)
-    sass-embedded (1.70.0-x86_64-darwin)
-      google-protobuf (~> 3.25)
-    sass-embedded (1.70.0-x86_64-linux)
-      google-protobuf (~> 3.25)
+      rake (>= 13.0.0)
     sassc (2.4.0)
       ffi (~> 1.9)
     simple_command (1.0.1)
@@ -341,10 +327,7 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
-  arm64-darwin-21
-  x64-mingw-ucrt
-  x86_64-darwin-21
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   bali_view_components!
