@@ -11,8 +11,8 @@
     "@hotwired/turbo-rails": "^7.1.0",
     "@rails/actiontext": "^7.0.0",
     "bali-view-components": "https://github.com/Grupo-AFAL/bali-view-components.git#update-gems-and-npm-packages",
-    "esbuild": "^0.14.28",
-    "trix": "^1.0.0"
+    "esbuild": "^0.20.0",
+    "trix": "^2.0.8"
   },
   "scripts": {
     "build": "esbuild app/javascript/blogging/application.js --bundle --loader:.png=dataurl --sourcemap --outdir=app/assets/javascripts/blogging"
