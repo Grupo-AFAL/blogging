@@ -1,6 +1,6 @@
 {
   "name": "blogging",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Blogging",
   "main": "app/javascript/blogging/index.js",
   "repository": "git@github.com:Grupo-AFAL/blogging.git",
@@ -11,10 +11,10 @@
     "@hotwired/turbo-rails": "^7.1.0",
     "@rails/actiontext": "^7.0.0",
     "bali-view-components": "https://github.com/Grupo-AFAL/bali-view-components.git",
-    "esbuild": "^0.14.28",
-    "trix": "^1.0.0"
+    "esbuild": "^0.20.0",
+    "trix": "^2.0.8"
   },
   "scripts": {
-    "build": "esbuild app/javascript/blogging/application.js --bundle --sourcemap --outdir=app/assets/javascripts/blogging"
+    "build": "esbuild app/javascript/blogging/application.js --bundle --loader:.png=dataurl --sourcemap --outdir=app/assets/javascripts/blogging"
   }
 }

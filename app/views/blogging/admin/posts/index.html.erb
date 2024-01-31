@@ -1,15 +1,15 @@
 <%= render Bali::PageHeader::Component.new do |c| %>
-  <% c.title(t('activerecord.models.blogging/post').pluralize) %>
+  <% c.with_title(t('activerecord.models.blogging/post').pluralize) %>
   <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path,
     class: 'button is-primary mr-4' %>
   <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/tag')}", new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
 <% end %>
 
 <%= render Bali::Columns::Component.new do |c| %>
-  <%= c.column(class: 'is-three-quarters') do %>
+  <%= c.with_column(class: 'is-three-quarters') do %>
     <div class="box">
       <%= render Bali::Table::Component.new do |table_component| %>
-        <%= table_component.headers([
+        <%= table_component.with_headers([
           { name: t('activerecord.attributes.blogging/post.title')},
           { name: t('activerecord.attributes.blogging/post.body')},
           { name: t('activerecord.attributes.blogging/post.author_id')},
@@ -20,7 +20,7 @@
         ]) %>
 
         <% @posts.each do |post| %>
-          <%= table_component.row do %>
+          <%= table_component.with_row do %>
             <td><%= link_to post.title, admin_post_path(post) %></td>
             <td><%= post.body.to_plain_text.truncate(10) %></td>
             <td><%= post.author.name %></td>
@@ -46,16 +46,16 @@
     </div>
   <% end %>
 
-  <%= c.column(class: 'is-one-quarters') do %>
+  <%= c.with_column(class: 'is-one-quarters') do %>
     <%= render Bali::Table::Component.new do |table_component| %>
-      <%= table_component.headers([
+      <%= table_component.with_headers([
         { name: t('activerecord.attributes.blogging/tag.tag')},
         {},
         {}
       ]) %>
 
       <% @tags.each do |tag| %>
-        <%= table_component.row do %>
+        <%= table_component.with_row do %>
           <td><%= tag.name %></td>
           <td class='is-narrow'>
             <%= link_to icon_tag('edit-alt'), edit_admin_tag_path(tag), 

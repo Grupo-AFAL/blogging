@@ -4,8 +4,8 @@
 
   <body>
     <%= render Bali::Navbar::Component.new(class: 'is-fixed-top is-light') do |c| %>
-      <% c.menu do |menu| %>
-        <% menu.end_item(tag_name: :div) do %>
+      <% c.with_menu do |menu| %>
+        <% menu.with_end_item(tag_name: :div) do %>
           <%= link_to "Blog", root_path, class: "navbar-item app-logo" %>
         <% end %>
       <% end %>

@@ -9,6 +9,8 @@ module Blogging
         @tag = authorize Blogging::Tag.new
       end
 
+      def edit; end
+
       def create
         @tag = authorize Blogging::Tag.new(tag_params)
 
@@ -19,8 +21,6 @@ module Blogging
           render :new, status: :unprocessable_entity
         end
       end
-
-      def edit; end
 
       def update
         if @tag.update(tag_params)
