@@ -19307,18 +19307,26 @@
         Tabindex
       });
       NodePos = class _NodePos {
-        constructor(pos, editor) {
+        constructor(pos, editor, isBlock = false, node = null) {
+          this.currentNode = null;
+          this.actualDepth = null;
+          this.isBlock = isBlock;
           this.resolvedPos = pos;
           this.editor = editor;
+          this.currentNode = node;
+        }
+        get name() {
+          return this.node.type.name;
         }
         get node() {
-          return this.resolvedPos.node();
+          return this.currentNode || this.resolvedPos.node();
         }
         get element() {
           return this.editor.view.domAtPos(this.pos).node;
         }
         get depth() {
-          return this.resolvedPos.depth;
+          var _a;
+          return (_a = this.actualDepth) !== null && _a !== void 0 ? _a : this.resolvedPos.depth;
         }
         get pos() {
           return this.resolvedPos.pos;
@@ -19327,7 +19335,17 @@
           return this.node.content;
         }
         set content(content) {
-          this.editor.commands.insertContentAt({ from: this.from, to: this.to }, content);
+          let from3 = this.from;
+          let to2 = this.to;
+          if (this.isBlock) {
+            if (this.content.size === 0) {
+              console.error(`You can\u2019t set content on a block node. Tried to set content on ${this.name} at ${this.pos}`);
+              return;
+            }
+            from3 = this.from + 1;
+            to2 = this.to - 1;
+          }
+          this.editor.commands.insertContentAt({ from: from3, to: to2 }, content);
         }
         get attributes() {
           return this.node.attrs;
@@ -19339,6 +19357,9 @@
           return this.node.nodeSize;
         }
         get from() {
+          if (this.isBlock) {
+            return this.pos;
+          }
           return this.resolvedPos.start(this.resolvedPos.depth);
         }
         get range() {
@@ -19348,6 +19369,9 @@
           };
         }
         get to() {
+          if (this.isBlock) {
+            return this.pos + this.size;
+          }
           return this.resolvedPos.end(this.resolvedPos.depth) + (this.node.isText ? 0 : 1);
         }
         get parent() {
@@ -19359,14 +19383,14 @@
           return new _NodePos($pos, this.editor);
         }
         get before() {
-          let $pos = this.resolvedPos.doc.resolve(this.from - 2);
+          let $pos = this.resolvedPos.doc.resolve(this.from - (this.isBlock ? 1 : 2));
           if ($pos.depth !== this.depth) {
             $pos = this.resolvedPos.doc.resolve(this.from - 3);
           }
           return new _NodePos($pos, this.editor);
         }
         get after() {
-          let $pos = this.resolvedPos.doc.resolve(this.to + 2);
+          let $pos = this.resolvedPos.doc.resolve(this.to + (this.isBlock ? 2 : 1));
           if ($pos.depth !== this.depth) {
             $pos = this.resolvedPos.doc.resolve(this.to + 3);
           }
@@ -19375,12 +19399,17 @@
         get children() {
           const children = [];
           this.node.content.forEach((node, offset2) => {
-            const targetPos = this.pos + offset2 + 1;
+            const isBlock = node.isBlock && !node.isTextblock;
+            const targetPos = this.pos + offset2 + (isBlock ? 0 : 1);
             const $pos = this.resolvedPos.doc.resolve(targetPos);
-            if ($pos.depth === this.depth) {
+            if (!isBlock && $pos.depth <= this.depth) {
               return;
             }
-            children.push(new _NodePos($pos, this.editor));
+            const childNodePos = new _NodePos($pos, this.editor, isBlock, isBlock ? node : null);
+            if (isBlock) {
+              childNodePos.actualDepth = this.depth + 1;
+            }
+            children.push(new _NodePos($pos, this.editor, isBlock, isBlock ? node : null));
           });
           return children;
         }
@@ -19418,13 +19447,13 @@
         }
         querySelectorAll(selector, attributes = {}, firstItemOnly = false) {
           let nodes = [];
-          if (!this.children || this.children.length === 0) {
+          if (this.isBlock || !this.children || this.children.length === 0) {
             return nodes;
           }
-          this.children.forEach((node) => {
-            if (node.node.type.name === selector) {
+          this.children.forEach((childPos) => {
+            if (childPos.node.type.name === selector) {
               if (Object.keys(attributes).length > 0) {
-                const nodeAttributes = node.node.attrs;
+                const nodeAttributes = childPos.node.attrs;
                 const attrKeys = Object.keys(attributes);
                 for (let index3 = 0; index3 < attrKeys.length; index3 += 1) {
                   const key = attrKeys[index3];
@@ -19433,12 +19462,12 @@
                   }
                 }
               }
-              nodes.push(node);
+              nodes.push(childPos);
               if (firstItemOnly) {
                 return;
               }
             }
-            nodes = nodes.concat(node.querySelectorAll(selector));
+            nodes = nodes.concat(childPos.querySelectorAll(selector));
           });
           return nodes;
         }
@@ -69513,38 +69542,10 @@ img.ProseMirror-separator {
   // node_modules/bali-view-components/app/javascript/bali/controllers/input-on-change-controller.js
   init_src2();
 
-  // node_modules/bali-view-components/app/javascript/bali/controllers/slim-select-controller/destroy-with-check.js
-  function destroyWithCheck(id) {
-    const slim = id ? document.querySelector("." + id + ".ss-main") : this.slim.container;
-    const select = id ? document.querySelector("[data-ssid=".concat(id, "]")) : this.select.element;
-    if (!slim || !select) {
-      return;
-    }
-    document.removeEventListener("click", this.documentClick);
-    if (this.config.showContent === "auto") {
-      window.removeEventListener("scroll", this.windowScroll, false);
-    }
-    select.style.display = "";
-    delete select.dataset.ssid;
-    const el = select;
-    el.slim = null;
-    if (slim.parentElement) {
-      slim.parentElement.removeChild(slim);
-    }
-    if (this.config.addToBody) {
-      const slimContent = id ? document.querySelector("." + id + ".ss-content") : this.slim.content;
-      if (!document.body.contains(slimContent)) {
-        return;
-      }
-      document.body.removeChild(slimContent);
-    }
-  }
-
   // node_modules/bali-view-components/app/javascript/bali/controllers/slim-select-controller.js
   init_src2();
   var SlimSelectController = class extends Controller {
     static values = {
-      placeholder: String,
       addItems: Boolean,
       showContent: String,
       showSearch: Boolean,
@@ -69556,6 +69557,7 @@ img.ProseMirror-separator {
       ajaxValueName: String,
       ajaxTextName: String,
       ajaxUrl: String,
+      placeholder: { type: String, default: "Select value" },
       ajaxPlaceholder: {
         type: String,
         default: "Type 2 chars to search..."
@@ -69564,35 +69566,31 @@ img.ProseMirror-separator {
     static targets = ["select", "selectAllButton", "deselectAllButton"];
     async connect() {
       const { default: SlimSelect } = await Promise.resolve().then(() => __toESM(require_slimselect()));
-      Object.assign(SlimSelect.prototype, {
-        destroy: destroyWithCheck
-      });
       const options = {
         select: this.selectTarget,
-        placeholder: this.hasPlaceholderValue && this.placeholderValue,
-        showContent: this.showContentValue === "undefined" ? "down" : this.showContentValue,
-        showSearch: this.showSearchValue,
-        searchPlaceholder: this.searchPlaceholderValue,
-        addToBody: this.addToBodyValue,
-        closeOnSelect: this.closeOnSelectValue,
-        allowDeselectOption: this.allowDeselectOptionValue,
-        addable: this.addable(),
-        ajax: this.ajax()
+        settings: {
+          placeholderText: this.placeholderValue,
+          showSearch: this.showSearchValue,
+          openPosition: this.showContentValue === "undefined" ? "down" : this.showContentValue,
+          searchPlaceholder: this.searchPlaceholderValue,
+          closeOnSelect: this.closeOnSelectValue,
+          allowDeselect: this.allowDeselectOptionValue
+        },
+        events: {}
       };
       if (this.hasInnerHTML()) {
         options.data = this.dataWithHTML();
+      }
+      if (this.hasAjaxValues()) {
+        options.events.search = this.search;
+      }
+      if (this.addItemsValue) {
+        options.events.addable = (value) => value;
       }
       this.select = new SlimSelect(options);
     }
     disconnect() {
       this.select.destroy();
-    }
-    addable() {
-      if (!this.addItemsValue)
-        return;
-      return function(value) {
-        return value;
-      };
     }
     dataWithHTML() {
       return Array.from(this.selectTarget.children).map((option2) => {
@@ -69622,27 +69620,25 @@ img.ProseMirror-separator {
       this.deselectAllButtonTarget.style.display = "none";
       this.selectAllButtonTarget.style.display = "block";
     }
-    ajax() {
-      if (!this.hasAjaxValues())
-        return;
-      return async (search, callback2) => {
+    search = (search, currentData) => {
+      return new Promise((resolve2, reject) => {
         if (search.length < 2) {
-          return callback2(this.ajaxPlaceholderValue);
+          return reject(this.ajaxPlaceholderValue);
         }
-        const response = await get(this.ajaxUrlValue, {
-          query: { [this.ajaxParamNameValue]: search },
-          responseKind: "json"
+        get(
+          this.ajaxUrlValue,
+          { query: { [this.ajaxParamNameValue]: search }, responseKind: "json" }
+        ).then((response) => response.json).then((data) => {
+          const options = data.map((record) => {
+            return {
+              text: record[this.ajaxTextNameValue],
+              value: record[this.ajaxValueNameValue]
+            };
+          });
+          resolve2(options);
         });
-        const json2 = await response.json;
-        const options = json2.map((record) => {
-          return {
-            text: record[this.ajaxTextNameValue],
-            value: record[this.ajaxValueNameValue]
-          };
-        });
-        callback2(options.length > 0 ? options : false);
-      };
-    }
+      });
+    };
     hasAjaxValues() {
       return this.hasAjaxParamNameValue && this.hasAjaxValueNameValue && this.hasAjaxTextNameValue && this.hasAjaxUrlValue;
     }
