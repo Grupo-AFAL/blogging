@@ -8,9 +8,9 @@
   "private": false,
   "dependencies": {
     "@hotwired/stimulus": "^3.1.0",
-    "@hotwired/turbo-rails": "^7.1.0",
+    "@hotwired/turbo-rails": "^8.0.4",
     "@rails/actiontext": "^7.0.0",
-    "bali-view-components": "https://github.com/Grupo-AFAL/bali-view-components.git",
+    "bali-view-components": "https://github.com/Grupo-AFAL/bali-view-components.git#update-gems-and-npm-packages",
     "esbuild": "^0.20.0",
     "trix": "^2.0.8"
   },
