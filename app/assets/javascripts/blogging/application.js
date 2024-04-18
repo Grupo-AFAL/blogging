@@ -2252,7 +2252,7 @@
   });
 
   // node_modules/@popperjs/core/lib/utils/debounce.js
-  function debounce2(fn2) {
+  function debounce3(fn2) {
     var pending;
     return function() {
       if (!pending) {
@@ -2380,7 +2380,7 @@
         },
         // Async and optimistically optimized update – it will not be executed if
         // not necessary (debounced to run at most once-per-tick)
-        update: debounce2(function() {
+        update: debounce3(function() {
           return new Promise(function(resolve2) {
             instance.forceUpdate();
             resolve2(state);
@@ -2495,7 +2495,7 @@
       var now2 = function() {
         return root.Date.now();
       };
-      function debounce6(func, wait, options) {
+      function debounce7(func, wait, options) {
         var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
         if (typeof func != "function") {
           throw new TypeError(FUNC_ERROR_TEXT);
@@ -2584,7 +2584,7 @@
           leading = "leading" in options ? !!options.leading : leading;
           trailing = "trailing" in options ? !!options.trailing : trailing;
         }
-        return debounce6(func, wait, {
+        return debounce7(func, wait, {
           "leading": leading,
           "maxWait": wait,
           "trailing": trailing
@@ -2936,7 +2936,7 @@
   function invokeWithArgsOrReturn(value, args) {
     return typeof value === "function" ? value.apply(void 0, args) : value;
   }
-  function debounce3(fn2, ms) {
+  function debounce4(fn2, ms) {
     if (ms === 0) {
       return fn2;
     }
@@ -3324,7 +3324,7 @@
     var currentTransitionEndListener;
     var onFirstUpdate;
     var listeners = [];
-    var debouncedOnMouseMove = debounce3(onMouseMove, props.interactiveDebounce);
+    var debouncedOnMouseMove = debounce4(onMouseMove, props.interactiveDebounce);
     var currentTarget;
     var id = idCounter++;
     var popperInstance = null;
@@ -3859,7 +3859,7 @@
       addListeners();
       if (prevProps.interactiveDebounce !== nextProps.interactiveDebounce) {
         cleanupInteractiveMouseListeners();
-        debouncedOnMouseMove = debounce3(onMouseMove, nextProps.interactiveDebounce);
+        debouncedOnMouseMove = debounce4(onMouseMove, nextProps.interactiveDebounce);
       }
       if (prevProps.triggerTarget && !nextProps.triggerTarget) {
         normalizeToArray(prevProps.triggerTarget).forEach(function(node) {
@@ -7699,22 +7699,22 @@
     tr2.step(new ReplaceAroundStep(start3, end2, gapStart, gapEnd, new Slice(before.append(after), openStart, openEnd), before.size - openStart, true));
   }
   function findWrapping(range, nodeType, attrs = null, innerRange = range) {
-    let around = findWrappingOutside(range, nodeType);
-    let inner = around && findWrappingInside(innerRange, nodeType);
+    let around2 = findWrappingOutside(range, nodeType);
+    let inner = around2 && findWrappingInside(innerRange, nodeType);
     if (!inner)
       return null;
-    return around.map(withAttrs).concat({ type: nodeType, attrs }).concat(inner.map(withAttrs));
+    return around2.map(withAttrs).concat({ type: nodeType, attrs }).concat(inner.map(withAttrs));
   }
   function withAttrs(type) {
     return { type, attrs: null };
   }
   function findWrappingOutside(range, type) {
     let { parent, startIndex, endIndex } = range;
-    let around = parent.contentMatchAt(startIndex).findWrapping(type);
-    if (!around)
+    let around2 = parent.contentMatchAt(startIndex).findWrapping(type);
+    if (!around2)
       return null;
-    let outer = around.length ? around[0] : type;
-    return parent.canReplaceWith(startIndex, endIndex, outer) ? around : null;
+    let outer = around2.length ? around2[0] : type;
+    return parent.canReplaceWith(startIndex, endIndex, outer) ? around2 : null;
   }
   function findWrappingInside(range, type) {
     let { parent, startIndex, endIndex } = range;
@@ -20224,14 +20224,14 @@ img.ProseMirror-separator {
   // node_modules/@tiptap/extension-document/dist/index.js
   var dist_exports2 = {};
   __export(dist_exports2, {
-    Document: () => Document,
-    default: () => Document
+    Document: () => Document2,
+    default: () => Document2
   });
-  var Document;
+  var Document2;
   var init_dist17 = __esm({
     "node_modules/@tiptap/extension-document/dist/index.js"() {
       init_dist16();
-      Document = Node3.create({
+      Document2 = Node3.create({
         name: "doc",
         topNode: true,
         content: "block+"
@@ -35340,7 +35340,7 @@ img.ProseMirror-separator {
   });
 
   // node_modules/flatpickr/dist/esm/utils/index.js
-  function debounce4(fn2, wait) {
+  function debounce5(fn2, wait) {
     var t;
     return function() {
       var _this = this;
@@ -35989,8 +35989,8 @@ img.ProseMirror-separator {
         setupMobile();
         return;
       }
-      var debouncedResize = debounce4(onResize, 50);
-      self2._debouncedChange = debounce4(triggerChange, DEBOUNCED_CHANGE_MS);
+      var debouncedResize = debounce5(onResize, 50);
+      self2._debouncedChange = debounce5(triggerChange, DEBOUNCED_CHANGE_MS);
       if (self2.daysContainer && !/iPhone|iPad|iPod/i.test(navigator.userAgent))
         bind2(self2.daysContainer, "mouseover", function(e) {
           if (self2.config.mode === "range")
@@ -37668,7 +37668,7 @@ img.ProseMirror-separator {
           }
           return hasClass(element, className) || parentByClass(element, className);
         }
-        function debounce6(func, wait = 50, immediate = false) {
+        function debounce7(func, wait = 50, immediate = false) {
           let timeout;
           return function(...args) {
             const context = self;
@@ -38364,7 +38364,7 @@ img.ProseMirror-separator {
             input.setAttribute("autocapitalize", "off");
             input.setAttribute("autocomplete", "off");
             input.setAttribute("autocorrect", "off");
-            input.oninput = debounce6((e) => {
+            input.oninput = debounce7((e) => {
               this.callbacks.search(e.target.value);
             }, 100);
             input.onkeydown = (e) => {
@@ -39185,13 +39185,13 @@ img.ProseMirror-separator {
               beforeClose: void 0,
               afterClose: void 0
             };
-            this.windowResize = debounce6(() => {
+            this.windowResize = debounce7(() => {
               if (!this.settings.isOpen && !this.settings.isFullOpen) {
                 return;
               }
               this.render.moveContent();
             });
-            this.windowScroll = debounce6(() => {
+            this.windowScroll = debounce7(() => {
               if (!this.settings.isOpen && !this.settings.isFullOpen) {
                 return;
               }
@@ -39233,7 +39233,7 @@ img.ProseMirror-separator {
                 continue;
               }
               if (debounceEvents.indexOf(key) !== -1) {
-                this.events[key] = debounce6(config.events[key], 100);
+                this.events[key] = debounce7(config.events[key], 100);
               } else {
                 this.events[key] = config.events[key];
               }
@@ -39480,7 +39480,7 @@ img.ProseMirror-separator {
       var now2 = function() {
         return root.Date.now();
       };
-      function debounce6(func, wait, options) {
+      function debounce7(func, wait, options) {
         var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
         if (typeof func != "function") {
           throw new TypeError(FUNC_ERROR_TEXT);
@@ -39588,7 +39588,7 @@ img.ProseMirror-separator {
         var isBinary = reIsBinary.test(value);
         return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
       }
-      module.exports = debounce6;
+      module.exports = debounce7;
     }
   });
 
@@ -39599,8 +39599,8 @@ img.ProseMirror-separator {
         "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).Trix = e();
       }(exports, function() {
         "use strict";
-        var t = "2.0.8";
-        const e = "[data-trix-attachment]", i = { preview: { presentation: "gallery", caption: { name: true, size: true } }, file: { caption: { size: true } } }, n = { default: { tagName: "div", parse: false }, quote: { tagName: "blockquote", nestable: true }, heading1: { tagName: "h1", terminal: true, breakOnReturn: true, group: false }, code: { tagName: "pre", terminal: true, text: { plaintext: true } }, bulletList: { tagName: "ul", parse: false }, bullet: { tagName: "li", listAttribute: "bulletList", group: false, nestable: true, test(t2) {
+        var t = "2.1.0";
+        const e = "[data-trix-attachment]", i = { preview: { presentation: "gallery", caption: { name: true, size: true } }, file: { caption: { size: true } } }, n = { default: { tagName: "div", parse: false }, quote: { tagName: "blockquote", nestable: true }, heading1: { tagName: "h1", terminal: true, breakOnReturn: true, group: false }, code: { tagName: "pre", terminal: true, htmlAttributes: ["language"], text: { plaintext: true } }, bulletList: { tagName: "ul", parse: false }, bullet: { tagName: "li", listAttribute: "bulletList", group: false, nestable: true, test(t2) {
           return r(t2.parentNode) === n[this.listAttribute].tagName;
         } }, numberList: { tagName: "ol", parse: false }, number: { tagName: "li", listAttribute: "numberList", group: false, nestable: true, test(t2) {
           return r(t2.parentNode) === n[this.listAttribute].tagName;
@@ -39676,10 +39676,10 @@ img.ProseMirror-separator {
           for (t2 = t2.previousSibling; t2; )
             i2++, t2 = t2.previousSibling;
           return i2;
-        }, R = (t2) => {
+        }, k = (t2) => {
           var e2;
           return null == t2 || null === (e2 = t2.parentNode) || void 0 === e2 ? void 0 : e2.removeChild(t2);
-        }, S = function(t2) {
+        }, R = function(t2) {
           let { onlyNodesOfType: e2, usingFilter: i2, expandEntityReferences: n2 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
           const r2 = (() => {
             switch (e2) {
@@ -39697,7 +39697,7 @@ img.ProseMirror-separator {
         }, E = (t2) => {
           var e2;
           return null == t2 || null === (e2 = t2.tagName) || void 0 === e2 ? void 0 : e2.toLowerCase();
-        }, k = function(t2) {
+        }, S = function(t2) {
           let e2, i2, n2 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
           "object" == typeof t2 ? (n2 = t2, t2 = n2.tagName) : n2 = { attributes: n2 };
           const r2 = document.createElement(t2);
@@ -39731,17 +39731,17 @@ img.ProseMirror-separator {
           return e2 ? B(t2) : B(t2) || !B(t2.firstChild) && function(t3) {
             return D().includes(E(t3)) && !D().includes(E(t3.firstChild));
           }(t2);
-        }, B = (t2) => F(t2) && "block" === (null == t2 ? void 0 : t2.data), F = (t2) => (null == t2 ? void 0 : t2.nodeType) === Node.COMMENT_NODE, I = function(t2) {
+        }, B = (t2) => F(t2) && "block" === (null == t2 ? void 0 : t2.data), F = (t2) => (null == t2 ? void 0 : t2.nodeType) === Node.COMMENT_NODE, P = function(t2) {
           let { name: e2 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
           if (t2)
-            return O(t2) ? t2.data === h ? !e2 || t2.parentNode.dataset.trixCursorTarget === e2 : void 0 : I(t2.firstChild);
-        }, P = (t2) => v(t2, e), N = (t2) => O(t2) && "" === (null == t2 ? void 0 : t2.data), O = (t2) => (null == t2 ? void 0 : t2.nodeType) === Node.TEXT_NODE, M = { level2Enabled: true, getLevel() {
+            return O(t2) ? t2.data === h ? !e2 || t2.parentNode.dataset.trixCursorTarget === e2 : void 0 : P(t2.firstChild);
+        }, I = (t2) => v(t2, e), N = (t2) => O(t2) && "" === (null == t2 ? void 0 : t2.data), O = (t2) => (null == t2 ? void 0 : t2.nodeType) === Node.TEXT_NODE, M = { level2Enabled: true, getLevel() {
           return this.level2Enabled && a.supportsInputEvents ? 2 : 0;
         }, pickFiles(t2) {
-          const e2 = k("input", { type: "file", multiple: true, hidden: true, id: this.fileInputId });
+          const e2 = S("input", { type: "file", multiple: true, hidden: true, id: this.fileInputId });
           e2.addEventListener("change", () => {
-            t2(e2.files), R(e2);
-          }), R(document.getElementById(this.fileInputId)), document.body.appendChild(e2), e2.click();
+            t2(e2.files), k(e2);
+          }), k(document.getElementById(this.fileInputId)), document.body.appendChild(e2), e2.click();
         } };
         var j = { removeBlankTableCells: false, tableCellSeparator: " | ", tableRowSeparator: "\n" }, W = { bold: { tagName: "strong", inheritable: true, parser(t2) {
           const e2 = window.getComputedStyle(t2);
@@ -39753,26 +39753,26 @@ img.ProseMirror-separator {
         } }, strike: { tagName: "del", inheritable: true }, frozen: { style: { backgroundColor: "highlight" } } }, U = { getDefaultHTML: () => '<div class="trix-button-row">\n      <span class="trix-button-group trix-button-group--text-tools" data-trix-button-group="text-tools">\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-bold" data-trix-attribute="bold" data-trix-key="b" title="'.concat(l.bold, '" tabindex="-1">').concat(l.bold, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-italic" data-trix-attribute="italic" data-trix-key="i" title="').concat(l.italic, '" tabindex="-1">').concat(l.italic, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-strike" data-trix-attribute="strike" title="').concat(l.strike, '" tabindex="-1">').concat(l.strike, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-link" data-trix-attribute="href" data-trix-action="link" data-trix-key="k" title="').concat(l.link, '" tabindex="-1">').concat(l.link, '</button>\n      </span>\n\n      <span class="trix-button-group trix-button-group--block-tools" data-trix-button-group="block-tools">\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-attribute="heading1" title="').concat(l.heading1, '" tabindex="-1">').concat(l.heading1, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-quote" data-trix-attribute="quote" title="').concat(l.quote, '" tabindex="-1">').concat(l.quote, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-code" data-trix-attribute="code" title="').concat(l.code, '" tabindex="-1">').concat(l.code, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-bullet-list" data-trix-attribute="bullet" title="').concat(l.bullets, '" tabindex="-1">').concat(l.bullets, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-number-list" data-trix-attribute="number" title="').concat(l.numbers, '" tabindex="-1">').concat(l.numbers, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-decrease-nesting-level" data-trix-action="decreaseNestingLevel" title="').concat(l.outdent, '" tabindex="-1">').concat(l.outdent, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-increase-nesting-level" data-trix-action="increaseNestingLevel" title="').concat(l.indent, '" tabindex="-1">').concat(l.indent, '</button>\n      </span>\n\n      <span class="trix-button-group trix-button-group--file-tools" data-trix-button-group="file-tools">\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-attach" data-trix-action="attachFiles" title="').concat(l.attachFiles, '" tabindex="-1">').concat(l.attachFiles, '</button>\n      </span>\n\n      <span class="trix-button-group-spacer"></span>\n\n      <span class="trix-button-group trix-button-group--history-tools" data-trix-button-group="history-tools">\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-undo" data-trix-action="undo" data-trix-key="z" title="').concat(l.undo, '" tabindex="-1">').concat(l.undo, '</button>\n        <button type="button" class="trix-button trix-button--icon trix-button--icon-redo" data-trix-action="redo" data-trix-key="shift+z" title="').concat(l.redo, '" tabindex="-1">').concat(l.redo, '</button>\n      </span>\n    </div>\n\n    <div class="trix-dialogs" data-trix-dialogs>\n      <div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">\n        <div class="trix-dialog__link-fields">\n          <input type="url" name="href" class="trix-input trix-input--dialog" placeholder="').concat(l.urlPlaceholder, '" aria-label="').concat(l.url, '" required data-trix-input>\n          <div class="trix-button-group">\n            <input type="button" class="trix-button trix-button--dialog" value="').concat(l.link, '" data-trix-method="setAttribute">\n            <input type="button" class="trix-button trix-button--dialog" value="').concat(l.unlink, '" data-trix-method="removeAttribute">\n          </div>\n        </div>\n      </div>\n    </div>') };
         const q = { interval: 5e3 };
         var V = Object.freeze({ __proto__: null, attachments: i, blockAttributes: n, browser: a, css: { attachment: "attachment", attachmentCaption: "attachment__caption", attachmentCaptionEditor: "attachment__caption-editor", attachmentMetadata: "attachment__metadata", attachmentMetadataContainer: "attachment__metadata-container", attachmentName: "attachment__name", attachmentProgress: "attachment__progress", attachmentSize: "attachment__size", attachmentToolbar: "attachment__toolbar", attachmentGallery: "attachment-gallery" }, fileSize: u, input: M, keyNames: { 8: "backspace", 9: "tab", 13: "return", 27: "escape", 37: "left", 39: "right", 46: "delete", 68: "d", 72: "h", 79: "o" }, lang: l, parser: j, textAttributes: W, toolbar: U, undo: q });
-        class z {
+        class H {
           static proxyMethod(t2) {
-            const { name: e2, toMethod: i2, toProperty: n2, optional: r2 } = _(t2);
+            const { name: e2, toMethod: i2, toProperty: n2, optional: r2 } = z(t2);
             this.prototype[e2] = function() {
               let t3, o2;
               var s2, a2;
               i2 ? o2 = r2 ? null === (s2 = this[i2]) || void 0 === s2 ? void 0 : s2.call(this) : this[i2]() : n2 && (o2 = this[n2]);
-              return r2 ? (t3 = null === (a2 = o2) || void 0 === a2 ? void 0 : a2[e2], t3 ? H.call(t3, o2, arguments) : void 0) : (t3 = o2[e2], H.call(t3, o2, arguments));
+              return r2 ? (t3 = null === (a2 = o2) || void 0 === a2 ? void 0 : a2[e2], t3 ? _.call(t3, o2, arguments) : void 0) : (t3 = o2[e2], _.call(t3, o2, arguments));
             };
           }
         }
-        const _ = function(t2) {
+        const z = function(t2) {
           const e2 = t2.match(J);
           if (!e2)
             throw new Error("can't parse @proxyMethod expression: ".concat(t2));
           const i2 = { name: e2[4] };
           return null != e2[2] ? i2.toMethod = e2[1] : i2.toProperty = e2[1], null != e2[3] && (i2.optional = true), i2;
-        }, { apply: H } = Function.prototype, J = new RegExp("^(.+?)(\\(\\))?(\\?)?\\.(.+?)$");
+        }, { apply: _ } = Function.prototype, J = new RegExp("^(.+?)(\\(\\))?(\\?)?\\.(.+?)$");
         var K, G, $;
-        class X extends z {
+        class X extends H {
           static box() {
             let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "";
             return t2 instanceof this ? t2 : this.fromUCS2String(null == t2 ? void 0 : t2.toString());
@@ -39836,7 +39836,7 @@ img.ProseMirror-separator {
           })().join("");
         };
         let it = 0;
-        class nt extends z {
+        class nt extends H {
           static fromJSONString(t2) {
             return this.fromJSON(JSON.parse(t2));
           }
@@ -39884,7 +39884,7 @@ img.ProseMirror-separator {
             n2[r2 - 1] = arguments[r2];
           return e2.splice(...n2), e2;
         }, st = /[\u05BE\u05C0\u05C3\u05D0-\u05EA\u05F0-\u05F4\u061B\u061F\u0621-\u063A\u0640-\u064A\u066D\u0671-\u06B7\u06BA-\u06BE\u06C0-\u06CE\u06D0-\u06D5\u06E5\u06E6\u200F\u202B\u202E\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE72\uFE74\uFE76-\uFEFC]/, at = function() {
-          const t2 = k("input", { dir: "auto", name: "x", dirName: "x.dir" }), e2 = k("textarea", { dir: "auto", name: "y", dirName: "y.dir" }), i2 = k("form");
+          const t2 = S("input", { dir: "auto", name: "x", dirName: "x.dir" }), e2 = S("textarea", { dir: "auto", name: "y", dirName: "y.dir" }), i2 = S("form");
           i2.appendChild(t2), i2.appendChild(e2);
           const n2 = function() {
             try {
@@ -39929,7 +39929,7 @@ img.ProseMirror-separator {
             if (t3.textContent === e2)
               return !t3.querySelector("*");
           }
-        }, Rt = /Mac|^iP/.test(navigator.platform) ? (t2) => t2.metaKey : (t2) => t2.ctrlKey, St = (t2) => setTimeout(t2, 1), Et = function() {
+        }, kt = /Mac|^iP/.test(navigator.platform) ? (t2) => t2.metaKey : (t2) => t2.ctrlKey, Rt = (t2) => setTimeout(t2, 1), Et = function() {
           let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
           const e2 = {};
           for (const i2 in t2) {
@@ -39937,7 +39937,7 @@ img.ProseMirror-separator {
             e2[i2] = n2;
           }
           return e2;
-        }, kt = function() {
+        }, St = function() {
           let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}, e2 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
           if (Object.keys(t2).length !== Object.keys(e2).length)
             return false;
@@ -39962,9 +39962,9 @@ img.ProseMirror-separator {
         }, Tt = function(t2) {
           return "number" == typeof t2 ? t2 : Et(t2);
         }, Bt = function(t2, e2) {
-          return "number" == typeof t2 ? t2 === e2 : kt(t2, e2);
+          return "number" == typeof t2 ? t2 === e2 : St(t2, e2);
         };
-        class Ft extends z {
+        class Ft extends H {
           constructor() {
             super(...arguments), this.update = this.update.bind(this), this.selectionManagers = [];
           }
@@ -39993,30 +39993,30 @@ img.ProseMirror-separator {
             this.update();
           }
         }
-        const It = new Ft(), Pt = function() {
+        const Pt = new Ft(), It = function() {
           const t2 = window.getSelection();
           if (t2.rangeCount > 0)
             return t2;
         }, Nt = function() {
           var t2;
-          const e2 = null === (t2 = Pt()) || void 0 === t2 ? void 0 : t2.getRangeAt(0);
+          const e2 = null === (t2 = It()) || void 0 === t2 ? void 0 : t2.getRangeAt(0);
           if (e2 && !Mt(e2))
             return e2;
         }, Ot = function(t2) {
           const e2 = window.getSelection();
-          return e2.removeAllRanges(), e2.addRange(t2), It.update();
+          return e2.removeAllRanges(), e2.addRange(t2), Pt.update();
         }, Mt = (t2) => jt(t2.startContainer) || jt(t2.endContainer), jt = (t2) => !Object.getPrototypeOf(t2), Wt = (t2) => t2.replace(new RegExp("".concat(h), "g"), "").replace(new RegExp("".concat(d), "g"), " "), Ut = new RegExp("[^\\S".concat(d, "]")), qt = (t2) => t2.replace(new RegExp("".concat(Ut.source), "g"), " ").replace(/\ {2,}/g, " "), Vt = function(t2, e2) {
           if (t2.isEqualTo(e2))
             return ["", ""];
-          const i2 = zt(t2, e2), { length: n2 } = i2.utf16String;
+          const i2 = Ht(t2, e2), { length: n2 } = i2.utf16String;
           let r2;
           if (n2) {
             const { offset: o2 } = i2, s2 = t2.codepoints.slice(0, o2).concat(t2.codepoints.slice(o2 + n2));
-            r2 = zt(e2, X.fromCodepoints(s2));
+            r2 = Ht(e2, X.fromCodepoints(s2));
           } else
-            r2 = zt(e2, t2);
+            r2 = Ht(e2, t2);
           return [i2.utf16String.toString(), r2.utf16String.toString()];
-        }, zt = function(t2, e2) {
+        }, Ht = function(t2, e2) {
           let i2 = 0, n2 = t2.length, r2 = e2.length;
           for (; i2 < n2 && t2.charAt(i2).isEqualTo(e2.charAt(i2)); )
             i2++;
@@ -40024,7 +40024,7 @@ img.ProseMirror-separator {
             n2--, r2--;
           return { utf16String: t2.slice(i2, n2), offset: i2 };
         };
-        class _t extends nt {
+        class zt extends nt {
           static fromCommonAttributesOfObjects() {
             let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
             if (!t2.length)
@@ -40042,10 +40042,10 @@ img.ProseMirror-separator {
             super(...arguments), this.values = Kt(t2);
           }
           add(t2, e2) {
-            return this.merge(Ht(t2, e2));
+            return this.merge(_t(t2, e2));
           }
           remove(t2) {
-            return new _t(Kt(this.values, t2));
+            return new zt(Kt(this.values, t2));
           }
           get(t2) {
             return this.values[t2];
@@ -40054,13 +40054,13 @@ img.ProseMirror-separator {
             return t2 in this.values;
           }
           merge(t2) {
-            return new _t(Jt(this.values, $t(t2)));
+            return new zt(Jt(this.values, $t(t2)));
           }
           slice(t2) {
             const e2 = {};
             return Array.from(t2).forEach((t3) => {
               this.has(t3) && (e2[t3] = this.values[t3]);
-            }), new _t(e2);
+            }), new zt(e2);
           }
           getKeys() {
             return Object.keys(this.values);
@@ -40095,7 +40095,7 @@ img.ProseMirror-separator {
             return { values: JSON.stringify(this.values) };
           }
         }
-        const Ht = function(t2, e2) {
+        const _t = function(t2, e2) {
           const i2 = {};
           return i2[t2] = e2, i2;
         }, Jt = function(t2, e2) {
@@ -40111,9 +40111,9 @@ img.ProseMirror-separator {
             n2 !== e2 && (i2[n2] = t2[n2]);
           }), i2;
         }, Gt = function(t2) {
-          return t2 instanceof _t ? t2 : new _t(t2);
+          return t2 instanceof zt ? t2 : new zt(t2);
         }, $t = function(t2) {
-          return t2 instanceof _t ? t2.values : t2;
+          return t2 instanceof zt ? t2.values : t2;
         };
         class Xt {
           static groupObjects() {
@@ -40148,7 +40148,7 @@ img.ProseMirror-separator {
             }), t2.join("/");
           }
         }
-        class Yt extends z {
+        class Yt extends H {
           constructor() {
             let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
             super(...arguments), this.objects = {}, Array.from(t2).forEach((t3) => {
@@ -40182,7 +40182,7 @@ img.ProseMirror-separator {
           }
         }
         const Zt = (t2) => t2.dataset.trixStoreKey;
-        class te extends z {
+        class te extends H {
           isPerforming() {
             return true === this.performing;
           }
@@ -40209,7 +40209,7 @@ img.ProseMirror-separator {
           }
         }
         te.proxyMethod("getPromise().then"), te.proxyMethod("getPromise().catch");
-        class ee extends z {
+        class ee extends H {
           constructor(t2) {
             let e2 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
             super(...arguments), this.object = t2, this.options = e2, this.childViews = [], this.rootView = this;
@@ -40318,25 +40318,25 @@ img.ProseMirror-separator {
           }
           createNodes() {
             let t2;
-            const e2 = t2 = k({ tagName: "figure", className: this.getClassName(), data: this.getData(), editable: false }), i2 = this.getHref();
-            return i2 && (t2 = k({ tagName: "a", editable: false, attributes: { href: i2, tabindex: -1 } }), e2.appendChild(t2)), this.attachment.hasContent() ? t2.innerHTML = this.attachment.getContent() : this.createContentNodes().forEach((e3) => {
+            const e2 = t2 = S({ tagName: "figure", className: this.getClassName(), data: this.getData(), editable: false }), i2 = this.getHref();
+            return i2 && (t2 = S({ tagName: "a", editable: false, attributes: { href: i2, tabindex: -1 } }), e2.appendChild(t2)), this.attachment.hasContent() ? t2.innerHTML = this.attachment.getContent() : this.createContentNodes().forEach((e3) => {
               t2.appendChild(e3);
-            }), t2.appendChild(this.createCaptionElement()), this.attachment.isPending() && (this.progressElement = k({ tagName: "progress", attributes: { class: ne.attachmentProgress, value: this.attachment.getUploadProgress(), max: 100 }, data: { trixMutable: true, trixStoreKey: ["progressElement", this.attachment.id].join("/") } }), e2.appendChild(this.progressElement)), [oe("left"), e2, oe("right")];
+            }), t2.appendChild(this.createCaptionElement()), this.attachment.isPending() && (this.progressElement = S({ tagName: "progress", attributes: { class: ne.attachmentProgress, value: this.attachment.getUploadProgress(), max: 100 }, data: { trixMutable: true, trixStoreKey: ["progressElement", this.attachment.id].join("/") } }), e2.appendChild(this.progressElement)), [oe("left"), e2, oe("right")];
           }
           createCaptionElement() {
-            const t2 = k({ tagName: "figcaption", className: ne.attachmentCaption }), e2 = this.attachmentPiece.getCaption();
+            const t2 = S({ tagName: "figcaption", className: ne.attachmentCaption }), e2 = this.attachmentPiece.getCaption();
             if (e2)
               t2.classList.add("".concat(ne.attachmentCaption, "--edited")), t2.textContent = e2;
             else {
               let e3, i2;
               const n2 = this.getCaptionConfig();
               if (n2.name && (e3 = this.attachment.getFilename()), n2.size && (i2 = this.attachment.getFormattedFilesize()), e3) {
-                const i3 = k({ tagName: "span", className: ne.attachmentName, textContent: e3 });
+                const i3 = S({ tagName: "span", className: ne.attachmentName, textContent: e3 });
                 t2.appendChild(i3);
               }
               if (i2) {
                 e3 && t2.appendChild(document.createTextNode(" "));
-                const n3 = k({ tagName: "span", className: ne.attachmentSize, textContent: i2 });
+                const n3 = S({ tagName: "span", className: ne.attachmentSize, textContent: i2 });
                 t2.appendChild(n3);
               }
             }
@@ -40368,8 +40368,8 @@ img.ProseMirror-separator {
             e2 && (e2.value = t2);
           }
         }
-        const oe = (t2) => k({ tagName: "span", textContent: h, data: { trixCursorTarget: t2, trixSerialize: false } }), se = function(t2, e2) {
-          const i2 = k("div");
+        const oe = (t2) => S({ tagName: "span", textContent: h, data: { trixCursorTarget: t2, trixSerialize: false } }), se = function(t2, e2) {
+          const i2 = S("div");
           return i2.innerHTML = t2 || "", i2.querySelector(e2);
         };
         class ae extends re {
@@ -40377,7 +40377,7 @@ img.ProseMirror-separator {
             super(...arguments), this.attachment.previewDelegate = this;
           }
           createContentNodes() {
-            return this.image = k({ tagName: "img", attributes: { src: "" }, data: { trixMutable: true } }), this.refresh(this.image), [this.image];
+            return this.image = S({ tagName: "img", attributes: { src: "" }, data: { trixMutable: true } }), this.refresh(this.image), [this.image];
           }
           createCaptionElement() {
             const t2 = super.createCaptionElement(...arguments);
@@ -40440,7 +40440,7 @@ img.ProseMirror-separator {
               for (let i2 = 0; i2 < e2.length; i2++) {
                 const n2 = e2[i2];
                 if (i2 > 0) {
-                  const e3 = k("br");
+                  const e3 = S("br");
                   t3.push(e3);
                 }
                 if (n2.length) {
@@ -40460,7 +40460,7 @@ img.ProseMirror-separator {
               if (o2) {
                 if (o2.tagName) {
                   var r2;
-                  const e3 = k(o2.tagName);
+                  const e3 = S(o2.tagName);
                   r2 ? (r2.appendChild(e3), r2 = e3) : t2 = r2 = e3;
                 }
                 if (o2.styleProperty && (n2[o2.styleProperty] = i2), o2.style)
@@ -40469,7 +40469,7 @@ img.ProseMirror-separator {
               }
             }
             if (Object.keys(n2).length)
-              for (e2 in t2 || (t2 = k("span")), n2)
+              for (e2 in t2 || (t2 = S("span")), n2)
                 i2 = n2[e2], t2.style[e2] = i2;
             return t2;
           }
@@ -40478,7 +40478,7 @@ img.ProseMirror-separator {
               const e2 = this.attributes[t2], i2 = pt(t2);
               if (i2 && i2.groupTagName) {
                 const n2 = {};
-                return n2[t2] = e2, k(i2.groupTagName, n2);
+                return n2[t2] = e2, S(i2.groupTagName, n2);
               }
             }
           }
@@ -40513,11 +40513,11 @@ img.ProseMirror-separator {
           createNodes() {
             const t2 = [document.createComment("block")];
             if (this.block.isEmpty())
-              t2.push(k("br"));
+              t2.push(S("br"));
             else {
               var e2;
               const i2 = null === (e2 = gt(this.block.getLastAttribute())) || void 0 === e2 ? void 0 : e2.text, n2 = this.findOrCreateCachedChildView(ce, this.block.text, { textConfig: i2 });
-              t2.push(...Array.from(n2.getNodes() || [])), this.shouldAddExtraNewlineElement() && t2.push(k("br"));
+              t2.push(...Array.from(n2.getNodes() || [])), this.shouldAddExtraNewlineElement() && t2.push(S("br"));
             }
             if (this.attributes.length)
               return t2;
@@ -40525,18 +40525,22 @@ img.ProseMirror-separator {
               let e3;
               const { tagName: i2 } = n.default;
               this.block.isRTL() && (e3 = { dir: "rtl" });
-              const r2 = k({ tagName: i2, attributes: e3 });
+              const r2 = S({ tagName: i2, attributes: e3 });
               return t2.forEach((t3) => r2.appendChild(t3)), [r2];
             }
           }
           createContainerElement(t2) {
-            let e2, i2;
-            const n2 = this.attributes[t2], { tagName: r2 } = gt(n2);
-            if (0 === t2 && this.block.isRTL() && (e2 = { dir: "rtl" }), "attachmentGallery" === n2) {
+            const e2 = {};
+            let i2;
+            const n2 = this.attributes[t2], { tagName: r2, htmlAttributes: o2 = [] } = gt(n2);
+            if (0 === t2 && this.block.isRTL() && Object.assign(e2, { dir: "rtl" }), "attachmentGallery" === n2) {
               const t3 = this.block.getBlockBreakPosition();
               i2 = "".concat(he.attachmentGallery, " ").concat(he.attachmentGallery, "--").concat(t3);
             }
-            return k({ tagName: r2, className: i2, attributes: e2 });
+            return Object.entries(this.block.htmlAttributes).forEach((t3) => {
+              let [i3, n3] = t3;
+              o2.includes(i3) && (e2[i3] = n3);
+            }), S({ tagName: r2, className: i2, attributes: e2 });
           }
           shouldAddExtraNewlineElement() {
             return /\n\n$/.test(this.block.toString());
@@ -40544,7 +40548,7 @@ img.ProseMirror-separator {
         }
         class ge extends ee {
           static render(t2) {
-            const e2 = k("div"), i2 = new this(t2, { element: e2 });
+            const e2 = S("div"), i2 = new this(t2, { element: e2 });
             return i2.render(), i2.sync(), e2;
           }
           constructor() {
@@ -40554,7 +40558,7 @@ img.ProseMirror-separator {
             t2.isEqualTo(this.document) || (this.document = this.object = t2);
           }
           render() {
-            if (this.childViews = [], this.shadowElement = k("div"), !this.document.isEmpty()) {
+            if (this.childViews = [], this.shadowElement = S("div"), !this.document.isEmpty()) {
               const t2 = Xt.groupObjects(this.document.getBlocks(), { asTree: true });
               Array.from(t2).forEach((t3) => {
                 const e2 = this.findOrCreateCachedChildView(de, t3);
@@ -40572,7 +40576,7 @@ img.ProseMirror-separator {
             return this.element.appendChild(t2), this.didSync();
           }
           didSync() {
-            return this.elementStore.reset(me(this.element)), St(() => this.garbageCollectCachedViews());
+            return this.elementStore.reset(me(this.element)), Rt(() => this.garbageCollectCachedViews());
           }
           createDocumentFragmentForSync() {
             const t2 = document.createDocumentFragment();
@@ -40666,7 +40670,7 @@ img.ProseMirror-separator {
           }
           constructor(t2) {
             let e2 = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
-            super(...arguments), this.attributes = _t.box(e2);
+            super(...arguments), this.attributes = zt.box(e2);
           }
           copyWithAttributes(t2) {
             return new this.constructor(this.getValue(), t2);
@@ -40739,20 +40743,20 @@ img.ProseMirror-separator {
             e2.onload = () => (e2.width = this.width = e2.naturalWidth, e2.height = this.height = e2.naturalHeight, t2(true, e2)), e2.onerror = () => t2(false), e2.src = this.url;
           }
         }
-        class Re extends nt {
+        class ke extends nt {
           static attachmentForFile(t2) {
             const e2 = new this(this.attributesForFile(t2));
             return e2.setFile(t2), e2;
           }
           static attributesForFile(t2) {
-            return new _t({ filename: t2.name, filesize: t2.size, contentType: t2.type });
+            return new zt({ filename: t2.name, filesize: t2.size, contentType: t2.type });
           }
           static fromJSON(t2) {
             return new this(t2);
           }
           constructor() {
             let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
-            super(t2), this.releaseFile = this.releaseFile.bind(this), this.attributes = _t.box(t2), this.didChangeAttributes();
+            super(t2), this.releaseFile = this.releaseFile.bind(this), this.attributes = zt.box(t2), this.didChangeAttributes();
           }
           getAttribute(t2) {
             return this.attributes.get(t2);
@@ -40778,7 +40782,7 @@ img.ProseMirror-separator {
             return null != this.file && !(this.getURL() || this.getHref());
           }
           isPreviewable() {
-            return this.attributes.has("previewable") ? this.attributes.get("previewable") : Re.previewablePattern.test(this.getContentType());
+            return this.attributes.has("previewable") ? this.attributes.get("previewable") : ke.previewablePattern.test(this.getContentType());
           }
           getType() {
             return this.hasContent() ? "content" : this.isPreviewable() ? "preview" : "file";
@@ -40870,10 +40874,10 @@ img.ProseMirror-separator {
             }
           }
         }
-        Ae(Re, "previewablePattern", /^image(\/(gif|png|webp|jpe?g)|$)/);
-        class Se extends ye {
+        Ae(ke, "previewablePattern", /^image(\/(gif|png|webp|jpe?g)|$)/);
+        class Re extends ye {
           static fromJSON(t2) {
-            return new this(Re.fromJSON(t2.attachment), t2.attributes);
+            return new this(ke.fromJSON(t2.attachment), t2.attributes);
           }
           constructor(t2) {
             super(...arguments), this.attachment = t2, this.length = 1, this.ensureAttachmentExclusivelyHasAttribute("href"), this.attachment.hasContent() || this.removeProhibitedAttributes();
@@ -40882,7 +40886,7 @@ img.ProseMirror-separator {
             this.hasAttribute(t2) && (this.attachment.hasAttribute(t2) || this.attachment.setAttributes(this.attributes.slice([t2])), this.attributes = this.attributes.remove(t2));
           }
           removeProhibitedAttributes() {
-            const t2 = this.attributes.slice(Se.permittedAttributes);
+            const t2 = this.attributes.slice(Re.permittedAttributes);
             t2.isEqualTo(this.attributes) || (this.attributes = t2);
           }
           getValue() {
@@ -40912,7 +40916,7 @@ img.ProseMirror-separator {
             return JSON.stringify(this.toString());
           }
         }
-        Ae(Se, "permittedAttributes", ["caption", "presentation"]), ye.registerType("attachment", Se);
+        Ae(Re, "permittedAttributes", ["caption", "presentation"]), ye.registerType("attachment", Re);
         class Ee extends ye {
           static fromJSON(t2) {
             return new this(t2.string, t2.attributes);
@@ -40949,7 +40953,7 @@ img.ProseMirror-separator {
           }
         }
         ye.registerType("string", Ee);
-        class ke extends nt {
+        class Se extends nt {
           static box(t2) {
             return t2 instanceof this ? t2 : new this(t2);
           }
@@ -41095,7 +41099,7 @@ img.ProseMirror-separator {
         }, De = (t2) => t2[0], we = (t2) => t2[1];
         class Te extends nt {
           static textForAttachmentWithAttributes(t2, e2) {
-            return new this([new Se(t2, e2)]);
+            return new this([new Re(t2, e2)]);
           }
           static textForStringWithAttributes(t2, e2) {
             return new this([new Ee(t2, e2)]);
@@ -41107,7 +41111,7 @@ img.ProseMirror-separator {
             let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
             super(...arguments);
             const e2 = t2.filter((t3) => !t3.isEmpty());
-            this.pieceList = new ke(e2);
+            this.pieceList = new Se(e2);
           }
           copy() {
             return this.copyWithPieceList(this.pieceList);
@@ -41156,7 +41160,7 @@ img.ProseMirror-separator {
           }
           getCommonAttributes() {
             const t2 = Array.from(this.pieceList.toArray()).map((t3) => t3.getAttributes());
-            return _t.fromCommonAttributesOfObjects(t2).toObject();
+            return zt.fromCommonAttributesOfObjects(t2).toObject();
           }
           getCommonAttributesAtRange(t2) {
             return this.getTextAtRange(t2).getCommonAttributes() || {};
@@ -41262,25 +41266,25 @@ img.ProseMirror-separator {
         }
         class Be extends nt {
           static fromJSON(t2) {
-            return new this(Te.fromJSON(t2.text), t2.attributes);
+            return new this(Te.fromJSON(t2.text), t2.attributes, t2.htmlAttributes);
           }
-          constructor(t2, e2) {
-            super(...arguments), this.text = Fe(t2 || new Te()), this.attributes = e2 || [];
+          constructor(t2, e2, i2) {
+            super(...arguments), this.text = Fe(t2 || new Te()), this.attributes = e2 || [], this.htmlAttributes = i2 || {};
           }
           isEmpty() {
             return this.text.isBlockBreak();
           }
           isEqualTo(t2) {
-            return !!super.isEqualTo(t2) || this.text.isEqualTo(null == t2 ? void 0 : t2.text) && rt(this.attributes, null == t2 ? void 0 : t2.attributes);
+            return !!super.isEqualTo(t2) || this.text.isEqualTo(null == t2 ? void 0 : t2.text) && rt(this.attributes, null == t2 ? void 0 : t2.attributes) && St(this.htmlAttributes, null == t2 ? void 0 : t2.htmlAttributes);
           }
           copyWithText(t2) {
-            return new Be(t2, this.attributes);
+            return new Be(t2, this.attributes, this.htmlAttributes);
           }
           copyWithoutText() {
             return this.copyWithText(null);
           }
           copyWithAttributes(t2) {
-            return new Be(this.text, t2);
+            return new Be(this.text, t2, this.htmlAttributes);
           }
           copyWithoutAttributes() {
             return this.copyWithAttributes(null);
@@ -41292,6 +41296,10 @@ img.ProseMirror-separator {
           addAttribute(t2) {
             const e2 = this.attributes.concat(je(t2));
             return this.copyWithAttributes(e2);
+          }
+          addHTMLAttribute(t2, e2) {
+            const i2 = Object.assign({}, this.htmlAttributes, { [t2]: e2 });
+            return new Be(this.text, this.attributes, i2);
           }
           removeAttribute(t2) {
             const { listAttribute: e2 } = gt(t2), i2 = Ue(Ue(this.attributes, t2), e2);
@@ -41374,7 +41382,7 @@ img.ProseMirror-separator {
             return this.text.toString();
           }
           toJSON() {
-            return { text: this.text, attributes: this.attributes };
+            return { text: this.text, attributes: this.attributes, htmlAttributes: this.htmlAttributes };
           }
           getDirection() {
             return this.text.getDirection();
@@ -41420,15 +41428,15 @@ img.ProseMirror-separator {
           }
         }
         const Fe = function(t2) {
-          return t2 = Ie(t2), t2 = Ne(t2);
-        }, Ie = function(t2) {
+          return t2 = Pe(t2), t2 = Ne(t2);
+        }, Pe = function(t2) {
           let e2 = false;
           const i2 = t2.getPieces();
           let n2 = i2.slice(0, i2.length - 1);
           const r2 = i2[i2.length - 1];
           return r2 ? (n2 = n2.map((t3) => t3.isBlockBreak() ? (e2 = true, Me(t3)) : t3), e2 ? new Te([...n2, r2]) : t2) : t2;
-        }, Pe = Te.textForStringWithAttributes("\n", { blockBreak: true }), Ne = function(t2) {
-          return Oe(t2) ? t2 : t2.appendText(Pe);
+        }, Ie = Te.textForStringWithAttributes("\n", { blockBreak: true }), Ne = function(t2) {
+          return Oe(t2) ? t2 : t2.appendText(Ie);
         }, Oe = function(t2) {
           const e2 = t2.getLength();
           if (0 === e2)
@@ -41451,7 +41459,7 @@ img.ProseMirror-separator {
           }
           constructor() {
             let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
-            super(...arguments), 0 === t2.length && (t2 = [new Be()]), this.blockList = ke.box(t2);
+            super(...arguments), 0 === t2.length && (t2 = [new Be()]), this.blockList = Se.box(t2);
           }
           isEmpty() {
             const t2 = this.getBlockAtIndex(0);
@@ -41570,11 +41578,15 @@ img.ProseMirror-separator {
             const i2 = this.getRangeOfAttachment(e2);
             return this.removeAttributeAtRange(t2, i2);
           }
+          setHTMLAttributeAtPosition(t2, e2, i2) {
+            const n2 = this.getBlockAtPosition(t2), r2 = n2.addHTMLAttribute(e2, i2);
+            return this.replaceBlock(n2, r2);
+          }
           insertBlockBreakAtRange(t2) {
             let e2;
             t2 = Lt(t2);
             const [i2] = t2, { offset: n2 } = this.locationFromPosition(i2), r2 = this.removeTextAtRange(t2);
-            return 0 === n2 && (e2 = [new Be()]), new this.constructor(r2.blockList.insertSplittableListAtPosition(new ke(e2), i2));
+            return 0 === n2 && (e2 = [new Be()]), new this.constructor(r2.blockList.insertSplittableListAtPosition(new Se(e2), i2));
           }
           applyBlockAttributeAtRange(t2, e2, i2) {
             const n2 = this.expandRangeToLineBreaksAndSplitBlocks(i2);
@@ -41717,7 +41729,7 @@ img.ProseMirror-separator {
               return this.eachBlockAtRange(t2, function(t3, n2) {
                 if (n2[0] !== n2[1])
                   return e3.push(t3.text.getCommonAttributesAtRange(n2)), i2.push(Ve(t3));
-              }), _t.fromCommonAttributesOfObjects(e3).merge(_t.fromCommonAttributesOfObjects(i2)).toObject();
+              }), zt.fromCommonAttributesOfObjects(e3).merge(zt.fromCommonAttributesOfObjects(i2)).toObject();
             }
           }
           getCommonAttributesAtPosition(t2) {
@@ -41858,15 +41870,15 @@ img.ProseMirror-separator {
         const Ve = function(t2) {
           const e2 = {}, i2 = t2.getLastAttribute();
           return i2 && (e2[i2] = true), e2;
-        }, ze = "style href src width height class".split(" "), _e = "javascript:".split(" "), He = "script iframe form".split(" ");
-        class Je extends z {
+        }, He = "style href src width height language class".split(" "), ze = "javascript:".split(" "), _e = "script iframe form".split(" ");
+        class Je extends H {
           static sanitize(t2, e2) {
             const i2 = new this(t2, e2);
             return i2.sanitize(), i2;
           }
           constructor(t2) {
             let { allowedAttributes: e2, forbiddenProtocols: i2, forbiddenElements: n2 } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
-            super(...arguments), this.allowedAttributes = e2 || ze, this.forbiddenProtocols = i2 || _e, this.forbiddenElements = n2 || He, this.body = Ke(t2);
+            super(...arguments), this.allowedAttributes = e2 || He, this.forbiddenProtocols = i2 || ze, this.forbiddenElements = n2 || _e, this.body = Ke(t2);
           }
           sanitize() {
             return this.sanitizeElements(), this.normalizeListElementNesting();
@@ -41878,7 +41890,7 @@ img.ProseMirror-separator {
             return this.body;
           }
           sanitizeElements() {
-            const t2 = S(this.body), e2 = [];
+            const t2 = R(this.body), e2 = [];
             for (; t2.nextNode(); ) {
               const i2 = t2.currentNode;
               switch (i2.nodeType) {
@@ -41889,7 +41901,7 @@ img.ProseMirror-separator {
                   e2.push(i2);
               }
             }
-            return e2.forEach((t3) => R(t3)), this.body;
+            return e2.forEach((t3) => k(t3)), this.body;
           }
           sanitizeElement(t2) {
             return t2.hasAttribute("href") && this.forbiddenProtocols.includes(t2.protocol) && t2.removeAttribute("href"), Array.from(t2.attributes).forEach((e2) => {
@@ -41911,7 +41923,7 @@ img.ProseMirror-separator {
             return this.forbiddenElements.includes(E(t2));
           }
           elementIsntSerializable(t2) {
-            return "false" === t2.getAttribute("data-trix-serialize") && !P(t2);
+            return "false" === t2.getAttribute("data-trix-serialize") && !I(t2);
           }
         }
         const Ke = function() {
@@ -41931,7 +41943,7 @@ img.ProseMirror-separator {
             return {};
           }
         };
-        class Xe extends z {
+        class Xe extends H {
           static parse(t2, e2) {
             const i2 = new this(t2, e2);
             return i2.parse(), i2;
@@ -41948,7 +41960,7 @@ img.ProseMirror-separator {
               this.createHiddenContainer();
               const t2 = Je.sanitize(this.html).getHTML();
               this.containerElement.innerHTML = t2;
-              const e2 = S(this.containerElement, { usingFilter: ti });
+              const e2 = R(this.containerElement, { usingFilter: ti });
               for (; e2.nextNode(); )
                 this.processNode(e2.currentNode);
               return this.translateBlockElementMarginsToNewlines();
@@ -41957,10 +41969,10 @@ img.ProseMirror-separator {
             }
           }
           createHiddenContainer() {
-            return this.referenceElement ? (this.containerElement = this.referenceElement.cloneNode(false), this.containerElement.removeAttribute("id"), this.containerElement.setAttribute("data-trix-internal", ""), this.containerElement.style.display = "none", this.referenceElement.parentNode.insertBefore(this.containerElement, this.referenceElement.nextSibling)) : (this.containerElement = k({ tagName: "div", style: { display: "none" } }), document.body.appendChild(this.containerElement));
+            return this.referenceElement ? (this.containerElement = this.referenceElement.cloneNode(false), this.containerElement.removeAttribute("id"), this.containerElement.setAttribute("data-trix-internal", ""), this.containerElement.style.display = "none", this.referenceElement.parentNode.insertBefore(this.containerElement, this.referenceElement.nextSibling)) : (this.containerElement = S({ tagName: "div", style: { display: "none" } }), document.body.appendChild(this.containerElement));
           }
           removeHiddenContainer() {
-            return R(this.containerElement);
+            return k(this.containerElement);
           }
           processNode(t2) {
             switch (t2.nodeType) {
@@ -41978,19 +41990,19 @@ img.ProseMirror-separator {
               return this.appendStringWithAttributes("\n");
             if (e2 === this.containerElement || this.isBlockElement(e2)) {
               var i2;
-              const t3 = this.getBlockAttributes(e2);
-              rt(t3, null === (i2 = this.currentBlock) || void 0 === i2 ? void 0 : i2.attributes) || (this.currentBlock = this.appendBlockForAttributesWithElement(t3, e2), this.currentBlockElement = e2);
+              const t3 = this.getBlockAttributes(e2), n2 = this.getBlockHTMLAttributes(e2);
+              rt(t3, null === (i2 = this.currentBlock) || void 0 === i2 ? void 0 : i2.attributes) || (this.currentBlock = this.appendBlockForAttributesWithElement(t3, e2, n2), this.currentBlockElement = e2);
             }
           }
           appendBlockForElement(t2) {
             const e2 = this.isBlockElement(t2), i2 = y(this.currentBlockElement, t2);
             if (e2 && !this.isBlockElement(t2.firstChild)) {
               if (!this.isInsignificantTextNode(t2.firstChild) || !this.isBlockElement(t2.firstElementChild)) {
-                const e3 = this.getBlockAttributes(t2);
+                const e3 = this.getBlockAttributes(t2), n2 = this.getBlockHTMLAttributes(t2);
                 if (t2.firstChild) {
                   if (i2 && rt(e3, this.currentBlock.attributes))
                     return this.appendStringWithAttributes("\n");
-                  this.currentBlock = this.appendBlockForAttributesWithElement(e3, t2), this.currentBlockElement = t2;
+                  this.currentBlock = this.appendBlockForAttributesWithElement(e3, t2, n2), this.currentBlockElement = t2;
                 }
               }
             } else if (this.currentBlockElement && !i2 && !e2) {
@@ -42017,7 +42029,7 @@ img.ProseMirror-separator {
           }
           processElement(t2) {
             let e2;
-            if (P(t2)) {
+            if (I(t2)) {
               if (e2 = $e(t2, "attachment"), Object.keys(e2).length) {
                 const i2 = this.getTextAttributes(t2);
                 this.appendAttachmentWithAttributes(e2, i2), t2.innerHTML = "";
@@ -42048,11 +42060,12 @@ img.ProseMirror-separator {
             }
           }
           appendBlockForAttributesWithElement(t2, e2) {
+            let i2 = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {};
             this.blockElements.push(e2);
-            const i2 = function() {
-              return { text: [], attributes: arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {} };
-            }(t2);
-            return this.blocks.push(i2), i2;
+            const n2 = function() {
+              return { text: [], attributes: arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}, htmlAttributes: arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {} };
+            }(t2, i2);
+            return this.blocks.push(n2), n2;
           }
           appendEmptyBlock() {
             return this.appendBlockForAttributesWithElement([], null);
@@ -42100,7 +42113,7 @@ img.ProseMirror-separator {
               } else
                 r2.styleProperty && (e2 = t2.style[r2.styleProperty], e2 && (i2[n2] = e2));
             }
-            if (P(t2)) {
+            if (I(t2)) {
               const n2 = $e(t2, "attributes");
               for (const t3 in n2)
                 e2 = n2[t3], i2[t3] = e2;
@@ -42122,6 +42135,12 @@ img.ProseMirror-separator {
             }
             return e2.reverse();
           }
+          getBlockHTMLAttributes(t2) {
+            const e2 = {}, i2 = Object.values(n).find((e3) => e3.tagName === E(t2));
+            return ((null == i2 ? void 0 : i2.htmlAttributes) || []).forEach((i3) => {
+              t2.hasAttribute(i3) && (e2[i3] = t2.getAttribute(i3));
+            }), e2;
+          }
           findBlockElementAncestors(t2) {
             const e2 = [];
             for (; t2 && t2 !== this.containerElement; ) {
@@ -42131,7 +42150,7 @@ img.ProseMirror-separator {
             return e2;
           }
           isBlockElement(t2) {
-            if ((null == t2 ? void 0 : t2.nodeType) === Node.ELEMENT_NODE && !P(t2) && !A(t2, { matchingSelector: "td", untilNode: this.containerElement }))
+            if ((null == t2 ? void 0 : t2.nodeType) === Node.ELEMENT_NODE && !I(t2) && !A(t2, { matchingSelector: "td", untilNode: this.containerElement }))
               return D().includes(E(t2)) || "block" === window.getComputedStyle(t2).display;
           }
           isInsignificantTextNode(t2) {
@@ -42166,7 +42185,7 @@ img.ProseMirror-separator {
               return Ze(e2);
           }
           getMarginOfDefaultBlockElement() {
-            const t2 = k(n.default.tagName);
+            const t2 = S(n.default.tagName);
             return this.containerElement.appendChild(t2), Ze(t2);
           }
         }
@@ -42199,7 +42218,7 @@ img.ProseMirror-separator {
             e2 = t2.cloneNode(true);
           }
           return Array.from(e2.querySelectorAll("[data-trix-serialize=false]")).forEach((t3) => {
-            R(t3);
+            k(t3);
           }), ri.forEach((t3) => {
             Array.from(e2.querySelectorAll("[".concat(t3, "]"))).forEach((e3) => {
               e3.removeAttribute(t3);
@@ -42217,7 +42236,7 @@ img.ProseMirror-separator {
           }), e2.innerHTML.replace(ai, "");
         } };
         var ci = Object.freeze({ __proto__: null });
-        class ui extends z {
+        class ui extends H {
           constructor(t2, e2) {
             super(...arguments), this.attachmentManager = t2, this.attachment = e2, this.id = this.attachment.id, this.file = this.attachment.file;
           }
@@ -42226,7 +42245,7 @@ img.ProseMirror-separator {
           }
         }
         ui.proxyMethod("attachment.getAttribute"), ui.proxyMethod("attachment.hasAttribute"), ui.proxyMethod("attachment.setAttribute"), ui.proxyMethod("attachment.getAttributes"), ui.proxyMethod("attachment.setAttributes"), ui.proxyMethod("attachment.isPending"), ui.proxyMethod("attachment.isPreviewable"), ui.proxyMethod("attachment.getURL"), ui.proxyMethod("attachment.getHref"), ui.proxyMethod("attachment.getFilename"), ui.proxyMethod("attachment.getFilesize"), ui.proxyMethod("attachment.getFormattedFilesize"), ui.proxyMethod("attachment.getExtension"), ui.proxyMethod("attachment.getContentType"), ui.proxyMethod("attachment.getFile"), ui.proxyMethod("attachment.setFile"), ui.proxyMethod("attachment.releaseFile"), ui.proxyMethod("attachment.getUploadProgress"), ui.proxyMethod("attachment.setUploadProgress");
-        class hi extends z {
+        class hi extends H {
           constructor() {
             let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];
             super(...arguments), this.managedAttachments = {}, Array.from(t2).forEach((t3) => {
@@ -42279,7 +42298,7 @@ img.ProseMirror-separator {
             return this.block.hasAttributes() && !this.block.isListItem() && this.block.isEmpty();
           }
         }
-        class gi extends z {
+        class gi extends H {
           constructor() {
             super(...arguments), this.document = new qe(), this.attachments = [], this.currentAttributes = {}, this.revision = 0;
           }
@@ -42353,7 +42372,7 @@ img.ProseMirror-separator {
             return Array.from(t2).forEach((t3) => {
               var i2;
               if (null !== (i2 = this.delegate) && void 0 !== i2 && i2.compositionShouldAcceptFile(t3)) {
-                const i3 = Re.attachmentForFile(t3);
+                const i3 = ke.attachmentForFile(t3);
                 e2.push(i3);
               }
             }), this.insertAttachments(e2);
@@ -42445,6 +42464,14 @@ img.ProseMirror-separator {
           setCurrentAttribute(t2, e2) {
             return gt(t2) ? this.setBlockAttribute(t2, e2) : (this.setTextAttribute(t2, e2), this.currentAttributes[t2] = e2, this.notifyDelegateOfCurrentAttributesChange());
           }
+          setHTMLAtributeAtPosition(t2, e2, i2) {
+            var n2;
+            const r2 = this.document.getBlockAtPosition(t2), o2 = null === (n2 = gt(r2.getLastAttribute())) || void 0 === n2 ? void 0 : n2.htmlAttributes;
+            if (r2 && null != o2 && o2.includes(e2)) {
+              const n3 = this.document.setHTMLAttributeAtPosition(t2, e2, i2);
+              this.setDocument(n3);
+            }
+          }
           setTextAttribute(t2, e2) {
             const i2 = this.getSelectedRange();
             if (!i2)
@@ -42533,7 +42560,7 @@ img.ProseMirror-separator {
               const e2 = this.document.getCommonAttributesAtRange(t2);
               if (Array.from(dt()).forEach((t3) => {
                 e2[t3] || this.canSetCurrentAttribute(t3) || (e2[t3] = false);
-              }), !kt(e2, this.currentAttributes))
+              }), !St(e2, this.currentAttributes))
                 return this.currentAttributes = e2, this.notifyDelegateOfCurrentAttributesChange();
             }
           }
@@ -42750,7 +42777,7 @@ img.ProseMirror-separator {
           }
         }
         gi.proxyMethod("getSelectionManager().getPointRange"), gi.proxyMethod("getSelectionManager().setLocationRangeFromPointRange"), gi.proxyMethod("getSelectionManager().createLocationRangeFromDOMRange"), gi.proxyMethod("getSelectionManager().locationIsCursorTarget"), gi.proxyMethod("getSelectionManager().selectionIsExpanded"), gi.proxyMethod("delegate?.getSelectionManager");
-        class mi extends z {
+        class mi extends H {
           constructor(t2) {
             super(...arguments), this.composition = t2, this.undoEntries = [], this.redoEntries = [];
           }
@@ -42914,6 +42941,9 @@ img.ProseMirror-separator {
           deactivateAttribute(t2) {
             return this.composition.removeCurrentAttribute(t2);
           }
+          setHTMLAtributeAtPosition(t2, e2, i2) {
+            this.composition.setHTMLAtributeAtPosition(t2, e2, i2);
+          }
           canDecreaseNestingLevel() {
             return this.composition.canDecreaseNestingLevel();
           }
@@ -42955,11 +42985,11 @@ img.ProseMirror-separator {
             let { strict: i2 } = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : { strict: true }, n2 = 0, r2 = false;
             const o2 = { index: 0, offset: 0 }, s2 = this.findAttachmentElementParentForNode(t2);
             s2 && (t2 = s2.parentNode, e2 = C(s2));
-            const a2 = S(this.element, { usingFilter: Ei });
+            const a2 = R(this.element, { usingFilter: Ei });
             for (; a2.nextNode(); ) {
               const s3 = a2.currentNode;
               if (s3 === t2 && O(t2)) {
-                I(s3) || (o2.offset += e2);
+                P(s3) || (o2.offset += e2);
                 break;
               }
               if (s3.parentNode === t2) {
@@ -42984,7 +43014,7 @@ img.ProseMirror-separator {
             let [n2, r2] = this.findNodeAndOffsetFromLocation(t2);
             if (n2) {
               if (O(n2))
-                0 === Ci(n2) ? (e2 = n2.parentNode.parentNode, i2 = C(n2.parentNode), I(n2, { name: "right" }) && i2++) : (e2 = n2, i2 = t2.offset - r2);
+                0 === Ci(n2) ? (e2 = n2.parentNode.parentNode, i2 = C(n2.parentNode), P(n2, { name: "right" }) && i2++) : (e2 = n2, i2 = t2.offset - r2);
               else {
                 if (e2 = n2.parentNode, !T(n2.previousSibling) && !w(e2))
                   for (; n2 === e2.lastChild && (n2 = e2, e2 = e2.parentNode, !w(e2)); )
@@ -43000,7 +43030,7 @@ img.ProseMirror-separator {
               const o2 = Ci(r2);
               if (t2.offset <= n2 + o2)
                 if (O(r2)) {
-                  if (e2 = r2, i2 = n2, t2.offset === i2 && I(e2))
+                  if (e2 = r2, i2 = n2, t2.offset === i2 && P(e2))
                     break;
                 } else
                   e2 || (e2 = r2, i2 = n2);
@@ -43011,13 +43041,13 @@ img.ProseMirror-separator {
           }
           findAttachmentElementParentForNode(t2) {
             for (; t2 && t2 !== this.element; ) {
-              if (P(t2))
+              if (I(t2))
                 return t2;
               t2 = t2.parentNode;
             }
           }
           getSignificantNodesForIndex(t2) {
-            const e2 = [], i2 = S(this.element, { usingFilter: Ri });
+            const e2 = [], i2 = R(this.element, { usingFilter: ki });
             let n2 = false;
             for (; i2.nextNode(); ) {
               const o2 = i2.currentNode;
@@ -43035,19 +43065,19 @@ img.ProseMirror-separator {
         }
         const Ci = function(t2) {
           if (t2.nodeType === Node.TEXT_NODE) {
-            if (I(t2))
+            if (P(t2))
               return 0;
             return t2.textContent.length;
           }
-          return "br" === E(t2) || P(t2) ? 1 : 0;
+          return "br" === E(t2) || I(t2) ? 1 : 0;
+        }, ki = function(t2) {
+          return Ri(t2) === NodeFilter.FILTER_ACCEPT ? Ei(t2) : NodeFilter.FILTER_REJECT;
         }, Ri = function(t2) {
-          return Si(t2) === NodeFilter.FILTER_ACCEPT ? Ei(t2) : NodeFilter.FILTER_REJECT;
-        }, Si = function(t2) {
           return N(t2) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
         }, Ei = function(t2) {
-          return P(t2.parentNode) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+          return I(t2.parentNode) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
         };
-        class ki {
+        class Si {
           createDOMRangeFromPoint(t2) {
             let e2, { x: i2, y: n2 } = t2;
             if (document.caretPositionFromPoint) {
@@ -43071,9 +43101,9 @@ img.ProseMirror-separator {
             return [e2[0], e2[e2.length - 1]];
           }
         }
-        class Li extends z {
+        class Li extends H {
           constructor(t2) {
-            super(...arguments), this.didMouseDown = this.didMouseDown.bind(this), this.selectionDidChange = this.selectionDidChange.bind(this), this.element = t2, this.locationMapper = new yi(this.element), this.pointMapper = new ki(), this.lockCount = 0, f("mousedown", { onElement: this.element, withCallback: this.didMouseDown });
+            super(...arguments), this.didMouseDown = this.didMouseDown.bind(this), this.selectionDidChange = this.selectionDidChange.bind(this), this.element = t2, this.locationMapper = new yi(this.element), this.pointMapper = new Si(), this.lockCount = 0, f("mousedown", { onElement: this.element, withCallback: this.didMouseDown });
           }
           getLocationRange() {
             let t2 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
@@ -43098,7 +43128,7 @@ img.ProseMirror-separator {
           }
           locationIsCursorTarget(t2) {
             const e2 = Array.from(this.findNodeAndOffsetFromLocation(t2))[0];
-            return I(e2);
+            return P(e2);
           }
           lock() {
             0 == this.lockCount++ && (this.updateCurrentLocationRange(), this.lockedLocationRange = this.getLocationRange());
@@ -43112,7 +43142,7 @@ img.ProseMirror-separator {
           }
           clearSelection() {
             var t2;
-            return null === (t2 = Pt()) || void 0 === t2 ? void 0 : t2.removeAllRanges();
+            return null === (t2 = It()) || void 0 === t2 ? void 0 : t2.removeAllRanges();
           }
           selectionIsCollapsed() {
             var t2;
@@ -43171,23 +43201,23 @@ img.ProseMirror-separator {
           }
         }
         Li.proxyMethod("locationMapper.findLocationFromContainerAndOffset"), Li.proxyMethod("locationMapper.findContainerAndOffsetFromLocation"), Li.proxyMethod("locationMapper.findNodeAndOffsetFromLocation"), Li.proxyMethod("pointMapper.createDOMRangeFromPoint"), Li.proxyMethod("pointMapper.getClientRectsForDOMRange");
-        var Di = Object.freeze({ __proto__: null, Attachment: Re, AttachmentManager: hi, AttachmentPiece: Se, Block: Be, Composition: gi, Document: qe, Editor: xi, HTMLParser: Xe, HTMLSanitizer: Je, LineBreakInsertion: di, LocationMapper: yi, ManagedAttachment: ui, Piece: ye, PointMapper: ki, SelectionManager: Li, SplittableList: ke, StringPiece: Ee, Text: Te, UndoManager: mi }), wi = Object.freeze({ __proto__: null, ObjectView: ee, AttachmentView: re, BlockView: de, DocumentView: ge, PieceView: le, PreviewableAttachmentView: ae, TextView: ce });
-        const { lang: Ti, css: Bi, keyNames: Fi } = V, Ii = function(t2) {
+        var Di = Object.freeze({ __proto__: null, Attachment: ke, AttachmentManager: hi, AttachmentPiece: Re, Block: Be, Composition: gi, Document: qe, Editor: xi, HTMLParser: Xe, HTMLSanitizer: Je, LineBreakInsertion: di, LocationMapper: yi, ManagedAttachment: ui, Piece: ye, PointMapper: Si, SelectionManager: Li, SplittableList: Se, StringPiece: Ee, Text: Te, UndoManager: mi }), wi = Object.freeze({ __proto__: null, ObjectView: ee, AttachmentView: re, BlockView: de, DocumentView: ge, PieceView: le, PreviewableAttachmentView: ae, TextView: ce });
+        const { lang: Ti, css: Bi, keyNames: Fi } = V, Pi = function(t2) {
           return function() {
             const e2 = t2.apply(this, arguments);
             e2.do(), this.undos || (this.undos = []), this.undos.push(e2.undo);
           };
         };
-        class Pi extends z {
+        class Ii extends H {
           constructor(t2, e2, i2) {
             let n2 = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : {};
-            super(...arguments), Ae(this, "makeElementMutable", Ii(() => ({ do: () => {
+            super(...arguments), Ae(this, "makeElementMutable", Pi(() => ({ do: () => {
               this.element.dataset.trixMutable = true;
-            }, undo: () => delete this.element.dataset.trixMutable }))), Ae(this, "addToolbar", Ii(() => {
-              const t3 = k({ tagName: "div", className: Bi.attachmentToolbar, data: { trixMutable: true }, childNodes: k({ tagName: "div", className: "trix-button-row", childNodes: k({ tagName: "span", className: "trix-button-group trix-button-group--actions", childNodes: k({ tagName: "button", className: "trix-button trix-button--remove", textContent: Ti.remove, attributes: { title: Ti.remove }, data: { trixAction: "remove" } }) }) }) });
-              return this.attachment.isPreviewable() && t3.appendChild(k({ tagName: "div", className: Bi.attachmentMetadataContainer, childNodes: k({ tagName: "span", className: Bi.attachmentMetadata, childNodes: [k({ tagName: "span", className: Bi.attachmentName, textContent: this.attachment.getFilename(), attributes: { title: this.attachment.getFilename() } }), k({ tagName: "span", className: Bi.attachmentSize, textContent: this.attachment.getFormattedFilesize() })] }) })), f("click", { onElement: t3, withCallback: this.didClickToolbar }), f("click", { onElement: t3, matchingSelector: "[data-trix-action]", withCallback: this.didClickActionButton }), b("trix-attachment-before-toolbar", { onElement: this.element, attributes: { toolbar: t3, attachment: this.attachment } }), { do: () => this.element.appendChild(t3), undo: () => R(t3) };
-            })), Ae(this, "installCaptionEditor", Ii(() => {
-              const t3 = k({ tagName: "textarea", className: Bi.attachmentCaptionEditor, attributes: { placeholder: Ti.captionPlaceholder }, data: { trixMutable: true } });
+            }, undo: () => delete this.element.dataset.trixMutable }))), Ae(this, "addToolbar", Pi(() => {
+              const t3 = S({ tagName: "div", className: Bi.attachmentToolbar, data: { trixMutable: true }, childNodes: S({ tagName: "div", className: "trix-button-row", childNodes: S({ tagName: "span", className: "trix-button-group trix-button-group--actions", childNodes: S({ tagName: "button", className: "trix-button trix-button--remove", textContent: Ti.remove, attributes: { title: Ti.remove }, data: { trixAction: "remove" } }) }) }) });
+              return this.attachment.isPreviewable() && t3.appendChild(S({ tagName: "div", className: Bi.attachmentMetadataContainer, childNodes: S({ tagName: "span", className: Bi.attachmentMetadata, childNodes: [S({ tagName: "span", className: Bi.attachmentName, textContent: this.attachment.getFilename(), attributes: { title: this.attachment.getFilename() } }), S({ tagName: "span", className: Bi.attachmentSize, textContent: this.attachment.getFormattedFilesize() })] }) })), f("click", { onElement: t3, withCallback: this.didClickToolbar }), f("click", { onElement: t3, matchingSelector: "[data-trix-action]", withCallback: this.didClickActionButton }), b("trix-attachment-before-toolbar", { onElement: this.element, attributes: { toolbar: t3, attachment: this.attachment } }), { do: () => this.element.appendChild(t3), undo: () => k(t3) };
+            })), Ae(this, "installCaptionEditor", Pi(() => {
+              const t3 = S({ tagName: "textarea", className: Bi.attachmentCaptionEditor, attributes: { placeholder: Ti.captionPlaceholder }, data: { trixMutable: true } });
               t3.value = this.attachmentPiece.getCaption();
               const e3 = t3.cloneNode();
               e3.classList.add("trix-autoresize-clone"), e3.tabIndex = -1;
@@ -43198,9 +43228,9 @@ img.ProseMirror-separator {
               const n3 = this.element.querySelector("figcaption"), r2 = n3.cloneNode();
               return { do: () => {
                 if (n3.style.display = "none", r2.appendChild(t3), r2.appendChild(e3), r2.classList.add("".concat(Bi.attachmentCaption, "--editing")), n3.parentElement.insertBefore(r2, n3), i3(), this.options.editCaption)
-                  return St(() => t3.focus());
+                  return Rt(() => t3.focus());
               }, undo() {
-                R(r2), n3.style.display = null;
+                k(r2), n3.style.display = null;
               } };
             })), this.didClickToolbar = this.didClickToolbar.bind(this), this.didClickActionButton = this.didClickActionButton.bind(this), this.didKeyDownCaption = this.didKeyDownCaption.bind(this), this.didInputCaption = this.didInputCaption.bind(this), this.didChangeCaption = this.didChangeCaption.bind(this), this.didBlurCaption = this.didBlurCaption.bind(this), this.attachmentPiece = t2, this.element = e2, this.container = i2, this.options = n2, this.attachment = this.attachmentPiece.attachment, "a" === E(this.element) && (this.element = this.element.firstChild), this.install();
           }
@@ -43247,7 +43277,7 @@ img.ProseMirror-separator {
             return this.savePendingCaption();
           }
         }
-        class Ni extends z {
+        class Ni extends H {
           constructor(t2, i2) {
             super(...arguments), this.didFocus = this.didFocus.bind(this), this.didBlur = this.didBlur.bind(this), this.didClickAttachment = this.didClickAttachment.bind(this), this.element = t2, this.composition = i2, this.documentView = new ge(this.composition.document, { element: this.element }), f("focus", { onElement: this.element, withCallback: this.didFocus }), f("blur", { onElement: this.element, withCallback: this.didBlur }), f("click", { onElement: this.element, matchingSelector: "a[contenteditable=false]", preventDefault: true }), f("mousedown", { onElement: this.element, matchingSelector: e, withCallback: this.didClickAttachment }), f("click", { onElement: this.element, matchingSelector: "a".concat(e), preventDefault: true });
           }
@@ -43261,7 +43291,7 @@ img.ProseMirror-separator {
             return (null === (e2 = this.blurPromise) || void 0 === e2 ? void 0 : e2.then(i2)) || i2();
           }
           didBlur(t2) {
-            this.blurPromise = new Promise((t3) => St(() => {
+            this.blurPromise = new Promise((t3) => Rt(() => {
               var e2, i2;
               x(this.element) || (this.focused = null, null === (e2 = this.delegate) || void 0 === e2 || null === (i2 = e2.compositionControllerDidBlur) || void 0 === i2 || i2.call(e2));
               return this.blurPromise = null, t3();
@@ -43310,7 +43340,7 @@ img.ProseMirror-separator {
               return;
             this.uninstallAttachmentEditor();
             const r2 = this.composition.document.getAttachmentPieceForAttachment(t2);
-            this.attachmentEditor = new Pi(r2, n2, this.element, e2), this.attachmentEditor.delegate = this;
+            this.attachmentEditor = new Ii(r2, n2, this.element, e2), this.attachmentEditor.delegate = this;
           }
           uninstallAttachmentEditor() {
             var t2;
@@ -43342,10 +43372,10 @@ img.ProseMirror-separator {
             return this.composition.document.getAttachmentById(parseInt(t2.dataset.trixId, 10));
           }
         }
-        class Oi extends z {
+        class Oi extends H {
         }
         const Mi = "data-trix-mutable", ji = "[".concat(Mi, "]"), Wi = { attributes: true, childList: true, characterData: true, characterDataOldValue: true, subtree: true };
-        class Ui extends z {
+        class Ui extends H {
           constructor(t2) {
             super(t2), this.didMutate = this.didMutate.bind(this), this.element = t2, this.observer = new window.MutationObserver(this.didMutate), this.start();
           }
@@ -43461,7 +43491,7 @@ img.ProseMirror-separator {
             }, e2.readAsArrayBuffer(this.file);
           }
         }
-        class zi {
+        class Hi {
           constructor(t2) {
             this.element = t2;
           }
@@ -43469,7 +43499,7 @@ img.ProseMirror-separator {
             return !!a.samsungAndroid && (this.previousEvent = this.event, this.event = t2, this.checkSamsungKeyboardBuggyModeStart(), this.checkSamsungKeyboardBuggyModeEnd(), this.buggyMode);
           }
           checkSamsungKeyboardBuggyModeStart() {
-            this.insertingLongTextAfterUnidentifiedChar() && _i(this.element.innerText, this.event.data) && (this.buggyMode = true, this.event.preventDefault());
+            this.insertingLongTextAfterUnidentifiedChar() && zi(this.element.innerText, this.event.data) && (this.buggyMode = true, this.event.preventDefault());
           }
           checkSamsungKeyboardBuggyModeEnd() {
             this.buggyMode && "insertText" !== this.event.inputType && (this.buggyMode = false);
@@ -43486,10 +43516,10 @@ img.ProseMirror-separator {
             return "keydown" === (null === (t2 = this.previousEvent) || void 0 === t2 ? void 0 : t2.type) && "Unidentified" === (null === (e2 = this.previousEvent) || void 0 === e2 ? void 0 : e2.key);
           }
         }
-        const _i = (t2, e2) => Ji(t2) === Ji(e2), Hi = new RegExp("(".concat("\uFFFC", "|").concat(h, "|").concat(d, "|\\s)+"), "g"), Ji = (t2) => t2.replace(Hi, " ").trim();
-        class Ki extends z {
+        const zi = (t2, e2) => Ji(t2) === Ji(e2), _i = new RegExp("(".concat("\uFFFC", "|").concat(h, "|").concat(d, "|\\s)+"), "g"), Ji = (t2) => t2.replace(_i, " ").trim();
+        class Ki extends H {
           constructor(t2) {
-            super(...arguments), this.element = t2, this.mutationObserver = new Ui(this.element), this.mutationObserver.delegate = this, this.flakyKeyboardDetector = new zi(this.element);
+            super(...arguments), this.element = t2, this.mutationObserver = new Ui(this.element), this.mutationObserver.delegate = this, this.flakyKeyboardDetector = new Hi(this.element);
             for (const t3 in this.constructor.events)
               f(t3, { onElement: this.element, withCallback: this.handlerFor(t3) });
           }
@@ -43564,7 +43594,7 @@ img.ProseMirror-separator {
             this.inputSummary = {};
           }
           reset() {
-            return this.resetInputSummary(), It.reset();
+            return this.resetInputSummary(), Pt.reset();
           }
           elementDidMutate(t2) {
             var e2, i2;
@@ -43632,10 +43662,10 @@ img.ProseMirror-separator {
             }), e2.Files || e2["application/x-trix-document"] || e2["text/html"] || e2["text/plain"];
           }
           getPastedHTMLUsingHiddenElement(t2) {
-            const e2 = this.getSelectedRange(), i2 = { position: "absolute", left: "".concat(window.pageXOffset, "px"), top: "".concat(window.pageYOffset, "px"), opacity: 0 }, n2 = k({ style: i2, tagName: "div", editable: true });
+            const e2 = this.getSelectedRange(), i2 = { position: "absolute", left: "".concat(window.pageXOffset, "px"), top: "".concat(window.pageYOffset, "px"), opacity: 0 }, n2 = S({ style: i2, tagName: "div", editable: true });
             return document.body.appendChild(n2), n2.focus(), requestAnimationFrame(() => {
               const i3 = n2.innerHTML;
-              return R(n2), this.setSelectedRange(e2), t2(i3);
+              return k(n2), this.setSelectedRange(e2), t2(i3);
             });
           }
         }
@@ -43648,9 +43678,9 @@ img.ProseMirror-separator {
             ["ctrl", "alt", "shift", "meta"].forEach((e3) => {
               var i3;
               t2["".concat(e3, "Key")] && ("ctrl" === e3 && (e3 = "control"), n3 = null === (i3 = n3) || void 0 === i3 ? void 0 : i3[e3]);
-            }), null != (null === (i2 = n3) || void 0 === i2 ? void 0 : i2[e2]) && (this.setInputSummary({ keyName: e2 }), It.reset(), n3[e2].call(this, t2));
+            }), null != (null === (i2 = n3) || void 0 === i2 ? void 0 : i2[e2]) && (this.setInputSummary({ keyName: e2 }), Pt.reset(), n3[e2].call(this, t2));
           }
-          if (Rt(t2)) {
+          if (kt(t2)) {
             const e3 = String.fromCharCode(t2.keyCode).toLowerCase();
             if (e3) {
               var n2;
@@ -43688,7 +43718,7 @@ img.ProseMirror-separator {
             t2.preventDefault();
             const n2 = { x: t2.clientX, y: t2.clientY };
             var e2, i2;
-            if (!kt(n2, this.draggingPoint))
+            if (!St(n2, this.draggingPoint))
               return this.draggingPoint = n2, null === (e2 = this.delegate) || void 0 === e2 || null === (i2 = e2.inputControllerDidReceiveDragOverPoint) || void 0 === i2 ? void 0 : i2.call(e2, this.draggingPoint);
           }
         }, dragend(t2) {
@@ -43830,7 +43860,7 @@ img.ProseMirror-separator {
             }
           }
         };
-        class rn extends z {
+        class rn extends H {
           constructor(t2) {
             super(...arguments), this.inputController = t2, this.responder = this.inputController.responder, this.delegate = this.inputController.delegate, this.inputSummary = this.inputController.inputSummary, this.data = {};
           }
@@ -43923,7 +43953,7 @@ img.ProseMirror-separator {
           }
           withTargetDOMRange(t2, e2) {
             var i2;
-            return "function" == typeof t2 && (e2 = t2, t2 = this.getTargetDOMRange()), t2 ? null === (i2 = this.responder) || void 0 === i2 ? void 0 : i2.withTargetDOMRange(t2, e2.bind(this)) : (It.reset(), e2.call(this));
+            return "function" == typeof t2 && (e2 = t2, t2 = this.getTargetDOMRange()), t2 ? null === (i2 = this.responder) || void 0 === i2 ? void 0 : i2.withTargetDOMRange(t2, e2.bind(this)) : (Pt.reset(), e2.call(this));
           }
           getTargetDOMRange() {
             var t2, e2;
@@ -43947,7 +43977,7 @@ img.ProseMirror-separator {
           }
         }
         Ae(on2, "events", { keydown(t2) {
-          if (Rt(t2)) {
+          if (kt(t2)) {
             var e2;
             const i2 = un(t2);
             null !== (e2 = this.delegate) && void 0 !== e2 && e2.inputControllerDidReceiveKeyboardCommand(i2) && t2.preventDefault();
@@ -43968,7 +43998,7 @@ img.ProseMirror-separator {
           const e2 = this.constructor.inputTypes[t2.inputType];
           e2 && (this.withEvent(t2, e2), this.scheduleRender());
         }, input(t2) {
-          It.reset();
+          Pt.reset();
         }, dragstart(t2) {
           var e2, i2;
           null !== (e2 = this.responder) && void 0 !== e2 && e2.selectionContainsAttachments() && (t2.dataTransfer.setData("application/x-trix-dragging", true), this.dragging = { range: null === (i2 = this.responder) || void 0 === i2 ? void 0 : i2.getSelectedRange(), point: hn(t2) });
@@ -43979,7 +44009,7 @@ img.ProseMirror-separator {
             t2.preventDefault();
             const i2 = hn(t2);
             var e2;
-            if (!kt(i2, this.dragging.point))
+            if (!St(i2, this.dragging.point))
               return this.dragging.point = i2, null === (e2 = this.responder) || void 0 === e2 ? void 0 : e2.setLocationRangeFromPointRange(i2);
           } else
             an(t2) && t2.preventDefault();
@@ -44176,7 +44206,10 @@ img.ProseMirror-separator {
             return null === (t3 = this.responder) || void 0 === t3 ? void 0 : t3.insertLineBreak();
           });
         }, insertReplacementText() {
-          return this.insertString(this.event.dataTransfer.getData("text/plain"), { updatePosition: false });
+          const t2 = this.event.dataTransfer.getData("text/plain"), e2 = this.event.getTargetRanges()[0];
+          this.withTargetDOMRange(e2, () => {
+            this.insertString(t2, { updatePosition: false });
+          });
         }, insertText() {
           var t2;
           return this.insertString(this.event.data || (null === (t2 = this.event.dataTransfer) || void 0 === t2 ? void 0 : t2.getData("text/plain")));
@@ -44203,7 +44236,7 @@ img.ProseMirror-separator {
           const e2 = [];
           return t2.altKey && e2.push("alt"), t2.shiftKey && e2.push("shift"), e2.push(t2.key), e2;
         }, hn = (t2) => ({ x: t2.clientX, y: t2.clientY }), dn = "[data-trix-attribute]", gn = "[data-trix-action]", mn = "".concat(dn, ", ").concat(gn), pn = "[data-trix-dialog]", fn2 = "".concat(pn, "[data-trix-active]"), bn = "".concat(pn, " [data-trix-method]"), vn = "".concat(pn, " [data-trix-input]"), An = (t2, e2) => (e2 || (e2 = yn(t2)), t2.querySelector("[data-trix-input][name='".concat(e2, "']"))), xn = (t2) => t2.getAttribute("data-trix-action"), yn = (t2) => t2.getAttribute("data-trix-attribute") || t2.getAttribute("data-trix-dialog-attribute");
-        class Cn extends z {
+        class Cn extends H {
           constructor(t2) {
             super(t2), this.didClickActionButton = this.didClickActionButton.bind(this), this.didClickAttributeButton = this.didClickAttributeButton.bind(this), this.didClickDialogButton = this.didClickDialogButton.bind(this), this.didKeyDownDialogInput = this.didKeyDownDialogInput.bind(this), this.element = t2, this.attributes = {}, this.actions = {}, this.resetDialogInputs(), f("mousedown", { onElement: this.element, matchingSelector: gn, withCallback: this.didClickActionButton }), f("mousedown", { onElement: this.element, matchingSelector: dn, withCallback: this.didClickAttributeButton }), f("click", { onElement: this.element, matchingSelector: mn, preventDefault: true }), f("click", { onElement: this.element, matchingSelector: bn, withCallback: this.didClickDialogButton }), f("keydown", { onElement: this.element, matchingSelector: vn, withCallback: this.didKeyDownDialogInput });
           }
@@ -44211,7 +44244,7 @@ img.ProseMirror-separator {
             var i2;
             null === (i2 = this.delegate) || void 0 === i2 || i2.toolbarDidClickButton(), t2.preventDefault();
             const n2 = xn(e2);
-            return this.getDialog(n2) ? this.toggleDialog(n2) : null === (r2 = this.delegate) || void 0 === r2 ? void 0 : r2.toolbarDidInvokeAction(n2);
+            return this.getDialog(n2) ? this.toggleDialog(n2) : null === (r2 = this.delegate) || void 0 === r2 ? void 0 : r2.toolbarDidInvokeAction(n2, e2);
             var r2;
           }
           didClickAttributeButton(t2, e2) {
@@ -44311,16 +44344,16 @@ img.ProseMirror-separator {
             return this.element.querySelector("[data-trix-dialog=".concat(t2, "]"));
           }
         }
-        class Rn extends Oi {
+        class kn extends Oi {
           constructor(t2) {
             let { editorElement: e2, document: i2, html: n2 } = t2;
             super(...arguments), this.editorElement = e2, this.selectionManager = new Li(this.editorElement), this.selectionManager.delegate = this, this.composition = new gi(), this.composition.delegate = this, this.attachmentManager = new hi(this.composition.getAttachments()), this.attachmentManager.delegate = this, this.inputController = 2 === M.getLevel() ? new on2(this.editorElement) : new Qi(this.editorElement), this.inputController.delegate = this, this.inputController.responder = this.composition, this.compositionController = new Ni(this.editorElement, this.composition), this.compositionController.delegate = this, this.toolbarController = new Cn(this.editorElement.toolbarElement), this.toolbarController.delegate = this, this.editor = new xi(this.composition, this.selectionManager, this.editorElement), i2 ? this.editor.loadDocument(i2) : this.editor.loadHTML(n2);
           }
           registerSelectionManager() {
-            return It.registerSelectionManager(this.selectionManager);
+            return Pt.registerSelectionManager(this.selectionManager);
           }
           unregisterSelectionManager() {
-            return It.unregisterSelectionManager(this.selectionManager);
+            return Pt.unregisterSelectionManager(this.selectionManager);
           }
           render() {
             return this.compositionController.render();
@@ -44469,8 +44502,8 @@ img.ProseMirror-separator {
             if (!this.getLocationRange())
               return this.setLocationRange({ index: 0, offset: 0 });
           }
-          toolbarDidInvokeAction(t2) {
-            return this.invokeAction(t2);
+          toolbarDidInvokeAction(t2, e2) {
+            return this.invokeAction(t2, e2);
           }
           toolbarDidToggleAttribute(t2) {
             if (this.recordFormattingUndoEntry(t2), this.composition.toggleCurrentAttribute(t2), this.render(), !this.selectionFrozen)
@@ -44505,9 +44538,9 @@ img.ProseMirror-separator {
             return !!this.actionIsExternal(t2) || !(null === (e2 = this.actions[t2]) || void 0 === e2 || null === (e2 = e2.test) || void 0 === e2 || !e2.call(this));
             var e2;
           }
-          invokeAction(t2) {
-            return this.actionIsExternal(t2) ? this.notifyEditorElement("action-invoke", { actionName: t2 }) : null === (e2 = this.actions[t2]) || void 0 === e2 || null === (e2 = e2.perform) || void 0 === e2 ? void 0 : e2.call(this);
-            var e2;
+          invokeAction(t2, e2) {
+            return this.actionIsExternal(t2) ? this.notifyEditorElement("action-invoke", { actionName: t2, invokingElement: e2 }) : null === (i2 = this.actions[t2]) || void 0 === i2 || null === (i2 = i2.perform) || void 0 === i2 ? void 0 : i2.call(this);
+            var i2;
           }
           actionIsExternal(t2) {
             return /^x-./.test(t2);
@@ -44520,7 +44553,7 @@ img.ProseMirror-separator {
           }
           updateCurrentActions() {
             const t2 = this.getCurrentActions();
-            if (!kt(t2, this.currentActions))
+            if (!St(t2, this.currentActions))
               return this.currentActions = t2, this.toolbarController.updateActions(this.currentActions), this.notifyEditorElement("actions-change", { actions: this.currentActions });
           }
           runEditorFilters() {
@@ -44591,7 +44624,7 @@ img.ProseMirror-separator {
             return this.constructor.actions;
           }
         }
-        Ae(Rn, "actions", { undo: { test() {
+        Ae(kn, "actions", { undo: { test() {
           return this.editor.canUndo();
         }, perform() {
           return this.editor.undo();
@@ -44611,8 +44644,8 @@ img.ProseMirror-separator {
           return this.editor.decreaseNestingLevel() && this.render();
         } }, attachFiles: { test: () => true, perform() {
           return M.pickFiles(this.editor.insertFiles);
-        } } }), Rn.proxyMethod("getSelectionManager().setLocationRange"), Rn.proxyMethod("getSelectionManager().getLocationRange");
-        var Sn = Object.freeze({ __proto__: null, AttachmentEditorController: Pi, CompositionController: Ni, Controller: Oi, EditorController: Rn, InputController: Ki, Level0InputController: Qi, Level2InputController: on2, ToolbarController: Cn }), En = Object.freeze({ __proto__: null, MutationObserver: Ui, SelectionChangeObserver: Ft }), kn = Object.freeze({ __proto__: null, FileVerificationOperation: Vi, ImagePreloadOperation: Ce });
+        } } }), kn.proxyMethod("getSelectionManager().setLocationRange"), kn.proxyMethod("getSelectionManager().getLocationRange");
+        var Rn = Object.freeze({ __proto__: null, AttachmentEditorController: Ii, CompositionController: Ni, Controller: Oi, EditorController: kn, InputController: Ki, Level0InputController: Qi, Level2InputController: on2, ToolbarController: Cn }), En = Object.freeze({ __proto__: null, MutationObserver: Ui, SelectionChangeObserver: Ft }), Sn = Object.freeze({ __proto__: null, FileVerificationOperation: Vi, ImagePreloadOperation: Ce });
         bt("trix-toolbar", "%t {\n  display: block;\n}\n\n%t {\n  white-space: nowrap;\n}\n\n%t [data-trix-dialog] {\n  display: none;\n}\n\n%t [data-trix-dialog][data-trix-active] {\n  display: block;\n}\n\n%t [data-trix-dialog] [data-trix-validate]:invalid {\n  background-color: #ffdddd;\n}");
         class Ln extends HTMLElement {
           connectedCallback() {
@@ -44639,9 +44672,9 @@ img.ProseMirror-separator {
             if (["div", "p"].includes(t3))
               return document.execCommand("DefaultParagraphSeparator", false, t3);
           }
-        }, In = a.forcesObjectResizing ? { display: "inline", width: "auto" } : { display: "inline-block", width: "1px" };
-        bt("trix-editor", "%t {\n    display: block;\n}\n\n%t:empty:not(:focus)::before {\n    content: attr(placeholder);\n    color: graytext;\n    cursor: text;\n    pointer-events: none;\n    white-space: pre-line;\n}\n\n%t a[contenteditable=false] {\n    cursor: text;\n}\n\n%t img {\n    max-width: 100%;\n    height: auto;\n}\n\n%t ".concat(e, " figcaption textarea {\n    resize: none;\n}\n\n%t ").concat(e, " figcaption textarea.trix-autoresize-clone {\n    position: absolute;\n    left: -9999px;\n    max-height: 0px;\n}\n\n%t ").concat(e, " figcaption[data-trix-placeholder]:empty::before {\n    content: attr(data-trix-placeholder);\n    color: graytext;\n}\n\n%t [data-trix-cursor-target] {\n    display: ").concat(In.display, " !important;\n    width: ").concat(In.width, " !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border: none !important;\n}\n\n%t [data-trix-cursor-target=left] {\n    vertical-align: top !important;\n    margin-left: -1px !important;\n}\n\n%t [data-trix-cursor-target=right] {\n    vertical-align: bottom !important;\n    margin-right: -1px !important;\n}"));
-        class Pn extends HTMLElement {
+        }, Pn = a.forcesObjectResizing ? { display: "inline", width: "auto" } : { display: "inline-block", width: "1px" };
+        bt("trix-editor", "%t {\n    display: block;\n}\n\n%t:empty:not(:focus)::before {\n    content: attr(placeholder);\n    color: graytext;\n    cursor: text;\n    pointer-events: none;\n    white-space: pre-line;\n}\n\n%t a[contenteditable=false] {\n    cursor: text;\n}\n\n%t img {\n    max-width: 100%;\n    height: auto;\n}\n\n%t ".concat(e, " figcaption textarea {\n    resize: none;\n}\n\n%t ").concat(e, " figcaption textarea.trix-autoresize-clone {\n    position: absolute;\n    left: -9999px;\n    max-height: 0px;\n}\n\n%t ").concat(e, " figcaption[data-trix-placeholder]:empty::before {\n    content: attr(data-trix-placeholder);\n    color: graytext;\n}\n\n%t [data-trix-cursor-target] {\n    display: ").concat(Pn.display, " !important;\n    width: ").concat(Pn.width, " !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border: none !important;\n}\n\n%t [data-trix-cursor-target=left] {\n    vertical-align: top !important;\n    margin-left: -1px !important;\n}\n\n%t [data-trix-cursor-target=right] {\n    vertical-align: bottom !important;\n    margin-right: -1px !important;\n}"));
+        class In extends HTMLElement {
           get trixId() {
             return this.hasAttribute("trix-id") ? this.getAttribute("trix-id") : (this.setAttribute("trix-id", ++Dn), this.trixId);
           }
@@ -44658,7 +44691,7 @@ img.ProseMirror-separator {
             if (this.parentNode) {
               const t3 = "trix-toolbar-".concat(this.trixId);
               this.setAttribute("toolbar", t3);
-              const e2 = k("trix-toolbar", { id: t3 });
+              const e2 = S("trix-toolbar", { id: t3 });
               return this.parentNode.insertBefore(e2, this), e2;
             }
           }
@@ -44673,7 +44706,7 @@ img.ProseMirror-separator {
             if (this.parentNode) {
               const t3 = "trix-input-".concat(this.trixId);
               this.setAttribute("input", t3);
-              const e2 = k("input", { type: "hidden", id: t3 });
+              const e2 = S("input", { type: "hidden", id: t3 });
               return this.parentNode.insertBefore(e2, this.nextElementSibling), e2;
             }
           }
@@ -44715,7 +44748,7 @@ img.ProseMirror-separator {
                 return i2 ? t2.setAttribute("aria-label", i2) : t2.removeAttribute("aria-label");
               };
               e2(), f("focus", { onElement: t2, withCallback: e2 });
-            }(this), this.editorController || (b("trix-before-initialize", { onElement: this }), this.editorController = new Rn({ editorElement: this, html: this.defaultValue = this.value }), requestAnimationFrame(() => b("trix-initialize", { onElement: this }))), this.editorController.registerSelectionManager(), this.registerResetListener(), this.registerClickListener(), function(t2) {
+            }(this), this.editorController || (b("trix-before-initialize", { onElement: this }), this.editorController = new kn({ editorElement: this, html: this.defaultValue = this.value }), requestAnimationFrame(() => b("trix-initialize", { onElement: this }))), this.editorController.registerSelectionManager(), this.registerResetListener(), this.registerClickListener(), function(t2) {
               if (!document.querySelector(":focus") && t2.hasAttribute("autofocus") && document.querySelector("[autofocus]") === t2)
                 t2.focus();
             }(this));
@@ -44752,9 +44785,9 @@ img.ProseMirror-separator {
             this.value = this.defaultValue;
           }
         }
-        const Nn = { VERSION: t, config: V, core: ci, models: Di, views: wi, controllers: Sn, observers: En, operations: kn, elements: Object.freeze({ __proto__: null, TrixEditorElement: Pn, TrixToolbarElement: Ln }), filters: Object.freeze({ __proto__: null, Filter: bi, attachmentGalleryFilter: vi }) };
+        const Nn = { VERSION: t, config: V, core: ci, models: Di, views: wi, controllers: Rn, observers: En, operations: Sn, elements: Object.freeze({ __proto__: null, TrixEditorElement: In, TrixToolbarElement: Ln }), filters: Object.freeze({ __proto__: null, Filter: bi, attachmentGalleryFilter: vi }) };
         return Object.assign(Nn, Di), window.Trix = Nn, setTimeout(function() {
-          customElements.get("trix-toolbar") || customElements.define("trix-toolbar", Ln), customElements.get("trix-editor") || customElements.define("trix-editor", Pn);
+          customElements.get("trix-toolbar") || customElements.define("trix-toolbar", Ln), customElements.get("trix-editor") || customElements.define("trix-editor", In);
         }, 0), Nn;
       });
     }
@@ -45630,21 +45663,38 @@ img.ProseMirror-separator {
   });
 
   // node_modules/@hotwired/turbo/dist/turbo.es2017-esm.js
-  (function() {
-    if (window.Reflect === void 0 || window.customElements === void 0 || window.customElements.polyfillWrapFlushCallback) {
-      return;
-    }
-    const BuiltInHTMLElement = HTMLElement;
-    const wrapperForTheName = {
-      HTMLElement: function HTMLElement2() {
-        return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
-      }
-    };
-    window.HTMLElement = wrapperForTheName["HTMLElement"];
-    HTMLElement.prototype = BuiltInHTMLElement.prototype;
-    HTMLElement.prototype.constructor = HTMLElement;
-    Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
-  })();
+  var turbo_es2017_esm_exports = {};
+  __export(turbo_es2017_esm_exports, {
+    FetchEnctype: () => FetchEnctype,
+    FetchMethod: () => FetchMethod,
+    FetchRequest: () => FetchRequest,
+    FetchResponse: () => FetchResponse,
+    FrameElement: () => FrameElement,
+    FrameLoadingStyle: () => FrameLoadingStyle,
+    FrameRenderer: () => FrameRenderer,
+    PageRenderer: () => PageRenderer,
+    PageSnapshot: () => PageSnapshot,
+    StreamActions: () => StreamActions,
+    StreamElement: () => StreamElement,
+    StreamSourceElement: () => StreamSourceElement,
+    cache: () => cache,
+    clearCache: () => clearCache,
+    connectStreamSource: () => connectStreamSource,
+    disconnectStreamSource: () => disconnectStreamSource,
+    fetch: () => fetchWithTurboHeaders,
+    fetchEnctypeFromString: () => fetchEnctypeFromString,
+    fetchMethodFromString: () => fetchMethodFromString,
+    isSafe: () => isSafe,
+    navigator: () => navigator$1,
+    registerAdapter: () => registerAdapter,
+    renderStreamMessage: () => renderStreamMessage,
+    session: () => session,
+    setConfirmMethod: () => setConfirmMethod,
+    setFormMode: () => setFormMode,
+    setProgressBarDelay: () => setProgressBarDelay,
+    start: () => start,
+    visit: () => visit
+  });
   (function(prototype) {
     if (typeof prototype.requestSubmit == "function")
       return;
@@ -45674,7 +45724,7 @@ img.ProseMirror-separator {
   function findSubmitterFromClickTarget(target) {
     const element = target instanceof Element ? target : target instanceof Node ? target.parentElement : null;
     const candidate = element ? element.closest("input, button") : null;
-    return (candidate === null || candidate === void 0 ? void 0 : candidate.type) == "submit" ? candidate : null;
+    return candidate?.type == "submit" ? candidate : null;
   }
   function clickCaptured(event) {
     const submitter = findSubmitterFromClickTarget(event.target);
@@ -45686,10 +45736,13 @@ img.ProseMirror-separator {
     if ("submitter" in Event.prototype)
       return;
     let prototype = window.Event.prototype;
-    if ("SubmitEvent" in window && /Apple Computer/.test(navigator.vendor)) {
-      prototype = window.SubmitEvent.prototype;
-    } else if ("SubmitEvent" in window) {
-      return;
+    if ("SubmitEvent" in window) {
+      const prototypeOfSubmitEvent = window.SubmitEvent.prototype;
+      if (/Apple Computer/.test(navigator.vendor) && !("submitter" in prototypeOfSubmitEvent)) {
+        prototype = prototypeOfSubmitEvent;
+      } else {
+        return;
+      }
     }
     addEventListener("click", clickCaptured, true);
     Object.defineProperty(prototype, "submitter", {
@@ -45700,18 +45753,18 @@ img.ProseMirror-separator {
       }
     });
   })();
-  var FrameLoadingStyle;
-  (function(FrameLoadingStyle2) {
-    FrameLoadingStyle2["eager"] = "eager";
-    FrameLoadingStyle2["lazy"] = "lazy";
-  })(FrameLoadingStyle || (FrameLoadingStyle = {}));
+  var FrameLoadingStyle = {
+    eager: "eager",
+    lazy: "lazy"
+  };
   var FrameElement = class _FrameElement extends HTMLElement {
+    static delegateConstructor = void 0;
+    loaded = Promise.resolve();
     static get observedAttributes() {
-      return ["disabled", "complete", "loading", "src"];
+      return ["disabled", "loading", "src"];
     }
     constructor() {
       super();
-      this.loaded = Promise.resolve();
       this.delegate = new _FrameElement.delegateConstructor(this);
     }
     connectedCallback() {
@@ -45726,17 +45779,21 @@ img.ProseMirror-separator {
     attributeChangedCallback(name) {
       if (name == "loading") {
         this.delegate.loadingStyleChanged();
-      } else if (name == "complete") {
-        this.delegate.completeChanged();
       } else if (name == "src") {
         this.delegate.sourceURLChanged();
-      } else {
+      } else if (name == "disabled") {
         this.delegate.disabledChanged();
       }
     }
+    /**
+     * Gets the URL to lazily load source HTML from
+     */
     get src() {
       return this.getAttribute("src");
     }
+    /**
+     * Sets the URL to lazily load source HTML from
+     */
     set src(value) {
       if (value) {
         this.setAttribute("src", value);
@@ -45744,9 +45801,31 @@ img.ProseMirror-separator {
         this.removeAttribute("src");
       }
     }
+    /**
+     * Gets the refresh mode for the frame.
+     */
+    get refresh() {
+      return this.getAttribute("refresh");
+    }
+    /**
+     * Sets the refresh mode for the frame.
+     */
+    set refresh(value) {
+      if (value) {
+        this.setAttribute("refresh", value);
+      } else {
+        this.removeAttribute("refresh");
+      }
+    }
+    /**
+     * Determines if the element is loading
+     */
     get loading() {
       return frameLoadingStyleFromString(this.getAttribute("loading") || "");
     }
+    /**
+     * Sets the value of if the element is loading
+     */
     set loading(value) {
       if (value) {
         this.setAttribute("loading", value);
@@ -45754,9 +45833,19 @@ img.ProseMirror-separator {
         this.removeAttribute("loading");
       }
     }
+    /**
+     * Gets the disabled state of the frame.
+     *
+     * If disabled, no requests will be intercepted by the frame.
+     */
     get disabled() {
       return this.hasAttribute("disabled");
     }
+    /**
+     * Sets the disabled state of the frame.
+     *
+     * If disabled, no requests will be intercepted by the frame.
+     */
     set disabled(value) {
       if (value) {
         this.setAttribute("disabled", "");
@@ -45764,9 +45853,19 @@ img.ProseMirror-separator {
         this.removeAttribute("disabled");
       }
     }
+    /**
+     * Gets the autoscroll state of the frame.
+     *
+     * If true, the frame will be scrolled into view automatically on update.
+     */
     get autoscroll() {
       return this.hasAttribute("autoscroll");
     }
+    /**
+     * Sets the autoscroll state of the frame.
+     *
+     * If true, the frame will be scrolled into view automatically on update.
+     */
     set autoscroll(value) {
       if (value) {
         this.setAttribute("autoscroll", "");
@@ -45774,15 +45873,27 @@ img.ProseMirror-separator {
         this.removeAttribute("autoscroll");
       }
     }
+    /**
+     * Determines if the element has finished loading
+     */
     get complete() {
       return !this.delegate.isLoading;
     }
+    /**
+     * Gets the active state of the frame.
+     *
+     * If inactive, source changes will not be observed.
+     */
     get isActive() {
       return this.ownerDocument === document && !this.isPreview;
     }
+    /**
+     * Sets the active state of the frame.
+     *
+     * If inactive, source changes will not be observed.
+     */
     get isPreview() {
-      var _a, _b;
-      return (_b = (_a = this.ownerDocument) === null || _a === void 0 ? void 0 : _a.documentElement) === null || _b === void 0 ? void 0 : _b.hasAttribute("data-turbo-preview");
+      return this.ownerDocument?.documentElement?.hasAttribute("data-turbo-preview");
     }
   };
   function frameLoadingStyleFromString(style2) {
@@ -45804,8 +45915,8 @@ img.ProseMirror-separator {
       return anchorMatch[1];
     }
   }
-  function getAction(form, submitter) {
-    const action = (submitter === null || submitter === void 0 ? void 0 : submitter.getAttribute("formaction")) || form.getAttribute("action") || form.action;
+  function getAction$1(form, submitter) {
+    const action = submitter?.getAttribute("formaction") || form.getAttribute("action") || form.action;
     return expandURL(action);
   }
   function getExtension(url) {
@@ -45927,6 +46038,13 @@ img.ProseMirror-separator {
     }
     return event;
   }
+  function nextRepaint() {
+    if (document.visibilityState === "hidden") {
+      return nextEventLoopTick();
+    } else {
+      return nextAnimationFrame();
+    }
+  }
   function nextAnimationFrame() {
     return new Promise((resolve2) => requestAnimationFrame(() => resolve2()));
   }
@@ -45965,7 +46083,7 @@ img.ProseMirror-separator {
     }).join("");
   }
   function getAttribute(attributeName, ...elements2) {
-    for (const value of elements2.map((element) => element === null || element === void 0 ? void 0 : element.getAttribute(attributeName))) {
+    for (const value of elements2.map((element) => element?.getAttribute(attributeName))) {
       if (typeof value == "string")
         return value;
     }
@@ -46036,19 +46154,73 @@ img.ProseMirror-separator {
     return element;
   }
   function findClosestRecursively(element, selector) {
-    var _a;
     if (element instanceof Element) {
-      return element.closest(selector) || findClosestRecursively(element.assignedSlot || ((_a = element.getRootNode()) === null || _a === void 0 ? void 0 : _a.host), selector);
+      return element.closest(selector) || findClosestRecursively(element.assignedSlot || element.getRootNode()?.host, selector);
     }
   }
-  var FetchMethod;
-  (function(FetchMethod2) {
-    FetchMethod2[FetchMethod2["get"] = 0] = "get";
-    FetchMethod2[FetchMethod2["post"] = 1] = "post";
-    FetchMethod2[FetchMethod2["put"] = 2] = "put";
-    FetchMethod2[FetchMethod2["patch"] = 3] = "patch";
-    FetchMethod2[FetchMethod2["delete"] = 4] = "delete";
-  })(FetchMethod || (FetchMethod = {}));
+  function elementIsFocusable(element) {
+    const inertDisabledOrHidden = "[inert], :disabled, [hidden], details:not([open]), dialog:not([open])";
+    return !!element && element.closest(inertDisabledOrHidden) == null && typeof element.focus == "function";
+  }
+  function queryAutofocusableElement(elementOrDocumentFragment) {
+    return Array.from(elementOrDocumentFragment.querySelectorAll("[autofocus]")).find(elementIsFocusable);
+  }
+  async function around(callback2, reader) {
+    const before = reader();
+    callback2();
+    await nextAnimationFrame();
+    const after = reader();
+    return [before, after];
+  }
+  function doesNotTargetIFrame(anchor) {
+    if (anchor.hasAttribute("target")) {
+      for (const element of document.getElementsByName(anchor.target)) {
+        if (element instanceof HTMLIFrameElement)
+          return false;
+      }
+    }
+    return true;
+  }
+  function findLinkFromClickTarget(target) {
+    return findClosestRecursively(target, "a[href]:not([target^=_]):not([download])");
+  }
+  function getLocationForLink(link) {
+    return expandURL(link.getAttribute("href") || "");
+  }
+  function debounce(fn2, delay) {
+    let timeoutId = null;
+    return (...args) => {
+      const callback2 = () => fn2.apply(this, args);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(callback2, delay);
+    };
+  }
+  var LimitedSet = class extends Set {
+    constructor(maxSize) {
+      super();
+      this.maxSize = maxSize;
+    }
+    add(value) {
+      if (this.size >= this.maxSize) {
+        const iterator = this.values();
+        const oldestValue = iterator.next().value;
+        this.delete(oldestValue);
+      }
+      super.add(value);
+    }
+  };
+  var recentRequests = new LimitedSet(20);
+  var nativeFetch = window.fetch;
+  function fetchWithTurboHeaders(url, options = {}) {
+    const modifiedHeaders = new Headers(options.headers || {});
+    const requestUID = uuid();
+    recentRequests.add(requestUID);
+    modifiedHeaders.append("X-Turbo-Request-Id", requestUID);
+    return nativeFetch(url, {
+      ...options,
+      headers: modifiedHeaders
+    });
+  }
   function fetchMethodFromString(method) {
     switch (method.toLowerCase()) {
       case "get":
@@ -46063,17 +46235,75 @@ img.ProseMirror-separator {
         return FetchMethod.delete;
     }
   }
+  var FetchMethod = {
+    get: "get",
+    post: "post",
+    put: "put",
+    patch: "patch",
+    delete: "delete"
+  };
+  function fetchEnctypeFromString(encoding) {
+    switch (encoding.toLowerCase()) {
+      case FetchEnctype.multipart:
+        return FetchEnctype.multipart;
+      case FetchEnctype.plain:
+        return FetchEnctype.plain;
+      default:
+        return FetchEnctype.urlEncoded;
+    }
+  }
+  var FetchEnctype = {
+    urlEncoded: "application/x-www-form-urlencoded",
+    multipart: "multipart/form-data",
+    plain: "text/plain"
+  };
   var FetchRequest = class {
-    constructor(delegate, method, location2, body = new URLSearchParams(), target = null) {
-      this.abortController = new AbortController();
-      this.resolveRequestPromise = (_value) => {
-      };
+    abortController = new AbortController();
+    #resolveRequestPromise = (_value) => {
+    };
+    constructor(delegate, method, location2, requestBody = new URLSearchParams(), target = null, enctype = FetchEnctype.urlEncoded) {
+      const [url, body] = buildResourceAndBody(expandURL(location2), method, requestBody, enctype);
       this.delegate = delegate;
-      this.method = method;
-      this.headers = this.defaultHeaders;
-      this.body = body;
-      this.url = location2;
+      this.url = url;
       this.target = target;
+      this.fetchOptions = {
+        credentials: "same-origin",
+        redirect: "follow",
+        method,
+        headers: { ...this.defaultHeaders },
+        body,
+        signal: this.abortSignal,
+        referrer: this.delegate.referrer?.href
+      };
+      this.enctype = enctype;
+    }
+    get method() {
+      return this.fetchOptions.method;
+    }
+    set method(value) {
+      const fetchBody = this.isSafe ? this.url.searchParams : this.fetchOptions.body || new FormData();
+      const fetchMethod = fetchMethodFromString(value) || FetchMethod.get;
+      this.url.search = "";
+      const [url, body] = buildResourceAndBody(this.url, fetchMethod, fetchBody, this.enctype);
+      this.url = url;
+      this.fetchOptions.body = body;
+      this.fetchOptions.method = fetchMethod;
+    }
+    get headers() {
+      return this.fetchOptions.headers;
+    }
+    set headers(value) {
+      this.fetchOptions.headers = value;
+    }
+    get body() {
+      if (this.isSafe) {
+        return this.url.searchParams;
+      } else {
+        return this.fetchOptions.body;
+      }
+    }
+    set body(value) {
+      this.fetchOptions.body = value;
     }
     get location() {
       return this.url;
@@ -46090,14 +46320,19 @@ img.ProseMirror-separator {
     async perform() {
       const { fetchOptions } = this;
       this.delegate.prepareRequest(this);
-      await this.allowRequestToBeIntercepted(fetchOptions);
+      const event = await this.#allowRequestToBeIntercepted(fetchOptions);
       try {
         this.delegate.requestStarted(this);
-        const response = await fetch(this.url.href, fetchOptions);
+        if (event.detail.fetchRequest) {
+          this.response = event.detail.fetchRequest.response;
+        } else {
+          this.response = fetchWithTurboHeaders(this.url.href, fetchOptions);
+        }
+        const response = await this.response;
         return await this.receive(response);
       } catch (error3) {
         if (error3.name !== "AbortError") {
-          if (this.willDelegateErrorHandling(error3)) {
+          if (this.#willDelegateErrorHandling(error3)) {
             this.delegate.requestErrored(this, error3);
           }
           throw error3;
@@ -46122,25 +46357,13 @@ img.ProseMirror-separator {
       }
       return fetchResponse;
     }
-    get fetchOptions() {
-      var _a;
-      return {
-        method: FetchMethod[this.method].toUpperCase(),
-        credentials: "same-origin",
-        headers: this.headers,
-        redirect: "follow",
-        body: this.isSafe ? null : this.body,
-        signal: this.abortSignal,
-        referrer: (_a = this.delegate.referrer) === null || _a === void 0 ? void 0 : _a.href
-      };
-    }
     get defaultHeaders() {
       return {
         Accept: "text/html, application/xhtml+xml"
       };
     }
     get isSafe() {
-      return this.method === FetchMethod.get;
+      return isSafe(this.method);
     }
     get abortSignal() {
       return this.abortController.signal;
@@ -46148,21 +46371,23 @@ img.ProseMirror-separator {
     acceptResponseType(mimeType) {
       this.headers["Accept"] = [mimeType, this.headers["Accept"]].join(", ");
     }
-    async allowRequestToBeIntercepted(fetchOptions) {
-      const requestInterception = new Promise((resolve2) => this.resolveRequestPromise = resolve2);
+    async #allowRequestToBeIntercepted(fetchOptions) {
+      const requestInterception = new Promise((resolve2) => this.#resolveRequestPromise = resolve2);
       const event = dispatch("turbo:before-fetch-request", {
         cancelable: true,
         detail: {
           fetchOptions,
           url: this.url,
-          resume: this.resolveRequestPromise
+          resume: this.#resolveRequestPromise
         },
         target: this.target
       });
+      this.url = event.detail.url;
       if (event.defaultPrevented)
         await requestInterception;
+      return event;
     }
-    willDelegateErrorHandling(error3) {
+    #willDelegateErrorHandling(error3) {
       const event = dispatch("turbo:fetch-request-error", {
         target: this.target,
         cancelable: true,
@@ -46171,15 +46396,37 @@ img.ProseMirror-separator {
       return !event.defaultPrevented;
     }
   };
+  function isSafe(fetchMethod) {
+    return fetchMethodFromString(fetchMethod) == FetchMethod.get;
+  }
+  function buildResourceAndBody(resource, method, requestBody, enctype) {
+    const searchParams = Array.from(requestBody).length > 0 ? new URLSearchParams(entriesExcludingFiles(requestBody)) : resource.searchParams;
+    if (isSafe(method)) {
+      return [mergeIntoURLSearchParams(resource, searchParams), null];
+    } else if (enctype == FetchEnctype.urlEncoded) {
+      return [resource, searchParams];
+    } else {
+      return [resource, requestBody];
+    }
+  }
+  function entriesExcludingFiles(requestBody) {
+    const entries = [];
+    for (const [name, value] of requestBody) {
+      if (value instanceof File)
+        continue;
+      else
+        entries.push([name, value]);
+    }
+    return entries;
+  }
+  function mergeIntoURLSearchParams(url, requestBody) {
+    const searchParams = new URLSearchParams(entriesExcludingFiles(requestBody));
+    url.search = searchParams.toString();
+    return url;
+  }
   var AppearanceObserver = class {
+    started = false;
     constructor(delegate, element) {
-      this.started = false;
-      this.intersect = (entries) => {
-        const lastEntry = entries.slice(-1)[0];
-        if (lastEntry === null || lastEntry === void 0 ? void 0 : lastEntry.isIntersecting) {
-          this.delegate.elementAppearedInViewport(this.element);
-        }
-      };
       this.delegate = delegate;
       this.element = element;
       this.intersectionObserver = new IntersectionObserver(this.intersect);
@@ -46196,8 +46443,15 @@ img.ProseMirror-separator {
         this.intersectionObserver.unobserve(this.element);
       }
     }
+    intersect = (entries) => {
+      const lastEntry = entries.slice(-1)[0];
+      if (lastEntry?.isIntersecting) {
+        this.delegate.elementAppearedInViewport(this.element);
+      }
+    };
   };
   var StreamMessage = class {
+    static contentType = "text/vnd.turbo-stream.html";
     static wrap(message) {
       if (typeof message == "string") {
         return new this(createDocumentFragment(message));
@@ -46209,7 +46463,6 @@ img.ProseMirror-separator {
       this.fragment = importStreamElements(fragment);
     }
   };
-  StreamMessage.contentType = "text/vnd.turbo-stream.html";
   function importStreamElements(fragment) {
     for (const element of fragment.querySelectorAll("turbo-stream")) {
       const streamElement = document.importNode(element, true);
@@ -46220,81 +46473,83 @@ img.ProseMirror-separator {
     }
     return fragment;
   }
-  var FormSubmissionState;
-  (function(FormSubmissionState2) {
-    FormSubmissionState2[FormSubmissionState2["initialized"] = 0] = "initialized";
-    FormSubmissionState2[FormSubmissionState2["requesting"] = 1] = "requesting";
-    FormSubmissionState2[FormSubmissionState2["waiting"] = 2] = "waiting";
-    FormSubmissionState2[FormSubmissionState2["receiving"] = 3] = "receiving";
-    FormSubmissionState2[FormSubmissionState2["stopping"] = 4] = "stopping";
-    FormSubmissionState2[FormSubmissionState2["stopped"] = 5] = "stopped";
-  })(FormSubmissionState || (FormSubmissionState = {}));
-  var FormEnctype;
-  (function(FormEnctype2) {
-    FormEnctype2["urlEncoded"] = "application/x-www-form-urlencoded";
-    FormEnctype2["multipart"] = "multipart/form-data";
-    FormEnctype2["plain"] = "text/plain";
-  })(FormEnctype || (FormEnctype = {}));
-  function formEnctypeFromString(encoding) {
-    switch (encoding.toLowerCase()) {
-      case FormEnctype.multipart:
-        return FormEnctype.multipart;
-      case FormEnctype.plain:
-        return FormEnctype.plain;
-      default:
-        return FormEnctype.urlEncoded;
+  var PREFETCH_DELAY = 100;
+  var PrefetchCache = class {
+    #prefetchTimeout = null;
+    #prefetched = null;
+    get(url) {
+      if (this.#prefetched && this.#prefetched.url === url && this.#prefetched.expire > Date.now()) {
+        return this.#prefetched.request;
+      }
     }
-  }
+    setLater(url, request, ttl) {
+      this.clear();
+      this.#prefetchTimeout = setTimeout(() => {
+        request.perform();
+        this.set(url, request, ttl);
+        this.#prefetchTimeout = null;
+      }, PREFETCH_DELAY);
+    }
+    set(url, request, ttl) {
+      this.#prefetched = { url, request, expire: new Date((/* @__PURE__ */ new Date()).getTime() + ttl) };
+    }
+    clear() {
+      if (this.#prefetchTimeout)
+        clearTimeout(this.#prefetchTimeout);
+      this.#prefetched = null;
+    }
+  };
+  var cacheTtl = 10 * 1e3;
+  var prefetchCache = new PrefetchCache();
+  var FormSubmissionState = {
+    initialized: "initialized",
+    requesting: "requesting",
+    waiting: "waiting",
+    receiving: "receiving",
+    stopping: "stopping",
+    stopped: "stopped"
+  };
   var FormSubmission = class _FormSubmission {
+    state = FormSubmissionState.initialized;
     static confirmMethod(message, _element, _submitter) {
       return Promise.resolve(confirm(message));
     }
     constructor(delegate, formElement, submitter, mustRedirect = false) {
-      this.state = FormSubmissionState.initialized;
+      const method = getMethod(formElement, submitter);
+      const action = getAction(getFormAction(formElement, submitter), method);
+      const body = buildFormData(formElement, submitter);
+      const enctype = getEnctype(formElement, submitter);
       this.delegate = delegate;
       this.formElement = formElement;
       this.submitter = submitter;
-      this.formData = buildFormData(formElement, submitter);
-      this.location = expandURL(this.action);
-      if (this.method == FetchMethod.get) {
-        mergeFormDataEntries(this.location, [...this.body.entries()]);
-      }
-      this.fetchRequest = new FetchRequest(this, this.method, this.location, this.body, this.formElement);
+      this.fetchRequest = new FetchRequest(this, method, action, body, formElement, enctype);
       this.mustRedirect = mustRedirect;
     }
     get method() {
-      var _a;
-      const method = ((_a = this.submitter) === null || _a === void 0 ? void 0 : _a.getAttribute("formmethod")) || this.formElement.getAttribute("method") || "";
-      return fetchMethodFromString(method.toLowerCase()) || FetchMethod.get;
+      return this.fetchRequest.method;
+    }
+    set method(value) {
+      this.fetchRequest.method = value;
     }
     get action() {
-      var _a;
-      const formElementAction = typeof this.formElement.action === "string" ? this.formElement.action : null;
-      if ((_a = this.submitter) === null || _a === void 0 ? void 0 : _a.hasAttribute("formaction")) {
-        return this.submitter.getAttribute("formaction") || "";
-      } else {
-        return this.formElement.getAttribute("action") || formElementAction || "";
-      }
+      return this.fetchRequest.url.toString();
+    }
+    set action(value) {
+      this.fetchRequest.url = expandURL(value);
     }
     get body() {
-      if (this.enctype == FormEnctype.urlEncoded || this.method == FetchMethod.get) {
-        return new URLSearchParams(this.stringFormData);
-      } else {
-        return this.formData;
-      }
+      return this.fetchRequest.body;
     }
     get enctype() {
-      var _a;
-      return formEnctypeFromString(((_a = this.submitter) === null || _a === void 0 ? void 0 : _a.getAttribute("formenctype")) || this.formElement.enctype);
+      return this.fetchRequest.enctype;
     }
     get isSafe() {
       return this.fetchRequest.isSafe;
     }
-    get stringFormData() {
-      return [...this.formData].reduce((entries, [name, value]) => {
-        return entries.concat(typeof value == "string" ? [[name, value]] : []);
-      }, []);
+    get location() {
+      return this.fetchRequest.url;
     }
+    // The submission process
     async start() {
       const { initialized, requesting } = FormSubmissionState;
       const confirmationMessage = getAttribute("data-turbo-confirm", this.submitter, this.formElement);
@@ -46317,6 +46572,7 @@ img.ProseMirror-separator {
         return true;
       }
     }
+    // Fetch request delegate
     prepareRequest(request) {
       if (!request.isSafe) {
         const token = getCookieValue(getMetaContent("csrf-param")) || getMetaContent("csrf-token");
@@ -46329,10 +46585,10 @@ img.ProseMirror-separator {
       }
     }
     requestStarted(_request) {
-      var _a;
       this.state = FormSubmissionState.waiting;
-      (_a = this.submitter) === null || _a === void 0 ? void 0 : _a.setAttribute("disabled", "");
+      this.submitter?.setAttribute("disabled", "");
       this.setSubmitsWith();
+      markAsBusy(this.formElement);
       dispatch("turbo:submit-start", {
         target: this.formElement,
         detail: { formSubmission: this }
@@ -46340,12 +46596,16 @@ img.ProseMirror-separator {
       this.delegate.formSubmissionStarted(this);
     }
     requestPreventedHandlingResponse(request, response) {
+      prefetchCache.clear();
       this.result = { success: response.succeeded, fetchResponse: response };
     }
     requestSucceededWithResponse(request, response) {
       if (response.clientError || response.serverError) {
         this.delegate.formSubmissionFailedWithResponse(this, response);
-      } else if (this.requestMustRedirect(request) && responseSucceededWithoutRedirect(response)) {
+        return;
+      }
+      prefetchCache.clear();
+      if (this.requestMustRedirect(request) && responseSucceededWithoutRedirect(response)) {
         const error3 = new Error("Form responses must redirect to another location");
         this.delegate.formSubmissionErrored(this, error3);
       } else {
@@ -46363,16 +46623,17 @@ img.ProseMirror-separator {
       this.delegate.formSubmissionErrored(this, error3);
     }
     requestFinished(_request) {
-      var _a;
       this.state = FormSubmissionState.stopped;
-      (_a = this.submitter) === null || _a === void 0 ? void 0 : _a.removeAttribute("disabled");
+      this.submitter?.removeAttribute("disabled");
       this.resetSubmitterText();
+      clearBusyState(this.formElement);
       dispatch("turbo:submit-end", {
         target: this.formElement,
-        detail: Object.assign({ formSubmission: this }, this.result)
+        detail: { formSubmission: this, ...this.result }
       });
       this.delegate.formSubmissionFinished(this);
     }
+    // Private
     setSubmitsWith() {
       if (!this.submitter || !this.submitsWith)
         return;
@@ -46402,14 +46663,13 @@ img.ProseMirror-separator {
       return !request.isSafe || hasAttribute("data-turbo-stream", this.submitter, this.formElement);
     }
     get submitsWith() {
-      var _a;
-      return (_a = this.submitter) === null || _a === void 0 ? void 0 : _a.getAttribute("data-turbo-submits-with");
+      return this.submitter?.getAttribute("data-turbo-submits-with");
     }
   };
   function buildFormData(formElement, submitter) {
     const formData = new FormData(formElement);
-    const name = submitter === null || submitter === void 0 ? void 0 : submitter.getAttribute("name");
-    const value = submitter === null || submitter === void 0 ? void 0 : submitter.getAttribute("value");
+    const name = submitter?.getAttribute("name");
+    const value = submitter?.getAttribute("value");
     if (name) {
       formData.append(name, value || "");
     }
@@ -46428,15 +46688,27 @@ img.ProseMirror-separator {
   function responseSucceededWithoutRedirect(response) {
     return response.statusCode == 200 && !response.redirected;
   }
-  function mergeFormDataEntries(url, entries) {
-    const searchParams = new URLSearchParams();
-    for (const [name, value] of entries) {
-      if (value instanceof File)
-        continue;
-      searchParams.append(name, value);
+  function getFormAction(formElement, submitter) {
+    const formElementAction = typeof formElement.action === "string" ? formElement.action : null;
+    if (submitter?.hasAttribute("formaction")) {
+      return submitter.getAttribute("formaction") || "";
+    } else {
+      return formElement.getAttribute("action") || formElementAction || "";
     }
-    url.search = searchParams.toString();
-    return url;
+  }
+  function getAction(formAction, fetchMethod) {
+    const action = expandURL(formAction);
+    if (isSafe(fetchMethod)) {
+      action.search = "";
+    }
+    return action;
+  }
+  function getMethod(formElement, submitter) {
+    const method = submitter?.getAttribute("formmethod") || formElement.getAttribute("method") || "";
+    return fetchMethodFromString(method.toLowerCase()) || FetchMethod.get;
+  }
+  function getEnctype(formElement, submitter) {
+    return fetchEnctypeFromString(submitter?.getAttribute("formenctype") || formElement.enctype);
   }
   var Snapshot = class {
     constructor(element) {
@@ -46458,14 +46730,7 @@ img.ProseMirror-separator {
       return this.element.isConnected;
     }
     get firstAutofocusableElement() {
-      const inertDisabledOrHidden = "[inert], :disabled, [hidden], details:not([open]), dialog:not([open])";
-      for (const element of this.element.querySelectorAll("[autofocus]")) {
-        if (element.closest(inertDisabledOrHidden) == null)
-          return element;
-        else
-          continue;
-      }
-      return null;
+      return queryAutofocusableElement(this.element);
     }
     get permanentElements() {
       return queryPermanentElementsAll(this.element);
@@ -46492,23 +46757,8 @@ img.ProseMirror-separator {
     return node.querySelectorAll("[id][data-turbo-permanent]");
   }
   var FormSubmitObserver = class {
+    started = false;
     constructor(delegate, eventTarget) {
-      this.started = false;
-      this.submitCaptured = () => {
-        this.eventTarget.removeEventListener("submit", this.submitBubbled, false);
-        this.eventTarget.addEventListener("submit", this.submitBubbled, false);
-      };
-      this.submitBubbled = (event) => {
-        if (!event.defaultPrevented) {
-          const form = event.target instanceof HTMLFormElement ? event.target : void 0;
-          const submitter = event.submitter || void 0;
-          if (form && submissionDoesNotDismissDialog(form, submitter) && submissionDoesNotTargetIFrame(form, submitter) && this.delegate.willSubmitForm(form, submitter)) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            this.delegate.formSubmitted(form, submitter);
-          }
-        }
-      };
       this.delegate = delegate;
       this.eventTarget = eventTarget;
     }
@@ -46524,14 +46774,29 @@ img.ProseMirror-separator {
         this.started = false;
       }
     }
+    submitCaptured = () => {
+      this.eventTarget.removeEventListener("submit", this.submitBubbled, false);
+      this.eventTarget.addEventListener("submit", this.submitBubbled, false);
+    };
+    submitBubbled = (event) => {
+      if (!event.defaultPrevented) {
+        const form = event.target instanceof HTMLFormElement ? event.target : void 0;
+        const submitter = event.submitter || void 0;
+        if (form && submissionDoesNotDismissDialog(form, submitter) && submissionDoesNotTargetIFrame(form, submitter) && this.delegate.willSubmitForm(form, submitter)) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          this.delegate.formSubmitted(form, submitter);
+        }
+      }
+    };
   };
   function submissionDoesNotDismissDialog(form, submitter) {
-    const method = (submitter === null || submitter === void 0 ? void 0 : submitter.getAttribute("formmethod")) || form.getAttribute("method");
+    const method = submitter?.getAttribute("formmethod") || form.getAttribute("method");
     return method != "dialog";
   }
   function submissionDoesNotTargetIFrame(form, submitter) {
-    if ((submitter === null || submitter === void 0 ? void 0 : submitter.hasAttribute("formtarget")) || form.hasAttribute("target")) {
-      const target = (submitter === null || submitter === void 0 ? void 0 : submitter.getAttribute("formtarget")) || form.target;
+    if (submitter?.hasAttribute("formtarget") || form.hasAttribute("target")) {
+      const target = submitter?.getAttribute("formtarget") || form.target;
       for (const element of document.getElementsByName(target)) {
         if (element instanceof HTMLIFrameElement)
           return false;
@@ -46542,14 +46807,15 @@ img.ProseMirror-separator {
     }
   }
   var View = class {
+    #resolveRenderPromise = (_value) => {
+    };
+    #resolveInterceptionPromise = (_value) => {
+    };
     constructor(delegate, element) {
-      this.resolveRenderPromise = (_value) => {
-      };
-      this.resolveInterceptionPromise = (_value) => {
-      };
       this.delegate = delegate;
       this.element = element;
     }
+    // Scrolling
     scrollToAnchor(anchor) {
       const element = this.snapshot.getElementForAnchor(anchor);
       if (element) {
@@ -46585,28 +46851,30 @@ img.ProseMirror-separator {
     get scrollRoot() {
       return window;
     }
+    // Rendering
     async render(renderer) {
-      const { isPreview, shouldRender, newSnapshot: snapshot } = renderer;
+      const { isPreview, shouldRender, willRender, newSnapshot: snapshot } = renderer;
+      const shouldInvalidate = willRender;
       if (shouldRender) {
         try {
-          this.renderPromise = new Promise((resolve2) => this.resolveRenderPromise = resolve2);
+          this.renderPromise = new Promise((resolve2) => this.#resolveRenderPromise = resolve2);
           this.renderer = renderer;
           await this.prepareToRenderSnapshot(renderer);
-          const renderInterception = new Promise((resolve2) => this.resolveInterceptionPromise = resolve2);
-          const options = { resume: this.resolveInterceptionPromise, render: this.renderer.renderElement };
+          const renderInterception = new Promise((resolve2) => this.#resolveInterceptionPromise = resolve2);
+          const options = { resume: this.#resolveInterceptionPromise, render: this.renderer.renderElement, renderMethod: this.renderer.renderMethod };
           const immediateRender = this.delegate.allowsImmediateRender(snapshot, options);
           if (!immediateRender)
             await renderInterception;
           await this.renderSnapshot(renderer);
-          this.delegate.viewRenderedSnapshot(snapshot, isPreview);
+          this.delegate.viewRenderedSnapshot(snapshot, isPreview, this.renderer.renderMethod);
           this.delegate.preloadOnLoadLinksForView(this.element);
           this.finishRenderingSnapshot(renderer);
         } finally {
           delete this.renderer;
-          this.resolveRenderPromise(void 0);
+          this.#resolveRenderPromise(void 0);
           delete this.renderPromise;
         }
-      } else {
+      } else if (shouldInvalidate) {
         this.invalidate(renderer.reloadReason);
       }
     }
@@ -46623,6 +46891,12 @@ img.ProseMirror-separator {
       } else {
         this.element.removeAttribute("data-turbo-preview");
       }
+    }
+    markVisitDirection(direction) {
+      this.element.setAttribute("data-turbo-visit-direction", direction);
+    }
+    unmarkVisitDirection() {
+      this.element.removeAttribute("data-turbo-visit-direction");
     }
     async renderSnapshot(renderer) {
       await renderer.render();
@@ -46641,26 +46915,6 @@ img.ProseMirror-separator {
   };
   var LinkInterceptor = class {
     constructor(delegate, element) {
-      this.clickBubbled = (event) => {
-        if (this.respondsToEventTarget(event.target)) {
-          this.clickEvent = event;
-        } else {
-          delete this.clickEvent;
-        }
-      };
-      this.linkClicked = (event) => {
-        if (this.clickEvent && this.respondsToEventTarget(event.target) && event.target instanceof Element) {
-          if (this.delegate.shouldInterceptLinkClick(event.target, event.detail.url, event.detail.originalEvent)) {
-            this.clickEvent.preventDefault();
-            event.preventDefault();
-            this.delegate.linkClickIntercepted(event.target, event.detail.url, event.detail.originalEvent);
-          }
-        }
-        delete this.clickEvent;
-      };
-      this.willVisit = (_event) => {
-        delete this.clickEvent;
-      };
       this.delegate = delegate;
       this.element = element;
     }
@@ -46674,31 +46928,34 @@ img.ProseMirror-separator {
       document.removeEventListener("turbo:click", this.linkClicked);
       document.removeEventListener("turbo:before-visit", this.willVisit);
     }
+    clickBubbled = (event) => {
+      if (this.respondsToEventTarget(event.target)) {
+        this.clickEvent = event;
+      } else {
+        delete this.clickEvent;
+      }
+    };
+    linkClicked = (event) => {
+      if (this.clickEvent && this.respondsToEventTarget(event.target) && event.target instanceof Element) {
+        if (this.delegate.shouldInterceptLinkClick(event.target, event.detail.url, event.detail.originalEvent)) {
+          this.clickEvent.preventDefault();
+          event.preventDefault();
+          this.delegate.linkClickIntercepted(event.target, event.detail.url, event.detail.originalEvent);
+        }
+      }
+      delete this.clickEvent;
+    };
+    willVisit = (_event) => {
+      delete this.clickEvent;
+    };
     respondsToEventTarget(target) {
       const element = target instanceof Element ? target : target instanceof Node ? target.parentElement : null;
       return element && element.closest("turbo-frame, html") == this.element;
     }
   };
   var LinkClickObserver = class {
+    started = false;
     constructor(delegate, eventTarget) {
-      this.started = false;
-      this.clickCaptured = () => {
-        this.eventTarget.removeEventListener("click", this.clickBubbled, false);
-        this.eventTarget.addEventListener("click", this.clickBubbled, false);
-      };
-      this.clickBubbled = (event) => {
-        if (event instanceof MouseEvent && this.clickEventIsSignificant(event)) {
-          const target = event.composedPath && event.composedPath()[0] || event.target;
-          const link = this.findLinkFromClickTarget(target);
-          if (link && doesNotTargetIFrame(link)) {
-            const location2 = this.getLocationForLink(link);
-            if (this.delegate.willFollowLinkToLocation(link, location2, event)) {
-              event.preventDefault();
-              this.delegate.followedLinkToLocation(link, location2);
-            }
-          }
-        }
-      };
       this.delegate = delegate;
       this.eventTarget = eventTarget;
     }
@@ -46714,27 +46971,27 @@ img.ProseMirror-separator {
         this.started = false;
       }
     }
+    clickCaptured = () => {
+      this.eventTarget.removeEventListener("click", this.clickBubbled, false);
+      this.eventTarget.addEventListener("click", this.clickBubbled, false);
+    };
+    clickBubbled = (event) => {
+      if (event instanceof MouseEvent && this.clickEventIsSignificant(event)) {
+        const target = event.composedPath && event.composedPath()[0] || event.target;
+        const link = findLinkFromClickTarget(target);
+        if (link && doesNotTargetIFrame(link)) {
+          const location2 = getLocationForLink(link);
+          if (this.delegate.willFollowLinkToLocation(link, location2, event)) {
+            event.preventDefault();
+            this.delegate.followedLinkToLocation(link, location2);
+          }
+        }
+      }
+    };
     clickEventIsSignificant(event) {
       return !(event.target && event.target.isContentEditable || event.defaultPrevented || event.which > 1 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey);
     }
-    findLinkFromClickTarget(target) {
-      return findClosestRecursively(target, "a[href]:not([target^=_]):not([download])");
-    }
-    getLocationForLink(link) {
-      return expandURL(link.getAttribute("href") || "");
-    }
   };
-  function doesNotTargetIFrame(anchor) {
-    if (anchor.hasAttribute("target")) {
-      for (const element of document.getElementsByName(anchor.target)) {
-        if (element instanceof HTMLIFrameElement)
-          return false;
-      }
-      return true;
-    } else {
-      return true;
-    }
-  }
   var FormLinkClickObserver = class {
     constructor(delegate, element) {
       this.delegate = delegate;
@@ -46746,8 +47003,16 @@ img.ProseMirror-separator {
     stop() {
       this.linkInterceptor.stop();
     }
+    // Link hover observer delegate
+    canPrefetchRequestToLocation(link, location2) {
+      return false;
+    }
+    prefetchAndCacheRequestToLocation(link, location2) {
+      return;
+    }
+    // Link click observer delegate
     willFollowLinkToLocation(link, location2, originalEvent) {
-      return this.delegate.willSubmitFormLinkToLocation(link, location2, originalEvent) && link.hasAttribute("data-turbo-method");
+      return this.delegate.willSubmitFormLinkToLocation(link, location2, originalEvent) && (link.hasAttribute("data-turbo-method") || link.hasAttribute("data-turbo-stream"));
     }
     followedLinkToLocation(link, location2) {
       const form = document.createElement("form");
@@ -46816,7 +47081,7 @@ img.ProseMirror-separator {
     }
     replacePlaceholderWithPermanentElement(permanentElement) {
       const placeholder = this.getPlaceholderById(permanentElement.id);
-      placeholder === null || placeholder === void 0 ? void 0 : placeholder.replaceWith(permanentElement);
+      placeholder?.replaceWith(permanentElement);
     }
     getPlaceholderById(id) {
       return this.placeholders.find((element) => element.content == id);
@@ -46832,8 +47097,8 @@ img.ProseMirror-separator {
     return element;
   }
   var Renderer = class {
+    #activeElement = null;
     constructor(currentSnapshot, newSnapshot, renderElement, isPreview, willRender = true) {
-      this.activeElement = null;
       this.currentSnapshot = currentSnapshot;
       this.newSnapshot = newSnapshot;
       this.isPreview = isPreview;
@@ -46850,6 +47115,8 @@ img.ProseMirror-separator {
     prepareToRender() {
       return;
     }
+    render() {
+    }
     finishRendering() {
       if (this.resolvingFunctions) {
         this.resolvingFunctions.resolve();
@@ -46861,21 +47128,22 @@ img.ProseMirror-separator {
     }
     focusFirstAutofocusableElement() {
       const element = this.connectedSnapshot.firstAutofocusableElement;
-      if (elementIsFocusable(element)) {
+      if (element) {
         element.focus();
       }
     }
+    // Bardo delegate
     enteringBardo(currentPermanentElement) {
-      if (this.activeElement)
+      if (this.#activeElement)
         return;
       if (currentPermanentElement.contains(this.currentSnapshot.activeElement)) {
-        this.activeElement = this.currentSnapshot.activeElement;
+        this.#activeElement = this.currentSnapshot.activeElement;
       }
     }
     leavingBardo(currentPermanentElement) {
-      if (currentPermanentElement.contains(this.activeElement) && this.activeElement instanceof HTMLElement) {
-        this.activeElement.focus();
-        this.activeElement = null;
+      if (currentPermanentElement.contains(this.#activeElement) && this.#activeElement instanceof HTMLElement) {
+        this.#activeElement.focus();
+        this.#activeElement = null;
       }
     }
     get connectedSnapshot() {
@@ -46890,18 +47158,17 @@ img.ProseMirror-separator {
     get permanentElementMap() {
       return this.currentSnapshot.getPermanentElementMapForSnapshot(this.newSnapshot);
     }
+    get renderMethod() {
+      return "replace";
+    }
   };
-  function elementIsFocusable(element) {
-    return element && typeof element.focus == "function";
-  }
   var FrameRenderer = class extends Renderer {
     static renderElement(currentElement, newElement) {
-      var _a;
       const destinationRange = document.createRange();
       destinationRange.selectNodeContents(currentElement);
       destinationRange.deleteContents();
       const frameElement = newElement;
-      const sourceRange = (_a = frameElement.ownerDocument) === null || _a === void 0 ? void 0 : _a.createRange();
+      const sourceRange = frameElement.ownerDocument?.createRange();
       if (sourceRange) {
         sourceRange.selectNodeContents(frameElement);
         currentElement.appendChild(sourceRange.extractContents());
@@ -46915,14 +47182,14 @@ img.ProseMirror-separator {
       return true;
     }
     async render() {
-      await nextAnimationFrame();
+      await nextRepaint();
       this.preservingPermanentElements(() => {
         this.loadFrameElement();
       });
       this.scrollFrameIntoView();
-      await nextAnimationFrame();
+      await nextRepaint();
       this.focusFirstAutofocusableElement();
-      await nextAnimationFrame();
+      await nextRepaint();
       this.activateScriptElements();
     }
     loadFrameElement() {
@@ -46966,6 +47233,8 @@ img.ProseMirror-separator {
     }
   }
   var ProgressBar = class _ProgressBar {
+    static animationDuration = 300;
+    /*ms*/
     static get defaultCSS() {
       return unindent`
       .turbo-progress-bar {
@@ -46983,13 +47252,10 @@ img.ProseMirror-separator {
       }
     `;
     }
+    hiding = false;
+    value = 0;
+    visible = false;
     constructor() {
-      this.hiding = false;
-      this.value = 0;
-      this.visible = false;
-      this.trickle = () => {
-        this.setValue(this.value + Math.random() / 100);
-      };
       this.stylesheetElement = this.createStylesheetElement();
       this.progressElement = this.createProgressElement();
       this.installStylesheetElement();
@@ -47017,6 +47283,7 @@ img.ProseMirror-separator {
       this.value = value;
       this.refresh();
     }
+    // Private
     installStylesheetElement() {
       document.head.insertBefore(this.stylesheetElement, document.head.firstChild);
     }
@@ -47044,6 +47311,9 @@ img.ProseMirror-separator {
       window.clearInterval(this.trickleInterval);
       delete this.trickleInterval;
     }
+    trickle = () => {
+      this.setValue(this.value + Math.random() / 100);
+    };
     refresh() {
       requestAnimationFrame(() => {
         this.progressElement.style.width = `${10 + this.value * 90}%`;
@@ -47067,20 +47337,22 @@ img.ProseMirror-separator {
       return getMetaContent("csp-nonce");
     }
   };
-  ProgressBar.animationDuration = 300;
   var HeadSnapshot = class extends Snapshot {
-    constructor() {
-      super(...arguments);
-      this.detailsByOuterHTML = this.children.filter((element) => !elementIsNoscript(element)).map((element) => elementWithoutNonce(element)).reduce((result, element) => {
-        const { outerHTML } = element;
-        const details = outerHTML in result ? result[outerHTML] : {
-          type: elementType(element),
-          tracked: elementIsTracked(element),
-          elements: []
-        };
-        return Object.assign(Object.assign({}, result), { [outerHTML]: Object.assign(Object.assign({}, details), { elements: [...details.elements, element] }) });
-      }, {});
-    }
+    detailsByOuterHTML = this.children.filter((element) => !elementIsNoscript(element)).map((element) => elementWithoutNonce(element)).reduce((result, element) => {
+      const { outerHTML } = element;
+      const details = outerHTML in result ? result[outerHTML] : {
+        type: elementType(element),
+        tracked: elementIsTracked(element),
+        elements: []
+      };
+      return {
+        ...result,
+        [outerHTML]: {
+          ...details,
+          elements: [...details.elements, element]
+        }
+      };
+    }, {});
     get trackedElementSignature() {
       return Object.keys(this.detailsByOuterHTML).filter((outerHTML) => this.detailsByOuterHTML[outerHTML].tracked).join("");
     }
@@ -47111,9 +47383,11 @@ img.ProseMirror-separator {
     }
     findMetaElementByName(name) {
       return Object.keys(this.detailsByOuterHTML).reduce((result, outerHTML) => {
-        const { elements: [element] } = this.detailsByOuterHTML[outerHTML];
+        const {
+          elements: [element]
+        } = this.detailsByOuterHTML[outerHTML];
         return elementIsMetaElementWithName(element, name) ? element : result;
-      }, void 0);
+      }, void 0 | void 0);
     }
   };
   function elementType(element) {
@@ -47155,11 +47429,12 @@ img.ProseMirror-separator {
     static fromElement(element) {
       return this.fromDocument(element.ownerDocument);
     }
-    static fromDocument({ head, body }) {
-      return new this(body, new HeadSnapshot(head));
+    static fromDocument({ documentElement, body, head }) {
+      return new this(documentElement, body, new HeadSnapshot(head));
     }
-    constructor(element, headSnapshot) {
-      super(element);
+    constructor(documentElement, body, headSnapshot) {
+      super(body);
+      this.documentElement = documentElement;
       this.headSnapshot = headSnapshot;
     }
     clone() {
@@ -47176,14 +47451,16 @@ img.ProseMirror-separator {
       for (const clonedPasswordInput of clonedElement.querySelectorAll('input[type="password"]')) {
         clonedPasswordInput.value = "";
       }
-      return new _PageSnapshot(clonedElement, this.headSnapshot);
+      return new _PageSnapshot(this.documentElement, clonedElement, this.headSnapshot);
+    }
+    get lang() {
+      return this.documentElement.getAttribute("lang");
     }
     get headElement() {
       return this.headSnapshot.element;
     }
     get rootLocation() {
-      var _a;
-      const root = (_a = this.getSetting("root")) !== null && _a !== void 0 ? _a : "/";
+      const root = this.getSetting("root") ?? "/";
       return expandURL(root);
     }
     get cacheControlValue() {
@@ -47198,25 +47475,38 @@ img.ProseMirror-separator {
     get isVisitable() {
       return this.getSetting("visit-control") != "reload";
     }
+    get prefersViewTransitions() {
+      return this.headSnapshot.getMetaValue("view-transition") === "same-origin";
+    }
+    get shouldMorphPage() {
+      return this.getSetting("refresh-method") === "morph";
+    }
+    get shouldPreserveScrollPosition() {
+      return this.getSetting("refresh-scroll") === "preserve";
+    }
+    // Private
     getSetting(name) {
       return this.headSnapshot.getMetaValue(`turbo-${name}`);
     }
   };
-  var TimingMetric;
-  (function(TimingMetric2) {
-    TimingMetric2["visitStart"] = "visitStart";
-    TimingMetric2["requestStart"] = "requestStart";
-    TimingMetric2["requestEnd"] = "requestEnd";
-    TimingMetric2["visitEnd"] = "visitEnd";
-  })(TimingMetric || (TimingMetric = {}));
-  var VisitState;
-  (function(VisitState2) {
-    VisitState2["initialized"] = "initialized";
-    VisitState2["started"] = "started";
-    VisitState2["canceled"] = "canceled";
-    VisitState2["failed"] = "failed";
-    VisitState2["completed"] = "completed";
-  })(VisitState || (VisitState = {}));
+  var ViewTransitioner = class {
+    #viewTransitionStarted = false;
+    #lastOperation = Promise.resolve();
+    renderChange(useViewTransition, render2) {
+      if (useViewTransition && this.viewTransitionsAvailable && !this.#viewTransitionStarted) {
+        this.#viewTransitionStarted = true;
+        this.#lastOperation = this.#lastOperation.then(async () => {
+          await document.startViewTransition(render2).finished;
+        });
+      } else {
+        this.#lastOperation = this.#lastOperation.then(render2);
+      }
+      return this.#lastOperation;
+    }
+    get viewTransitionsAvailable() {
+      return document.startViewTransition;
+    }
+  };
   var defaultOptions = {
     action: "advance",
     historyChanged: false,
@@ -47227,27 +47517,62 @@ img.ProseMirror-separator {
     shouldCacheSnapshot: true,
     acceptsStreamResponse: false
   };
-  var SystemStatusCode;
-  (function(SystemStatusCode2) {
-    SystemStatusCode2[SystemStatusCode2["networkFailure"] = 0] = "networkFailure";
-    SystemStatusCode2[SystemStatusCode2["timeoutFailure"] = -1] = "timeoutFailure";
-    SystemStatusCode2[SystemStatusCode2["contentTypeMismatch"] = -2] = "contentTypeMismatch";
-  })(SystemStatusCode || (SystemStatusCode = {}));
+  var TimingMetric = {
+    visitStart: "visitStart",
+    requestStart: "requestStart",
+    requestEnd: "requestEnd",
+    visitEnd: "visitEnd"
+  };
+  var VisitState = {
+    initialized: "initialized",
+    started: "started",
+    canceled: "canceled",
+    failed: "failed",
+    completed: "completed"
+  };
+  var SystemStatusCode = {
+    networkFailure: 0,
+    timeoutFailure: -1,
+    contentTypeMismatch: -2
+  };
+  var Direction = {
+    advance: "forward",
+    restore: "back",
+    replace: "none"
+  };
   var Visit = class {
+    identifier = uuid();
+    // Required by turbo-ios
+    timingMetrics = {};
+    followedRedirect = false;
+    historyChanged = false;
+    scrolled = false;
+    shouldCacheSnapshot = true;
+    acceptsStreamResponse = false;
+    snapshotCached = false;
+    state = VisitState.initialized;
+    viewTransitioner = new ViewTransitioner();
     constructor(delegate, location2, restorationIdentifier, options = {}) {
-      this.identifier = uuid();
-      this.timingMetrics = {};
-      this.followedRedirect = false;
-      this.historyChanged = false;
-      this.scrolled = false;
-      this.shouldCacheSnapshot = true;
-      this.acceptsStreamResponse = false;
-      this.snapshotCached = false;
-      this.state = VisitState.initialized;
       this.delegate = delegate;
       this.location = location2;
       this.restorationIdentifier = restorationIdentifier || uuid();
-      const { action, historyChanged, referrer, snapshot, snapshotHTML, response, visitCachedSnapshot, willRender, updateHistory, shouldCacheSnapshot, acceptsStreamResponse } = Object.assign(Object.assign({}, defaultOptions), options);
+      const {
+        action,
+        historyChanged,
+        referrer,
+        snapshot,
+        snapshotHTML,
+        response,
+        visitCachedSnapshot,
+        willRender,
+        updateHistory,
+        shouldCacheSnapshot,
+        acceptsStreamResponse,
+        direction
+      } = {
+        ...defaultOptions,
+        ...options
+      };
       this.action = action;
       this.historyChanged = historyChanged;
       this.referrer = referrer;
@@ -47255,12 +47580,14 @@ img.ProseMirror-separator {
       this.snapshotHTML = snapshotHTML;
       this.response = response;
       this.isSamePage = this.delegate.locationWithActionIsSamePage(this.location, this.action);
+      this.isPageRefresh = this.view.isPageRefresh(this);
       this.visitCachedSnapshot = visitCachedSnapshot;
       this.willRender = willRender;
       this.updateHistory = updateHistory;
       this.scrolled = !willRender;
       this.shouldCacheSnapshot = shouldCacheSnapshot;
       this.acceptsStreamResponse = acceptsStreamResponse;
+      this.direction = direction || Direction[action];
     }
     get adapter() {
       return this.delegate.adapter;
@@ -47297,10 +47624,10 @@ img.ProseMirror-separator {
     complete() {
       if (this.state == VisitState.started) {
         this.recordTimingMetric(TimingMetric.visitEnd);
+        this.adapter.visitCompleted(this);
         this.state = VisitState.completed;
         this.followRedirect();
         if (!this.followedRedirect) {
-          this.adapter.visitCompleted(this);
           this.delegate.visitCompleted(this);
         }
       }
@@ -47309,12 +47636,12 @@ img.ProseMirror-separator {
       if (this.state == VisitState.started) {
         this.state = VisitState.failed;
         this.adapter.visitFailed(this);
+        this.delegate.visitCompleted(this);
       }
     }
     changeHistory() {
-      var _a;
       if (!this.historyChanged && this.updateHistory) {
-        const actionForHistory = this.location.href === ((_a = this.referrer) === null || _a === void 0 ? void 0 : _a.href) ? "replace" : this.action;
+        const actionForHistory = this.location.href === this.referrer?.href ? "replace" : this.action;
         const method = getHistoryMethodForAction(actionForHistory);
         this.history.update(method, this.location, this.restorationIdentifier);
         this.historyChanged = true;
@@ -47363,8 +47690,8 @@ img.ProseMirror-separator {
           if (this.view.renderPromise)
             await this.view.renderPromise;
           if (isSuccessful(statusCode) && responseHTML != null) {
-            await this.view.renderPage(PageSnapshot.fromHTMLString(responseHTML), false, this.willRender, this);
-            this.performScroll();
+            const snapshot = PageSnapshot.fromHTMLString(responseHTML);
+            await this.renderPageSnapshot(snapshot, false);
             this.adapter.visitRendered(this);
             this.complete();
           } else {
@@ -47397,13 +47724,12 @@ img.ProseMirror-separator {
         const isPreview = this.shouldIssueRequest();
         this.render(async () => {
           this.cacheSnapshot();
-          if (this.isSamePage) {
+          if (this.isSamePage || this.isPageRefresh) {
             this.adapter.visitRendered(this);
           } else {
             if (this.view.renderPromise)
               await this.view.renderPromise;
-            await this.view.renderPage(snapshot, isPreview, this.willRender, this);
-            this.performScroll();
+            await this.renderPageSnapshot(snapshot, isPreview);
             this.adapter.visitRendered(this);
             if (!isPreview) {
               this.complete();
@@ -47413,8 +47739,7 @@ img.ProseMirror-separator {
       }
     }
     followRedirect() {
-      var _a;
-      if (this.redirectedToLocation && !this.followedRedirect && ((_a = this.response) === null || _a === void 0 ? void 0 : _a.redirected)) {
+      if (this.redirectedToLocation && !this.followedRedirect && this.response?.redirected) {
         this.adapter.visitProposedToLocation(this.redirectedToLocation, {
           action: "replace",
           response: this.response,
@@ -47434,6 +47759,7 @@ img.ProseMirror-separator {
         });
       }
     }
+    // Fetch request delegate
     prepareRequest(request) {
       if (this.acceptsStreamResponse) {
         request.acceptResponseType(StreamMessage.contentType);
@@ -47478,8 +47804,9 @@ img.ProseMirror-separator {
     requestFinished() {
       this.finishRequest();
     }
+    // Scrolling
     performScroll() {
-      if (!this.scrolled && !this.view.forceReloaded) {
+      if (!this.scrolled && !this.view.forceReloaded && !this.view.shouldPreserveScrollPosition(this)) {
         if (this.action == "restore") {
           this.scrollToRestoredPosition() || this.scrollToAnchor() || this.view.scrollToTop();
         } else {
@@ -47505,12 +47832,14 @@ img.ProseMirror-separator {
         return true;
       }
     }
+    // Instrumentation
     recordTimingMetric(metric) {
       this.timingMetrics[metric] = (/* @__PURE__ */ new Date()).getTime();
     }
     getTimingMetrics() {
-      return Object.assign({}, this.timingMetrics);
+      return { ...this.timingMetrics };
     }
+    // Private
     getHistoryMethodForAction(action) {
       switch (action) {
         case "replace":
@@ -47540,11 +47869,15 @@ img.ProseMirror-separator {
     }
     async render(callback2) {
       this.cancelRender();
-      await new Promise((resolve2) => {
-        this.frame = requestAnimationFrame(() => resolve2());
-      });
+      this.frame = await nextRepaint();
       await callback2();
       delete this.frame;
+    }
+    async renderPageSnapshot(snapshot, isPreview) {
+      await this.viewTransitioner.renderChange(this.view.shouldTransitionTo(snapshot), async () => {
+        await this.view.renderPage(snapshot, isPreview, this.willRender, this);
+        this.performScroll();
+      });
     }
     cancelRender() {
       if (this.frame) {
@@ -47557,15 +47890,16 @@ img.ProseMirror-separator {
     return statusCode >= 200 && statusCode < 300;
   }
   var BrowserAdapter = class {
+    progressBar = new ProgressBar();
     constructor(session2) {
-      this.progressBar = new ProgressBar();
-      this.showProgressBar = () => {
-        this.progressBar.show();
-      };
       this.session = session2;
     }
     visitProposedToLocation(location2, options) {
-      this.navigator.startVisit(location2, (options === null || options === void 0 ? void 0 : options.restorationIdentifier) || uuid(), options);
+      if (locationIsVisitable(location2, this.navigator.rootLocation)) {
+        this.navigator.startVisit(location2, options?.restorationIdentifier || uuid(), options);
+      } else {
+        window.location.href = location2.toString();
+      }
     }
     visitStarted(visit2) {
       this.location = visit2.location;
@@ -47600,18 +47934,21 @@ img.ProseMirror-separator {
       }
     }
     visitRequestFinished(_visit) {
-      this.progressBar.setValue(1);
-      this.hideVisitProgressBar();
     }
     visitCompleted(_visit) {
+      this.progressBar.setValue(1);
+      this.hideVisitProgressBar();
     }
     pageInvalidated(reason) {
       this.reload(reason);
     }
     visitFailed(_visit) {
+      this.progressBar.setValue(1);
+      this.hideVisitProgressBar();
     }
     visitRendered(_visit) {
     }
+    // Form Submission Delegate
     formSubmissionStarted(_formSubmission) {
       this.progressBar.setValue(0);
       this.showFormProgressBarAfterDelay();
@@ -47620,6 +47957,7 @@ img.ProseMirror-separator {
       this.progressBar.setValue(1);
       this.hideFormProgressBar();
     }
+    // Private
     showVisitProgressBarAfterDelay() {
       this.visitProgressBarTimeout = window.setTimeout(this.showProgressBar, this.session.progressBarDelay);
     }
@@ -47642,26 +47980,21 @@ img.ProseMirror-separator {
         delete this.formProgressBarTimeout;
       }
     }
+    showProgressBar = () => {
+      this.progressBar.show();
+    };
     reload(reason) {
-      var _a;
       dispatch("turbo:reload", { detail: reason });
-      window.location.href = ((_a = this.location) === null || _a === void 0 ? void 0 : _a.toString()) || window.location.href;
+      window.location.href = this.location?.toString() || window.location.href;
     }
     get navigator() {
       return this.session.navigator;
     }
   };
   var CacheObserver = class {
-    constructor() {
-      this.selector = "[data-turbo-temporary]";
-      this.deprecatedSelector = "[data-turbo-cache=false]";
-      this.started = false;
-      this.removeTemporaryElements = (_event) => {
-        for (const element of this.temporaryElements) {
-          element.remove();
-        }
-      };
-    }
+    selector = "[data-turbo-temporary]";
+    deprecatedSelector = "[data-turbo-cache=false]";
+    started = false;
     start() {
       if (!this.started) {
         this.started = true;
@@ -47674,13 +48007,20 @@ img.ProseMirror-separator {
         removeEventListener("turbo:before-cache", this.removeTemporaryElements, false);
       }
     }
+    removeTemporaryElements = (_event) => {
+      for (const element of this.temporaryElements) {
+        element.remove();
+      }
+    };
     get temporaryElements() {
       return [...document.querySelectorAll(this.selector), ...this.temporaryElementsWithDeprecation];
     }
     get temporaryElementsWithDeprecation() {
       const elements2 = document.querySelectorAll(this.deprecatedSelector);
       if (elements2.length) {
-        console.warn(`The ${this.deprecatedSelector} selector is deprecated and will be removed in a future version. Use ${this.selector} instead.`);
+        console.warn(
+          `The ${this.deprecatedSelector} selector is deprecated and will be removed in a future version. Use ${this.selector} instead.`
+        );
       }
       return [...elements2];
     }
@@ -47700,42 +48040,43 @@ img.ProseMirror-separator {
       this.linkInterceptor.stop();
       this.formSubmitObserver.stop();
     }
+    // Link interceptor delegate
     shouldInterceptLinkClick(element, _location, _event) {
-      return this.shouldRedirect(element);
+      return this.#shouldRedirect(element);
     }
     linkClickIntercepted(element, url, event) {
-      const frame = this.findFrameElement(element);
+      const frame = this.#findFrameElement(element);
       if (frame) {
         frame.delegate.linkClickIntercepted(element, url, event);
       }
     }
+    // Form submit observer delegate
     willSubmitForm(element, submitter) {
-      return element.closest("turbo-frame") == null && this.shouldSubmit(element, submitter) && this.shouldRedirect(element, submitter);
+      return element.closest("turbo-frame") == null && this.#shouldSubmit(element, submitter) && this.#shouldRedirect(element, submitter);
     }
     formSubmitted(element, submitter) {
-      const frame = this.findFrameElement(element, submitter);
+      const frame = this.#findFrameElement(element, submitter);
       if (frame) {
         frame.delegate.formSubmitted(element, submitter);
       }
     }
-    shouldSubmit(form, submitter) {
-      var _a;
-      const action = getAction(form, submitter);
+    #shouldSubmit(form, submitter) {
+      const action = getAction$1(form, submitter);
       const meta = this.element.ownerDocument.querySelector(`meta[name="turbo-root"]`);
-      const rootLocation = expandURL((_a = meta === null || meta === void 0 ? void 0 : meta.content) !== null && _a !== void 0 ? _a : "/");
-      return this.shouldRedirect(form, submitter) && locationIsVisitable(action, rootLocation);
+      const rootLocation = expandURL(meta?.content ?? "/");
+      return this.#shouldRedirect(form, submitter) && locationIsVisitable(action, rootLocation);
     }
-    shouldRedirect(element, submitter) {
+    #shouldRedirect(element, submitter) {
       const isNavigatable = element instanceof HTMLFormElement ? this.session.submissionIsNavigatable(element, submitter) : this.session.elementIsNavigatable(element);
       if (isNavigatable) {
-        const frame = this.findFrameElement(element, submitter);
+        const frame = this.#findFrameElement(element, submitter);
         return frame ? frame != element.closest("turbo-frame") : false;
       } else {
         return false;
       }
     }
-    findFrameElement(element, submitter) {
-      const id = (submitter === null || submitter === void 0 ? void 0 : submitter.getAttribute("data-turbo-frame")) || element.getAttribute("data-turbo-frame");
+    #findFrameElement(element, submitter) {
+      const id = submitter?.getAttribute("data-turbo-frame") || element.getAttribute("data-turbo-frame");
       if (id && id != "_top") {
         const frame = this.element.querySelector(`#${id}:not([disabled])`);
         if (frame instanceof FrameElement) {
@@ -47745,32 +48086,20 @@ img.ProseMirror-separator {
     }
   };
   var History = class {
+    location;
+    restorationIdentifier = uuid();
+    restorationData = {};
+    started = false;
+    pageLoaded = false;
+    currentIndex = 0;
     constructor(delegate) {
-      this.restorationIdentifier = uuid();
-      this.restorationData = {};
-      this.started = false;
-      this.pageLoaded = false;
-      this.onPopState = (event) => {
-        if (this.shouldHandlePopState()) {
-          const { turbo } = event.state || {};
-          if (turbo) {
-            this.location = new URL(window.location.href);
-            const { restorationIdentifier } = turbo;
-            this.restorationIdentifier = restorationIdentifier;
-            this.delegate.historyPoppedToLocationWithRestorationIdentifier(this.location, restorationIdentifier);
-          }
-        }
-      };
-      this.onPageLoad = async (_event) => {
-        await nextMicrotask();
-        this.pageLoaded = true;
-      };
       this.delegate = delegate;
     }
     start() {
       if (!this.started) {
         addEventListener("popstate", this.onPopState, false);
         addEventListener("load", this.onPageLoad, false);
+        this.currentIndex = history.state?.turbo?.restorationIndex || 0;
         this.started = true;
         this.replace(new URL(window.location.href));
       }
@@ -47789,23 +48118,29 @@ img.ProseMirror-separator {
       this.update(history.replaceState, location2, restorationIdentifier);
     }
     update(method, location2, restorationIdentifier = uuid()) {
-      const state = { turbo: { restorationIdentifier } };
+      if (method === history.pushState)
+        ++this.currentIndex;
+      const state = { turbo: { restorationIdentifier, restorationIndex: this.currentIndex } };
       method.call(history, state, "", location2.href);
       this.location = location2;
       this.restorationIdentifier = restorationIdentifier;
     }
+    // Restoration data
     getRestorationDataForIdentifier(restorationIdentifier) {
       return this.restorationData[restorationIdentifier] || {};
     }
     updateRestorationData(additionalData) {
       const { restorationIdentifier } = this;
       const restorationData = this.restorationData[restorationIdentifier];
-      this.restorationData[restorationIdentifier] = Object.assign(Object.assign({}, restorationData), additionalData);
+      this.restorationData[restorationIdentifier] = {
+        ...restorationData,
+        ...additionalData
+      };
     }
+    // Scroll restoration
     assumeControlOfScrollRestoration() {
-      var _a;
       if (!this.previousScrollRestoration) {
-        this.previousScrollRestoration = (_a = history.scrollRestoration) !== null && _a !== void 0 ? _a : "auto";
+        this.previousScrollRestoration = history.scrollRestoration ?? "auto";
         history.scrollRestoration = "manual";
       }
     }
@@ -47815,6 +48150,25 @@ img.ProseMirror-separator {
         delete this.previousScrollRestoration;
       }
     }
+    // Event handlers
+    onPopState = (event) => {
+      if (this.shouldHandlePopState()) {
+        const { turbo } = event.state || {};
+        if (turbo) {
+          this.location = new URL(window.location.href);
+          const { restorationIdentifier, restorationIndex } = turbo;
+          this.restorationIdentifier = restorationIdentifier;
+          const direction = restorationIndex > this.currentIndex ? "forward" : "back";
+          this.delegate.historyPoppedToLocationWithRestorationIdentifierAndDirection(this.location, restorationIdentifier, direction);
+          this.currentIndex = restorationIndex;
+        }
+      }
+    };
+    onPageLoad = async (_event) => {
+      await nextMicrotask();
+      this.pageLoaded = true;
+    };
+    // Private
     shouldHandlePopState() {
       return this.pageIsLoaded();
     }
@@ -47822,22 +48176,178 @@ img.ProseMirror-separator {
       return this.pageLoaded || document.readyState == "complete";
     }
   };
+  var LinkPrefetchObserver = class {
+    started = false;
+    #prefetchedLink = null;
+    constructor(delegate, eventTarget) {
+      this.delegate = delegate;
+      this.eventTarget = eventTarget;
+    }
+    start() {
+      if (this.started)
+        return;
+      if (this.eventTarget.readyState === "loading") {
+        this.eventTarget.addEventListener("DOMContentLoaded", this.#enable, { once: true });
+      } else {
+        this.#enable();
+      }
+    }
+    stop() {
+      if (!this.started)
+        return;
+      this.eventTarget.removeEventListener("mouseenter", this.#tryToPrefetchRequest, {
+        capture: true,
+        passive: true
+      });
+      this.eventTarget.removeEventListener("mouseleave", this.#cancelRequestIfObsolete, {
+        capture: true,
+        passive: true
+      });
+      this.eventTarget.removeEventListener("turbo:before-fetch-request", this.#tryToUsePrefetchedRequest, true);
+      this.started = false;
+    }
+    #enable = () => {
+      this.eventTarget.addEventListener("mouseenter", this.#tryToPrefetchRequest, {
+        capture: true,
+        passive: true
+      });
+      this.eventTarget.addEventListener("mouseleave", this.#cancelRequestIfObsolete, {
+        capture: true,
+        passive: true
+      });
+      this.eventTarget.addEventListener("turbo:before-fetch-request", this.#tryToUsePrefetchedRequest, true);
+      this.started = true;
+    };
+    #tryToPrefetchRequest = (event) => {
+      if (getMetaContent("turbo-prefetch") === "false")
+        return;
+      const target = event.target;
+      const isLink = target.matches && target.matches("a[href]:not([target^=_]):not([download])");
+      if (isLink && this.#isPrefetchable(target)) {
+        const link = target;
+        const location2 = getLocationForLink(link);
+        if (this.delegate.canPrefetchRequestToLocation(link, location2)) {
+          this.#prefetchedLink = link;
+          const fetchRequest = new FetchRequest(
+            this,
+            FetchMethod.get,
+            location2,
+            new URLSearchParams(),
+            target
+          );
+          prefetchCache.setLater(location2.toString(), fetchRequest, this.#cacheTtl);
+        }
+      }
+    };
+    #cancelRequestIfObsolete = (event) => {
+      if (event.target === this.#prefetchedLink)
+        this.#cancelPrefetchRequest();
+    };
+    #cancelPrefetchRequest = () => {
+      prefetchCache.clear();
+      this.#prefetchedLink = null;
+    };
+    #tryToUsePrefetchedRequest = (event) => {
+      if (event.target.tagName !== "FORM" && event.detail.fetchOptions.method === "get") {
+        const cached = prefetchCache.get(event.detail.url.toString());
+        if (cached) {
+          event.detail.fetchRequest = cached;
+        }
+        prefetchCache.clear();
+      }
+    };
+    prepareRequest(request) {
+      const link = request.target;
+      request.headers["X-Sec-Purpose"] = "prefetch";
+      const turboFrame = link.closest("turbo-frame");
+      const turboFrameTarget = link.getAttribute("data-turbo-frame") || turboFrame?.getAttribute("target") || turboFrame?.id;
+      if (turboFrameTarget && turboFrameTarget !== "_top") {
+        request.headers["Turbo-Frame"] = turboFrameTarget;
+      }
+    }
+    // Fetch request interface
+    requestSucceededWithResponse() {
+    }
+    requestStarted(fetchRequest) {
+    }
+    requestErrored(fetchRequest) {
+    }
+    requestFinished(fetchRequest) {
+    }
+    requestPreventedHandlingResponse(fetchRequest, fetchResponse) {
+    }
+    requestFailedWithResponse(fetchRequest, fetchResponse) {
+    }
+    get #cacheTtl() {
+      return Number(getMetaContent("turbo-prefetch-cache-time")) || cacheTtl;
+    }
+    #isPrefetchable(link) {
+      const href = link.getAttribute("href");
+      if (!href)
+        return false;
+      if (unfetchableLink(link))
+        return false;
+      if (linkToTheSamePage(link))
+        return false;
+      if (linkOptsOut(link))
+        return false;
+      if (nonSafeLink(link))
+        return false;
+      if (eventPrevented(link))
+        return false;
+      return true;
+    }
+  };
+  var unfetchableLink = (link) => {
+    return link.origin !== document.location.origin || !["http:", "https:"].includes(link.protocol) || link.hasAttribute("target");
+  };
+  var linkToTheSamePage = (link) => {
+    return link.pathname + link.search === document.location.pathname + document.location.search || link.href.startsWith("#");
+  };
+  var linkOptsOut = (link) => {
+    if (link.getAttribute("data-turbo-prefetch") === "false")
+      return true;
+    if (link.getAttribute("data-turbo") === "false")
+      return true;
+    const turboPrefetchParent = findClosestRecursively(link, "[data-turbo-prefetch]");
+    if (turboPrefetchParent && turboPrefetchParent.getAttribute("data-turbo-prefetch") === "false")
+      return true;
+    return false;
+  };
+  var nonSafeLink = (link) => {
+    const turboMethod = link.getAttribute("data-turbo-method");
+    if (turboMethod && turboMethod.toLowerCase() !== "get")
+      return true;
+    if (isUJS(link))
+      return true;
+    if (link.hasAttribute("data-turbo-confirm"))
+      return true;
+    if (link.hasAttribute("data-turbo-stream"))
+      return true;
+    return false;
+  };
+  var isUJS = (link) => {
+    return link.hasAttribute("data-remote") || link.hasAttribute("data-behavior") || link.hasAttribute("data-confirm") || link.hasAttribute("data-method");
+  };
+  var eventPrevented = (link) => {
+    const event = dispatch("turbo:before-prefetch", { target: link, cancelable: true });
+    return event.defaultPrevented;
+  };
   var Navigator = class {
     constructor(delegate) {
       this.delegate = delegate;
     }
     proposeVisit(location2, options = {}) {
       if (this.delegate.allowsVisitingLocationWithAction(location2, options.action)) {
-        if (locationIsVisitable(location2, this.view.snapshot.rootLocation)) {
-          this.delegate.visitProposedToLocation(location2, options);
-        } else {
-          window.location.href = location2.toString();
-        }
+        this.delegate.visitProposedToLocation(location2, options);
       }
     }
     startVisit(locatable, restorationIdentifier, options = {}) {
       this.stop();
-      this.currentVisit = new Visit(this, expandURL(locatable), restorationIdentifier, Object.assign({ referrer: this.location }, options));
+      this.currentVisit = new Visit(this, expandURL(locatable), restorationIdentifier, {
+        referrer: this.location,
+        ...options
+      });
       this.currentVisit.start();
     }
     submitForm(form, submitter) {
@@ -47861,9 +48371,13 @@ img.ProseMirror-separator {
     get view() {
       return this.delegate.view;
     }
+    get rootLocation() {
+      return this.view.snapshot.rootLocation;
+    }
     get history() {
       return this.delegate.history;
     }
+    // Form submission delegate
     formSubmissionStarted(formSubmission) {
       if (typeof this.adapter.formSubmissionStarted === "function") {
         this.adapter.formSubmissionStarted(formSubmission);
@@ -47878,7 +48392,7 @@ img.ProseMirror-separator {
             this.view.clearSnapshotCache();
           }
           const { statusCode, redirected } = fetchResponse;
-          const action = this.getActionForFormSubmission(formSubmission);
+          const action = this.#getActionForFormSubmission(formSubmission, fetchResponse);
           const visitOptions = {
             action,
             shouldCacheSnapshot,
@@ -47897,7 +48411,9 @@ img.ProseMirror-separator {
         } else {
           await this.view.renderPage(snapshot, false, true, this.currentVisit);
         }
-        this.view.scrollToTop();
+        if (!snapshot.shouldPreserveScrollPosition) {
+          this.view.scrollToTop();
+        }
         this.view.clearSnapshotCache();
       }
     }
@@ -47909,6 +48425,7 @@ img.ProseMirror-separator {
         this.adapter.formSubmissionFinished(formSubmission);
       }
     }
+    // Visit delegate
     visitStarted(visit2) {
       this.delegate.visitStarted(visit2);
     }
@@ -47924,38 +48441,32 @@ img.ProseMirror-separator {
     visitScrolledToSamePageLocation(oldURL, newURL) {
       this.delegate.visitScrolledToSamePageLocation(oldURL, newURL);
     }
+    // Visits
     get location() {
       return this.history.location;
     }
     get restorationIdentifier() {
       return this.history.restorationIdentifier;
     }
-    getActionForFormSubmission({ submitter, formElement }) {
-      return getVisitAction(submitter, formElement) || "advance";
+    #getActionForFormSubmission(formSubmission, fetchResponse) {
+      const { submitter, formElement } = formSubmission;
+      return getVisitAction(submitter, formElement) || this.#getDefaultAction(fetchResponse);
+    }
+    #getDefaultAction(fetchResponse) {
+      const sameLocationRedirect = fetchResponse.redirected && fetchResponse.location.href === this.location?.href;
+      return sameLocationRedirect ? "replace" : "advance";
     }
   };
-  var PageStage;
-  (function(PageStage2) {
-    PageStage2[PageStage2["initial"] = 0] = "initial";
-    PageStage2[PageStage2["loading"] = 1] = "loading";
-    PageStage2[PageStage2["interactive"] = 2] = "interactive";
-    PageStage2[PageStage2["complete"] = 3] = "complete";
-  })(PageStage || (PageStage = {}));
+  var PageStage = {
+    initial: 0,
+    loading: 1,
+    interactive: 2,
+    complete: 3
+  };
   var PageObserver = class {
+    stage = PageStage.initial;
+    started = false;
     constructor(delegate) {
-      this.stage = PageStage.initial;
-      this.started = false;
-      this.interpretReadyState = () => {
-        const { readyState } = this;
-        if (readyState == "interactive") {
-          this.pageIsInteractive();
-        } else if (readyState == "complete") {
-          this.pageIsComplete();
-        }
-      };
-      this.pageWillUnload = () => {
-        this.delegate.pageWillUnload();
-      };
       this.delegate = delegate;
     }
     start() {
@@ -47975,6 +48486,14 @@ img.ProseMirror-separator {
         this.started = false;
       }
     }
+    interpretReadyState = () => {
+      const { readyState } = this;
+      if (readyState == "interactive") {
+        this.pageIsInteractive();
+      } else if (readyState == "complete") {
+        this.pageIsComplete();
+      }
+    };
     pageIsInteractive() {
       if (this.stage == PageStage.loading) {
         this.stage = PageStage.interactive;
@@ -47988,16 +48507,16 @@ img.ProseMirror-separator {
         this.delegate.pageLoaded();
       }
     }
+    pageWillUnload = () => {
+      this.delegate.pageWillUnload();
+    };
     get readyState() {
       return document.readyState;
     }
   };
   var ScrollObserver = class {
+    started = false;
     constructor(delegate) {
-      this.started = false;
-      this.onScroll = () => {
-        this.updatePosition({ x: window.pageXOffset, y: window.pageYOffset });
-      };
       this.delegate = delegate;
     }
     start() {
@@ -48013,14 +48532,25 @@ img.ProseMirror-separator {
         this.started = false;
       }
     }
+    onScroll = () => {
+      this.updatePosition({ x: window.pageXOffset, y: window.pageYOffset });
+    };
+    // Private
     updatePosition(position) {
       this.delegate.scrollPositionChanged(position);
     }
   };
   var StreamMessageRenderer = class {
     render({ fragment }) {
-      Bardo.preservingPermanentElements(this, getPermanentElementMapForFragment(fragment), () => document.documentElement.appendChild(fragment));
+      Bardo.preservingPermanentElements(this, getPermanentElementMapForFragment(fragment), () => {
+        withAutofocusFromFragment(fragment, () => {
+          withPreservedFocus(() => {
+            document.documentElement.appendChild(fragment);
+          });
+        });
+      });
     }
+    // Bardo delegate
     enteringBardo(currentPermanentElement, newPermanentElement) {
       newPermanentElement.replaceWith(currentPermanentElement.cloneNode(true));
     }
@@ -48041,33 +48571,65 @@ img.ProseMirror-separator {
     }
     return permanentElementMap;
   }
+  async function withAutofocusFromFragment(fragment, callback2) {
+    const generatedID = `turbo-stream-autofocus-${uuid()}`;
+    const turboStreams = fragment.querySelectorAll("turbo-stream");
+    const elementWithAutofocus = firstAutofocusableElementInStreams(turboStreams);
+    let willAutofocusId = null;
+    if (elementWithAutofocus) {
+      if (elementWithAutofocus.id) {
+        willAutofocusId = elementWithAutofocus.id;
+      } else {
+        willAutofocusId = generatedID;
+      }
+      elementWithAutofocus.id = willAutofocusId;
+    }
+    callback2();
+    await nextRepaint();
+    const hasNoActiveElement = document.activeElement == null || document.activeElement == document.body;
+    if (hasNoActiveElement && willAutofocusId) {
+      const elementToAutofocus = document.getElementById(willAutofocusId);
+      if (elementIsFocusable(elementToAutofocus)) {
+        elementToAutofocus.focus();
+      }
+      if (elementToAutofocus && elementToAutofocus.id == generatedID) {
+        elementToAutofocus.removeAttribute("id");
+      }
+    }
+  }
+  async function withPreservedFocus(callback2) {
+    const [activeElementBeforeRender, activeElementAfterRender] = await around(callback2, () => document.activeElement);
+    const restoreFocusTo = activeElementBeforeRender && activeElementBeforeRender.id;
+    if (restoreFocusTo) {
+      const elementToFocus = document.getElementById(restoreFocusTo);
+      if (elementIsFocusable(elementToFocus) && elementToFocus != activeElementAfterRender) {
+        elementToFocus.focus();
+      }
+    }
+  }
+  function firstAutofocusableElementInStreams(nodeListOfStreamElements) {
+    for (const streamElement of nodeListOfStreamElements) {
+      const elementWithAutofocus = queryAutofocusableElement(streamElement.templateElement.content);
+      if (elementWithAutofocus)
+        return elementWithAutofocus;
+    }
+    return null;
+  }
   var StreamObserver = class {
+    sources = /* @__PURE__ */ new Set();
+    #started = false;
     constructor(delegate) {
-      this.sources = /* @__PURE__ */ new Set();
-      this.started = false;
-      this.inspectFetchResponse = (event) => {
-        const response = fetchResponseFromEvent(event);
-        if (response && fetchResponseIsStream(response)) {
-          event.preventDefault();
-          this.receiveMessageResponse(response);
-        }
-      };
-      this.receiveMessageEvent = (event) => {
-        if (this.started && typeof event.data == "string") {
-          this.receiveMessageHTML(event.data);
-        }
-      };
       this.delegate = delegate;
     }
     start() {
-      if (!this.started) {
-        this.started = true;
+      if (!this.#started) {
+        this.#started = true;
         addEventListener("turbo:before-fetch-response", this.inspectFetchResponse, false);
       }
     }
     stop() {
-      if (this.started) {
-        this.started = false;
+      if (this.#started) {
+        this.#started = false;
         removeEventListener("turbo:before-fetch-response", this.inspectFetchResponse, false);
       }
     }
@@ -48086,6 +48648,18 @@ img.ProseMirror-separator {
     streamSourceIsConnected(source2) {
       return this.sources.has(source2);
     }
+    inspectFetchResponse = (event) => {
+      const response = fetchResponseFromEvent(event);
+      if (response && fetchResponseIsStream(response)) {
+        event.preventDefault();
+        this.receiveMessageResponse(response);
+      }
+    };
+    receiveMessageEvent = (event) => {
+      if (this.#started && typeof event.data == "string") {
+        this.receiveMessageHTML(event.data);
+      }
+    };
     async receiveMessageResponse(response) {
       const html = await response.responseHTML;
       if (html) {
@@ -48097,15 +48671,13 @@ img.ProseMirror-separator {
     }
   };
   function fetchResponseFromEvent(event) {
-    var _a;
-    const fetchResponse = (_a = event.detail) === null || _a === void 0 ? void 0 : _a.fetchResponse;
+    const fetchResponse = event.detail?.fetchResponse;
     if (fetchResponse instanceof FetchResponse) {
       return fetchResponse;
     }
   }
   function fetchResponseIsStream(response) {
-    var _a;
-    const contentType = (_a = response.contentType) !== null && _a !== void 0 ? _a : "";
+    const contentType = response.contentType ?? "";
     return contentType.startsWith(StreamMessage.contentType);
   }
   var ErrorRenderer = class extends Renderer {
@@ -48138,6 +48710,553 @@ img.ProseMirror-separator {
       return document.documentElement.querySelectorAll("script");
     }
   };
+  var Idiomorph = /* @__PURE__ */ function() {
+    let EMPTY_SET = /* @__PURE__ */ new Set();
+    let defaults5 = {
+      morphStyle: "outerHTML",
+      callbacks: {
+        beforeNodeAdded: noOp,
+        afterNodeAdded: noOp,
+        beforeNodeMorphed: noOp,
+        afterNodeMorphed: noOp,
+        beforeNodeRemoved: noOp,
+        afterNodeRemoved: noOp,
+        beforeAttributeUpdated: noOp
+      },
+      head: {
+        style: "merge",
+        shouldPreserve: function(elt) {
+          return elt.getAttribute("im-preserve") === "true";
+        },
+        shouldReAppend: function(elt) {
+          return elt.getAttribute("im-re-append") === "true";
+        },
+        shouldRemove: noOp,
+        afterHeadMorphed: noOp
+      }
+    };
+    function morph(oldNode, newContent, config = {}) {
+      if (oldNode instanceof Document) {
+        oldNode = oldNode.documentElement;
+      }
+      if (typeof newContent === "string") {
+        newContent = parseContent(newContent);
+      }
+      let normalizedContent = normalizeContent(newContent);
+      let ctx = createMorphContext(oldNode, normalizedContent, config);
+      return morphNormalizedContent(oldNode, normalizedContent, ctx);
+    }
+    function morphNormalizedContent(oldNode, normalizedNewContent, ctx) {
+      if (ctx.head.block) {
+        let oldHead = oldNode.querySelector("head");
+        let newHead = normalizedNewContent.querySelector("head");
+        if (oldHead && newHead) {
+          let promises = handleHeadElement(newHead, oldHead, ctx);
+          Promise.all(promises).then(function() {
+            morphNormalizedContent(oldNode, normalizedNewContent, Object.assign(ctx, {
+              head: {
+                block: false,
+                ignore: true
+              }
+            }));
+          });
+          return;
+        }
+      }
+      if (ctx.morphStyle === "innerHTML") {
+        morphChildren(normalizedNewContent, oldNode, ctx);
+        return oldNode.children;
+      } else if (ctx.morphStyle === "outerHTML" || ctx.morphStyle == null) {
+        let bestMatch = findBestNodeMatch(normalizedNewContent, oldNode, ctx);
+        let previousSibling2 = bestMatch?.previousSibling;
+        let nextSibling2 = bestMatch?.nextSibling;
+        let morphedNode = morphOldNodeTo(oldNode, bestMatch, ctx);
+        if (bestMatch) {
+          return insertSiblings(previousSibling2, morphedNode, nextSibling2);
+        } else {
+          return [];
+        }
+      } else {
+        throw "Do not understand how to morph style " + ctx.morphStyle;
+      }
+    }
+    function ignoreValueOfActiveElement(possibleActiveElement, ctx) {
+      return ctx.ignoreActiveValue && possibleActiveElement === document.activeElement && possibleActiveElement !== document.body;
+    }
+    function morphOldNodeTo(oldNode, newContent, ctx) {
+      if (ctx.ignoreActive && oldNode === document.activeElement)
+        ;
+      else if (newContent == null) {
+        if (ctx.callbacks.beforeNodeRemoved(oldNode) === false)
+          return oldNode;
+        oldNode.remove();
+        ctx.callbacks.afterNodeRemoved(oldNode);
+        return null;
+      } else if (!isSoftMatch(oldNode, newContent)) {
+        if (ctx.callbacks.beforeNodeRemoved(oldNode) === false)
+          return oldNode;
+        if (ctx.callbacks.beforeNodeAdded(newContent) === false)
+          return oldNode;
+        oldNode.parentElement.replaceChild(newContent, oldNode);
+        ctx.callbacks.afterNodeAdded(newContent);
+        ctx.callbacks.afterNodeRemoved(oldNode);
+        return newContent;
+      } else {
+        if (ctx.callbacks.beforeNodeMorphed(oldNode, newContent) === false)
+          return oldNode;
+        if (oldNode instanceof HTMLHeadElement && ctx.head.ignore)
+          ;
+        else if (oldNode instanceof HTMLHeadElement && ctx.head.style !== "morph") {
+          handleHeadElement(newContent, oldNode, ctx);
+        } else {
+          syncNodeFrom(newContent, oldNode, ctx);
+          if (!ignoreValueOfActiveElement(oldNode, ctx)) {
+            morphChildren(newContent, oldNode, ctx);
+          }
+        }
+        ctx.callbacks.afterNodeMorphed(oldNode, newContent);
+        return oldNode;
+      }
+    }
+    function morphChildren(newParent, oldParent, ctx) {
+      let nextNewChild = newParent.firstChild;
+      let insertionPoint = oldParent.firstChild;
+      let newChild;
+      while (nextNewChild) {
+        newChild = nextNewChild;
+        nextNewChild = newChild.nextSibling;
+        if (insertionPoint == null) {
+          if (ctx.callbacks.beforeNodeAdded(newChild) === false)
+            return;
+          oldParent.appendChild(newChild);
+          ctx.callbacks.afterNodeAdded(newChild);
+          removeIdsFromConsideration(ctx, newChild);
+          continue;
+        }
+        if (isIdSetMatch(newChild, insertionPoint, ctx)) {
+          morphOldNodeTo(insertionPoint, newChild, ctx);
+          insertionPoint = insertionPoint.nextSibling;
+          removeIdsFromConsideration(ctx, newChild);
+          continue;
+        }
+        let idSetMatch = findIdSetMatch(newParent, oldParent, newChild, insertionPoint, ctx);
+        if (idSetMatch) {
+          insertionPoint = removeNodesBetween(insertionPoint, idSetMatch, ctx);
+          morphOldNodeTo(idSetMatch, newChild, ctx);
+          removeIdsFromConsideration(ctx, newChild);
+          continue;
+        }
+        let softMatch = findSoftMatch(newParent, oldParent, newChild, insertionPoint, ctx);
+        if (softMatch) {
+          insertionPoint = removeNodesBetween(insertionPoint, softMatch, ctx);
+          morphOldNodeTo(softMatch, newChild, ctx);
+          removeIdsFromConsideration(ctx, newChild);
+          continue;
+        }
+        if (ctx.callbacks.beforeNodeAdded(newChild) === false)
+          return;
+        oldParent.insertBefore(newChild, insertionPoint);
+        ctx.callbacks.afterNodeAdded(newChild);
+        removeIdsFromConsideration(ctx, newChild);
+      }
+      while (insertionPoint !== null) {
+        let tempNode = insertionPoint;
+        insertionPoint = insertionPoint.nextSibling;
+        removeNode(tempNode, ctx);
+      }
+    }
+    function ignoreAttribute(attr, to2, updateType, ctx) {
+      if (attr === "value" && ctx.ignoreActiveValue && to2 === document.activeElement) {
+        return true;
+      }
+      return ctx.callbacks.beforeAttributeUpdated(attr, to2, updateType) === false;
+    }
+    function syncNodeFrom(from3, to2, ctx) {
+      let type = from3.nodeType;
+      if (type === 1) {
+        const fromAttributes = from3.attributes;
+        const toAttributes = to2.attributes;
+        for (const fromAttribute of fromAttributes) {
+          if (ignoreAttribute(fromAttribute.name, to2, "update", ctx)) {
+            continue;
+          }
+          if (to2.getAttribute(fromAttribute.name) !== fromAttribute.value) {
+            to2.setAttribute(fromAttribute.name, fromAttribute.value);
+          }
+        }
+        for (let i = toAttributes.length - 1; 0 <= i; i--) {
+          const toAttribute = toAttributes[i];
+          if (ignoreAttribute(toAttribute.name, to2, "remove", ctx)) {
+            continue;
+          }
+          if (!from3.hasAttribute(toAttribute.name)) {
+            to2.removeAttribute(toAttribute.name);
+          }
+        }
+      }
+      if (type === 8 || type === 3) {
+        if (to2.nodeValue !== from3.nodeValue) {
+          to2.nodeValue = from3.nodeValue;
+        }
+      }
+      if (!ignoreValueOfActiveElement(to2, ctx)) {
+        syncInputValue(from3, to2, ctx);
+      }
+    }
+    function syncBooleanAttribute(from3, to2, attributeName, ctx) {
+      if (from3[attributeName] !== to2[attributeName]) {
+        let ignoreUpdate = ignoreAttribute(attributeName, to2, "update", ctx);
+        if (!ignoreUpdate) {
+          to2[attributeName] = from3[attributeName];
+        }
+        if (from3[attributeName]) {
+          if (!ignoreUpdate) {
+            to2.setAttribute(attributeName, from3[attributeName]);
+          }
+        } else {
+          if (!ignoreAttribute(attributeName, to2, "remove", ctx)) {
+            to2.removeAttribute(attributeName);
+          }
+        }
+      }
+    }
+    function syncInputValue(from3, to2, ctx) {
+      if (from3 instanceof HTMLInputElement && to2 instanceof HTMLInputElement && from3.type !== "file") {
+        let fromValue = from3.value;
+        let toValue = to2.value;
+        syncBooleanAttribute(from3, to2, "checked", ctx);
+        syncBooleanAttribute(from3, to2, "disabled", ctx);
+        if (!from3.hasAttribute("value")) {
+          if (!ignoreAttribute("value", to2, "remove", ctx)) {
+            to2.value = "";
+            to2.removeAttribute("value");
+          }
+        } else if (fromValue !== toValue) {
+          if (!ignoreAttribute("value", to2, "update", ctx)) {
+            to2.setAttribute("value", fromValue);
+            to2.value = fromValue;
+          }
+        }
+      } else if (from3 instanceof HTMLOptionElement) {
+        syncBooleanAttribute(from3, to2, "selected", ctx);
+      } else if (from3 instanceof HTMLTextAreaElement && to2 instanceof HTMLTextAreaElement) {
+        let fromValue = from3.value;
+        let toValue = to2.value;
+        if (ignoreAttribute("value", to2, "update", ctx)) {
+          return;
+        }
+        if (fromValue !== toValue) {
+          to2.value = fromValue;
+        }
+        if (to2.firstChild && to2.firstChild.nodeValue !== fromValue) {
+          to2.firstChild.nodeValue = fromValue;
+        }
+      }
+    }
+    function handleHeadElement(newHeadTag, currentHead, ctx) {
+      let added = [];
+      let removed = [];
+      let preserved = [];
+      let nodesToAppend = [];
+      let headMergeStyle = ctx.head.style;
+      let srcToNewHeadNodes = /* @__PURE__ */ new Map();
+      for (const newHeadChild of newHeadTag.children) {
+        srcToNewHeadNodes.set(newHeadChild.outerHTML, newHeadChild);
+      }
+      for (const currentHeadElt of currentHead.children) {
+        let inNewContent = srcToNewHeadNodes.has(currentHeadElt.outerHTML);
+        let isReAppended = ctx.head.shouldReAppend(currentHeadElt);
+        let isPreserved = ctx.head.shouldPreserve(currentHeadElt);
+        if (inNewContent || isPreserved) {
+          if (isReAppended) {
+            removed.push(currentHeadElt);
+          } else {
+            srcToNewHeadNodes.delete(currentHeadElt.outerHTML);
+            preserved.push(currentHeadElt);
+          }
+        } else {
+          if (headMergeStyle === "append") {
+            if (isReAppended) {
+              removed.push(currentHeadElt);
+              nodesToAppend.push(currentHeadElt);
+            }
+          } else {
+            if (ctx.head.shouldRemove(currentHeadElt) !== false) {
+              removed.push(currentHeadElt);
+            }
+          }
+        }
+      }
+      nodesToAppend.push(...srcToNewHeadNodes.values());
+      let promises = [];
+      for (const newNode2 of nodesToAppend) {
+        let newElt = document.createRange().createContextualFragment(newNode2.outerHTML).firstChild;
+        if (ctx.callbacks.beforeNodeAdded(newElt) !== false) {
+          if (newElt.href || newElt.src) {
+            let resolve2 = null;
+            let promise = new Promise(function(_resolve2) {
+              resolve2 = _resolve2;
+            });
+            newElt.addEventListener("load", function() {
+              resolve2();
+            });
+            promises.push(promise);
+          }
+          currentHead.appendChild(newElt);
+          ctx.callbacks.afterNodeAdded(newElt);
+          added.push(newElt);
+        }
+      }
+      for (const removedElement of removed) {
+        if (ctx.callbacks.beforeNodeRemoved(removedElement) !== false) {
+          currentHead.removeChild(removedElement);
+          ctx.callbacks.afterNodeRemoved(removedElement);
+        }
+      }
+      ctx.head.afterHeadMorphed(currentHead, { added, kept: preserved, removed });
+      return promises;
+    }
+    function noOp() {
+    }
+    function mergeDefaults(config) {
+      let finalConfig = {};
+      Object.assign(finalConfig, defaults5);
+      Object.assign(finalConfig, config);
+      finalConfig.callbacks = {};
+      Object.assign(finalConfig.callbacks, defaults5.callbacks);
+      Object.assign(finalConfig.callbacks, config.callbacks);
+      finalConfig.head = {};
+      Object.assign(finalConfig.head, defaults5.head);
+      Object.assign(finalConfig.head, config.head);
+      return finalConfig;
+    }
+    function createMorphContext(oldNode, newContent, config) {
+      config = mergeDefaults(config);
+      return {
+        target: oldNode,
+        newContent,
+        config,
+        morphStyle: config.morphStyle,
+        ignoreActive: config.ignoreActive,
+        ignoreActiveValue: config.ignoreActiveValue,
+        idMap: createIdMap(oldNode, newContent),
+        deadIds: /* @__PURE__ */ new Set(),
+        callbacks: config.callbacks,
+        head: config.head
+      };
+    }
+    function isIdSetMatch(node1, node2, ctx) {
+      if (node1 == null || node2 == null) {
+        return false;
+      }
+      if (node1.nodeType === node2.nodeType && node1.tagName === node2.tagName) {
+        if (node1.id !== "" && node1.id === node2.id) {
+          return true;
+        } else {
+          return getIdIntersectionCount(ctx, node1, node2) > 0;
+        }
+      }
+      return false;
+    }
+    function isSoftMatch(node1, node2) {
+      if (node1 == null || node2 == null) {
+        return false;
+      }
+      return node1.nodeType === node2.nodeType && node1.tagName === node2.tagName;
+    }
+    function removeNodesBetween(startInclusive, endExclusive, ctx) {
+      while (startInclusive !== endExclusive) {
+        let tempNode = startInclusive;
+        startInclusive = startInclusive.nextSibling;
+        removeNode(tempNode, ctx);
+      }
+      removeIdsFromConsideration(ctx, endExclusive);
+      return endExclusive.nextSibling;
+    }
+    function findIdSetMatch(newContent, oldParent, newChild, insertionPoint, ctx) {
+      let newChildPotentialIdCount = getIdIntersectionCount(ctx, newChild, oldParent);
+      let potentialMatch = null;
+      if (newChildPotentialIdCount > 0) {
+        let potentialMatch2 = insertionPoint;
+        let otherMatchCount = 0;
+        while (potentialMatch2 != null) {
+          if (isIdSetMatch(newChild, potentialMatch2, ctx)) {
+            return potentialMatch2;
+          }
+          otherMatchCount += getIdIntersectionCount(ctx, potentialMatch2, newContent);
+          if (otherMatchCount > newChildPotentialIdCount) {
+            return null;
+          }
+          potentialMatch2 = potentialMatch2.nextSibling;
+        }
+      }
+      return potentialMatch;
+    }
+    function findSoftMatch(newContent, oldParent, newChild, insertionPoint, ctx) {
+      let potentialSoftMatch = insertionPoint;
+      let nextSibling2 = newChild.nextSibling;
+      let siblingSoftMatchCount = 0;
+      while (potentialSoftMatch != null) {
+        if (getIdIntersectionCount(ctx, potentialSoftMatch, newContent) > 0) {
+          return null;
+        }
+        if (isSoftMatch(newChild, potentialSoftMatch)) {
+          return potentialSoftMatch;
+        }
+        if (isSoftMatch(nextSibling2, potentialSoftMatch)) {
+          siblingSoftMatchCount++;
+          nextSibling2 = nextSibling2.nextSibling;
+          if (siblingSoftMatchCount >= 2) {
+            return null;
+          }
+        }
+        potentialSoftMatch = potentialSoftMatch.nextSibling;
+      }
+      return potentialSoftMatch;
+    }
+    function parseContent(newContent) {
+      let parser = new DOMParser();
+      let contentWithSvgsRemoved = newContent.replace(/<svg(\s[^>]*>|>)([\s\S]*?)<\/svg>/gim, "");
+      if (contentWithSvgsRemoved.match(/<\/html>/) || contentWithSvgsRemoved.match(/<\/head>/) || contentWithSvgsRemoved.match(/<\/body>/)) {
+        let content = parser.parseFromString(newContent, "text/html");
+        if (contentWithSvgsRemoved.match(/<\/html>/)) {
+          content.generatedByIdiomorph = true;
+          return content;
+        } else {
+          let htmlElement = content.firstChild;
+          if (htmlElement) {
+            htmlElement.generatedByIdiomorph = true;
+            return htmlElement;
+          } else {
+            return null;
+          }
+        }
+      } else {
+        let responseDoc = parser.parseFromString("<body><template>" + newContent + "</template></body>", "text/html");
+        let content = responseDoc.body.querySelector("template").content;
+        content.generatedByIdiomorph = true;
+        return content;
+      }
+    }
+    function normalizeContent(newContent) {
+      if (newContent == null) {
+        const dummyParent = document.createElement("div");
+        return dummyParent;
+      } else if (newContent.generatedByIdiomorph) {
+        return newContent;
+      } else if (newContent instanceof Node) {
+        const dummyParent = document.createElement("div");
+        dummyParent.append(newContent);
+        return dummyParent;
+      } else {
+        const dummyParent = document.createElement("div");
+        for (const elt of [...newContent]) {
+          dummyParent.append(elt);
+        }
+        return dummyParent;
+      }
+    }
+    function insertSiblings(previousSibling2, morphedNode, nextSibling2) {
+      let stack = [];
+      let added = [];
+      while (previousSibling2 != null) {
+        stack.push(previousSibling2);
+        previousSibling2 = previousSibling2.previousSibling;
+      }
+      while (stack.length > 0) {
+        let node = stack.pop();
+        added.push(node);
+        morphedNode.parentElement.insertBefore(node, morphedNode);
+      }
+      added.push(morphedNode);
+      while (nextSibling2 != null) {
+        stack.push(nextSibling2);
+        added.push(nextSibling2);
+        nextSibling2 = nextSibling2.nextSibling;
+      }
+      while (stack.length > 0) {
+        morphedNode.parentElement.insertBefore(stack.pop(), morphedNode.nextSibling);
+      }
+      return added;
+    }
+    function findBestNodeMatch(newContent, oldNode, ctx) {
+      let currentElement;
+      currentElement = newContent.firstChild;
+      let bestElement = currentElement;
+      let score = 0;
+      while (currentElement) {
+        let newScore = scoreElement(currentElement, oldNode, ctx);
+        if (newScore > score) {
+          bestElement = currentElement;
+          score = newScore;
+        }
+        currentElement = currentElement.nextSibling;
+      }
+      return bestElement;
+    }
+    function scoreElement(node1, node2, ctx) {
+      if (isSoftMatch(node1, node2)) {
+        return 0.5 + getIdIntersectionCount(ctx, node1, node2);
+      }
+      return 0;
+    }
+    function removeNode(tempNode, ctx) {
+      removeIdsFromConsideration(ctx, tempNode);
+      if (ctx.callbacks.beforeNodeRemoved(tempNode) === false)
+        return;
+      tempNode.remove();
+      ctx.callbacks.afterNodeRemoved(tempNode);
+    }
+    function isIdInConsideration(ctx, id) {
+      return !ctx.deadIds.has(id);
+    }
+    function idIsWithinNode(ctx, id, targetNode) {
+      let idSet = ctx.idMap.get(targetNode) || EMPTY_SET;
+      return idSet.has(id);
+    }
+    function removeIdsFromConsideration(ctx, node) {
+      let idSet = ctx.idMap.get(node) || EMPTY_SET;
+      for (const id of idSet) {
+        ctx.deadIds.add(id);
+      }
+    }
+    function getIdIntersectionCount(ctx, node1, node2) {
+      let sourceSet = ctx.idMap.get(node1) || EMPTY_SET;
+      let matchCount = 0;
+      for (const id of sourceSet) {
+        if (isIdInConsideration(ctx, id) && idIsWithinNode(ctx, id, node2)) {
+          ++matchCount;
+        }
+      }
+      return matchCount;
+    }
+    function populateIdMapForNode(node, idMap) {
+      let nodeParent = node.parentElement;
+      let idElements = node.querySelectorAll("[id]");
+      for (const elt of idElements) {
+        let current = elt;
+        while (current !== nodeParent && current != null) {
+          let idSet = idMap.get(current);
+          if (idSet == null) {
+            idSet = /* @__PURE__ */ new Set();
+            idMap.set(current, idSet);
+          }
+          idSet.add(elt.id);
+          current = current.parentElement;
+        }
+      }
+    }
+    function createIdMap(oldContent, newContent) {
+      let idMap = /* @__PURE__ */ new Map();
+      populateIdMapForNode(oldContent, idMap);
+      populateIdMapForNode(newContent, idMap);
+      return idMap;
+    }
+    return {
+      morph,
+      defaults: defaults5
+    };
+  }();
   var PageRenderer = class extends Renderer {
     static renderElement(currentElement, newElement) {
       if (document.body && newElement instanceof HTMLBodyElement) {
@@ -48162,6 +49281,7 @@ img.ProseMirror-separator {
       }
     }
     async prepareToRender() {
+      this.#setLanguage();
       await this.mergeHead();
     }
     async render() {
@@ -48184,12 +49304,24 @@ img.ProseMirror-separator {
     get newElement() {
       return this.newSnapshot.element;
     }
+    #setLanguage() {
+      const { documentElement } = this.currentSnapshot;
+      const { lang } = this.newSnapshot;
+      if (lang) {
+        documentElement.setAttribute("lang", lang);
+      } else {
+        documentElement.removeAttribute("lang");
+      }
+    }
     async mergeHead() {
       const mergedHeadElements = this.mergeProvisionalElements();
       const newStylesheetElements = this.copyNewHeadStylesheetElements();
       this.copyNewHeadScriptElements();
       await mergedHeadElements;
       await newStylesheetElements;
+      if (this.willRender) {
+        this.removeUnusedDynamicStylesheetElements();
+      }
     }
     async replaceBody() {
       await this.preservingPermanentElements(async () => {
@@ -48211,6 +49343,11 @@ img.ProseMirror-separator {
     copyNewHeadScriptElements() {
       for (const element of this.newHeadScriptElements) {
         document.head.appendChild(activateScriptElement(element));
+      }
+    }
+    removeUnusedDynamicStylesheetElements() {
+      for (const element of this.unusedDynamicStylesheetElements) {
+        document.head.removeChild(element);
       }
     }
     async mergeProvisionalElements() {
@@ -48265,6 +49402,14 @@ img.ProseMirror-separator {
     async assignNewBody() {
       await this.renderElement(this.currentElement, this.newElement);
     }
+    get unusedDynamicStylesheetElements() {
+      return this.oldHeadStylesheetElements.filter((element) => {
+        return element.getAttribute("data-turbo-track") === "dynamic";
+      });
+    }
+    get oldHeadStylesheetElements() {
+      return this.currentHeadSnapshot.getStylesheetElementsNotInSnapshot(this.newHeadSnapshot);
+    }
     get newHeadStylesheetElements() {
       return this.newHeadSnapshot.getStylesheetElementsNotInSnapshot(this.currentHeadSnapshot);
     }
@@ -48281,10 +49426,107 @@ img.ProseMirror-separator {
       return this.newElement.querySelectorAll("script");
     }
   };
+  var MorphRenderer = class extends PageRenderer {
+    async render() {
+      if (this.willRender)
+        await this.#morphBody();
+    }
+    get renderMethod() {
+      return "morph";
+    }
+    // Private
+    async #morphBody() {
+      this.#morphElements(this.currentElement, this.newElement);
+      this.#reloadRemoteFrames();
+      dispatch("turbo:morph", {
+        detail: {
+          currentElement: this.currentElement,
+          newElement: this.newElement
+        }
+      });
+    }
+    #morphElements(currentElement, newElement, morphStyle = "outerHTML") {
+      this.isMorphingTurboFrame = this.#isFrameReloadedWithMorph(currentElement);
+      Idiomorph.morph(currentElement, newElement, {
+        morphStyle,
+        callbacks: {
+          beforeNodeAdded: this.#shouldAddElement,
+          beforeNodeMorphed: this.#shouldMorphElement,
+          beforeAttributeUpdated: this.#shouldUpdateAttribute,
+          beforeNodeRemoved: this.#shouldRemoveElement,
+          afterNodeMorphed: this.#didMorphElement
+        }
+      });
+    }
+    #shouldAddElement = (node) => {
+      return !(node.id && node.hasAttribute("data-turbo-permanent") && document.getElementById(node.id));
+    };
+    #shouldMorphElement = (oldNode, newNode2) => {
+      if (oldNode instanceof HTMLElement) {
+        if (!oldNode.hasAttribute("data-turbo-permanent") && (this.isMorphingTurboFrame || !this.#isFrameReloadedWithMorph(oldNode))) {
+          const event = dispatch("turbo:before-morph-element", {
+            cancelable: true,
+            target: oldNode,
+            detail: {
+              newElement: newNode2
+            }
+          });
+          return !event.defaultPrevented;
+        } else {
+          return false;
+        }
+      }
+    };
+    #shouldUpdateAttribute = (attributeName, target, mutationType) => {
+      const event = dispatch("turbo:before-morph-attribute", { cancelable: true, target, detail: { attributeName, mutationType } });
+      return !event.defaultPrevented;
+    };
+    #didMorphElement = (oldNode, newNode2) => {
+      if (newNode2 instanceof HTMLElement) {
+        dispatch("turbo:morph-element", {
+          target: oldNode,
+          detail: {
+            newElement: newNode2
+          }
+        });
+      }
+    };
+    #shouldRemoveElement = (node) => {
+      return this.#shouldMorphElement(node);
+    };
+    #reloadRemoteFrames() {
+      this.#remoteFrames().forEach((frame) => {
+        if (this.#isFrameReloadedWithMorph(frame)) {
+          this.#renderFrameWithMorph(frame);
+          frame.reload();
+        }
+      });
+    }
+    #renderFrameWithMorph(frame) {
+      frame.addEventListener("turbo:before-frame-render", (event) => {
+        event.detail.render = this.#morphFrameUpdate;
+      }, { once: true });
+    }
+    #morphFrameUpdate = (currentElement, newElement) => {
+      dispatch("turbo:before-frame-morph", {
+        target: currentElement,
+        detail: { currentElement, newElement }
+      });
+      this.#morphElements(currentElement, newElement.children, "innerHTML");
+    };
+    #isFrameReloadedWithMorph(element) {
+      return element.src && element.refresh === "morph";
+    }
+    #remoteFrames() {
+      return Array.from(document.querySelectorAll("turbo-frame[src]")).filter((frame) => {
+        return !frame.closest("[data-turbo-permanent]");
+      });
+    }
+  };
   var SnapshotCache = class {
+    keys = [];
+    snapshots = {};
     constructor(size) {
-      this.keys = [];
-      this.snapshots = {};
       this.size = size;
     }
     has(location2) {
@@ -48305,6 +49547,7 @@ img.ProseMirror-separator {
     clear() {
       this.snapshots = {};
     }
+    // Private
     read(location2) {
       return this.snapshots[toCacheKey(location2)];
     }
@@ -48326,23 +49569,25 @@ img.ProseMirror-separator {
     }
   };
   var PageView = class extends View {
-    constructor() {
-      super(...arguments);
-      this.snapshotCache = new SnapshotCache(10);
-      this.lastRenderedLocation = new URL(location.href);
-      this.forceReloaded = false;
+    snapshotCache = new SnapshotCache(10);
+    lastRenderedLocation = new URL(location.href);
+    forceReloaded = false;
+    shouldTransitionTo(newSnapshot) {
+      return this.snapshot.prefersViewTransitions && newSnapshot.prefersViewTransitions;
     }
     renderPage(snapshot, isPreview = false, willRender = true, visit2) {
-      const renderer = new PageRenderer(this.snapshot, snapshot, PageRenderer.renderElement, isPreview, willRender);
+      const shouldMorphPage = this.isPageRefresh(visit2) && this.snapshot.shouldMorphPage;
+      const rendererClass = shouldMorphPage ? MorphRenderer : PageRenderer;
+      const renderer = new rendererClass(this.snapshot, snapshot, PageRenderer.renderElement, isPreview, willRender);
       if (!renderer.shouldRender) {
         this.forceReloaded = true;
       } else {
-        visit2 === null || visit2 === void 0 ? void 0 : visit2.changeHistory();
+        visit2?.changeHistory();
       }
       return this.render(renderer);
     }
     renderError(snapshot, visit2) {
-      visit2 === null || visit2 === void 0 ? void 0 : visit2.changeHistory();
+      visit2?.changeHistory();
       const renderer = new ErrorRenderer(this.snapshot, snapshot, ErrorRenderer.renderElement, false);
       return this.render(renderer);
     }
@@ -48362,30 +49607,37 @@ img.ProseMirror-separator {
     getCachedSnapshotForLocation(location2) {
       return this.snapshotCache.get(location2);
     }
+    isPageRefresh(visit2) {
+      return !visit2 || this.lastRenderedLocation.pathname === visit2.location.pathname && visit2.action === "replace";
+    }
+    shouldPreserveScrollPosition(visit2) {
+      return this.isPageRefresh(visit2) && this.snapshot.shouldPreserveScrollPosition;
+    }
     get snapshot() {
       return PageSnapshot.fromElement(this.element);
     }
   };
   var Preloader = class {
-    constructor(delegate) {
-      this.selector = "a[data-turbo-preload]";
+    selector = "a[data-turbo-preload]";
+    constructor(delegate, snapshotCache) {
       this.delegate = delegate;
-    }
-    get snapshotCache() {
-      return this.delegate.navigator.view.snapshotCache;
+      this.snapshotCache = snapshotCache;
     }
     start() {
       if (document.readyState === "loading") {
-        return document.addEventListener("DOMContentLoaded", () => {
-          this.preloadOnLoadLinksForView(document.body);
-        });
+        document.addEventListener("DOMContentLoaded", this.#preloadAll);
       } else {
         this.preloadOnLoadLinksForView(document.body);
       }
     }
+    stop() {
+      document.removeEventListener("DOMContentLoaded", this.#preloadAll);
+    }
     preloadOnLoadLinksForView(element) {
       for (const link of element.querySelectorAll(this.selector)) {
-        this.preloadURL(link);
+        if (this.delegate.shouldPreloadLink(link)) {
+          this.preloadURL(link);
+        }
       }
     }
     async preloadURL(link) {
@@ -48393,41 +49645,88 @@ img.ProseMirror-separator {
       if (this.snapshotCache.has(location2)) {
         return;
       }
+      const fetchRequest = new FetchRequest(this, FetchMethod.get, location2, new URLSearchParams(), link);
+      await fetchRequest.perform();
+    }
+    // Fetch request delegate
+    prepareRequest(fetchRequest) {
+      fetchRequest.headers["X-Sec-Purpose"] = "prefetch";
+    }
+    async requestSucceededWithResponse(fetchRequest, fetchResponse) {
       try {
-        const response = await fetch(location2.toString(), { headers: { "VND.PREFETCH": "true", Accept: "text/html" } });
-        const responseText = await response.text();
-        const snapshot = PageSnapshot.fromHTMLString(responseText);
-        this.snapshotCache.put(location2, snapshot);
+        const responseHTML = await fetchResponse.responseHTML;
+        const snapshot = PageSnapshot.fromHTMLString(responseHTML);
+        this.snapshotCache.put(fetchRequest.url, snapshot);
       } catch (_) {
       }
     }
+    requestStarted(fetchRequest) {
+    }
+    requestErrored(fetchRequest) {
+    }
+    requestFinished(fetchRequest) {
+    }
+    requestPreventedHandlingResponse(fetchRequest, fetchResponse) {
+    }
+    requestFailedWithResponse(fetchRequest, fetchResponse) {
+    }
+    #preloadAll = () => {
+      this.preloadOnLoadLinksForView(document.body);
+    };
+  };
+  var Cache = class {
+    constructor(session2) {
+      this.session = session2;
+    }
+    clear() {
+      this.session.clearCache();
+    }
+    resetCacheControl() {
+      this.#setCacheControl("");
+    }
+    exemptPageFromCache() {
+      this.#setCacheControl("no-cache");
+    }
+    exemptPageFromPreview() {
+      this.#setCacheControl("no-preview");
+    }
+    #setCacheControl(value) {
+      setMetaContent("turbo-cache-control", value);
+    }
   };
   var Session = class {
-    constructor() {
-      this.navigator = new Navigator(this);
-      this.history = new History(this);
-      this.preloader = new Preloader(this);
-      this.view = new PageView(this, document.documentElement);
-      this.adapter = new BrowserAdapter(this);
-      this.pageObserver = new PageObserver(this);
-      this.cacheObserver = new CacheObserver();
-      this.linkClickObserver = new LinkClickObserver(this, window);
-      this.formSubmitObserver = new FormSubmitObserver(this, document);
-      this.scrollObserver = new ScrollObserver(this);
-      this.streamObserver = new StreamObserver(this);
-      this.formLinkClickObserver = new FormLinkClickObserver(this, document.documentElement);
-      this.frameRedirector = new FrameRedirector(this, document.documentElement);
-      this.streamMessageRenderer = new StreamMessageRenderer();
-      this.drive = true;
-      this.enabled = true;
-      this.progressBarDelay = 500;
-      this.started = false;
-      this.formMode = "on";
+    navigator = new Navigator(this);
+    history = new History(this);
+    view = new PageView(this, document.documentElement);
+    adapter = new BrowserAdapter(this);
+    pageObserver = new PageObserver(this);
+    cacheObserver = new CacheObserver();
+    linkPrefetchObserver = new LinkPrefetchObserver(this, document);
+    linkClickObserver = new LinkClickObserver(this, window);
+    formSubmitObserver = new FormSubmitObserver(this, document);
+    scrollObserver = new ScrollObserver(this);
+    streamObserver = new StreamObserver(this);
+    formLinkClickObserver = new FormLinkClickObserver(this, document.documentElement);
+    frameRedirector = new FrameRedirector(this, document.documentElement);
+    streamMessageRenderer = new StreamMessageRenderer();
+    cache = new Cache(this);
+    drive = true;
+    enabled = true;
+    progressBarDelay = 500;
+    started = false;
+    formMode = "on";
+    #pageRefreshDebouncePeriod = 150;
+    constructor(recentRequests2) {
+      this.recentRequests = recentRequests2;
+      this.preloader = new Preloader(this, this.view.snapshotCache);
+      this.debouncedRefresh = this.refresh;
+      this.pageRefreshDebouncePeriod = this.pageRefreshDebouncePeriod;
     }
     start() {
       if (!this.started) {
         this.pageObserver.start();
         this.cacheObserver.start();
+        this.linkPrefetchObserver.start();
         this.formLinkClickObserver.start();
         this.linkClickObserver.start();
         this.formSubmitObserver.start();
@@ -48447,6 +49746,7 @@ img.ProseMirror-separator {
       if (this.started) {
         this.pageObserver.stop();
         this.cacheObserver.stop();
+        this.linkPrefetchObserver.stop();
         this.formLinkClickObserver.stop();
         this.linkClickObserver.stop();
         this.formSubmitObserver.stop();
@@ -48454,6 +49754,7 @@ img.ProseMirror-separator {
         this.streamObserver.stop();
         this.frameRedirector.stop();
         this.history.stop();
+        this.preloader.stop();
         this.started = false;
       }
     }
@@ -48463,10 +49764,17 @@ img.ProseMirror-separator {
     visit(location2, options = {}) {
       const frameElement = options.frame ? document.getElementById(options.frame) : null;
       if (frameElement instanceof FrameElement) {
+        const action = options.action || getVisitAction(frameElement);
+        frameElement.delegate.proposeVisitIfNavigatedWithAction(frameElement, action);
         frameElement.src = location2.toString();
-        frameElement.loaded;
       } else {
         this.navigator.proposeVisit(expandURL(location2), options);
+      }
+    }
+    refresh(url, requestId) {
+      const isRecentRequest = requestId && this.recentRequests.has(requestId);
+      if (!isRecentRequest) {
+        this.visit(url, { action: "replace", shouldCacheSnapshot: false });
       }
     }
     connectStreamSource(source2) {
@@ -48493,11 +49801,33 @@ img.ProseMirror-separator {
     get restorationIdentifier() {
       return this.history.restorationIdentifier;
     }
-    historyPoppedToLocationWithRestorationIdentifier(location2, restorationIdentifier) {
+    get pageRefreshDebouncePeriod() {
+      return this.#pageRefreshDebouncePeriod;
+    }
+    set pageRefreshDebouncePeriod(value) {
+      this.refresh = debounce(this.debouncedRefresh.bind(this), value);
+      this.#pageRefreshDebouncePeriod = value;
+    }
+    // Preloader delegate
+    shouldPreloadLink(element) {
+      const isUnsafe = element.hasAttribute("data-turbo-method");
+      const isStream = element.hasAttribute("data-turbo-stream");
+      const frameTarget = element.getAttribute("data-turbo-frame");
+      const frame = frameTarget == "_top" ? null : document.getElementById(frameTarget) || findClosestRecursively(element, "turbo-frame:not([disabled])");
+      if (isUnsafe || isStream || frame instanceof FrameElement) {
+        return false;
+      } else {
+        const location2 = new URL(element.href);
+        return this.elementIsNavigatable(element) && locationIsVisitable(location2, this.snapshot.rootLocation);
+      }
+    }
+    // History delegate
+    historyPoppedToLocationWithRestorationIdentifierAndDirection(location2, restorationIdentifier, direction) {
       if (this.enabled) {
         this.navigator.startVisit(location2, restorationIdentifier, {
           action: "restore",
-          historyChanged: true
+          historyChanged: true,
+          direction
         });
       } else {
         this.adapter.pageInvalidated({
@@ -48505,14 +49835,21 @@ img.ProseMirror-separator {
         });
       }
     }
+    // Scroll observer delegate
     scrollPositionChanged(position) {
       this.history.updateRestorationData({ scrollPosition: position });
     }
+    // Form click observer delegate
     willSubmitFormLinkToLocation(link, location2) {
       return this.elementIsNavigatable(link) && locationIsVisitable(location2, this.snapshot.rootLocation);
     }
     submittedFormLinkToLocation() {
     }
+    // Link hover observer delegate
+    canPrefetchRequestToLocation(link, location2) {
+      return this.elementIsNavigatable(link) && locationIsVisitable(location2, this.snapshot.rootLocation);
+    }
+    // Link click observer delegate
     willFollowLinkToLocation(link, location2, event) {
       return this.elementIsNavigatable(link) && locationIsVisitable(location2, this.snapshot.rootLocation) && this.applicationAllowsFollowingLinkToLocation(link, location2, event);
     }
@@ -48521,6 +49858,7 @@ img.ProseMirror-separator {
       const acceptsStreamResponse = link.hasAttribute("data-turbo-stream");
       this.visit(location2.href, { action, acceptsStreamResponse });
     }
+    // Navigator delegate
     allowsVisitingLocationWithAction(location2, action) {
       return this.locationWithActionIsSamePage(location2, action) || this.applicationAllowsVisitingLocation(location2);
     }
@@ -48528,9 +49866,11 @@ img.ProseMirror-separator {
       extendURLWithDeprecatedProperties(location2);
       this.adapter.visitProposedToLocation(location2, options);
     }
+    // Visit delegate
     visitStarted(visit2) {
       if (!visit2.acceptsStreamResponse) {
         markAsBusy(document.documentElement);
+        this.view.markVisitDirection(visit2.direction);
       }
       extendURLWithDeprecatedProperties(visit2.location);
       if (!visit2.silent) {
@@ -48538,6 +49878,7 @@ img.ProseMirror-separator {
       }
     }
     visitCompleted(visit2) {
+      this.view.unmarkVisitDirection();
       clearBusyState(document.documentElement);
       this.notifyApplicationAfterPageLoad(visit2.getTimingMetrics());
     }
@@ -48547,13 +49888,15 @@ img.ProseMirror-separator {
     visitScrolledToSamePageLocation(oldURL, newURL) {
       this.notifyApplicationAfterVisitingSamePageLocation(oldURL, newURL);
     }
+    // Form submit observer delegate
     willSubmitForm(form, submitter) {
-      const action = getAction(form, submitter);
+      const action = getAction$1(form, submitter);
       return this.submissionIsNavigatable(form, submitter) && locationIsVisitable(expandURL(action), this.snapshot.rootLocation);
     }
     formSubmitted(form, submitter) {
       this.navigator.submitForm(form, submitter);
     }
+    // Page observer delegate
     pageBecameInteractive() {
       this.view.lastRenderedLocation = this.location;
       this.notifyApplicationAfterPageLoad();
@@ -48564,26 +49907,30 @@ img.ProseMirror-separator {
     pageWillUnload() {
       this.history.relinquishControlOfScrollRestoration();
     }
+    // Stream observer delegate
     receivedMessageFromStream(message) {
       this.renderStreamMessage(message);
     }
+    // Page view delegate
     viewWillCacheSnapshot() {
-      var _a;
-      if (!((_a = this.navigator.currentVisit) === null || _a === void 0 ? void 0 : _a.silent)) {
+      if (!this.navigator.currentVisit?.silent) {
         this.notifyApplicationBeforeCachingSnapshot();
       }
     }
     allowsImmediateRender({ element }, options) {
       const event = this.notifyApplicationBeforeRender(element, options);
-      const { defaultPrevented, detail: { render: render2 } } = event;
+      const {
+        defaultPrevented,
+        detail: { render: render2 }
+      } = event;
       if (this.view.renderer && render2) {
         this.view.renderer.renderElement = render2;
       }
       return !defaultPrevented;
     }
-    viewRenderedSnapshot(_snapshot, _isPreview) {
+    viewRenderedSnapshot(_snapshot, _isPreview, renderMethod) {
       this.view.lastRenderedLocation = this.history.location;
-      this.notifyApplicationAfterRender();
+      this.notifyApplicationAfterRender(renderMethod);
     }
     preloadOnLoadLinksForView(element) {
       this.preloader.preloadOnLoadLinksForView(element);
@@ -48591,12 +49938,14 @@ img.ProseMirror-separator {
     viewInvalidated(reason) {
       this.adapter.pageInvalidated(reason);
     }
+    // Frame element
     frameLoaded(frame) {
       this.notifyApplicationAfterFrameLoad(frame);
     }
     frameRendered(fetchResponse, frame) {
       this.notifyApplicationAfterFrameRender(fetchResponse, frame);
     }
+    // Application events
     applicationAllowsFollowingLinkToLocation(link, location2, ev) {
       const event = this.notifyApplicationAfterClickingLinkToLocation(link, location2, ev);
       return !event.defaultPrevented;
@@ -48626,12 +49975,12 @@ img.ProseMirror-separator {
     }
     notifyApplicationBeforeRender(newBody, options) {
       return dispatch("turbo:before-render", {
-        detail: Object.assign({ newBody }, options),
+        detail: { newBody, ...options },
         cancelable: true
       });
     }
-    notifyApplicationAfterRender() {
-      return dispatch("turbo:render");
+    notifyApplicationAfterRender(renderMethod) {
+      return dispatch("turbo:render", { detail: { renderMethod } });
     }
     notifyApplicationAfterPageLoad(timing = {}) {
       return dispatch("turbo:load", {
@@ -48639,10 +49988,12 @@ img.ProseMirror-separator {
       });
     }
     notifyApplicationAfterVisitingSamePageLocation(oldURL, newURL) {
-      dispatchEvent(new HashChangeEvent("hashchange", {
-        oldURL: oldURL.toString(),
-        newURL: newURL.toString()
-      }));
+      dispatchEvent(
+        new HashChangeEvent("hashchange", {
+          oldURL: oldURL.toString(),
+          newURL: newURL.toString()
+        })
+      );
     }
     notifyApplicationAfterFrameLoad(frame) {
       return dispatch("turbo:frame-load", { target: frame });
@@ -48654,6 +50005,7 @@ img.ProseMirror-separator {
         cancelable: true
       });
     }
+    // Helpers
     submissionIsNavigatable(form, submitter) {
       if (this.formMode == "off") {
         return false;
@@ -48683,6 +50035,7 @@ img.ProseMirror-separator {
         }
       }
     }
+    // Private
     getActionForLink(link) {
       return getVisitAction(link) || "advance";
     }
@@ -48700,63 +50053,8 @@ img.ProseMirror-separator {
       }
     }
   };
-  var Cache = class {
-    constructor(session2) {
-      this.session = session2;
-    }
-    clear() {
-      this.session.clearCache();
-    }
-    resetCacheControl() {
-      this.setCacheControl("");
-    }
-    exemptPageFromCache() {
-      this.setCacheControl("no-cache");
-    }
-    exemptPageFromPreview() {
-      this.setCacheControl("no-preview");
-    }
-    setCacheControl(value) {
-      setMetaContent("turbo-cache-control", value);
-    }
-  };
-  var StreamActions = {
-    after() {
-      this.targetElements.forEach((e) => {
-        var _a;
-        return (_a = e.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(this.templateContent, e.nextSibling);
-      });
-    },
-    append() {
-      this.removeDuplicateTargetChildren();
-      this.targetElements.forEach((e) => e.append(this.templateContent));
-    },
-    before() {
-      this.targetElements.forEach((e) => {
-        var _a;
-        return (_a = e.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(this.templateContent, e);
-      });
-    },
-    prepend() {
-      this.removeDuplicateTargetChildren();
-      this.targetElements.forEach((e) => e.prepend(this.templateContent));
-    },
-    remove() {
-      this.targetElements.forEach((e) => e.remove());
-    },
-    replace() {
-      this.targetElements.forEach((e) => e.replaceWith(this.templateContent));
-    },
-    update() {
-      this.targetElements.forEach((targetElement) => {
-        targetElement.innerHTML = "";
-        targetElement.append(this.templateContent);
-      });
-    }
-  };
-  var session = new Session();
-  var cache = new Cache(session);
-  var { navigator: navigator$1 } = session;
+  var session = new Session(recentRequests);
+  var { cache, navigator: navigator$1 } = session;
   function start() {
     session.start();
   }
@@ -48776,7 +50074,9 @@ img.ProseMirror-separator {
     session.renderStreamMessage(message);
   }
   function clearCache() {
-    console.warn("Please replace `Turbo.clearCache()` with `Turbo.cache.clear()`. The top-level function is deprecated and will be removed in a future version of Turbo.`");
+    console.warn(
+      "Please replace `Turbo.clearCache()` with `Turbo.cache.clear()`. The top-level function is deprecated and will be removed in a future version of Turbo.`"
+    );
     session.clearCache();
   }
   function setProgressBarDelay(delay) {
@@ -48796,6 +50096,7 @@ img.ProseMirror-separator {
     PageRenderer,
     PageSnapshot,
     FrameRenderer,
+    fetch: fetchWithTurboHeaders,
     start,
     registerAdapter,
     visit,
@@ -48805,29 +50106,20 @@ img.ProseMirror-separator {
     clearCache,
     setProgressBarDelay,
     setConfirmMethod,
-    setFormMode,
-    StreamActions
+    setFormMode
   });
   var TurboFrameMissingError = class extends Error {
   };
   var FrameController = class {
+    fetchResponseLoaded = (_fetchResponse) => Promise.resolve();
+    #currentFetchRequest = null;
+    #resolveVisitPromise = () => {
+    };
+    #connected = false;
+    #hasBeenLoaded = false;
+    #ignoredAttributes = /* @__PURE__ */ new Set();
+    action = null;
     constructor(element) {
-      this.fetchResponseLoaded = (_fetchResponse) => {
-      };
-      this.currentFetchRequest = null;
-      this.resolveVisitPromise = () => {
-      };
-      this.connected = false;
-      this.hasBeenLoaded = false;
-      this.ignoredAttributes = /* @__PURE__ */ new Set();
-      this.action = null;
-      this.visitCachedSnapshot = ({ element: element2 }) => {
-        const frame = element2.querySelector("#" + this.element.id);
-        if (frame && this.previousFrameElement) {
-          frame.replaceChildren(...this.previousFrameElement.children);
-        }
-        delete this.previousFrameElement;
-      };
       this.element = element;
       this.view = new FrameView(this, this.element);
       this.appearanceObserver = new AppearanceObserver(this, this.element);
@@ -48836,13 +50128,14 @@ img.ProseMirror-separator {
       this.restorationIdentifier = uuid();
       this.formSubmitObserver = new FormSubmitObserver(this, this.element);
     }
+    // Frame delegate
     connect() {
-      if (!this.connected) {
-        this.connected = true;
+      if (!this.#connected) {
+        this.#connected = true;
         if (this.loadingStyle == FrameLoadingStyle.lazy) {
           this.appearanceObserver.start();
         } else {
-          this.loadSourceURL();
+          this.#loadSourceURL();
         }
         this.formLinkClickObserver.start();
         this.linkInterceptor.start();
@@ -48850,8 +50143,8 @@ img.ProseMirror-separator {
       }
     }
     disconnect() {
-      if (this.connected) {
-        this.connected = false;
+      if (this.#connected) {
+        this.#connected = false;
         this.appearanceObserver.stop();
         this.formLinkClickObserver.stop();
         this.linkInterceptor.stop();
@@ -48860,47 +50153,40 @@ img.ProseMirror-separator {
     }
     disabledChanged() {
       if (this.loadingStyle == FrameLoadingStyle.eager) {
-        this.loadSourceURL();
+        this.#loadSourceURL();
       }
     }
     sourceURLChanged() {
-      if (this.isIgnoringChangesTo("src"))
+      if (this.#isIgnoringChangesTo("src"))
         return;
       if (this.element.isConnected) {
         this.complete = false;
       }
-      if (this.loadingStyle == FrameLoadingStyle.eager || this.hasBeenLoaded) {
-        this.loadSourceURL();
+      if (this.loadingStyle == FrameLoadingStyle.eager || this.#hasBeenLoaded) {
+        this.#loadSourceURL();
       }
     }
     sourceURLReloaded() {
       const { src } = this.element;
-      this.ignoringChangesToAttribute("complete", () => {
-        this.element.removeAttribute("complete");
-      });
+      this.element.removeAttribute("complete");
       this.element.src = null;
       this.element.src = src;
       return this.element.loaded;
-    }
-    completeChanged() {
-      if (this.isIgnoringChangesTo("complete"))
-        return;
-      this.loadSourceURL();
     }
     loadingStyleChanged() {
       if (this.loadingStyle == FrameLoadingStyle.lazy) {
         this.appearanceObserver.start();
       } else {
         this.appearanceObserver.stop();
-        this.loadSourceURL();
+        this.#loadSourceURL();
       }
     }
-    async loadSourceURL() {
+    async #loadSourceURL() {
       if (this.enabled && this.isActive && !this.complete && this.sourceURL) {
-        this.element.loaded = this.visit(expandURL(this.sourceURL));
+        this.element.loaded = this.#visit(expandURL(this.sourceURL));
         this.appearanceObserver.stop();
         await this.element.loaded;
-        this.hasBeenLoaded = true;
+        this.#hasBeenLoaded = true;
       }
     }
     async loadResponse(fetchResponse) {
@@ -48913,36 +50199,39 @@ img.ProseMirror-separator {
           const document2 = parseHTMLDocument(html);
           const pageSnapshot = PageSnapshot.fromDocument(document2);
           if (pageSnapshot.isVisitable) {
-            await this.loadFrameResponse(fetchResponse, document2);
+            await this.#loadFrameResponse(fetchResponse, document2);
           } else {
-            await this.handleUnvisitableFrameResponse(fetchResponse);
+            await this.#handleUnvisitableFrameResponse(fetchResponse);
           }
         }
       } finally {
-        this.fetchResponseLoaded = () => {
-        };
+        this.fetchResponseLoaded = () => Promise.resolve();
       }
     }
+    // Appearance observer delegate
     elementAppearedInViewport(element) {
-      this.proposeVisitIfNavigatedWithAction(element, element);
-      this.loadSourceURL();
+      this.proposeVisitIfNavigatedWithAction(element, getVisitAction(element));
+      this.#loadSourceURL();
     }
+    // Form link click observer delegate
     willSubmitFormLinkToLocation(link) {
-      return this.shouldInterceptNavigation(link);
+      return this.#shouldInterceptNavigation(link);
     }
     submittedFormLinkToLocation(link, _location, form) {
-      const frame = this.findFrameElement(link);
+      const frame = this.#findFrameElement(link);
       if (frame)
         form.setAttribute("data-turbo-frame", frame.id);
     }
+    // Link interceptor delegate
     shouldInterceptLinkClick(element, _location, _event) {
-      return this.shouldInterceptNavigation(element);
+      return this.#shouldInterceptNavigation(element);
     }
     linkClickIntercepted(element, location2) {
-      this.navigateFrame(element, location2);
+      this.#navigateFrame(element, location2);
     }
+    // Form submit observer delegate
     willSubmitForm(element, submitter) {
-      return element.closest("turbo-frame") == this.element && this.shouldInterceptNavigation(element, submitter);
+      return element.closest("turbo-frame") == this.element && this.#shouldInterceptNavigation(element, submitter);
     }
     formSubmitted(element, submitter) {
       if (this.formSubmission) {
@@ -48953,10 +50242,10 @@ img.ProseMirror-separator {
       this.prepareRequest(fetchRequest);
       this.formSubmission.start();
     }
+    // Fetch request delegate
     prepareRequest(request) {
-      var _a;
       request.headers["Turbo-Frame"] = this.id;
-      if ((_a = this.currentNavigationElement) === null || _a === void 0 ? void 0 : _a.hasAttribute("data-turbo-stream")) {
+      if (this.currentNavigationElement?.hasAttribute("data-turbo-stream")) {
         request.acceptResponseType(StreamMessage.contentType);
       }
     }
@@ -48964,29 +50253,30 @@ img.ProseMirror-separator {
       markAsBusy(this.element);
     }
     requestPreventedHandlingResponse(_request, _response) {
-      this.resolveVisitPromise();
+      this.#resolveVisitPromise();
     }
     async requestSucceededWithResponse(request, response) {
       await this.loadResponse(response);
-      this.resolveVisitPromise();
+      this.#resolveVisitPromise();
     }
     async requestFailedWithResponse(request, response) {
       await this.loadResponse(response);
-      this.resolveVisitPromise();
+      this.#resolveVisitPromise();
     }
     requestErrored(request, error3) {
       console.error(error3);
-      this.resolveVisitPromise();
+      this.#resolveVisitPromise();
     }
     requestFinished(_request) {
       clearBusyState(this.element);
     }
+    // Form submission delegate
     formSubmissionStarted({ formElement }) {
-      markAsBusy(formElement, this.findFrameElement(formElement));
+      markAsBusy(formElement, this.#findFrameElement(formElement));
     }
     formSubmissionSucceededWithResponse(formSubmission, response) {
-      const frame = this.findFrameElement(formSubmission.formElement, formSubmission.submitter);
-      frame.delegate.proposeVisitIfNavigatedWithAction(frame, formSubmission.formElement, formSubmission.submitter);
+      const frame = this.#findFrameElement(formSubmission.formElement, formSubmission.submitter);
+      frame.delegate.proposeVisitIfNavigatedWithAction(frame, getVisitAction(formSubmission.submitter, formSubmission.formElement, frame));
       frame.delegate.loadResponse(response);
       if (!formSubmission.isSafe) {
         session.clearCache();
@@ -49000,31 +50290,44 @@ img.ProseMirror-separator {
       console.error(error3);
     }
     formSubmissionFinished({ formElement }) {
-      clearBusyState(formElement, this.findFrameElement(formElement));
+      clearBusyState(formElement, this.#findFrameElement(formElement));
     }
+    // View delegate
     allowsImmediateRender({ element: newFrame }, options) {
       const event = dispatch("turbo:before-frame-render", {
         target: this.element,
-        detail: Object.assign({ newFrame }, options),
+        detail: { newFrame, ...options },
         cancelable: true
       });
-      const { defaultPrevented, detail: { render: render2 } } = event;
+      const {
+        defaultPrevented,
+        detail: { render: render2 }
+      } = event;
       if (this.view.renderer && render2) {
         this.view.renderer.renderElement = render2;
       }
       return !defaultPrevented;
     }
-    viewRenderedSnapshot(_snapshot, _isPreview) {
+    viewRenderedSnapshot(_snapshot, _isPreview, _renderMethod) {
     }
     preloadOnLoadLinksForView(element) {
       session.preloadOnLoadLinksForView(element);
     }
     viewInvalidated() {
     }
+    // Frame renderer delegate
     willRenderFrame(currentElement, _newElement) {
       this.previousFrameElement = currentElement.cloneNode(true);
     }
-    async loadFrameResponse(fetchResponse, document2) {
+    visitCachedSnapshot = ({ element }) => {
+      const frame = element.querySelector("#" + this.element.id);
+      if (frame && this.previousFrameElement) {
+        frame.replaceChildren(...this.previousFrameElement.children);
+      }
+      delete this.previousFrameElement;
+    };
+    // Private
+    async #loadFrameResponse(fetchResponse, document2) {
       const newFrameElement = await this.extractForeignFrameElement(document2.body);
       if (newFrameElement) {
         const snapshot = new Snapshot(newFrameElement);
@@ -49036,42 +50339,41 @@ img.ProseMirror-separator {
         this.complete = true;
         session.frameRendered(fetchResponse, this.element);
         session.frameLoaded(this.element);
-        this.fetchResponseLoaded(fetchResponse);
-      } else if (this.willHandleFrameMissingFromResponse(fetchResponse)) {
-        this.handleFrameMissingFromResponse(fetchResponse);
+        await this.fetchResponseLoaded(fetchResponse);
+      } else if (this.#willHandleFrameMissingFromResponse(fetchResponse)) {
+        this.#handleFrameMissingFromResponse(fetchResponse);
       }
     }
-    async visit(url) {
-      var _a;
+    async #visit(url) {
       const request = new FetchRequest(this, FetchMethod.get, url, new URLSearchParams(), this.element);
-      (_a = this.currentFetchRequest) === null || _a === void 0 ? void 0 : _a.cancel();
-      this.currentFetchRequest = request;
+      this.#currentFetchRequest?.cancel();
+      this.#currentFetchRequest = request;
       return new Promise((resolve2) => {
-        this.resolveVisitPromise = () => {
-          this.resolveVisitPromise = () => {
+        this.#resolveVisitPromise = () => {
+          this.#resolveVisitPromise = () => {
           };
-          this.currentFetchRequest = null;
+          this.#currentFetchRequest = null;
           resolve2();
         };
         request.perform();
       });
     }
-    navigateFrame(element, url, submitter) {
-      const frame = this.findFrameElement(element, submitter);
-      frame.delegate.proposeVisitIfNavigatedWithAction(frame, element, submitter);
-      this.withCurrentNavigationElement(element, () => {
+    #navigateFrame(element, url, submitter) {
+      const frame = this.#findFrameElement(element, submitter);
+      frame.delegate.proposeVisitIfNavigatedWithAction(frame, getVisitAction(submitter, element, frame));
+      this.#withCurrentNavigationElement(element, () => {
         frame.src = url;
       });
     }
-    proposeVisitIfNavigatedWithAction(frame, element, submitter) {
-      this.action = getVisitAction(submitter, element, frame);
+    proposeVisitIfNavigatedWithAction(frame, action = null) {
+      this.action = action;
       if (this.action) {
         const pageSnapshot = PageSnapshot.fromElement(frame).clone();
         const { visitCachedSnapshot } = frame.delegate;
-        frame.delegate.fetchResponseLoaded = (fetchResponse) => {
+        frame.delegate.fetchResponseLoaded = async (fetchResponse) => {
           if (frame.src) {
             const { statusCode, redirected } = fetchResponse;
-            const responseHTML = frame.ownerDocument.documentElement.outerHTML;
+            const responseHTML = await fetchResponse.responseHTML;
             const response = { statusCode, redirected, responseHTML };
             const options = {
               response,
@@ -49094,16 +50396,18 @@ img.ProseMirror-separator {
         session.history.update(method, expandURL(this.element.src || ""), this.restorationIdentifier);
       }
     }
-    async handleUnvisitableFrameResponse(fetchResponse) {
-      console.warn(`The response (${fetchResponse.statusCode}) from <turbo-frame id="${this.element.id}"> is performing a full page visit due to turbo-visit-control.`);
-      await this.visitResponse(fetchResponse.response);
+    async #handleUnvisitableFrameResponse(fetchResponse) {
+      console.warn(
+        `The response (${fetchResponse.statusCode}) from <turbo-frame id="${this.element.id}"> is performing a full page visit due to turbo-visit-control.`
+      );
+      await this.#visitResponse(fetchResponse.response);
     }
-    willHandleFrameMissingFromResponse(fetchResponse) {
+    #willHandleFrameMissingFromResponse(fetchResponse) {
       this.element.setAttribute("complete", "");
       const response = fetchResponse.response;
-      const visit2 = async (url, options = {}) => {
+      const visit2 = async (url, options) => {
         if (url instanceof Response) {
-          this.visitResponse(url);
+          this.#visitResponse(url);
         } else {
           session.visit(url, options);
         }
@@ -49115,24 +50419,23 @@ img.ProseMirror-separator {
       });
       return !event.defaultPrevented;
     }
-    handleFrameMissingFromResponse(fetchResponse) {
+    #handleFrameMissingFromResponse(fetchResponse) {
       this.view.missing();
-      this.throwFrameMissingError(fetchResponse);
+      this.#throwFrameMissingError(fetchResponse);
     }
-    throwFrameMissingError(fetchResponse) {
+    #throwFrameMissingError(fetchResponse) {
       const message = `The response (${fetchResponse.statusCode}) did not contain the expected <turbo-frame id="${this.element.id}"> and will be ignored. To perform a full page visit instead, set turbo-visit-control to reload.`;
       throw new TurboFrameMissingError(message);
     }
-    async visitResponse(response) {
+    async #visitResponse(response) {
       const wrapped = new FetchResponse(response);
       const responseHTML = await wrapped.responseHTML;
       const { location: location2, redirected, statusCode } = wrapped;
       return session.visit(location2, { response: { redirected, statusCode, responseHTML } });
     }
-    findFrameElement(element, submitter) {
-      var _a;
+    #findFrameElement(element, submitter) {
       const id = getAttribute("data-turbo-frame", submitter, element) || this.element.getAttribute("target");
-      return (_a = getFrameElementById(id)) !== null && _a !== void 0 ? _a : this.element;
+      return getFrameElementById(id) ?? this.element;
     }
     async extractForeignFrameElement(container) {
       let element;
@@ -49153,13 +50456,13 @@ img.ProseMirror-separator {
       }
       return null;
     }
-    formActionIsVisitable(form, submitter) {
-      const action = getAction(form, submitter);
+    #formActionIsVisitable(form, submitter) {
+      const action = getAction$1(form, submitter);
       return locationIsVisitable(expandURL(action), this.rootLocation);
     }
-    shouldInterceptNavigation(element, submitter) {
+    #shouldInterceptNavigation(element, submitter) {
       const id = getAttribute("data-turbo-frame", submitter, element) || this.element.getAttribute("target");
-      if (element instanceof HTMLFormElement && !this.formActionIsVisitable(element, submitter)) {
+      if (element instanceof HTMLFormElement && !this.#formActionIsVisitable(element, submitter)) {
         return false;
       }
       if (!this.enabled || id == "_top") {
@@ -49179,6 +50482,7 @@ img.ProseMirror-separator {
       }
       return true;
     }
+    // Computed properties
     get id() {
       return this.element.id;
     }
@@ -49191,46 +50495,43 @@ img.ProseMirror-separator {
       }
     }
     set sourceURL(sourceURL) {
-      this.ignoringChangesToAttribute("src", () => {
-        this.element.src = sourceURL !== null && sourceURL !== void 0 ? sourceURL : null;
+      this.#ignoringChangesToAttribute("src", () => {
+        this.element.src = sourceURL ?? null;
       });
     }
     get loadingStyle() {
       return this.element.loading;
     }
     get isLoading() {
-      return this.formSubmission !== void 0 || this.resolveVisitPromise() !== void 0;
+      return this.formSubmission !== void 0 || this.#resolveVisitPromise() !== void 0;
     }
     get complete() {
       return this.element.hasAttribute("complete");
     }
     set complete(value) {
-      this.ignoringChangesToAttribute("complete", () => {
-        if (value) {
-          this.element.setAttribute("complete", "");
-        } else {
-          this.element.removeAttribute("complete");
-        }
-      });
+      if (value) {
+        this.element.setAttribute("complete", "");
+      } else {
+        this.element.removeAttribute("complete");
+      }
     }
     get isActive() {
-      return this.element.isActive && this.connected;
+      return this.element.isActive && this.#connected;
     }
     get rootLocation() {
-      var _a;
       const meta = this.element.ownerDocument.querySelector(`meta[name="turbo-root"]`);
-      const root = (_a = meta === null || meta === void 0 ? void 0 : meta.content) !== null && _a !== void 0 ? _a : "/";
+      const root = meta?.content ?? "/";
       return expandURL(root);
     }
-    isIgnoringChangesTo(attributeName) {
-      return this.ignoredAttributes.has(attributeName);
+    #isIgnoringChangesTo(attributeName) {
+      return this.#ignoredAttributes.has(attributeName);
     }
-    ignoringChangesToAttribute(attributeName, callback2) {
-      this.ignoredAttributes.add(attributeName);
+    #ignoringChangesToAttribute(attributeName, callback2) {
+      this.#ignoredAttributes.add(attributeName);
       callback2();
-      this.ignoredAttributes.delete(attributeName);
+      this.#ignoredAttributes.delete(attributeName);
     }
-    withCurrentNavigationElement(element, callback2) {
+    #withCurrentNavigationElement(element, callback2) {
       this.currentNavigationElement = element;
       callback2();
       delete this.currentNavigationElement;
@@ -49260,6 +50561,37 @@ img.ProseMirror-separator {
       }
     }
   }
+  var StreamActions = {
+    after() {
+      this.targetElements.forEach((e) => e.parentElement?.insertBefore(this.templateContent, e.nextSibling));
+    },
+    append() {
+      this.removeDuplicateTargetChildren();
+      this.targetElements.forEach((e) => e.append(this.templateContent));
+    },
+    before() {
+      this.targetElements.forEach((e) => e.parentElement?.insertBefore(this.templateContent, e));
+    },
+    prepend() {
+      this.removeDuplicateTargetChildren();
+      this.targetElements.forEach((e) => e.prepend(this.templateContent));
+    },
+    remove() {
+      this.targetElements.forEach((e) => e.remove());
+    },
+    replace() {
+      this.targetElements.forEach((e) => e.replaceWith(this.templateContent));
+    },
+    update() {
+      this.targetElements.forEach((targetElement) => {
+        targetElement.innerHTML = "";
+        targetElement.append(this.templateContent);
+      });
+    },
+    refresh() {
+      session.refresh(this.baseURI, this.requestId);
+    }
+  };
   var StreamElement = class _StreamElement extends HTMLElement {
     static async renderElement(newElement) {
       await newElement.performAction();
@@ -49274,11 +50606,10 @@ img.ProseMirror-separator {
       }
     }
     async render() {
-      var _a;
-      return (_a = this.renderPromise) !== null && _a !== void 0 ? _a : this.renderPromise = (async () => {
+      return this.renderPromise ??= (async () => {
         const event = this.beforeRenderEvent;
         if (this.dispatchEvent(event)) {
-          await nextAnimationFrame();
+          await nextRepaint();
           await event.detail.render(this);
         }
       })();
@@ -49286,40 +50617,57 @@ img.ProseMirror-separator {
     disconnect() {
       try {
         this.remove();
-      } catch (_a) {
+      } catch {
       }
     }
+    /**
+     * Removes duplicate children (by ID)
+     */
     removeDuplicateTargetChildren() {
       this.duplicateChildren.forEach((c) => c.remove());
     }
+    /**
+     * Gets the list of duplicate children (i.e. those with the same ID)
+     */
     get duplicateChildren() {
-      var _a;
       const existingChildren = this.targetElements.flatMap((e) => [...e.children]).filter((c) => !!c.id);
-      const newChildrenIds = [...((_a = this.templateContent) === null || _a === void 0 ? void 0 : _a.children) || []].filter((c) => !!c.id).map((c) => c.id);
+      const newChildrenIds = [...this.templateContent?.children || []].filter((c) => !!c.id).map((c) => c.id);
       return existingChildren.filter((c) => newChildrenIds.includes(c.id));
     }
+    /**
+     * Gets the action function to be performed.
+     */
     get performAction() {
       if (this.action) {
         const actionFunction = StreamActions[this.action];
         if (actionFunction) {
           return actionFunction;
         }
-        this.raise("unknown action");
+        this.#raise("unknown action");
       }
-      this.raise("action attribute is missing");
+      this.#raise("action attribute is missing");
     }
+    /**
+     * Gets the target elements which the template will be rendered to.
+     */
     get targetElements() {
       if (this.target) {
         return this.targetElementsById;
       } else if (this.targets) {
         return this.targetElementsByQuery;
       } else {
-        this.raise("target or targets attribute is missing");
+        this.#raise("target or targets attribute is missing");
       }
     }
+    /**
+     * Gets the contents of the main `<template>`.
+     */
     get templateContent() {
       return this.templateElement.content.cloneNode(true);
     }
+    /**
+     * Gets the main `<template>` used for rendering
+     */
     get templateElement() {
       if (this.firstElementChild === null) {
         const template = this.ownerDocument.createElement("template");
@@ -49328,23 +50676,38 @@ img.ProseMirror-separator {
       } else if (this.firstElementChild instanceof HTMLTemplateElement) {
         return this.firstElementChild;
       }
-      this.raise("first child element must be a <template> element");
+      this.#raise("first child element must be a <template> element");
     }
+    /**
+     * Gets the current action.
+     */
     get action() {
       return this.getAttribute("action");
     }
+    /**
+     * Gets the current target (an element ID) to which the result will
+     * be rendered.
+     */
     get target() {
       return this.getAttribute("target");
     }
+    /**
+     * Gets the current "targets" selector (a CSS selector)
+     */
     get targets() {
       return this.getAttribute("targets");
     }
-    raise(message) {
+    /**
+     * Reads the request-id attribute
+     */
+    get requestId() {
+      return this.getAttribute("request-id");
+    }
+    #raise(message) {
       throw new Error(`${this.description}: ${message}`);
     }
     get description() {
-      var _a, _b;
-      return (_b = ((_a = this.outerHTML.match(/<[^>]+>/)) !== null && _a !== void 0 ? _a : [])[0]) !== null && _b !== void 0 ? _b : "<turbo-stream>";
+      return (this.outerHTML.match(/<[^>]+>/) ?? [])[0] ?? "<turbo-stream>";
     }
     get beforeRenderEvent() {
       return new CustomEvent("turbo:before-stream-render", {
@@ -49354,8 +50717,7 @@ img.ProseMirror-separator {
       });
     }
     get targetElementsById() {
-      var _a;
-      const element = (_a = this.ownerDocument) === null || _a === void 0 ? void 0 : _a.getElementById(this.target);
+      const element = this.ownerDocument?.getElementById(this.target);
       if (element !== null) {
         return [element];
       } else {
@@ -49363,8 +50725,7 @@ img.ProseMirror-separator {
       }
     }
     get targetElementsByQuery() {
-      var _a;
-      const elements2 = (_a = this.ownerDocument) === null || _a === void 0 ? void 0 : _a.querySelectorAll(this.targets);
+      const elements2 = this.ownerDocument?.querySelectorAll(this.targets);
       if (elements2.length !== 0) {
         return Array.prototype.slice.call(elements2);
       } else {
@@ -49373,16 +50734,14 @@ img.ProseMirror-separator {
     }
   };
   var StreamSourceElement = class extends HTMLElement {
-    constructor() {
-      super(...arguments);
-      this.streamSource = null;
-    }
+    streamSource = null;
     connectedCallback() {
       this.streamSource = this.src.match(/^ws{1,2}:/) ? new WebSocket(this.src) : new EventSource(this.src);
       connectStreamSource(this.streamSource);
     }
     disconnectedCallback() {
       if (this.streamSource) {
+        this.streamSource.close();
         disconnectStreamSource(this.streamSource);
       }
     }
@@ -49409,7 +50768,8 @@ img.ProseMirror-separator {
     element = element.parentElement;
     while (element) {
       if (element == document.body) {
-        return console.warn(unindent`
+        return console.warn(
+          unindent`
         You are loading Turbo from a <script> element inside the <body> element. This is probably not what you meant to do!
 
         Load your application’s JavaScript bundle inside the <head> element instead. <script> elements in <body> are evaluated with each page change.
@@ -49418,12 +50778,14 @@ img.ProseMirror-separator {
 
         ——
         Suppress this warning by adding a "data-turbo-suppress-warning" attribute to: %s
-      `, element.outerHTML);
+      `,
+          element.outerHTML
+        );
       }
       element = element.parentElement;
     }
   })();
-  window.Turbo = Turbo;
+  window.Turbo = { ...Turbo, StreamActions };
   start();
 
   // node_modules/@hotwired/turbo-rails/app/javascript/turbo/cable.js
@@ -49527,7 +50889,9 @@ img.ProseMirror-separator {
   }
   function determineFormMethod(submitter) {
     if (submitter instanceof HTMLButtonElement || submitter instanceof HTMLInputElement) {
-      if (submitter.hasAttribute("formmethod")) {
+      if (submitter.name === "_method") {
+        return submitter.value;
+      } else if (submitter.hasAttribute("formmethod")) {
         return submitter.formMethod;
       } else {
         return null;
@@ -49541,6 +50905,7 @@ img.ProseMirror-separator {
   }
 
   // node_modules/@hotwired/turbo-rails/app/javascript/turbo/index.js
+  window.Turbo = turbo_es2017_esm_exports;
   addEventListener("turbo:before-fetch-request", encodeMethodIntoRequestBody);
 
   // node_modules/@hotwired/stimulus/dist/stimulus.js
@@ -52994,7 +54359,7 @@ img.ProseMirror-separator {
       }
     };
   }
-  function debounce(fn2, delay) {
+  function debounce2(fn2, delay) {
     let timeout;
     return function(...args) {
       if (delay) {
@@ -60532,7 +61897,7 @@ img.ProseMirror-separator {
       this.attached = false;
       this._animationsDisabled = void 0;
       this.$context = void 0;
-      this._doResize = debounce((mode) => this.update(mode), options.resizeDelay || 0);
+      this._doResize = debounce2((mode) => this.update(mode), options.resizeDelay || 0);
       this._dataChanges = [];
       instances[this.id] = this;
       if (!context || !canvas) {
@@ -68820,7 +70185,7 @@ img.ProseMirror-separator {
     { target: "alignRight", name: { textAlign: "right" } }
   ];
   var useDefaults_default = async (controller, options = {}) => {
-    const { default: Document2 } = await Promise.resolve().then(() => (init_dist17(), dist_exports2));
+    const { default: Document3 } = await Promise.resolve().then(() => (init_dist17(), dist_exports2));
     const { default: Dropcursor2 } = await Promise.resolve().then(() => (init_dist20(), dist_exports3));
     const { default: Gapcursor2 } = await Promise.resolve().then(() => (init_dist23(), dist_exports4));
     const { default: History3 } = await Promise.resolve().then(() => (init_dist27(), dist_exports5));
@@ -68832,7 +70197,7 @@ img.ProseMirror-separator {
       Color3.configure({
         types: ["textStyle"]
       }),
-      Document2,
+      Document3,
       Dropcursor2,
       Gapcursor2,
       History3,
@@ -69697,6 +71062,12 @@ img.ProseMirror-separator {
   application.register("popup-opener", PopupOpenerController);
 })();
 /*! Bundled license information:
+
+@hotwired/turbo/dist/turbo.es2017-esm.js:
+  (*!
+  Turbo 8.0.4
+  Copyright © 2024 37signals LLC
+   *)
 
 @kurkle/color/dist/color.esm.js:
   (*!

@@ -18,11 +18,11 @@ gem 'image_processing', '~> 1.2'
 gem 'jsbundling-rails'
 gem 'mobility', '~> 1.2.6'
 gem 'mobility-actiontext'
-gem 'pagy', '~> 6.0'
+gem 'pagy', '~> 8.0'
 gem 'pundit', '~> 2.2'
 gem 'simple_command'
 gem 'sprockets-rails'
-gem 'turbo-rails', '~> 1.0'
+gem 'turbo-rails', '~> 2.0'
 
 gem 'ruby-vips', '~> 2.1', group: :vips
 
