@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus'
 export class PopupOpenerController extends Controller {
   static values = { shareUrl: String }
 
-  open(event) {
+  open (event) {
     event.preventDefault()
 
     const url = window.location.href

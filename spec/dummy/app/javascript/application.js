@@ -12,8 +12,8 @@ import { SubmitButtonController } from 'bali/submit-button'
 import { PopupOpenerController } from 'blogging/popup-opener'
 import * as ActiveStorage from '@rails/activestorage'
 import 'controllers'
-import "trix"
-import "@rails/actiontext"
+import 'trix'
+import '@rails/actiontext'
 
 ActiveStorage.start()
 
