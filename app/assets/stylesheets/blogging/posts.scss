@@ -74,7 +74,7 @@
 
   }
 
-  .social-share {
+  .social-media-buttons {
     margin-top: $size-7;
 
     a {
@@ -89,6 +89,7 @@
     @include mobile {
       display: flex;
       justify-content: space-evenly;
+      margin-bottom: $size-4;
 
       .share-button {
         margin-top: 0;
