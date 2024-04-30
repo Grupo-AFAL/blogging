@@ -38,8 +38,8 @@ group :test do
 end
 
 group :development, :test do
-  gem "importmap-rails", "~> 2.0"
-  gem "stimulus-rails", "~> 1.3"
+  gem 'importmap-rails', '~> 2.0'
+  gem 'stimulus-rails', '~> 1.3'
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
