@@ -15,7 +15,6 @@ gem 'dartsass-rails'
 gem 'friendly_id', '~> 5.4.0'
 gem 'friendly_id-mobility', '~> 1.0.4'
 gem 'image_processing', '~> 1.2'
-gem 'jsbundling-rails'
 gem 'mobility', '~> 1.2.6'
 gem 'mobility-actiontext'
 gem 'pagy', '~> 8.0'
@@ -36,6 +35,11 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 6.1.0'
   gem 'simplecov', require: false
+end
+
+group :development, :test do
+  gem 'importmap-rails', '~> 2.0'
+  gem 'stimulus-rails', '~> 1.3'
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
