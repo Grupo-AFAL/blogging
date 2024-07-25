@@ -7,9 +7,7 @@ module Blogging
     def index
       all = Blogging::Post.with_rich_text_body_and_embeds.descending.published_now
       @leader_post = all.first
-      @pagy, @posts = pagy(
-        all.offset(1), items: 6, outset: 1
-      )
+      @pagy, @posts = pagy(all.offset(1), limit: 6, outset: 1)
     end
 
     def show; end
