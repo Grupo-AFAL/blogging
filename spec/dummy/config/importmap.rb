@@ -9,7 +9,7 @@ pin "@rails/actiontext", to: "actiontext.esm.js"
 pin '@rails/request.js', to: 'https://cdn.jsdelivr.net/npm/@rails/request.js@0.0.9/+esm'
 
 # Hotwired
-pin "@hotwired/turbo-rails", to: "https://cdn.jsdelivr.net/npm/@hotwired/turbo-rails@8.0.4/+esm"
+pin "@hotwired/turbo-rails", to: "https://cdn.jsdelivr.net/npm/@hotwired/turbo-rails@8.0.5/+esm"
 pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 
@@ -18,10 +18,10 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 
 
 # Trix
-pin "trix", to: 'https://cdn.jsdelivr.net/npm/trix@2.1.0/+esm'
+pin "trix", to: 'https://cdn.jsdelivr.net/npm/trix@2.1.3/+esm'
 
 # Chart.js
-pin "chart.js", to: 'https://cdn.jsdelivr.net/npm/chart.js@4.4.2/+esm'
+pin "chart.js", to: 'https://cdn.jsdelivr.net/npm/chart.js@4.4.3/+esm'
 
 # Lodash throttle/debounce
 pin "lodash.throttle", to: 'https://cdn.jsdelivr.net/npm/lodash.throttle@4.1.1/+esm'

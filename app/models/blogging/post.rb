@@ -36,9 +36,8 @@ module Blogging
     validate :title_uniqueness
 
     scope :published_now, -> {
-                            joins(:statuses).where('statuses.public_from <= ?', Time.zone.now)
-                                            .published
-                          }
+      joins(:statuses).where(statuses: { public_from: ..Time.zone.now }).published
+    }
 
     scope :descending, -> { order('blogging_posts.created_at DESC') }
 
