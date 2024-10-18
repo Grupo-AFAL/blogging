@@ -8,7 +8,7 @@ gemspec
 
 gem 'pg'
 
-gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'main'
+gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'update-rails-to-7.2'
 # gem 'bali_view_components', path: ENV['BALI_VIEW_COMPONENTS_PATH']
 gem 'bulma-rails', '~> 0.9.3'
 gem 'dartsass-rails'
@@ -33,7 +33,7 @@ end
 
 group :test do
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 6.1.0'
+  gem 'rspec-rails', '~> 7.0'
   gem 'simplecov', require: false
 end
 
