@@ -13,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    blogging (1.0.0)
+    blogging (1.1.0)
       friendly_id
       friendly_id-mobility
       mobility
