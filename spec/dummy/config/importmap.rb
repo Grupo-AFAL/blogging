@@ -6,10 +6,10 @@ pin "application"
 pin "@rails/actioncable", to: "actioncable.esm.js"
 pin "@rails/activestorage", to: "activestorage.esm.js"
 pin "@rails/actiontext", to: "actiontext.esm.js"
-pin '@rails/request.js', to: 'https://cdn.jsdelivr.net/npm/@rails/request.js@0.0.9/+esm'
+pin '@rails/request.js', to: 'https://cdn.jsdelivr.net/npm/@rails/request.js@0.0.11/+esm'
 
 # Hotwired
-pin "@hotwired/turbo-rails", to: "https://cdn.jsdelivr.net/npm/@hotwired/turbo-rails@8.0.5/+esm"
+pin "@hotwired/turbo-rails", to: "https://cdn.jsdelivr.net/npm/@hotwired/turbo-rails@8.0.12/+esm"
 pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 
@@ -18,17 +18,17 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 
 
 # Trix
-pin "trix", to: 'https://cdn.jsdelivr.net/npm/trix@2.1.3/+esm'
+pin "trix", to: 'https://cdn.jsdelivr.net/npm/trix@2.1.7/+esm'
 
 # Chart.js
-pin "chart.js", to: 'https://cdn.jsdelivr.net/npm/chart.js@4.4.3/+esm'
+pin "chart.js", to: 'https://cdn.jsdelivr.net/npm/chart.js@4.4.5/+esm'
 
 # Lodash throttle/debounce
 pin "lodash.throttle", to: 'https://cdn.jsdelivr.net/npm/lodash.throttle@4.1.1/+esm'
 pin "lodash.debounce", to: 'https://cdn.jsdelivr.net/npm/lodash.debounce@4.0.8/+esm'
 
 # Slim select
-pin "slim-select", to: 'https://cdn.jsdelivr.net/npm/slim-select@2.8.2/+esm'
+pin "slim-select", to: 'https://cdn.jsdelivr.net/npm/slim-select@2.9.2/+esm'
 
 # Flatpickr (Datepicker)
 pin 'flatpickr', to: 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/+esm'
