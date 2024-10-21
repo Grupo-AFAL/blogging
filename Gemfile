@@ -33,7 +33,7 @@ end
 
 group :test do
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 6.1.0'
+  gem 'rspec-rails', '~> 7.0'
   gem 'simplecov', require: false
 end
 

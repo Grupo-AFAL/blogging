@@ -6,7 +6,7 @@ module Blogging
                       foreign_key: :blogging_post_id,
                       inverse_of: :statuses
 
-    enum status: { draft: 0, published: 1 }
+    enum :status, { draft: 0, published: 1 }
 
     validates :locale, :public_from, presence: true
   end
