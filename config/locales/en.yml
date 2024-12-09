@@ -45,6 +45,7 @@ en:
     destroyed: was deleted successfully.
     error: An error has ocurred.
     updated: was updated successfully.
+    not_found: not found
   not_authorized: Not authorized
   time:
     formats:
