@@ -16,6 +16,9 @@ module Blogging
 
     def set_post
       @post = Blogging::Post.published_now.friendly.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to posts_path,
+                  alert: "#{t('activerecord.models.blogging/post')} #{t('notice.not_found')}"
     end
   end
 end
