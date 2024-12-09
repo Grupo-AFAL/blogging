@@ -18,5 +18,14 @@ RSpec.describe 'Published Posts', type: :request do
 
   describe '#show' do
     it { expect(get(post_path(blog_post))).to render_template(:show) }
+
+    context 'when the id does not match any post' do
+      it 'redirects to posts path with an alert' do
+        get post_path('not-found')
+
+        expect(response).to redirect_to(posts_path)
+        expect(flash[:alert]).to be_present
+      end
+    end
   end
 end
