@@ -8,7 +8,7 @@ gemspec
 
 gem 'pg'
 
-gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'main'
+gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'upgrade-to-rails-8'
 # gem 'bali_view_components', path: ENV['BALI_VIEW_COMPONENTS_PATH']
 gem 'bulma-rails', '~> 0.9.3'
 gem 'dartsass-rails'
