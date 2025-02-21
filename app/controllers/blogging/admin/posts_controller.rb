@@ -66,7 +66,10 @@ module Blogging
         params.expect(
           post: [
             :title, :body, :author_id, :cover_image,
-            { tag_ids: [], statuses_attributes: %i[id locale status blogging_post_id public_from] }
+            {
+              tag_ids: [],
+              statuses_attributes: [%i[id locale status blogging_post_id public_from]]
+            }
           ]
         )
       end
