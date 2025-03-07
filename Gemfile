@@ -8,14 +8,14 @@ gemspec
 
 gem 'pg'
 
-gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'main'
+gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'upgrade-to-rails-8'
 # gem 'bali_view_components', path: ENV['BALI_VIEW_COMPONENTS_PATH']
 gem 'bulma-rails', '~> 0.9.3'
 gem 'dartsass-rails'
 gem 'friendly_id', '~> 5.4.0'
 gem 'friendly_id-mobility', '~> 1.0.4'
 gem 'image_processing', '~> 1.2'
-gem 'mobility', '~> 1.2.6'
+gem 'mobility', '~> 1.3'
 gem 'mobility-actiontext'
 gem 'pagy', '~> 9.0'
 gem 'pundit', '~> 2.2'

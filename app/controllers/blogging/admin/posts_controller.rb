@@ -63,9 +63,14 @@ module Blogging
       end
 
       def post_params
-        params.require(:post).permit(
-          :title, :body, :author_id, :cover_image,
-          tag_ids: [], statuses_attributes: %i[id locale status blogging_post_id public_from]
+        params.expect(
+          post: [
+            :title, :body, :author_id, :cover_image,
+            {
+              tag_ids: [],
+              statuses_attributes: [%i[id locale status blogging_post_id public_from]]
+            }
+          ]
         )
       end
     end
