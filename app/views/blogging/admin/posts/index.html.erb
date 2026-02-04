@@ -1,13 +1,13 @@
-<%= render Bali::PageHeader::Component.new do |c| %>
+<%= render Bali::PageHeader::Component.new(class: 'mb-6') do |c| %>
   <% c.with_title(t('activerecord.models.blogging/post').pluralize) %>
   <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/post')}", new_admin_post_path,
-    class: 'button is-primary mr-4' %>
-  <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/tag')}", new_admin_tag_path, data: { action: 'modal#open' }, class: 'button is-secondary' %>
+    class: 'btn btn-primary mr-4' %>
+  <%= link_to "#{t('actions.new')} #{t('activerecord.models.blogging/tag')}", new_admin_tag_path, data: { action: 'modal#open' }, class: 'btn btn-secondary' %>
 <% end %>
 
 <%= render Bali::Columns::Component.new do |c| %>
-  <%= c.with_column(class: 'is-three-quarters') do %>
-    <div class="box">
+  <%= c.with_column(class: 'w-3/4') do %>
+    <div class="card bg-base-100 shadow p-4">
       <%= render Bali::Table::Component.new do |table_component| %>
         <%= table_component.with_headers([
           { name: t('activerecord.attributes.blogging/post.title')},
@@ -21,7 +21,7 @@
 
         <% @posts.each do |post| %>
           <%= table_component.with_row do %>
-            <td><%= link_to post.title, admin_post_path(post) %></td>
+            <td><%= render Bali::Link::Component.new(name: post.title, href: admin_post_path(post)) %></td>
             <td><%= post.body.to_plain_text.truncate(10) %></td>
             <td><%= post.author.name %></td>
             <td>
@@ -29,42 +29,43 @@
                   text: post.status, color: post_status_color(post.status)) %>
             </td>
             <td><%= l(post.public_from, format: :month_time) if post.public_from %></td>
-            <td class='is-narrow'>
-              <%= link_to icon_tag('edit-alt'), edit_admin_post_path(post), 
-                  class: 'button is-small is-borderless is-info is-light' %>
+            <td class='w-auto'>
+              <%= link_to icon_tag('pencil'), edit_admin_post_path(post), 
+                  class: 'btn btn-sm btn-ghost text-info' %>
             </td>
-            <td class='is-narrow'>
-              <%= button_to icon_tag('trash-alt', class: 'is-red'), admin_post_path(post), 
+            <td class='w-auto'>
+              <%= button_to icon_tag('trash', class: 'text-error'), admin_post_path(post), 
                   method: :delete, form: { data: { 'turbo-confirm': t('.confirm') } },
-                  class: 'button is-small is-borderless is-danger is-light' %>
+                  class: 'btn btn-sm btn-ghost text-error' %>
             </td>
           <% end %>
         <% end %>
       <% end %>
 
-      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+      <%= render Bali::Pagination::Component.new(pagy: @pagy) if @pagy.pages > 1 %>
     </div>
   <% end %>
 
-  <%= c.with_column(class: 'is-one-quarters') do %>
+  <%= c.with_column(class: 'w-1/4') do %>
     <%= render Bali::Table::Component.new do |table_component| %>
       <%= table_component.with_headers([
         { name: t('activerecord.attributes.blogging/tag.tag')},
-        {},
         {}
       ]) %>
 
       <% @tags.each do |tag| %>
         <%= table_component.with_row do %>
           <td><%= tag.name %></td>
-          <td class='is-narrow'>
-            <%= link_to icon_tag('edit-alt'), edit_admin_tag_path(tag), 
-                { data: { action: 'modal#open' }, class: 'button is-small is-borderless is-info is-light' } %>
-          </td>
-          <td class='is-narrow'>
-            <%= button_to icon_tag('trash-alt', class: 'is-red'), admin_tag_path(tag),
-                method: :delete, form: { data: { 'turbo-confirm': t('.confirm') } },
-                class: 'button is-small is-borderless is-danger is-light' %>
+          <td class='text-right'>
+            <div class="flex justify-end gap-4">
+              <%= link_to icon_tag('pencil'), edit_admin_tag_path(tag), 
+                  { data: { action: 'modal#open' }, class: 'btn btn-sm btn-ghost text-info' } %>
+
+              <%= button_to icon_tag('trash', class: 'text-error'), admin_tag_path(tag),
+                  method: :delete, form: { data: { 'turbo-confirm': t('.confirm') } },
+                  class: 'btn btn-sm btn-ghost text-error' %>
+
+            </div>
           </td>
         <% end %>
       <% end %>

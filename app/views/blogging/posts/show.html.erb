@@ -16,18 +16,18 @@
 <div class='blog-post'>
 
   <%= render Bali::Columns::Component.new(class: "mt-0") do |c| %>
-    <%= c.with_column(class: 'is-2 has-text-centered is-hidden-mobile') do %>
+    <%= c.with_column(class: 'w-1/6 text-center hidden md:block') do %>
     <% end %>
 
     <%= c.with_column(class: 'post-content') do %>
       <div class="page-header-component mb-5">
-        <h1 class="post-title has-text-centered"><%= @post.title %></h1>
+        <h1 class="post-title text-center"><%= @post.title %></h1>
       </div>
     <% end %>
   <% end %>
 
   <%= render Bali::Columns::Component.new do |c| %>
-    <%= c.with_column(class: 'post-metadata is-2 has-text-centered') do %>
+    <%= c.with_column(class: 'post-metadata w-1/6 text-center') do %>
       <div class="author">
         <%= @post.author.name %>
       </div>
@@ -39,18 +39,18 @@
 
       <div class='tags-container'>
         <% @post.tags.each do |tag| %>
-          <span class="tag is-info is-light"><%= tag.name %></span>
+          <span class="badge badge-info"><%= tag.name %></span>
         <% end %>
       </div>
 
-      <div class='is-hidden-mobile'>
+      <div class='hidden md:block'>
         <%= render 'blogging/posts/share_buttons' %>
       </div>
     <% end %>
 
     <%= c.with_column(class: 'post-content') do %>
       <figure class="image">
-        <%= image_tag main_app.url_for(@post.cover_image.variant(:medium)), class: 'is-full' %>
+        <%= image_tag main_app.url_for(@post.cover_image.variant(:medium)), class: 'w-full' %>
       </figure>
 
       <div class='content mt-6'>
@@ -59,7 +59,7 @@
     <% end %>
   <% end %>
 
-  <div class='is-hidden-tablet'>
+  <div class='md:hidden'>
     <%= render 'blogging/posts/share_buttons' %>
   </div>
 </div>

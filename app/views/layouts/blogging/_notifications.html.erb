@@ -5,7 +5,7 @@
 <% end %>
 
 <% if alert %>
-  <%= render Bali::Notification::Component.new(type: :danger) do %>
+  <%= render Bali::Notification::Component.new(type: :error) do %>
     <%= alert %>
   <% end %>
 <% end %>

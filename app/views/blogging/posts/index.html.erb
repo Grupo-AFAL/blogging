@@ -1,7 +1,7 @@
 <div class="blog-posts container mb-6">
   <% if @posts.size.positive? || @leader_post.present? %>
     <% if @pagy.page == 1 %>
-      <div class='is-flex is-justify-content-center mb-5'>
+      <div class='flex justify-center mb-5'>
         <%= render Bali::Card::Component.new(class: 'leading-post-card') do |card| %>
           <% card.with_image(
                  src: main_app.url_for(@leader_post.cover_image.variant(:large)),
@@ -12,7 +12,7 @@
 
           <%= tag.div('tags-container') do %>
             <% @leader_post.tags.each do |item| %>
-              <%= tag.span class: 'tag is-info is-light mb-2' do %>
+              <%= tag.span class: 'badge badge-info mb-2' do %>
                 <%= item.name %>
               <% end %>
             <% end %>
@@ -37,7 +37,7 @@
 
           <%= tag.div do %>
             <% post.tags.each do |item| %>
-              <%= tag.span class: 'tag is-info is-light mb-2' do %>
+              <%= tag.span class: 'badge badge-info mb-2' do %>
                 <%= item.name %>
               <% end %>
             <% end %>
@@ -51,11 +51,13 @@
       <% end %>
     </div>
   <% else %>
-    <p class="has-text-centered">
+    <p class="text-center">
       <%= image_tag 'svg/icons/list-alt.svg' %><br>
       <%= t('activerecord.no_rows') %>
     </p>
   <% end %>
 
-  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  <% if @pagy.pages > 1 %>
+    <%= render Bali::Pagination::Component.new(pagy: @pagy) %>
+  <% end %>
 </div>
