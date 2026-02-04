@@ -7,9 +7,6 @@
                  src: main_app.url_for(@leader_post.cover_image.variant(:large)),
                  href: post_path(@leader_post), figure_class: '') %>
 
-          <% card.with_footer_item { l(@leader_post.public_from, format: :compact) } %>
-          <% card.with_footer_item(href: post_path(@leader_post)) { t('actions.read') } %>
-
           <%= tag.div('tags-container') do %>
             <% @leader_post.tags.each do |item| %>
               <%= tag.span class: 'badge badge-info mb-2' do %>
@@ -21,6 +18,10 @@
             <%= link_to @leader_post.title.truncate(90), post_path(@leader_post) %>
           <% end %>
           <%= @leader_post.body.to_plain_text.truncate(350) %>
+
+          <% card.with_action(href: post_path(@leader_post), class: 'btn-ghost btn-sm') do %>
+            <%= t('actions.read') %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
@@ -31,9 +32,6 @@
           <% card.with_image(
                src: main_app.url_for(post.cover_image.variant(:small)),
                href: post_path(post), figure_class: '') %>
-
-          <% card.with_footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
-          <% card.with_footer_item { link_to t('actions.read'), post_path(post) } %>
 
           <%= tag.div do %>
             <% post.tags.each do |item| %>
@@ -47,6 +45,10 @@
             <%= link_to post.title.truncate(40), post_path(post) %>
           <% end %>
           <%= post.body.to_plain_text.truncate(90) %>
+
+          <% card.with_action(href: post_path(post), class: 'btn-ghost btn-sm') do %>
+            <%= t('actions.read') %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

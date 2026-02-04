@@ -14,6 +14,10 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  # Exclude node_modules and vendor bundle specs
+  config.pattern = 'spec/**/*_spec.rb'
+  config.exclude_pattern = '{**/node_modules/**/*,**/vendor/bundle/**/*}'
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

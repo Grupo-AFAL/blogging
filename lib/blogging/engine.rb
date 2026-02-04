@@ -10,6 +10,5 @@ module Blogging
       g.routing_specs   false
       g.helper          false
     end
-
   end
 end

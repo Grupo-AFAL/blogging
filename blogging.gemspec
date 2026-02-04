@@ -2,6 +2,7 @@
 
 require_relative 'lib/blogging/version'
 
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name        = 'blogging'
   spec.version     = Blogging::VERSION
@@ -41,3 +42,4 @@ Gem::Specification.new do |spec|
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
+# rubocop:enable Metrics/BlockLength

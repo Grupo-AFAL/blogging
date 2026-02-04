@@ -7,6 +7,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
 gem 'pg'
+gem 'rails', '~> 8.0'
 
 gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'main'
 # gem 'bali_view_components', path: ENV['BALI_VIEW_COMPONENTS_PATH']
@@ -19,10 +20,10 @@ gem 'mobility-actiontext'
 gem 'pagy', '~> 43.0'
 gem 'propshaft'
 gem 'pundit', '~> 2.2'
+gem 'rrule', git: 'https://github.com/square/ruby-rrule'
 gem 'simple_command'
 gem 'tailwindcss-rails', '~> 4.0'
 gem 'turbo-rails', '~> 2.0'
-gem 'rrule', git: 'https://github.com/square/ruby-rrule'
 
 gem 'ruby-vips', '~> 2.1', group: :vips
 
