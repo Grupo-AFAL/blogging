@@ -6,6 +6,7 @@ import Trix from 'trix' // eslint-disable-line
 
 // Register all Bali controllers and components
 import { registerAll } from 'bali'
+import { PopupOpenerController } from 'blogging/popup_opener_controller'
 
 // Initialize Stimulus
 const application = Application.start()
@@ -17,3 +18,4 @@ window.Turbo = Turbo
 // Initialize ActiveStorage
 ActiveStorage.start()
 registerAll(application)
+application.register('popup-opener', PopupOpenerController)
