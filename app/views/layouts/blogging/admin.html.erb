@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html class='bg-base-200'>
   <%= render 'layouts/blogging/head' %>
-  <body>
 
-    <div id='app-frame' class='with-side-bar' data-controller='side-menu modal'>
-      <%= render 'layouts/blogging/notifications' %>
-      <%= render 'layouts/blogging/nav' %>
-      <%= render 'layouts/blogging/side_menu' %>
+  <body  data-controller='modal drawer'>
+    <%= render 'layouts/blogging/notifications' %>
+    <%= render 'layouts/blogging/nav' %>
+    <%= render 'layouts/blogging/side_menu' %>
 
-      <div class="container px-4">
-        <%= yield %>
-      </div>
-
-      <%= render Bali::Modal::Component.new(active: false) %>
+    <div id="app-frame" class="with-side-bar">
+      <%= yield %>
     </div>
+
+    <%= render 'layouts/blogging/shared/empty_modal' %>
+    <%= render 'layouts/blogging/shared/empty_drawer' %>
   </body>
 </html>

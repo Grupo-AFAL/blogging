@@ -1,18 +1,15 @@
 <div class="blog-posts container mb-6">
   <% if @posts.size.positive? || @leader_post.present? %>
     <% if @pagy.page == 1 %>
-      <div class='is-flex is-justify-content-center mb-5'>
+      <div class='flex justify-center mb-5'>
         <%= render Bali::Card::Component.new(class: 'leading-post-card') do |card| %>
           <% card.with_image(
                  src: main_app.url_for(@leader_post.cover_image.variant(:large)),
                  href: post_path(@leader_post), figure_class: '') %>
 
-          <% card.with_footer_item { l(@leader_post.public_from, format: :compact) } %>
-          <% card.with_footer_item(href: post_path(@leader_post)) { t('actions.read') } %>
-
           <%= tag.div('tags-container') do %>
             <% @leader_post.tags.each do |item| %>
-              <%= tag.span class: 'tag is-info is-light mb-2' do %>
+              <%= tag.span class: 'badge badge-info mb-2' do %>
                 <%= item.name %>
               <% end %>
             <% end %>
@@ -21,6 +18,10 @@
             <%= link_to @leader_post.title.truncate(90), post_path(@leader_post) %>
           <% end %>
           <%= @leader_post.body.to_plain_text.truncate(350) %>
+
+          <% card.with_action(href: post_path(@leader_post), class: 'btn-ghost btn-sm') do %>
+            <%= t('actions.read') %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
@@ -32,12 +33,9 @@
                src: main_app.url_for(post.cover_image.variant(:small)),
                href: post_path(post), figure_class: '') %>
 
-          <% card.with_footer_item { tag.span(l(post.public_from, format: :compact) ) } %>
-          <% card.with_footer_item { link_to t('actions.read'), post_path(post) } %>
-
           <%= tag.div do %>
             <% post.tags.each do |item| %>
-              <%= tag.span class: 'tag is-info is-light mb-2' do %>
+              <%= tag.span class: 'badge badge-info mb-2' do %>
                 <%= item.name %>
               <% end %>
             <% end %>
@@ -47,15 +45,21 @@
             <%= link_to post.title.truncate(40), post_path(post) %>
           <% end %>
           <%= post.body.to_plain_text.truncate(90) %>
+
+          <% card.with_action(href: post_path(post), class: 'btn-ghost btn-sm') do %>
+            <%= t('actions.read') %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
   <% else %>
-    <p class="has-text-centered">
+    <p class="text-center">
       <%= image_tag 'svg/icons/list-alt.svg' %><br>
       <%= t('activerecord.no_rows') %>
     </p>
   <% end %>
 
-  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  <% if @pagy.pages > 1 %>
+    <%= render Bali::Pagination::Component.new(pagy: @pagy) %>
+  <% end %>
 </div>

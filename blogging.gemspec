@@ -2,6 +2,7 @@
 
 require_relative 'lib/blogging/version'
 
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name        = 'blogging'
   spec.version     = Blogging::VERSION
@@ -26,10 +27,19 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'friendly_id'
   spec.add_dependency 'friendly_id-mobility'
+  spec.add_dependency 'image_processing'
+  spec.add_dependency 'lucide-rails'
   spec.add_dependency 'mobility'
   spec.add_dependency 'mobility-actiontext'
-  spec.add_dependency 'rails', '>= 7.0.2'
+  spec.add_dependency 'pagy'
+  spec.add_dependency 'propshaft'
+  spec.add_dependency 'pundit'
+  spec.add_dependency 'rails', '~> 8.0'
+  spec.add_dependency 'simple_command'
+  spec.add_dependency 'tailwindcss-rails'
   spec.add_dependency 'turbo-rails'
+  spec.add_dependency 'vite_rails'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
+# rubocop:enable Metrics/BlockLength

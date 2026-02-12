@@ -3,7 +3,7 @@
 module Blogging
   module PostsHelper
     def post_status_color(status)
-      status.to_sym == :published ? :info : :light
+      status.to_sym == :published ? :info : :neutral
     end
   end
 end

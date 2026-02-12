@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "boot"
+require_relative 'boot'
 
 require 'rails'
 # Pick the frameworks you want:
@@ -19,7 +17,6 @@ require 'action_cable/engine'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-require 'blogging'
 
 module Dummy
   class Application < Rails::Application
@@ -41,5 +38,7 @@ module Dummy
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.view_component.preview_paths = [Rails.root.join('test/components/previews')]
   end
 end

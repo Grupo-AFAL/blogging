@@ -7,20 +7,23 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
 gem 'pg'
+gem 'rails', '~> 8.0'
 
-gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'upgrade-to-rails-8'
+gem 'bali_view_components', github: 'Grupo-AFAL/bali-view-components', branch: 'main'
 # gem 'bali_view_components', path: ENV['BALI_VIEW_COMPONENTS_PATH']
-gem 'bulma-rails', '~> 0.9.3'
-gem 'dartsass-rails'
 gem 'friendly_id', '~> 5.4.0'
 gem 'friendly_id-mobility', '~> 1.0.4'
 gem 'image_processing', '~> 1.2'
+gem 'lookbook'
+gem 'lucide-rails'
 gem 'mobility', '~> 1.3'
 gem 'mobility-actiontext'
-gem 'pagy', '~> 9.0'
+gem 'pagy', '~> 43.0'
+gem 'propshaft'
 gem 'pundit', '~> 2.2'
+gem 'rrule', git: 'https://github.com/square/ruby-rrule'
 gem 'simple_command'
-gem 'sprockets-rails'
+gem 'tailwindcss-rails', '~> 4.0'
 gem 'turbo-rails', '~> 2.0'
 
 gem 'ruby-vips', '~> 2.1', group: :vips
@@ -38,8 +41,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'importmap-rails', '~> 2.0'
-  gem 'stimulus-rails', '~> 1.3'
+  gem 'vite_rails', '~> 3.0'
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]

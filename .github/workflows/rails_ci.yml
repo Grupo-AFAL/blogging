@@ -32,41 +32,49 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Install libvips
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends libvips
+
+      - name: ImageMagick Action
+        uses: mfinelli/setup-imagemagick@v7
 
       - name: Install ruby gems
         uses: ruby/setup-ruby@v1
-        env:
-          BUNDLE_WITHOUT: 'vips'
         with:
           bundler-cache: true
+          cache-version: v1
 
-      - name: Setup Node 16
-        uses: actions/setup-node@v3
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      - uses: actions/cache@v4
+        id: yarn-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: spec/dummy/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('spec/dummy/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install Yarn dependencies
-        run: yarn install --prefer-offline --frozen-lockfile
+      - name: Install yarn dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: spec/dummy
 
       - name: Set up database schema
         run: bin/rails db:schema:load
 
-      - name: Run Rspec & publish code coverage
-        uses: paambaati/codeclimate-action@v3.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - name: Build Tailwind CSS
+        run: bin/rails tailwindcss:build
+        working-directory: spec/dummy
+
+      - name: Run Rspec
+        run: bundle exec rspec spec/
+
+      - name: Publish code coverage
+        uses: qltysh/qlty-action/coverage@v1
         with:
-          coverageCommand: bundle exec rspec spec/
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: coverage/.resultset.json

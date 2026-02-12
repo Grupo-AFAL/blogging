@@ -7,6 +7,8 @@
 /spec/dummy/storage/
 /spec/dummy/tmp/
 /spec/dummy/public/
+/spec/dummy/node_modules/
+/spec/dummy/app/assets/builds/
 /node_modules
 
 yarn-error.log

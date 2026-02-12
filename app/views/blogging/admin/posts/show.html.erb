@@ -1,41 +1,41 @@
-<%= render Bali::PageHeader::Component.new do |c| %>
+<%= render Bali::PageHeader::Component.new(class: 'mb-6') do |c| %>
   <% c.with_title(@post.title) %>
 
-  <%= link_to icon_tag('edit-alt'), edit_admin_post_path(@post),
-    class: 'button is-small is-info is-light mr-4' %>
-  <%= button_to icon_tag('trash-alt', class: 'is-red'), admin_tag_path(tag),
+  <%= link_to icon_tag('pencil'), edit_admin_post_path(@post),
+    class: 'btn btn-sm btn-ghost text-info mr-4' %>
+  <%= button_to icon_tag('trash', class: 'text-error'), admin_tag_path(tag),
     method: :delete, form: { data: { 'turbo-confirm': t('.confirm') } },
-    class: 'button is-small is-danger is-light' %>
+    class: 'btn btn-sm btn-ghost text-error' %>
 <% end %>
 
 <%= render Bali::InfoLevel::Component.new do |c| %>
   <%= c.with_item do |ci| %>
     <%= ci.with_heading(t('activerecord.attributes.blogging/post.author_id')) %>
-    <%= ci.with_title(@post.author.name, class: 'title is-6') %>
+    <%= ci.with_title(@post.author.name, class: 'text-lg font-bold') %>
   <% end %>
 
   <%= c.with_item do |ci| %>
     <%= ci.with_heading(t('activerecord.attributes.blogging/post.status')) %>
-    <%= ci.with_title(@post.status, class: 'title is-6') %>
+    <%= ci.with_title(@post.status, class: 'text-lg font-bold') %>
   <% end %>
 
   <%= c.with_item do |ci| %>
     <%= ci.with_heading(t('activerecord.attributes.blogging/post.tag_ids')) %>
     <% @post.tags.each do |tag| %>
-      <%= ci.with_title(tag.name, class: 'tag is-info is-light') %>
+      <%= ci.with_title(tag.name, class: 'badge badge-info') %>
     <% end %>
   <% end %>
 
   <%= c.with_item do |ci| %>
     <%= ci.with_heading(t('activerecord.attributes.blogging/post.public_from')) %>
-    <%= ci.with_title(l(@post.public_from, format: :month_time), class: 'title is-6') if @post.public_from %>
+    <%= ci.with_title(l(@post.public_from, format: :month_time), class: 'text-lg font-bold') if @post.public_from %>
   <% end %>
 <% end %>
 
-<div class='is-flex mt-4'>
-  <%= image_tag main_app.url_for(@post.cover_image.variant(:large)), class: 'is-margin-auto' %>
+<div class='flex mt-4'>
+  <%= image_tag main_app.url_for(@post.cover_image.variant(:large)), class: 'm-auto' %>
 </div>
 
-<div class='content mt-6'>
+<div class='prose mt-6'>
   <%= @post.body %>
 </div>

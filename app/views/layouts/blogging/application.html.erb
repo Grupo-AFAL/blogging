@@ -3,7 +3,7 @@
   <%= render 'layouts/blogging/head' %>
 
   <body>
-    <%= render Bali::Navbar::Component.new(class: 'is-fixed-top is-light') do |c| %>
+    <%= render Bali::Navbar::Component.new(class: 'fixed top-0') do |c| %>
       <% c.with_menu do |menu| %>
         <% menu.with_end_item(tag_name: :div) do %>
           <%= link_to "Blog", root_path, class: "navbar-item app-logo" %>
@@ -13,10 +13,10 @@
 
     <%= render 'layouts/blogging/notifications' %>
 
-    <div class="blog container px-4" data-controller='modal'>
+    <div class="blog container mx-auto px-4" data-controller='modal'>
       <%= yield %>
 
-      <%= render Bali::Modal::Component.new(active: false) %>
+      <%= render Bali::Modal::Component.new(active: false, id: 'modal-template') %>
     </div>
   </body>
 </html>

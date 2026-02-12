@@ -6,33 +6,33 @@
 
   <%= render Bali::Columns::Component.new do |c| %>
     <% c.with_column do %>
-      <%= form.text_field_group :title %>
+      <%= form.text_field :title %>
 
-      <%= form.rich_text_area_group :body, rows: 30 %>
+      <%= form.rich_text_area :body, rows: 30 %>
     <% end %>
 
-    <% c.with_column(class: 'is-one-fifth') do %>
+    <% c.with_column(class: 'w-1/5') do %>
       <%= form.fields_for :statuses, form.object.current_status do |f| %>
         <%= f.hidden_field :locale, value: I18n.locale %>
         <%= f.select_group :status,
             Blogging::PostStatus.statuses.keys.map { |status| [status, status] },
-            {}, select_class: 'is-fullwidth' %>
+            {}, class: 'w-full' %>
         <%= f.datetime_field_group :public_from, 
             value: form.object.current_status.public_from || Time.zone.now %>
       <% end %>
 
       <%= form.slim_select_group :author_id,
           @authors.map { |author| [Blogging.author_name.call(author), author.id] },
-          {}, select_class: 'is-fullwidth' %>
+          {}, class: 'w-full' %>
       <% if model.errors.added?(:author, :blank) %>
-        <p class='help is-danger'>
+        <p class='text-sm text-error mt-1'>
           <%= model.errors.full_messages_for(:author).join('. ') %>
         </p>
       <% end %>
 
       <%= form.slim_select_group :tag_ids,
           @tags.map {| tag| [tag.name, tag.id] },
-          {}, select_class: 'is-fullwidth', multiple: true %>
+          {}, class: 'w-full', multiple: true %>
 
       <%= form.file_field_group :cover_image, accept: 'image/*' %>
     <% end %>

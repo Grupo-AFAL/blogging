@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light --default, dark;
+}
+
+/* ==============================================
+   Source Paths - Tailwind class scanning
+   ============================================== */
+
+/* Dummy app sources */
+@source "../../../views/**/*.erb";
+@source "../../../helpers/**/*.rb";
+@source "../../../javascript/**/*.js";
+@source "../../../../public/*.html";
+
+/* Engine sources */
+@source "../../../../../app/views/**/*.erb";
+@source "../../../../../app/components/**/*.{erb,rb,css}";
+@source "../../../../../app/helpers/**/*.rb";
+@source "../../../../../app/javascript/**/*.js";
+
+/* Bali ViewComponents sources */
+@source "../../../node_modules/bali-view-components/app/components/**/*.{erb,rb,css}";
+@source "../../../node_modules/bali-view-components/lib/bali/**/*.rb";
+
+/* ==============================================
+   Bali ViewComponents CSS
+   ============================================== */
+@import "bali-view-components/css/components.css";
+@import "bali-view-components/css/bali.css";
+@import "bali-view-components/css/slim_select.css";
+
+/* ==============================================
+   Blogging Engine Custom Styles
+   ============================================== */
+@import "../../../../../app/assets/stylesheets/blogging/general.css";
+@import "../../../../../app/assets/stylesheets/blogging/posts.css";
+@import "../../../../../app/assets/stylesheets/blogging/side_menu.css";
+
+
+#app-frame {
+  @apply py-12 px-8;
+}
+
+#app-frame.with-side-bar {
+  padding-left: calc(var(--bali-side-menu-width) + theme('padding.8'));
+}
+
+.side-menu-collapse-trigger:checked~#app-frame.with-side-bar {
+  padding-left: calc(var(--bali-side-menu-collapsed-width) + theme('padding.8'));
+}
+
+@media screen and (max-width: 1024px) {
+
+  #app-frame.with-side-bar,
+  .side-menu-collapse-trigger:checked~#app-frame.with-side-bar {
+    @apply px-4
+  }
+}

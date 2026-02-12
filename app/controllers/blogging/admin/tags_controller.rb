@@ -18,7 +18,7 @@ module Blogging
           redirect_to admin_posts_path,
                       notice: "#{t('activerecord.models.blogging/tag')} #{t('notice.created')}"
         else
-          render :new, status: :unprocessable_entity
+          render :new, status: :unprocessable_content
         end
       end
 
@@ -27,7 +27,7 @@ module Blogging
           redirect_to admin_posts_path,
                       notice: "#{t('activerecord.models.blogging/tag')} #{t('notice.updated')}"
         else
-          render :edit, status: :unprocessable_entity
+          render :edit, status: :unprocessable_content
         end
       end
 

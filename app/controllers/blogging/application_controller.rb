@@ -3,7 +3,7 @@
 module Blogging
   class ApplicationController < Blogging.parent_controller.constantize
     include Bali::LayoutConcern
-    include Pagy::Backend
+    include Pagy::Method
 
     layout Blogging.public_layout if Blogging.public_layout
 
