@@ -38,5 +38,7 @@ module Dummy
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.view_component.preview_paths = [Rails.root.join('test/components/previews')]
   end
 end
