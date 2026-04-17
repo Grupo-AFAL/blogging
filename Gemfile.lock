@@ -385,7 +385,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     yaml (0.4.0)
-    yard (0.9.38)
+    yard (0.9.42)
     zeitwerk (2.7.4)
 
 PLATFORMS
